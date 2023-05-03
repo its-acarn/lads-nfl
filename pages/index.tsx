@@ -6,7 +6,8 @@ import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { addLeagueId, addLeagueName } from '../redux/leagueDetailsSlice';
 import { useRouter } from 'next/router';
-import { dynastyLeagueId, ladsLeagueId } from '../config/config';
+import { dynastyLeagueId2022, ladsLeagueId2022 } from '../config/config';
+import { Flex } from '@chakra-ui/react';
 
 const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -28,11 +29,11 @@ const Home: NextPage = () => {
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => { setLeagueID(event.target.value) }
 
-  const onLadsClick = () => { setLeagueID(ladsLeagueId) }
-  const onDynastyClick = () => { setLeagueID(dynastyLeagueId) }
+  const onLadsClick = () => { setLeagueID(ladsLeagueId2022) }
+  const onDynastyClick = () => { setLeagueID(dynastyLeagueId2022) }
 
   return (
-    <Main>
+    <Main bg={'navy'}>
       <Text>Enter your Sleeper League ID:</Text>
       <Container>
         <Input.Search
@@ -47,17 +48,15 @@ const Home: NextPage = () => {
         />
       </Container>
       <Space>
-        <Button type='primary' shape='round' onClick={onLadsClick}>LadsLadsLads</Button>
-        <Button type='primary' shape='round' onClick={onDynastyClick}>Dynasty</Button>
+        <Button type='primary' shape='round' onClick={onLadsClick}>LadsLadsLads 2022</Button>
+        <Button type='primary' shape='round' onClick={onDynastyClick}>Dynasty 2022</Button>
       </Space>
     </Main>
   )
 }
 
-const Main = styled.main`
-  height: 100vh;
-  width: 100vw;
-  background-color: #00308F;
+const Main = styled(Flex)`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

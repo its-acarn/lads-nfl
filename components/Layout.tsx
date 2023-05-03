@@ -1,11 +1,7 @@
-import NavBar from "./NavBar";
+import Sidebar from "./Sidebar";
 
 export default function Layout({ children }: any) {
   return (
-    <>
-      <NavBar />
-      <div>{children}</div>
-      {/* <Footer /> */}
-    </>
+    <Sidebar>{children}</Sidebar>
   )
 }
