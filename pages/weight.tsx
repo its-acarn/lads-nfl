@@ -1,4 +1,4 @@
-import { Flex, Text, VStack } from '@chakra-ui/react'
+import { Flex, HStack, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ladsLeagueId2022 } from '../config/config'
 import { convertUser } from '../helpers/convertUser'
@@ -40,22 +40,17 @@ function Weight() {
   }, [])
 
   return (
-    <Flex minH={'100vh'} bg={'#000080'}>
+    <Flex minH={'100vh'} bg={'#000080'} flex={1}>
       {weightArray.length > 0 &&
-        <VStack color={'white'}>
+        <VStack color={'white'} flex={1} justify={'center'}>
           {weightArray.map((team, i) => {
             return (
-              <Flex key={i}>
-                <Flex >
-                  <Text>{team.name}</Text>
-                </Flex>
-                <Flex>
-                  <Text>Total: {team.details.totalWeight}lbs</Text>
-                </Flex>
-                <Flex>
-                  <Text>Avg: {team.details.avgWeight}lbs</Text>
-                </Flex>
-              </Flex>
+              <VStack key={i}>
+                <Text fontWeight={700} fontSize={'md'}>{team.name}</Text>
+                <HStack>
+                  <Text fontSize={'sm'}>Total: {team.details.totalWeight}lbs / Avg: {team.details.avgWeight}lbs</Text>
+                </HStack>
+              </VStack>
             )
           })}
         </VStack>}
