@@ -1,13 +1,15 @@
 import { Box, Flex, Heading, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { ladsLeagueId2022 } from '../config/config'
+import { useSelector } from 'react-redux'
 import { convertUser } from '../helpers/convertUser'
 import { getFirstNames, getSecondNames } from '../helpers/getFirstNames'
+import { selectLeagueId } from '../redux/leagueDetailsSlice'
 
 function Names() {
   const [users, setUsers] = useState<Array<any>>([])
   const [firstNamesArray, setFirstNamesArray] = useState<Array<any>>([])
   const [secondNamesArray, setSecondNamesArray] = useState<Array<any>>([])
+  const leagueId = useSelector(selectLeagueId)
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -43,14 +45,14 @@ function Names() {
 
   useEffect(() => {
     if (users.length > 0) {
-      getFirstNamesArray(ladsLeagueId2022)
-      getSecondNamesArray(ladsLeagueId2022)
+      getFirstNamesArray(leagueId)
+      getSecondNamesArray(leagueId)
     }
-  }, [users])
+  }, [users, leagueId])
 
   useEffect(() => {
-    getLeagueIds(ladsLeagueId2022)
-  }, [])
+    getLeagueIds(leagueId)
+  }, [leagueId])
 
 
 

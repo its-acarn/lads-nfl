@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
-import styled from 'styled-components'
-import { ladsLeagueId2022 } from "../config/config"
 import { convertUser } from "../helpers/convertUser"
 import { getAverageAgeOfSquad } from "../helpers/getAverageAgeOfSquad"
 import { Flex, HStack, VStack, Text, Heading } from "@chakra-ui/react";
+import { useSelector } from "react-redux"
+import { selectLeagueId } from "../redux/leagueDetailsSlice"
 
 const Age = () => {
   const [users, setUsers] = useState<Array<any>>([])
   const [allAvgArray, setAllAvgArray] = useState<Array<any>>([])
+  const leagueId = useSelector(selectLeagueId)
 
   const getAllAverageAges = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/rosters`)
@@ -32,14 +33,15 @@ const Age = () => {
 
   useEffect(() => {
     if (users.length > 0) {
-      getAllAverageAges(ladsLeagueId2022)
+      getAllAverageAges(leagueId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users])
 
 
   useEffect(() => {
-    getLeagueIds(ladsLeagueId2022)
+    getLeagueIds(leagueId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

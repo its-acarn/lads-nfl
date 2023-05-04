@@ -1,12 +1,15 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { ladsLeagueId2022 } from '../config/config'
+import { useSelector } from 'react-redux'
 import { convertUser } from '../helpers/convertUser'
 import { getTotalWeightOfSquad } from '../helpers/getTotalWeightOfSquad'
+import { selectLeagueId } from '../redux/leagueDetailsSlice'
 
 function Weight() {
   const [weightArray, setWeightArray] = useState<Array<any>>([])
   const [users, setUsers] = useState<Array<any>>([])
+
+  const leagueId = useSelector(selectLeagueId)
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -29,14 +32,14 @@ function Weight() {
 
   useEffect(() => {
     if (users.length > 0) {
-      getTeamTotalWeights(ladsLeagueId2022)
+      getTeamTotalWeights(leagueId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users])
 
 
   useEffect(() => {
-    getLeagueIds(ladsLeagueId2022)
+    getLeagueIds(leagueId)
   }, [])
 
   return (
