@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       dispatch(addLeagueName(league.name))
       dispatch(addRosters(mergedArray))
 
-      router.push('/menu')
+      router.push('/teams')
     }).catch(() => setIsLoading(false))
   }
 

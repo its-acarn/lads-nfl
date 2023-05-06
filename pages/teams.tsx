@@ -1,23 +1,10 @@
 import React from 'react'
-import { dynastyLeagueId2022 } from '../config/config'
-import { Flex, Text, VStack } from '@chakra-ui/react'
+import { Text, VStack } from '@chakra-ui/react'
 import { findNFLPlayerWithId } from '../helpers/findNFLPlayerWithId'
 import { useSelector } from 'react-redux'
 import { selectRosters } from '../redux/leagueDetailsSlice'
 
-// type IMenuProps = {
-//   rosters: any
-// }
-
-// export async function getServerSideProps() {
-//   const res = await fetch(`https://api.sleeper.app/v1/league/${dynastyLeagueId2022}/rosters`)
-//   const rosters = await res.json()
-//   return {
-//     props: { rosters }
-//   }
-// }
-
-function Menu() {
+function Teams() {
   const rosters = useSelector(selectRosters)
 
   return (
@@ -41,4 +28,4 @@ function Menu() {
   )
 }
 
-export default Menu
+export default Teams
