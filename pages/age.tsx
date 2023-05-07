@@ -4,11 +4,15 @@ import { getAverageAgeOfSquad } from "../helpers/getAverageAgeOfSquad"
 import { Flex, HStack, VStack, Text, Heading } from "@chakra-ui/react";
 import { useSelector } from "react-redux"
 import { selectCurrentLeagueId } from "../redux/leagueDetailsSlice"
+import { useRouter } from "next/router";
+import { dynastyLeagueId2023 } from "../config/config";
 
 const Age = () => {
   const [users, setUsers] = useState<Array<any>>([])
   const [allAvgArray, setAllAvgArray] = useState<Array<any>>([])
-  const leagueId = useSelector(selectCurrentLeagueId)
+  // const leagueId = useSelector(selectCurrentLeagueId)
+  const leagueId = dynastyLeagueId2023
+  const router = useRouter()
 
   const getAllAverageAges = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/rosters`)
@@ -43,6 +47,10 @@ const Age = () => {
     getLeagueIds(leagueId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (!leagueId) {
+    router.push('/')
+  }
 
   return (
     <Flex minH={'100vh'} bg={'primary'}>

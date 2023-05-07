@@ -1,6 +1,8 @@
 import { Box, Flex, Heading, Text, VStack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { dynastyLeagueId2023 } from '../config/config'
 import { convertUser } from '../helpers/convertUser'
 import { getFirstNames, getSecondNames } from '../helpers/getFirstNames'
 import { selectCurrentLeagueId } from '../redux/leagueDetailsSlice'
@@ -9,7 +11,9 @@ function Names() {
   const [users, setUsers] = useState<Array<any>>([])
   const [firstNamesArray, setFirstNamesArray] = useState<Array<any>>([])
   const [secondNamesArray, setSecondNamesArray] = useState<Array<any>>([])
-  const leagueId = useSelector(selectCurrentLeagueId)
+  // const leagueId = useSelector(selectCurrentLeagueId)
+  const leagueId = dynastyLeagueId2023
+  const router = useRouter()
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -54,7 +58,9 @@ function Names() {
     getLeagueIds(leagueId)
   }, [leagueId])
 
-
+  if (!leagueId) {
+    router.push('/')
+  }
 
   return (
     <Flex minH={'100vh'} bg={'primary'}>

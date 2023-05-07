@@ -1,6 +1,8 @@
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { dynastyLeagueId2023 } from '../config/config'
 import { convertUser } from '../helpers/convertUser'
 import { getTotalWeightOfSquad } from '../helpers/getTotalWeightOfSquad'
 import { selectCurrentLeagueId } from '../redux/leagueDetailsSlice'
@@ -8,8 +10,10 @@ import { selectCurrentLeagueId } from '../redux/leagueDetailsSlice'
 function Weight() {
   const [weightArray, setWeightArray] = useState<Array<any>>([])
   const [users, setUsers] = useState<Array<any>>([])
+  // const leagueId = useSelector(selectCurrentLeagueId)
+  const leagueId = dynastyLeagueId2023
+  const router = useRouter()
 
-  const leagueId = useSelector(selectCurrentLeagueId)
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -41,6 +45,10 @@ function Weight() {
   useEffect(() => {
     getLeagueIds(leagueId)
   }, [])
+
+  if (!leagueId) {
+    router.push('/')
+  }
 
   return (
     <Flex minH={'100vh'} bg={'primary'} flex={1}>
