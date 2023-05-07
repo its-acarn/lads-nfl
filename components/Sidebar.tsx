@@ -30,10 +30,10 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, href: '/' },
-  { name: 'Trades', icon: FiTrendingUp, href: '/trades' },
-  { name: 'Weight', icon: FiCompass, href: '/weight' },
-  { name: 'Age', icon: FiStar, href: '/age' },
-  { name: 'Names', icon: FiSettings, href: '/names' },
+  // { name: 'Trades', icon: FiTrendingUp, href: '/trades' },
+  // { name: 'Weight', icon: FiCompass, href: '/weight' },
+  // { name: 'Age', icon: FiStar, href: '/age' },
+  // { name: 'Names', icon: FiSettings, href: '/names' },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {

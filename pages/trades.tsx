@@ -4,10 +4,15 @@ import { getAllTrades } from '../helpers/getAllTrades'
 import { NFLPlayer } from '../types/NFLPlayer'
 import { nflTeamColors } from '../config/nflTeamColors'
 import { DateTime } from 'luxon'
+import { useSelector } from 'react-redux'
+import { selectCurrentLeagueId, selectLeagueDetails } from '../redux/leagueDetailsSlice'
+import { useRouter } from 'next/router'
 
 function Trades() {
   const [loading, setLoading] = useState<boolean>(true)
   const [allTrades, setAllTrades] = useState<any>([])
+  const leagueDetails = useSelector(selectLeagueDetails)
+  const router = useRouter()
 
   function getPositionColor(position: any) {
     switch (position) {
@@ -31,6 +36,10 @@ function Trades() {
   }
 
   useEffect(() => {
+    if (leagueDetails.length === 0) {
+      router.push('/')
+    }
+
     getAllTrades().then((res: any) => {
       setLoading(false)
       setAllTrades(res)
