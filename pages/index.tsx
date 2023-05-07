@@ -1,13 +1,14 @@
+import { ChangeEvent, useState } from 'react';
 import type { NextPage } from 'next'
 import styled from 'styled-components'
-import { Button, Input, Space } from 'antd';
+import { Input, } from 'antd';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
-import { addLeagueId, addLeagueName, addRosters } from '../redux/leagueDetailsSlice';
+import { addRosters, addLeagueDetails } from '../redux/leagueDetailsSlice';
 import { useRouter } from 'next/router';
-import { dynastyLeagueId2022, ladsLeagueId2022 } from '../config/config';
-import { Flex } from '@chakra-ui/react';
+import { dynastyLeagueId2022, dynastyLeagueId2023, ladsLeagueId2022 } from '../config/config';
+import { Button, Flex } from '@chakra-ui/react';
+import { getAllPreviousLeagueDetails } from '../helpers/getAllPreviousLeagueDetails';
 
 const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -18,17 +19,14 @@ const Home: NextPage = () => {
   const onSearch = async (id: string) => {
     setIsLoading(true)
 
-    const getLeague = await axios.get(`https://api.sleeper.app/v1/league/${id}`)
-      .then((res: any) => res.data)
-
     const getUsers = await axios.get(`https://api.sleeper.app/v1/league/${id}/users`)
       .then((res: any) => res.data)
 
     const getRosters = await axios.get(`https://api.sleeper.app/v1/league/${id}/rosters`)
       .then((res: any) => res.data)
 
-    Promise.all([getLeague, getUsers, getRosters]).then((res) => {
-      const league = res[0]
+    Promise.all([getAllPreviousLeagueDetails(id), getUsers, getRosters]).then((res) => {
+      const leagueDetails = res[0]
       const users = res[1]
       const rosters = res[2]
 
@@ -37,11 +35,10 @@ const Home: NextPage = () => {
         return { ...roster, display_name: user.display_name, team_name: user.metadata.team_name }
       })
 
-      dispatch(addLeagueId(id))
-      dispatch(addLeagueName(league.name))
+      dispatch(addLeagueDetails(leagueDetails))
       dispatch(addRosters(mergedArray))
 
-      router.push('/teams')
+      router.push('/trades')
     }).catch(() => setIsLoading(false))
   }
 
@@ -49,9 +46,10 @@ const Home: NextPage = () => {
 
   const onLadsClick = () => { setLeagueID(ladsLeagueId2022) }
   const onDynastyClick = () => { setLeagueID(dynastyLeagueId2022) }
+  const onDynasty2023Click = () => { setLeagueID(dynastyLeagueId2023) }
 
   return (
-    <Main bg={'navy'}>
+    <Main bg={'primary'}>
       <Text>Enter your Sleeper League ID:</Text>
       <Container>
         <Input.Search
@@ -65,10 +63,11 @@ const Home: NextPage = () => {
           onChange={onChange}
         />
       </Container>
-      <Space>
-        <Button type='primary' shape='round' onClick={onLadsClick}>LadsLadsLads 2022</Button>
-        <Button type='primary' shape='round' onClick={onDynastyClick}>Dynasty 2022</Button>
-      </Space>
+      <Flex maxW={'100vw'} flexWrap={'wrap'} justify={'center'}>
+        <Button onClick={onLadsClick}>LadsLadsLads 2022</Button>
+        <Button onClick={onDynastyClick}>Dynasty 2022</Button>
+        <Button onClick={onDynasty2023Click}>Dynasty 2023</Button>
+      </Flex>
     </Main>
   )
 }

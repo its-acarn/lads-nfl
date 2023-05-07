@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { convertUser } from '../helpers/convertUser'
 import { getFirstNames, getSecondNames } from '../helpers/getFirstNames'
-import { selectLeagueId } from '../redux/leagueDetailsSlice'
+import { selectCurrentLeagueId } from '../redux/leagueDetailsSlice'
 
 function Names() {
   const [users, setUsers] = useState<Array<any>>([])
   const [firstNamesArray, setFirstNamesArray] = useState<Array<any>>([])
   const [secondNamesArray, setSecondNamesArray] = useState<Array<any>>([])
-  const leagueId = useSelector(selectLeagueId)
+  const leagueId = useSelector(selectCurrentLeagueId)
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -57,7 +57,7 @@ function Names() {
 
 
   return (
-    <Flex minH={'100vh'} bg={'#000080'}>
+    <Flex minH={'100vh'} bg={'primary'}>
       {firstNamesArray.length > 0 &&
         <VStack color={'white'}>
           <Heading color={'white'}>FIRST NAMES:</Heading>

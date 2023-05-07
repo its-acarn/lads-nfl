@@ -5,7 +5,6 @@ import {
   CloseButton,
   Flex,
   Icon,
-  useColorModeValue,
   Drawer,
   DrawerContent,
   Text,
@@ -40,7 +39,7 @@ const LinkItems: Array<LinkItemProps> = [
 export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.500', 'gray.900')}>
+    <Box minH="100vh" bg={'primary'}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -73,18 +72,16 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      bg={useColorModeValue('navy', 'gray.900')}
-      // borderRight="1px"
-      // borderRightColor={useColorModeValue('white', 'gray.700')}
+      bg={'primary'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" color={'yellow'}>
+        <Text fontSize="2xl" fontWeight="bold" color={'quaternary'}>
           LadsLadsLads
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} color={'yellow'} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'none' }} color={'quaternary'} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} href={link.href} onClose={onClose}>
@@ -115,10 +112,10 @@ const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
         borderRadius="lg"
         role="group"
         cursor="pointer"
-        color={'white'}
+        color={'quinary'}
         _hover={{
-          bg: 'yellow',
-          color: 'navy',
+          bg: 'quaternary',
+          color: 'primary',
         }}
         {...rest}>
         {icon && (
@@ -126,7 +123,7 @@ const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: 'navy',
+              color: 'primary',
             }}
             as={icon}
           />
@@ -147,22 +144,25 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 24 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('navy', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent="flex-start"
+      bg={'primary'}
+      justifyContent="center"
+      flex={1}
       {...rest}>
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
-        aria-label="open menu"
-        icon={<FiMenu />}
-        color={'white'}
-      />
 
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold" color={'yellow'}>
+      <Box flex={1} />
+
+      <Text flex={1} textAlign={'center'} fontSize="2xl" fontWeight="bold" color={'quaternary'}>
         LadsLadsLads
       </Text>
+      <IconButton
+        color={'quaternary'}
+        variant={'ghost'}
+        onClick={onOpen}
+        aria-label="open menu"
+        icon={<FiMenu color='quaternary' />}
+        borderColor={'quaternary'}
+        flex={1}
+      />
     </Flex>
   );
 };

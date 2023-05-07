@@ -8,10 +8,10 @@ function Teams() {
   const rosters = useSelector(selectRosters)
 
   return (
-    <VStack bg={'navy'} flex={1} minH={'100vh'} pt={8} spacing={8}>
+    <VStack bg={'primary'} flex={1} minH={'100vh'} pt={8} spacing={8}>
       {rosters.map((r: any, i: number) => {
         return (
-          <VStack w={{ base: '80%', md: '50%' }} color={'navy'} key={i} p={6} rounded={'lg'} bg={'yellow'}>
+          <VStack w={{ base: '80%', md: '50%' }} color={'primary'} key={i} p={6} rounded={'lg'} bg={'quaternary'}>
             <Text>{r.display_name}</Text>
             <Text>{r.team_name}</Text>
             <VStack>

@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { convertUser } from '../helpers/convertUser'
 import { getTotalWeightOfSquad } from '../helpers/getTotalWeightOfSquad'
-import { selectLeagueId } from '../redux/leagueDetailsSlice'
+import { selectCurrentLeagueId } from '../redux/leagueDetailsSlice'
 
 function Weight() {
   const [weightArray, setWeightArray] = useState<Array<any>>([])
   const [users, setUsers] = useState<Array<any>>([])
 
-  const leagueId = useSelector(selectLeagueId)
+  const leagueId = useSelector(selectCurrentLeagueId)
 
   const getLeagueIds = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/users`)
@@ -43,7 +43,7 @@ function Weight() {
   }, [])
 
   return (
-    <Flex minH={'100vh'} bg={'#000080'} flex={1}>
+    <Flex minH={'100vh'} bg={'primary'} flex={1}>
       {weightArray.length > 0 &&
         <VStack color={'white'} flex={1} justify={'center'}>
           {weightArray.map((team, i) => {

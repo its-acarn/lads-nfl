@@ -3,12 +3,12 @@ import { convertUser } from "../helpers/convertUser"
 import { getAverageAgeOfSquad } from "../helpers/getAverageAgeOfSquad"
 import { Flex, HStack, VStack, Text, Heading } from "@chakra-ui/react";
 import { useSelector } from "react-redux"
-import { selectLeagueId } from "../redux/leagueDetailsSlice"
+import { selectCurrentLeagueId } from "../redux/leagueDetailsSlice"
 
 const Age = () => {
   const [users, setUsers] = useState<Array<any>>([])
   const [allAvgArray, setAllAvgArray] = useState<Array<any>>([])
-  const leagueId = useSelector(selectLeagueId)
+  const leagueId = useSelector(selectCurrentLeagueId)
 
   const getAllAverageAges = (leagueId: string) => {
     fetch(`https://api.sleeper.app/v1/league/${leagueId}/rosters`)
@@ -45,14 +45,14 @@ const Age = () => {
   }, [])
 
   return (
-    <Flex minH={'100vh'} bg={'#000080'}>
+    <Flex minH={'100vh'} bg={'primary'}>
       {allAvgArray.length > 0 &&
         <VStack flex={1} align={'center'}>
-          <Heading size={'sm'} color={'yellow'}>Average ages</Heading>
+          <Heading size={'sm'} color={'quaternary'}>Average ages</Heading>
           {allAvgArray.map((team, i) => {
             return (
-              <HStack key={i} bg={'yellow'} rounded={'lg'} w={'60%'} justify={'center'}>
-                <Text fontWeight={500} color={'navy'}>{team.name} / {team.averageAge}</Text>
+              <HStack key={i} bg={'quaternary'} rounded={'lg'} w={'60%'} justify={'center'}>
+                <Text fontWeight={500} color={'primary'}>{team.name} / {team.averageAge}</Text>
               </HStack>
             )
           })}
