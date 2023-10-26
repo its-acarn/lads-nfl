@@ -2,22 +2,27 @@ import { extendTheme } from '@chakra-ui/react'
 
 export const theme = extendTheme({
   colors: {
-    primary: '#FAFBF6',
-    secondary: '#FAFBF6',
-    tertiary: '#85A993',
+    primary: '#000000',
+    secondary: '#888888',
+    tertiary: '#D9D9D9',
     quaternary: '#52685C',
-    quinary: '#224125',
+    quinary: '#FFF',
   },
   fonts: {
-    body: "system-ui, sans-serif",
-    heading: "Georgia, serif",
-    mono: "Menlo, monospace",
+    body: 'system-ui, sans-serif',
+    heading: 'system-ui, sans-serif',
+    mono: 'Menlo, monospace',
   },
   components: {
-    Text: {
+    Heading: {
       baseStyle: {
         color: 'quinary',
-      }
-    }
-  }
-});
+      },
+    },
+    Text: {
+      baseStyle: {
+        color: 'secondary',
+      },
+    },
+  },
+})
