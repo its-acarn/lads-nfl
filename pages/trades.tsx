@@ -32,8 +32,8 @@ function Trades() {
   if (loading) {
     return (
       <VStack flex={1} bg={'primary'} justify={'center'} align={'center'} minH={'90vh'}>
-        <Spinner size={'xl'} color={'quaternary'} />
-        <Text color={'quaternary'}>Getting trades...</Text>
+        <Spinner size={'xl'} color={'quinary'} />
+        <Text color={'quinary'}>Getting trades...</Text>
       </VStack>
     )
   }
@@ -92,7 +92,7 @@ function Trades() {
                     </HStack>
                   ))}
               </VStack>
-              <VStack h={'100%'} color={'quaternary'} flex={1} justify={'flex-start'} align={'flex-start'} ml={2}>
+              <VStack h={'100%'} color={'quinary'} flex={1} justify={'flex-start'} align={'flex-start'} ml={2}>
                 <Heading fontSize={'md'} fontWeight={'extrabold'} alignSelf={'flex-start'}>
                   @{t.team2Owner}
                 </Heading>
@@ -137,7 +137,7 @@ function Trades() {
         ))
       ) : (
         <HStack>
-          <Text color={'quaternary'}>No trades</Text>
+          <Text color={'quinary'}>No trades</Text>
         </HStack>
       )}
     </VStack>

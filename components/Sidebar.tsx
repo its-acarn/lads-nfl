@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactText } from 'react';
+import React, { ReactNode, ReactText } from 'react'
 import {
   IconButton,
   Box,
@@ -11,21 +11,14 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
-} from '@chakra-ui/react';
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-} from 'react-icons/fi';
-import { IconType } from 'react-icons';
-import { useRouter } from 'next/router';
+} from '@chakra-ui/react'
+import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi'
+import { IconType } from 'react-icons'
+import { useRouter } from 'next/router'
 
 interface LinkItemProps {
-  name: string;
-  icon: IconType;
+  name: string
+  icon: IconType
   href: string
 }
 const LinkItems: Array<LinkItemProps> = [
@@ -34,16 +27,13 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: 'Weight', icon: FiCompass, href: '/weight' },
   // { name: 'Age', icon: FiStar, href: '/age' },
   // { name: 'Names', icon: FiSettings, href: '/names' },
-];
+]
 
 export default function Sidebar({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box minH="100vh" bg={'primary'}>
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
-      />
+      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -62,26 +52,21 @@ export default function Sidebar({ children }: { children: ReactNode }) {
         {children}
       </Box>
     </Box>
-  );
+  )
 }
 
 interface SidebarProps extends BoxProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
-    <Box
-      bg={'primary'}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}>
+    <Box bg={'primary'} w={{ base: 'full', md: 60 }} pos="fixed" h="full" {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="bold" color={'quaternary'}>
+        <Text fontSize="2xl" fontWeight="bold" color={'quinary'}>
           LadsLadsLads
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} color={'quaternary'} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'none' }} color={'quinary'} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} href={link.href} onClose={onClose}>
@@ -89,22 +74,25 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
     </Box>
-  );
-};
+  )
+}
 
 interface NavItemProps extends FlexProps {
-  icon: IconType;
-  children: ReactText;
+  icon: IconType
+  children: ReactText
   href: string
-  onClose: () => void;
+  onClose: () => void
 }
 const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
   const router = useRouter()
   return (
-    <Box onClick={() => {
-      router.push(href)
-      onClose()
-    }} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Box
+      onClick={() => {
+        router.push(href)
+        onClose()
+      }}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -114,7 +102,7 @@ const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
         cursor="pointer"
         color={'quinary'}
         _hover={{
-          bg: 'quaternary',
+          bg: 'quinary',
           color: 'primary',
         }}
         {...rest}>
@@ -131,11 +119,11 @@ const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
 interface MobileProps extends FlexProps {
-  onOpen: () => void;
+  onOpen: () => void
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   return (
@@ -148,21 +136,20 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       justifyContent="center"
       flex={1}
       {...rest}>
-
       <Box flex={1} />
 
-      <Text flex={1} textAlign={'center'} fontSize="2xl" fontWeight="bold" color={'quaternary'}>
+      <Text flex={1} textAlign={'center'} fontSize="2xl" fontWeight="bold" color={'quinary'}>
         LadsLadsLads
       </Text>
       <IconButton
-        color={'quaternary'}
+        color={'quinary'}
         variant={'ghost'}
         onClick={onOpen}
         aria-label="open menu"
-        icon={<FiMenu color='quaternary' />}
-        borderColor={'quaternary'}
+        icon={<FiMenu color="quinary" />}
+        borderColor={'quinary'}
         flex={1}
       />
     </Flex>
-  );
-};
+  )
+}
