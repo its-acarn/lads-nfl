@@ -1,4 +1,4 @@
-import { VStack, HStack, Badge, Text, Center } from '@chakra-ui/react'
+import { VStack, HStack, Badge, Text, Center, Box, Flex } from '@chakra-ui/react'
 
 import React from 'react'
 import { getPositionColor, getNFLTeamBgColor, getNFLTeamTextColor } from '../../helpers/getNFLTeamColors'
@@ -9,12 +9,12 @@ interface IPlayerTradedProps {
 
 const PlayerTraded = (props: IPlayerTradedProps) => {
   return (
-    <VStack justifyContent={'center'} alignItems={'flex-start'} w={'full'} pl={4}>
-      <Text fontSize={'sm'} fontWeight={'bold'}>
+    <VStack justifyContent={'center'} alignItems={'flex-start'} w={'full'} pl={8}>
+      <Text fontSize={'sm'} fontWeight={'extrabold'}>
         {props.player.full_name}
       </Text>
-      <HStack>
-        <Badge variant={'solid'} fontSize={8} colorScheme={getPositionColor(props.player.position)}>
+      <HStack style={{ margin: 0 }}>
+        <Badge variant={'solid'} fontSize={8} m={0} colorScheme={getPositionColor(props.player.position)}>
           {props.player.position}
         </Badge>
         <Badge
