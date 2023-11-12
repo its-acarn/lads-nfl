@@ -9,8 +9,8 @@ export const theme = extendTheme({
     quinary: '#FFF',
   },
   fonts: {
-    body: 'system-ui, sans-serif',
-    heading: 'system-ui, sans-serif',
+    body: 'Inter, sans-serif',
+    heading: 'Inter, sans-serif',
     mono: 'Menlo, monospace',
   },
   components: {
