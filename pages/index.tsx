@@ -82,7 +82,7 @@ const Home: NextPage = () => {
 
   return (
     <VStack bg={'primary'} roundedTop={'lg'} py={8} spacing={5} maxW={'100vw'} overflow={'hidden'}>
-      <Text color={'quinary'} fontWeight={600}>
+      <Text color={'quinary'} fontWeight={600} pt={10}>
         Enter your Sleeper League ID:
       </Text>
       <VStack>

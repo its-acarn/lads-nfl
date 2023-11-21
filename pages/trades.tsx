@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { DateTime } from 'luxon'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { Badge, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react'
+import { Divider, HStack, Spinner, Text, VStack } from '@chakra-ui/react'
 
 import { Trade } from '../types/Trade'
 import { NFLPlayer } from '../types/NFLPlayer'
 import { getAllTrades } from '../helpers/getAllTrades'
 import { selectLeagueDetails } from '../redux/leagueDetailsSlice'
-import { getNFLTeamBgColor, getNFLTeamTextColor, getPositionColor } from '../helpers/getNFLTeamColors'
 import PlayerTraded from '../components/trades/PlayerTraded'
+import SeasonWeekBadge from '../components/trades/SeasonWeekBadge'
+import DateBadge from '../components/trades/DateBadge'
+import TradeOwnerHeading from '../components/trades/TradeOwnerHeading'
+import PickTraded from '../components/trades/PickTraded'
+import FAABTraded from '../components/trades/FAABTraded'
+import DEFTraded from '../components/trades/DEFTraded'
+import FilterSelect from '../components/trades/FilterSelect'
 
 function Trades() {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(true)
   const [allTrades, setAllTrades] = useState<any>([])
+  const [selectedFilter, setSelectedFilter] = useState<string>('All')
   const leagueDetails = useSelector(selectLeagueDetails)
+
+  const filteredTrades = (trades: Trade[], filter: string) => {
+    if (filter === 'All') {
+      return trades
+    }
+
+    return trades.filter((t: Trade) => {
+      return t.team1Owner === filter || t.team2Owner === filter
+    })
+  }
 
   useEffect(() => {
     if (leagueDetails.length === 0) {
@@ -39,100 +55,52 @@ function Trades() {
   }
 
   return (
-    <VStack bg={'primary'} flex={1} minH={'100vh'} p={2} spacing={2}>
-      {allTrades.length > 0 ? (
-        allTrades.map((t: Trade) => (
+    <VStack bg={'primary'} flex={1} minH={'100vh'} p={2} spacing={0}>
+      <HStack w={'full'} mb={6} justify={'space-between'} alignItems={'center'} pl={2}>
+        <Text color={'quinary'} fontWeight={'bold'} fontSize={'sm'}>
+          Total trades: {filteredTrades(allTrades, selectedFilter).length}
+        </Text>
+        <FilterSelect setSelectedFilter={setSelectedFilter} />
+      </HStack>
+
+      {filteredTrades(allTrades, selectedFilter).length > 0 ? (
+        filteredTrades(allTrades, selectedFilter).map((t: Trade) => (
           <VStack w={'full'} key={t.lastUpdated} px={1} pt={1} pb={2}>
             <HStack w={'full'}>
-              <Badge rounded={'full'} fontSize={'8px'} px={1} bg={'tertiary'}>
-                {t.season} Week {t.week}
-              </Badge>
-              <Badge rounded={'full'} fontSize={'8px'} px={1} bg={'tertiary'}>
-                {DateTime.fromMillis(t.lastUpdated).toFormat('LLL d')}
-              </Badge>
+              <SeasonWeekBadge trade={t} />
+              <DateBadge trade={t} />
             </HStack>
             <HStack w={'full'} align={'flex-start'}>
               <VStack flex={1} align={'center'} ml={2}>
-                <Heading fontSize={'md'} fontWeight={'extrabold'} alignSelf={'flex-start'}>
-                  @{t.team1Owner}
-                </Heading>
+                <TradeOwnerHeading teamOwner={t.team1Owner} />
                 {t.team1Adds &&
                   t.team1Adds.map((p: NFLPlayer, i: number) => {
                     if (!p) {
-                      return (
-                        <HStack key={`${i}DEF`}>
-                          <Badge variant={'solid'} fontSize={8} colorScheme={'purple'}>
-                            DEF
-                          </Badge>
-                          <Text fontSize={'xs'}>DEF</Text>
-                        </HStack>
-                      )
+                      return <DEFTraded key={`${i}DEF`} />
                     } else {
                       return <PlayerTraded key={p.full_name} player={p} />
                     }
                   })}
                 {t.team1DraftPicks.length > 0 &&
-                  t.team1DraftPicks.map((dp: any, i: number) => (
-                    <HStack key={i}>
-                      <Badge variant="solid" bg={'green'} fontSize={8}>
-                        Pick
-                      </Badge>
-                      <Text fontSize={'xs'}>
-                        {dp.season} Round {dp.round}
-                      </Text>
-                    </HStack>
-                  ))}
-                {t.team1Waiver.length > 0 &&
-                  t.team1Waiver.map((w: any, i: number) => (
-                    <HStack key={i}>
-                      <Badge variant="solid" colorScheme={'pink'} fontSize={8}>
-                        FAAB
-                      </Badge>
-                      <Text key={i} fontSize={'xs'}>{`$${w}`}</Text>
-                    </HStack>
-                  ))}
+                  t.team1DraftPicks.map((dp: any, i: number) => <PickTraded key={i} draftPick={dp} />)}
+                {t.team1Waiver.length > 0 && t.team1Waiver.map((w: any, i: number) => <FAABTraded key={i} faab={w} />)}
               </VStack>
               <VStack h={'100%'} color={'quinary'} flex={1} justify={'flex-start'} align={'flex-start'} ml={2}>
-                <Heading fontSize={'md'} fontWeight={'extrabold'} alignSelf={'flex-start'}>
-                  @{t.team2Owner}
-                </Heading>
+                <TradeOwnerHeading teamOwner={t.team2Owner} />
                 {t.team2Adds &&
                   t.team2Adds.map((p: NFLPlayer, i: number) => {
                     if (!p) {
-                      return (
-                        <HStack key={`${i}DEF`}>
-                          <Badge variant={'solid'} fontSize={8} colorScheme={'purple'}>
-                            DEF
-                          </Badge>
-                          <Text fontSize={'xs'}>DEF</Text>
-                        </HStack>
-                      )
+                      return <DEFTraded key={`${i}DEF`} />
                     } else {
                       return <PlayerTraded key={p.full_name} player={p} />
                     }
                   })}
                 {t.team2DraftPicks.length > 0 &&
-                  t.team2DraftPicks.map((dp: any, i: number) => (
-                    <HStack key={i}>
-                      <Badge variant="solid" bg={'green'} fontSize={8}>
-                        Pick
-                      </Badge>
-                      <Text fontSize={'xs'}>
-                        {dp.season} Round {dp.round}
-                      </Text>
-                    </HStack>
-                  ))}
-                {t.team2Waiver.length > 0 &&
-                  t.team2Waiver.map((w: any, i: number) => (
-                    <HStack key={i}>
-                      <Badge variant="solid" colorScheme={'pink'} fontSize={8}>
-                        FAAB
-                      </Badge>
-                      <Text key={i} fontSize={'xs'}>{`$${w}`}</Text>
-                    </HStack>
-                  ))}
+                  t.team2DraftPicks.map((dp: any, i: number) => <PickTraded key={i} draftPick={dp} />)}
+                {t.team2Waiver.length > 0 && t.team2Waiver.map((w: any, i: number) => <FAABTraded key={i} faab={w} />)}
               </VStack>
             </HStack>
+            <Divider borderColor={'secondary'} pt={2} />
           </VStack>
         ))
       ) : (

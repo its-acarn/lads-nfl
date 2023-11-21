@@ -15,6 +15,7 @@ import {
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { useRouter } from 'next/router'
+import { capitalizeFirstLetter } from '../helpers/capitaliseFirstLetter'
 
 interface LinkItemProps {
   name: string
@@ -23,17 +24,24 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, href: '/' },
-  // { name: 'Trades', icon: FiTrendingUp, href: '/trades' },
-  // { name: 'Weight', icon: FiCompass, href: '/weight' },
-  // { name: 'Age', icon: FiStar, href: '/age' },
+  { name: 'Trades', icon: FiTrendingUp, href: '/trades' },
+  { name: 'Weight', icon: FiCompass, href: '/weight' },
+  { name: 'Age', icon: FiStar, href: '/age' },
   // { name: 'Names', icon: FiSettings, href: '/names' },
 ]
 
 export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const router = useRouter()
+
   return (
     <Box minH="100vh" bg={'primary'}>
-      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
+      <SidebarContent
+        onClose={() => onClose}
+        display={{ base: 'none', md: router.pathname === '/' ? 'none' : 'block' }}
+        route={router.pathname}
+      />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -43,11 +51,15 @@ export default function Sidebar({ children }: { children: ReactNode }) {
         onOverlayClick={onClose}
         size="full">
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent onClose={onClose} route={router.pathname} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
-      <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
+      {/* mobile nav */}
+      <MobileNav
+        display={{ base: router.pathname === '/' ? 'none' : 'flex', md: 'none' }}
+        onOpen={onOpen}
+        route={router.pathname}
+      />
       <Box ml={{ base: 0, md: 60 }} p="0">
         {children}
       </Box>
@@ -57,14 +69,15 @@ export default function Sidebar({ children }: { children: ReactNode }) {
 
 interface SidebarProps extends BoxProps {
   onClose: () => void
+  route: string
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, route, ...rest }: SidebarProps) => {
   return (
     <Box bg={'primary'} w={{ base: 'full', md: 60 }} pos="fixed" h="full" {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontWeight="bold" color={'quinary'}>
-          LadsLadsLads
+          {capitalizeFirstLetter(route.substring(1))}
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} color={'quinary'} onClick={onClose} />
       </Flex>
@@ -124,8 +137,9 @@ const NavItem = ({ icon, children, href, onClose, ...rest }: NavItemProps) => {
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
+  route: string
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, route, ...rest }: MobileProps) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -139,7 +153,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <Box flex={1} />
 
       <Text flex={1} textAlign={'center'} fontSize="2xl" fontWeight="bold" color={'quinary'}>
-        LadsLadsLads
+        {capitalizeFirstLetter(route.substring(1))}
       </Text>
       <IconButton
         color={'quinary'}
