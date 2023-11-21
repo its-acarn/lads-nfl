@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[94],{3967:function(n,u,t){(window.__NEXT_P=window.__NEXT_P||[]).push(["/heatmap",function(){return t(2659)}])},2659:function(n,u,t){"use strict";t.r(u);var r=t(5893),c=function(){return(0,r.jsx)(r.Fragment,{})};u.default=c}},function(n){n.O(0,[774,888,179],function(){return n(n.s=3967)}),_N_E=n.O()}]);
