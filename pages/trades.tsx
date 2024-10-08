@@ -5,7 +5,7 @@ import { Divider, HStack, Spinner, Text, VStack } from '@chakra-ui/react'
 
 import { Trade } from '../types/Trade'
 import { NFLPlayer } from '../types/NFLPlayer'
-import { getAllTrades } from '../helpers/getAllTrades'
+import { getAllTrades } from '../helpers/api/getAllTrades'
 import { selectLeagueDetails } from '../redux/leagueDetailsSlice'
 import PlayerTraded from '../components/trades/PlayerTraded'
 import SeasonWeekBadge from '../components/trades/SeasonWeekBadge'
