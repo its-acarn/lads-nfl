@@ -1,3 +1,5 @@
+import { Position } from './Position'
+
 export type NFLPlayer = {
   active: boolean
   age?: number
@@ -27,7 +29,7 @@ export type NFLPlayer = {
   number?: number
   pandascore_id?: string
   player_id?: string
-  position?: string
+  position?: Position
   practice_description?: string
   practice_participation?: string
   rotowire_id?: number
