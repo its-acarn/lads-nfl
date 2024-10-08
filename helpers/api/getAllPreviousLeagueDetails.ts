@@ -1,4 +1,4 @@
-import { LeagueDetails } from './../types/LeagueDetail'
+import { LeagueDetails } from '../../types/LeagueDetail'
 async function callLeagueDetails(leagueId: string, array: LeagueDetails[]) {
   return await fetch(`https://api.sleeper.app/v1/league/${leagueId}`)
     .then((res) => res.json())

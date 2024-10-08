@@ -1,4 +1,5 @@
 import { nflTeamColors } from '../config/nflTeamColors'
+import { Position } from '../types/Position'
 
 export function getNFLTeamTextColor(team: string) {
   return nflTeamColors.find((t) => t.shortName === team)?.colors.hex[1]
@@ -8,15 +9,15 @@ export function getNFLTeamBgColor(team: string) {
   return nflTeamColors.find((t) => t.shortName === team)?.colors.hex[0]
 }
 
-export function getPositionColor(position: any) {
+export function getPositionColor(position: Position) {
   switch (position) {
-    case 'QB':
+    case Position.QB:
       return 'red'
-    case 'RB':
+    case Position.RB:
       return 'teal'
-    case 'WR':
+    case Position.WR:
       return 'cyan'
-    case 'TE':
+    case Position.TE:
       return 'orange'
   }
 }

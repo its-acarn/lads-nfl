@@ -1,7 +1,7 @@
-import { LeagueDetails } from './../types/LeagueDetail'
-import store from '../redux/store'
-import { findNFLPlayerWithId } from './findNFLPlayerWithId'
-import { Trade } from '../types/Trade'
+import { LeagueDetails } from '../../types/LeagueDetail'
+import store from '../../redux/store'
+import { findNFLPlayerWithId } from '../findNFLPlayerWithId'
+import { Trade } from '../../types/Trade'
 
 function sortTrade(trade: any, season: string, week: number) {
   const state = store.getState()
