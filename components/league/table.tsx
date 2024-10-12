@@ -4,23 +4,30 @@ import 'ag-grid-community/styles/ag-grid.css' // Mandatory CSS required by the D
 import 'ag-grid-community/styles/ag-theme-material.css'
 
 interface IGridExampleProps {
-  tableRowData: any
+  tableData: {
+    rows: any
+    cols: any
+    context: any
+  }
 }
 
-const GridExample = ({ tableRowData }: IGridExampleProps) => {
-  const [colDefs, setColDefs] = useState([
-    { headerName: 'Name', field: 'managerName' },
-    { headerName: `K Points`, field: 'kickerPoints' },
-    { headerName: `DEF Points`, field: 'defPoints' },
-  ])
-
+const GridExample = ({ tableData }: IGridExampleProps) => {
   const defaultColDef = {
     flex: 1,
+    sortable: false,
+    wrapHeaderText: true,
+    resizable: false,
   }
 
   return (
-    <div className={'ag-theme-material-dark'} style={{ width: '95vw', height: '90vh' }}>
-      <AgGridReact rowData={tableRowData} columnDefs={colDefs} defaultColDef={defaultColDef} />
+    <div className={'ag-theme-material-dark'} style={{ width: '95vw' }}>
+      <AgGridReact
+        context={tableData.context}
+        rowData={tableData.rows}
+        columnDefs={tableData.cols}
+        defaultColDef={defaultColDef}
+        domLayout={'autoHeight'}
+      />
     </div>
   )
 }
