@@ -1,0 +1,8 @@
+export const ladsLeagueId2022 = '798545046239588352'
+export const ladsLeagueId2023 = '992218083563216896'
+export const ladsLeagueId2024 = '1050764486069710848'
+export const dynastyLeagueId2022 = '798543503410966528'
+export const dynastyLeagueId2023 = '927733787578949632'
+export const dynastyLeagueId2024 = '1067049811502796800'
+export const flexiLeagueId2023 = '943648270117601280'
+export const flexiLeagueId2024 = '1048203475030573056'
