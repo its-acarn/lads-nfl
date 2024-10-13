@@ -1,0 +1,2213 @@
+{
+  "August": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1564617600000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-08-01"
+        },
+        {
+          "date": 1564704000000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-08-02"
+        },
+        {
+          "date": 1564790400000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-08-03"
+        },
+        {
+          "date": 1564876800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-08-04"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1564963200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-08-05"
+        },
+        {
+          "date": 1565049600000,
+          "dayofweek": 1,
+          "count": 1,
+          "date_string": "2019-08-06"
+        },
+        {
+          "date": 1565136000000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-08-07"
+        },
+        {
+          "date": 1565222400000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-08-08"
+        },
+        {
+          "date": 1565308800000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-08-09"
+        },
+        {
+          "date": 1565395200000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-08-10"
+        },
+        {
+          "date": 1565481600000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-08-11"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1565568000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-08-12"
+        },
+        {
+          "date": 1565654400000,
+          "dayofweek": 1,
+          "count": 4,
+          "date_string": "2019-08-13"
+        },
+        {
+          "date": 1565740800000,
+          "dayofweek": 2,
+          "count": 1,
+          "date_string": "2019-08-14"
+        },
+        {
+          "date": 1565827200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-08-15"
+        },
+        {
+          "date": 1565913600000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2019-08-16"
+        },
+        {
+          "date": 1566000000000,
+          "dayofweek": 5,
+          "count": 3,
+          "date_string": "2019-08-17"
+        },
+        {
+          "date": 1566086400000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-08-18"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1566172800000,
+          "dayofweek": 0,
+          "count": 1,
+          "date_string": "2019-08-19"
+        },
+        {
+          "date": 1566259200000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-08-20"
+        },
+        {
+          "date": 1566345600000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-08-21"
+        },
+        {
+          "date": 1566432000000,
+          "dayofweek": 3,
+          "count": 5,
+          "date_string": "2019-08-22"
+        },
+        {
+          "date": 1566518400000,
+          "dayofweek": 4,
+          "count": 5,
+          "date_string": "2019-08-23"
+        },
+        {
+          "date": 1566604800000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-08-24"
+        },
+        {
+          "date": 1566691200000,
+          "dayofweek": 6,
+          "count": 1,
+          "date_string": "2019-08-25"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1566777600000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-08-26"
+        },
+        {
+          "date": 1566864000000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-08-27"
+        },
+        {
+          "date": 1566950400000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-08-28"
+        },
+        {
+          "date": 1567036800000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2019-08-29"
+        },
+        {
+          "date": 1567123200000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2019-08-30"
+        },
+        {
+          "date": 1567209600000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-08-31"
+        }
+      ]
+    }
+  ],
+  "September": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1567296000000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-09-01"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1567382400000,
+          "dayofweek": 0,
+          "count": 1,
+          "date_string": "2019-09-02"
+        },
+        {
+          "date": 1567468800000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-09-03"
+        },
+        {
+          "date": 1567555200000,
+          "dayofweek": 2,
+          "count": 6,
+          "date_string": "2019-09-04"
+        },
+        {
+          "date": 1567641600000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-09-05"
+        },
+        {
+          "date": 1567728000000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-09-06"
+        },
+        {
+          "date": 1567814400000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-09-07"
+        },
+        {
+          "date": 1567900800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-09-08"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1567987200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-09-09"
+        },
+        {
+          "date": 1568073600000,
+          "dayofweek": 1,
+          "count": 5,
+          "date_string": "2019-09-10"
+        },
+        {
+          "date": 1568160000000,
+          "dayofweek": 2,
+          "count": 3,
+          "date_string": "2019-09-11"
+        },
+        {
+          "date": 1568246400000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2019-09-12"
+        },
+        {
+          "date": 1568332800000,
+          "dayofweek": 4,
+          "count": 1,
+          "date_string": "2019-09-13"
+        },
+        {
+          "date": 1568419200000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-09-14"
+        },
+        {
+          "date": 1568505600000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-09-15"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1568592000000,
+          "dayofweek": 0,
+          "count": 2,
+          "date_string": "2019-09-16"
+        },
+        {
+          "date": 1568678400000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-09-17"
+        },
+        {
+          "date": 1568764800000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-09-18"
+        },
+        {
+          "date": 1568851200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-09-19"
+        },
+        {
+          "date": 1568937600000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-09-20"
+        },
+        {
+          "date": 1569024000000,
+          "dayofweek": 5,
+          "count": 1,
+          "date_string": "2019-09-21"
+        },
+        {
+          "date": 1569110400000,
+          "dayofweek": 6,
+          "count": 1,
+          "date_string": "2019-09-22"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1569196800000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-09-23"
+        },
+        {
+          "date": 1569283200000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-09-24"
+        },
+        {
+          "date": 1569369600000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-09-25"
+        },
+        {
+          "date": 1569456000000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-09-26"
+        },
+        {
+          "date": 1569542400000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-09-27"
+        },
+        {
+          "date": 1569628800000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-09-28"
+        },
+        {
+          "date": 1569715200000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-09-29"
+        }
+      ]
+    },
+    {
+      "bin": 5,
+      "bins": [
+        {
+          "date": 1569801600000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-09-30"
+        }
+      ]
+    }
+  ],
+  "October": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1569888000000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-10-01"
+        },
+        {
+          "date": 1569974400000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-10-02"
+        },
+        {
+          "date": 1570060800000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-10-03"
+        },
+        {
+          "date": 1570147200000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-10-04"
+        },
+        {
+          "date": 1570233600000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-10-05"
+        },
+        {
+          "date": 1570320000000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-10-06"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1570406400000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-10-07"
+        },
+        {
+          "date": 1570492800000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-10-08"
+        },
+        {
+          "date": 1570579200000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-10-09"
+        },
+        {
+          "date": 1570665600000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-10-10"
+        },
+        {
+          "date": 1570752000000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-10-11"
+        },
+        {
+          "date": 1570838400000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-10-12"
+        },
+        {
+          "date": 1570924800000,
+          "dayofweek": 6,
+          "count": 3,
+          "date_string": "2019-10-13"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1571011200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-10-14"
+        },
+        {
+          "date": 1571097600000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-10-15"
+        },
+        {
+          "date": 1571184000000,
+          "dayofweek": 2,
+          "count": 3,
+          "date_string": "2019-10-16"
+        },
+        {
+          "date": 1571270400000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-10-17"
+        },
+        {
+          "date": 1571356800000,
+          "dayofweek": 4,
+          "count": 4,
+          "date_string": "2019-10-18"
+        },
+        {
+          "date": 1571443200000,
+          "dayofweek": 5,
+          "count": 3,
+          "date_string": "2019-10-19"
+        },
+        {
+          "date": 1571529600000,
+          "dayofweek": 6,
+          "count": 2,
+          "date_string": "2019-10-20"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1571616000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-10-21"
+        },
+        {
+          "date": 1571702400000,
+          "dayofweek": 1,
+          "count": 1,
+          "date_string": "2019-10-22"
+        },
+        {
+          "date": 1571788800000,
+          "dayofweek": 2,
+          "count": 1,
+          "date_string": "2019-10-23"
+        },
+        {
+          "date": 1571875200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-10-24"
+        },
+        {
+          "date": 1571961600000,
+          "dayofweek": 4,
+          "count": 4,
+          "date_string": "2019-10-25"
+        },
+        {
+          "date": 1572048000000,
+          "dayofweek": 5,
+          "count": 4,
+          "date_string": "2019-10-26"
+        },
+        {
+          "date": 1572134400000,
+          "dayofweek": 6,
+          "count": 11,
+          "date_string": "2019-10-27"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1572220800000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-10-28"
+        },
+        {
+          "date": 1572307200000,
+          "dayofweek": 1,
+          "count": 9,
+          "date_string": "2019-10-29"
+        },
+        {
+          "date": 1572393600000,
+          "dayofweek": 2,
+          "count": 4,
+          "date_string": "2019-10-30"
+        },
+        {
+          "date": 1572480000000,
+          "dayofweek": 3,
+          "count": 4,
+          "date_string": "2019-10-31"
+        }
+      ]
+    }
+  ],
+  "November": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1572566400000,
+          "dayofweek": 4,
+          "count": 2,
+          "date_string": "2019-11-01"
+        },
+        {
+          "date": 1572652800000,
+          "dayofweek": 5,
+          "count": 2,
+          "date_string": "2019-11-02"
+        },
+        {
+          "date": 1572739200000,
+          "dayofweek": 6,
+          "count": 12,
+          "date_string": "2019-11-03"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1572825600000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-11-04"
+        },
+        {
+          "date": 1572912000000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-11-05"
+        },
+        {
+          "date": 1572998400000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-11-06"
+        },
+        {
+          "date": 1573084800000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-11-07"
+        },
+        {
+          "date": 1573171200000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-11-08"
+        },
+        {
+          "date": 1573257600000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-11-09"
+        },
+        {
+          "date": 1573344000000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-11-10"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1573430400000,
+          "dayofweek": 0,
+          "count": 12,
+          "date_string": "2019-11-11"
+        },
+        {
+          "date": 1573516800000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-11-12"
+        },
+        {
+          "date": 1573603200000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-11-13"
+        },
+        {
+          "date": 1573689600000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2019-11-14"
+        },
+        {
+          "date": 1573776000000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-11-15"
+        },
+        {
+          "date": 1573862400000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-11-16"
+        },
+        {
+          "date": 1573948800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-11-17"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1574035200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-11-18"
+        },
+        {
+          "date": 1574121600000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-11-19"
+        },
+        {
+          "date": 1574208000000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-11-20"
+        },
+        {
+          "date": 1574294400000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-11-21"
+        },
+        {
+          "date": 1574380800000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-11-22"
+        },
+        {
+          "date": 1574467200000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-11-23"
+        },
+        {
+          "date": 1574553600000,
+          "dayofweek": 6,
+          "count": 2,
+          "date_string": "2019-11-24"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1574640000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-11-25"
+        },
+        {
+          "date": 1574726400000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2019-11-26"
+        },
+        {
+          "date": 1574812800000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-11-27"
+        },
+        {
+          "date": 1574899200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-11-28"
+        },
+        {
+          "date": 1574985600000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-11-29"
+        },
+        {
+          "date": 1575072000000,
+          "dayofweek": 5,
+          "count": 2,
+          "date_string": "2019-11-30"
+        }
+      ]
+    }
+  ],
+  "December": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1575158400000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-12-01"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1575244800000,
+          "dayofweek": 0,
+          "count": 8,
+          "date_string": "2019-12-02"
+        },
+        {
+          "date": 1575331200000,
+          "dayofweek": 1,
+          "count": 11,
+          "date_string": "2019-12-03"
+        },
+        {
+          "date": 1575417600000,
+          "dayofweek": 2,
+          "count": 3,
+          "date_string": "2019-12-04"
+        },
+        {
+          "date": 1575504000000,
+          "dayofweek": 3,
+          "count": 2,
+          "date_string": "2019-12-05"
+        },
+        {
+          "date": 1575590400000,
+          "dayofweek": 4,
+          "count": 2,
+          "date_string": "2019-12-06"
+        },
+        {
+          "date": 1575676800000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-12-07"
+        },
+        {
+          "date": 1575763200000,
+          "dayofweek": 6,
+          "count": 16,
+          "date_string": "2019-12-08"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1575849600000,
+          "dayofweek": 0,
+          "count": 1,
+          "date_string": "2019-12-09"
+        },
+        {
+          "date": 1575936000000,
+          "dayofweek": 1,
+          "count": 12,
+          "date_string": "2019-12-10"
+        },
+        {
+          "date": 1576022400000,
+          "dayofweek": 2,
+          "count": 12,
+          "date_string": "2019-12-11"
+        },
+        {
+          "date": 1576108800000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2019-12-12"
+        },
+        {
+          "date": 1576195200000,
+          "dayofweek": 4,
+          "count": 6,
+          "date_string": "2019-12-13"
+        },
+        {
+          "date": 1576281600000,
+          "dayofweek": 5,
+          "count": 2,
+          "date_string": "2019-12-14"
+        },
+        {
+          "date": 1576368000000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2019-12-15"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1576454400000,
+          "dayofweek": 0,
+          "count": 7,
+          "date_string": "2019-12-16"
+        },
+        {
+          "date": 1576540800000,
+          "dayofweek": 1,
+          "count": 6,
+          "date_string": "2019-12-17"
+        },
+        {
+          "date": 1576627200000,
+          "dayofweek": 2,
+          "count": 9,
+          "date_string": "2019-12-18"
+        },
+        {
+          "date": 1576713600000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2019-12-19"
+        },
+        {
+          "date": 1576800000000,
+          "dayofweek": 4,
+          "count": 1,
+          "date_string": "2019-12-20"
+        },
+        {
+          "date": 1576886400000,
+          "dayofweek": 5,
+          "count": 1,
+          "date_string": "2019-12-21"
+        },
+        {
+          "date": 1576972800000,
+          "dayofweek": 6,
+          "count": 20,
+          "date_string": "2019-12-22"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1577059200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-12-23"
+        },
+        {
+          "date": 1577145600000,
+          "dayofweek": 1,
+          "count": 2,
+          "date_string": "2019-12-24"
+        },
+        {
+          "date": 1577232000000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2019-12-25"
+        },
+        {
+          "date": 1577318400000,
+          "dayofweek": 3,
+          "count": 4,
+          "date_string": "2019-12-26"
+        },
+        {
+          "date": 1577404800000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2019-12-27"
+        },
+        {
+          "date": 1577491200000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2019-12-28"
+        },
+        {
+          "date": 1577577600000,
+          "dayofweek": 6,
+          "count": 5,
+          "date_string": "2019-12-29"
+        }
+      ]
+    },
+    {
+      "bin": 5,
+      "bins": [
+        {
+          "date": 1577664000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2019-12-30"
+        },
+        {
+          "date": 1577750400000,
+          "dayofweek": 1,
+          "count": 8,
+          "date_string": "2019-12-31"
+        }
+      ]
+    }
+  ],
+  "January": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1577836800000,
+          "dayofweek": 2,
+          "count": 2,
+          "date_string": "2020-01-01"
+        },
+        {
+          "date": 1577923200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2020-01-02"
+        },
+        {
+          "date": 1578009600000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-01-03"
+        },
+        {
+          "date": 1578096000000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2020-01-04"
+        },
+        {
+          "date": 1578182400000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-01-05"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1578268800000,
+          "dayofweek": 0,
+          "count": 3,
+          "date_string": "2020-01-06"
+        },
+        {
+          "date": 1578355200000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2020-01-07"
+        },
+        {
+          "date": 1578441600000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-01-08"
+        },
+        {
+          "date": 1578528000000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2020-01-09"
+        },
+        {
+          "date": 1578614400000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2020-01-10"
+        },
+        {
+          "date": 1578700800000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2020-01-11"
+        },
+        {
+          "date": 1578787200000,
+          "dayofweek": 6,
+          "count": 2,
+          "date_string": "2020-01-12"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1578873600000,
+          "dayofweek": 0,
+          "count": 6,
+          "date_string": "2020-01-13"
+        },
+        {
+          "date": 1578960000000,
+          "dayofweek": 1,
+          "count": 3,
+          "date_string": "2020-01-14"
+        },
+        {
+          "date": 1579046400000,
+          "dayofweek": 2,
+          "count": 4,
+          "date_string": "2020-01-15"
+        },
+        {
+          "date": 1579132800000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2020-01-16"
+        },
+        {
+          "date": 1579219200000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-01-17"
+        },
+        {
+          "date": 1579305600000,
+          "dayofweek": 5,
+          "count": 1,
+          "date_string": "2020-01-18"
+        },
+        {
+          "date": 1579392000000,
+          "dayofweek": 6,
+          "count": 7,
+          "date_string": "2020-01-19"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1579478400000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-01-20"
+        },
+        {
+          "date": 1579564800000,
+          "dayofweek": 1,
+          "count": 2,
+          "date_string": "2020-01-21"
+        },
+        {
+          "date": 1579651200000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-01-22"
+        },
+        {
+          "date": 1579737600000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2020-01-23"
+        },
+        {
+          "date": 1579824000000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-01-24"
+        },
+        {
+          "date": 1579910400000,
+          "dayofweek": 5,
+          "count": 3,
+          "date_string": "2020-01-25"
+        },
+        {
+          "date": 1579996800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-01-26"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1580083200000,
+          "dayofweek": 0,
+          "count": 3,
+          "date_string": "2020-01-27"
+        },
+        {
+          "date": 1580169600000,
+          "dayofweek": 1,
+          "count": 4,
+          "date_string": "2020-01-28"
+        },
+        {
+          "date": 1580256000000,
+          "dayofweek": 2,
+          "count": 3,
+          "date_string": "2020-01-29"
+        },
+        {
+          "date": 1580342400000,
+          "dayofweek": 3,
+          "count": 5,
+          "date_string": "2020-01-30"
+        },
+        {
+          "date": 1580428800000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2020-01-31"
+        }
+      ]
+    }
+  ],
+  "February": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1580515200000,
+          "dayofweek": 5,
+          "count": 4,
+          "date_string": "2020-02-01"
+        },
+        {
+          "date": 1580601600000,
+          "dayofweek": 6,
+          "count": 2,
+          "date_string": "2020-02-02"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1580688000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-02-03"
+        },
+        {
+          "date": 1580774400000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2020-02-04"
+        },
+        {
+          "date": 1580860800000,
+          "dayofweek": 2,
+          "count": 4,
+          "date_string": "2020-02-05"
+        },
+        {
+          "date": 1580947200000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2020-02-06"
+        },
+        {
+          "date": 1581033600000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-02-07"
+        },
+        {
+          "date": 1581120000000,
+          "dayofweek": 5,
+          "count": 1,
+          "date_string": "2020-02-08"
+        },
+        {
+          "date": 1581206400000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-02-09"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1581292800000,
+          "dayofweek": 0,
+          "count": 13,
+          "date_string": "2020-02-10"
+        },
+        {
+          "date": 1581379200000,
+          "dayofweek": 1,
+          "count": 3,
+          "date_string": "2020-02-11"
+        },
+        {
+          "date": 1581465600000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-02-12"
+        },
+        {
+          "date": 1581552000000,
+          "dayofweek": 3,
+          "count": 13,
+          "date_string": "2020-02-13"
+        },
+        {
+          "date": 1581638400000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-02-14"
+        },
+        {
+          "date": 1581724800000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2020-02-15"
+        },
+        {
+          "date": 1581811200000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-02-16"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1581897600000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-02-17"
+        },
+        {
+          "date": 1581984000000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2020-02-18"
+        },
+        {
+          "date": 1582070400000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-02-19"
+        },
+        {
+          "date": 1582156800000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2020-02-20"
+        },
+        {
+          "date": 1582243200000,
+          "dayofweek": 4,
+          "count": 1,
+          "date_string": "2020-02-21"
+        },
+        {
+          "date": 1582329600000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2020-02-22"
+        },
+        {
+          "date": 1582416000000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-02-23"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1582502400000,
+          "dayofweek": 0,
+          "count": 3,
+          "date_string": "2020-02-24"
+        },
+        {
+          "date": 1582588800000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2020-02-25"
+        },
+        {
+          "date": 1582675200000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-02-26"
+        },
+        {
+          "date": 1582761600000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2020-02-27"
+        },
+        {
+          "date": 1582848000000,
+          "dayofweek": 4,
+          "count": 1,
+          "date_string": "2020-02-28"
+        },
+        {
+          "date": 1582934400000,
+          "dayofweek": 5,
+          "count": 0,
+          "date_string": "2020-02-29"
+        }
+      ]
+    }
+  ],
+  "March": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1583020800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-03-01"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1583107200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-03-02"
+        },
+        {
+          "date": 1583193600000,
+          "dayofweek": 1,
+          "count": 0,
+          "date_string": "2020-03-03"
+        },
+        {
+          "date": 1583280000000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-03-04"
+        },
+        {
+          "date": 1583366400000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2020-03-05"
+        },
+        {
+          "date": 1583452800000,
+          "dayofweek": 4,
+          "count": 5,
+          "date_string": "2020-03-06"
+        },
+        {
+          "date": 1583539200000,
+          "dayofweek": 5,
+          "count": 1,
+          "date_string": "2020-03-07"
+        },
+        {
+          "date": 1583625600000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-03-08"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1583712000000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-03-09"
+        },
+        {
+          "date": 1583798400000,
+          "dayofweek": 1,
+          "count": 1,
+          "date_string": "2020-03-10"
+        },
+        {
+          "date": 1583884800000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-03-11"
+        },
+        {
+          "date": 1583971200000,
+          "dayofweek": 3,
+          "count": 0,
+          "date_string": "2020-03-12"
+        },
+        {
+          "date": 1584057600000,
+          "dayofweek": 4,
+          "count": 0,
+          "date_string": "2020-03-13"
+        },
+        {
+          "date": 1584144000000,
+          "dayofweek": 5,
+          "count": 3,
+          "date_string": "2020-03-14"
+        },
+        {
+          "date": 1584230400000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-03-15"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1584316800000,
+          "dayofweek": 0,
+          "count": 50,
+          "date_string": "2020-03-16"
+        },
+        {
+          "date": 1584403200000,
+          "dayofweek": 1,
+          "count": 3,
+          "date_string": "2020-03-17"
+        },
+        {
+          "date": 1584489600000,
+          "dayofweek": 2,
+          "count": 1,
+          "date_string": "2020-03-18"
+        },
+        {
+          "date": 1584576000000,
+          "dayofweek": 3,
+          "count": 5,
+          "date_string": "2020-03-19"
+        },
+        {
+          "date": 1584662400000,
+          "dayofweek": 4,
+          "count": 2,
+          "date_string": "2020-03-20"
+        },
+        {
+          "date": 1584748800000,
+          "dayofweek": 5,
+          "count": 8,
+          "date_string": "2020-03-21"
+        },
+        {
+          "date": 1584835200000,
+          "dayofweek": 6,
+          "count": 53,
+          "date_string": "2020-03-22"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1584921600000,
+          "dayofweek": 0,
+          "count": 26,
+          "date_string": "2020-03-23"
+        },
+        {
+          "date": 1585008000000,
+          "dayofweek": 1,
+          "count": 19,
+          "date_string": "2020-03-24"
+        },
+        {
+          "date": 1585094400000,
+          "dayofweek": 2,
+          "count": 6,
+          "date_string": "2020-03-25"
+        },
+        {
+          "date": 1585180800000,
+          "dayofweek": 3,
+          "count": 5,
+          "date_string": "2020-03-26"
+        },
+        {
+          "date": 1585267200000,
+          "dayofweek": 4,
+          "count": 6,
+          "date_string": "2020-03-27"
+        },
+        {
+          "date": 1585353600000,
+          "dayofweek": 5,
+          "count": 4,
+          "date_string": "2020-03-28"
+        },
+        {
+          "date": 1585440000000,
+          "dayofweek": 6,
+          "count": 67,
+          "date_string": "2020-03-29"
+        }
+      ]
+    },
+    {
+      "bin": 5,
+      "bins": [
+        {
+          "date": 1585526400000,
+          "dayofweek": 0,
+          "count": 5,
+          "date_string": "2020-03-30"
+        },
+        {
+          "date": 1585612800000,
+          "dayofweek": 1,
+          "count": 3,
+          "date_string": "2020-03-31"
+        }
+      ]
+    }
+  ],
+  "April": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1585699200000,
+          "dayofweek": 2,
+          "count": 5,
+          "date_string": "2020-04-01"
+        },
+        {
+          "date": 1585785600000,
+          "dayofweek": 3,
+          "count": 7,
+          "date_string": "2020-04-02"
+        },
+        {
+          "date": 1585872000000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2020-04-03"
+        },
+        {
+          "date": 1585958400000,
+          "dayofweek": 5,
+          "count": 71,
+          "date_string": "2020-04-04"
+        },
+        {
+          "date": 1586044800000,
+          "dayofweek": 6,
+          "count": 30,
+          "date_string": "2020-04-05"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1586131200000,
+          "dayofweek": 0,
+          "count": 0,
+          "date_string": "2020-04-06"
+        },
+        {
+          "date": 1586217600000,
+          "dayofweek": 1,
+          "count": 5,
+          "date_string": "2020-04-07"
+        },
+        {
+          "date": 1586304000000,
+          "dayofweek": 2,
+          "count": 0,
+          "date_string": "2020-04-08"
+        },
+        {
+          "date": 1586390400000,
+          "dayofweek": 3,
+          "count": 3,
+          "date_string": "2020-04-09"
+        },
+        {
+          "date": 1586476800000,
+          "dayofweek": 4,
+          "count": 9,
+          "date_string": "2020-04-10"
+        },
+        {
+          "date": 1586563200000,
+          "dayofweek": 5,
+          "count": 26,
+          "date_string": "2020-04-11"
+        },
+        {
+          "date": 1586649600000,
+          "dayofweek": 6,
+          "count": 63,
+          "date_string": "2020-04-12"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1586736000000,
+          "dayofweek": 0,
+          "count": 63,
+          "date_string": "2020-04-13"
+        },
+        {
+          "date": 1586822400000,
+          "dayofweek": 1,
+          "count": 30,
+          "date_string": "2020-04-14"
+        },
+        {
+          "date": 1586908800000,
+          "dayofweek": 2,
+          "count": 106,
+          "date_string": "2020-04-15"
+        },
+        {
+          "date": 1586995200000,
+          "dayofweek": 3,
+          "count": 143,
+          "date_string": "2020-04-16"
+        },
+        {
+          "date": 1587081600000,
+          "dayofweek": 4,
+          "count": 65,
+          "date_string": "2020-04-17"
+        },
+        {
+          "date": 1587168000000,
+          "dayofweek": 5,
+          "count": 51,
+          "date_string": "2020-04-18"
+        },
+        {
+          "date": 1587254400000,
+          "dayofweek": 6,
+          "count": 20,
+          "date_string": "2020-04-19"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1587340800000,
+          "dayofweek": 0,
+          "count": 37,
+          "date_string": "2020-04-20"
+        },
+        {
+          "date": 1587427200000,
+          "dayofweek": 1,
+          "count": 49,
+          "date_string": "2020-04-21"
+        },
+        {
+          "date": 1587513600000,
+          "dayofweek": 2,
+          "count": 15,
+          "date_string": "2020-04-22"
+        },
+        {
+          "date": 1587600000000,
+          "dayofweek": 3,
+          "count": 1,
+          "date_string": "2020-04-23"
+        },
+        {
+          "date": 1587686400000,
+          "dayofweek": 4,
+          "count": 3,
+          "date_string": "2020-04-24"
+        },
+        {
+          "date": 1587772800000,
+          "dayofweek": 5,
+          "count": 15,
+          "date_string": "2020-04-25"
+        },
+        {
+          "date": 1587859200000,
+          "dayofweek": 6,
+          "count": 27,
+          "date_string": "2020-04-26"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1587945600000,
+          "dayofweek": 0,
+          "count": 9,
+          "date_string": "2020-04-27"
+        },
+        {
+          "date": 1588032000000,
+          "dayofweek": 1,
+          "count": 14,
+          "date_string": "2020-04-28"
+        },
+        {
+          "date": 1588118400000,
+          "dayofweek": 2,
+          "count": 46,
+          "date_string": "2020-04-29"
+        },
+        {
+          "date": 1588204800000,
+          "dayofweek": 3,
+          "count": 10,
+          "date_string": "2020-04-30"
+        }
+      ]
+    }
+  ],
+  "May": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1588291200000,
+          "dayofweek": 4,
+          "count": 29,
+          "date_string": "2020-05-01"
+        },
+        {
+          "date": 1588377600000,
+          "dayofweek": 5,
+          "count": 8,
+          "date_string": "2020-05-02"
+        },
+        {
+          "date": 1588464000000,
+          "dayofweek": 6,
+          "count": 27,
+          "date_string": "2020-05-03"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1588550400000,
+          "dayofweek": 0,
+          "count": 4,
+          "date_string": "2020-05-04"
+        },
+        {
+          "date": 1588636800000,
+          "dayofweek": 1,
+          "count": 4,
+          "date_string": "2020-05-05"
+        },
+        {
+          "date": 1588723200000,
+          "dayofweek": 2,
+          "count": 15,
+          "date_string": "2020-05-06"
+        },
+        {
+          "date": 1588809600000,
+          "dayofweek": 3,
+          "count": 24,
+          "date_string": "2020-05-07"
+        },
+        {
+          "date": 1588896000000,
+          "dayofweek": 4,
+          "count": 29,
+          "date_string": "2020-05-08"
+        },
+        {
+          "date": 1588982400000,
+          "dayofweek": 5,
+          "count": 10,
+          "date_string": "2020-05-09"
+        },
+        {
+          "date": 1589068800000,
+          "dayofweek": 6,
+          "count": 12,
+          "date_string": "2020-05-10"
+        }
+      ]
+    },
+    {
+      "bin": 2,
+      "bins": [
+        {
+          "date": 1589155200000,
+          "dayofweek": 0,
+          "count": 4,
+          "date_string": "2020-05-11"
+        },
+        {
+          "date": 1589241600000,
+          "dayofweek": 1,
+          "count": 17,
+          "date_string": "2020-05-12"
+        },
+        {
+          "date": 1589328000000,
+          "dayofweek": 2,
+          "count": 12,
+          "date_string": "2020-05-13"
+        },
+        {
+          "date": 1589414400000,
+          "dayofweek": 3,
+          "count": 5,
+          "date_string": "2020-05-14"
+        },
+        {
+          "date": 1589500800000,
+          "dayofweek": 4,
+          "count": 4,
+          "date_string": "2020-05-15"
+        },
+        {
+          "date": 1589587200000,
+          "dayofweek": 5,
+          "count": 7,
+          "date_string": "2020-05-16"
+        },
+        {
+          "date": 1589673600000,
+          "dayofweek": 6,
+          "count": 8,
+          "date_string": "2020-05-17"
+        }
+      ]
+    },
+    {
+      "bin": 3,
+      "bins": [
+        {
+          "date": 1589760000000,
+          "dayofweek": 0,
+          "count": 5,
+          "date_string": "2020-05-18"
+        },
+        {
+          "date": 1589846400000,
+          "dayofweek": 1,
+          "count": 1,
+          "date_string": "2020-05-19"
+        },
+        {
+          "date": 1589932800000,
+          "dayofweek": 2,
+          "count": 6,
+          "date_string": "2020-05-20"
+        },
+        {
+          "date": 1590019200000,
+          "dayofweek": 3,
+          "count": 9,
+          "date_string": "2020-05-21"
+        },
+        {
+          "date": 1590105600000,
+          "dayofweek": 4,
+          "count": 17,
+          "date_string": "2020-05-22"
+        },
+        {
+          "date": 1590192000000,
+          "dayofweek": 5,
+          "count": 6,
+          "date_string": "2020-05-23"
+        },
+        {
+          "date": 1590278400000,
+          "dayofweek": 6,
+          "count": 11,
+          "date_string": "2020-05-24"
+        }
+      ]
+    },
+    {
+      "bin": 4,
+      "bins": [
+        {
+          "date": 1590364800000,
+          "dayofweek": 0,
+          "count": 2,
+          "date_string": "2020-05-25"
+        },
+        {
+          "date": 1590451200000,
+          "dayofweek": 1,
+          "count": 4,
+          "date_string": "2020-05-26"
+        },
+        {
+          "date": 1590537600000,
+          "dayofweek": 2,
+          "count": 17,
+          "date_string": "2020-05-27"
+        },
+        {
+          "date": 1590624000000,
+          "dayofweek": 3,
+          "count": 14,
+          "date_string": "2020-05-28"
+        },
+        {
+          "date": 1590710400000,
+          "dayofweek": 4,
+          "count": 25,
+          "date_string": "2020-05-29"
+        },
+        {
+          "date": 1590796800000,
+          "dayofweek": 5,
+          "count": 15,
+          "date_string": "2020-05-30"
+        },
+        {
+          "date": 1590883200000,
+          "dayofweek": 6,
+          "count": 6,
+          "date_string": "2020-05-31"
+        }
+      ]
+    }
+  ],
+  "June": [
+    {
+      "bin": 0,
+      "bins": [
+        {
+          "date": 1590969600000,
+          "dayofweek": 0,
+          "count": 9,
+          "date_string": "2020-06-01"
+        },
+        {
+          "date": 1591056000000,
+          "dayofweek": 1,
+          "count": 35,
+          "date_string": "2020-06-02"
+        },
+        {
+          "date": 1591142400000,
+          "dayofweek": 2,
+          "count": 12,
+          "date_string": "2020-06-03"
+        },
+        {
+          "date": 1591228800000,
+          "dayofweek": 3,
+          "count": 7,
+          "date_string": "2020-06-04"
+        },
+        {
+          "date": 1591315200000,
+          "dayofweek": 4,
+          "count": 16,
+          "date_string": "2020-06-05"
+        },
+        {
+          "date": 1591401600000,
+          "dayofweek": 5,
+          "count": 188,
+          "date_string": "2020-06-06"
+        },
+        {
+          "date": 1591488000000,
+          "dayofweek": 6,
+          "count": 7,
+          "date_string": "2020-06-07"
+        }
+      ]
+    },
+    {
+      "bin": 1,
+      "bins": [
+        {
+          "date": 1591574400000,
+          "dayofweek": 0,
+          "count": 7,
+          "date_string": "2020-06-08"
+        },
+        {
+          "date": 1591660800000,
+          "dayofweek": 1,
+          "count": 18,
+          "date_string": "2020-06-09"
+        },
+        {
+          "date": 1591747200000,
+          "dayofweek": 2,
+          "count": 21,
+          "date_string": "2020-06-10"
+        },
+        {
+          "date": 1591833600000,
+          "dayofweek": 3,
+          "count": 12,
+          "date_string": "2020-06-11"
+        },
+        {
+          "date": 1591920000000,
+          "dayofweek": 4,
+          "count": 27,
+          "date_string": "2020-06-12"
+        },
+        {
+          "date": 1592006400000,
+          "dayofweek": 5,
+          "count": 7,
+          "date_string": "2020-06-13"
+        },
+        {
+          "date": 1592092800000,
+          "dayofweek": 6,
+          "count": 0,
+          "date_string": "2020-06-14"
+        }
+      ]
+    }
+  ]
+}
