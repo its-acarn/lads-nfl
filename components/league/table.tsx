@@ -27,6 +27,8 @@ const GridExample = ({ tableData }: IGridExampleProps) => {
         columnDefs={tableData.cols}
         defaultColDef={defaultColDef}
         domLayout={'autoHeight'}
+        suppressCellFocus={true}
+        suppressRowHoverHighlight={true}
       />
     </div>
   )
