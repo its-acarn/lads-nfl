@@ -21,7 +21,7 @@ export const nflStateSlice = createSlice({
   initialState,
   reducers: {
     addState: (state, action: PayloadAction<any>) => {
-      state = action.payload
+      return action.payload
     },
   },
 })
@@ -29,6 +29,6 @@ export const nflStateSlice = createSlice({
 export const { addState } = nflStateSlice.actions
 
 export const selectState = (state: RootState) => state.nflState
-export const selectCurrentWeek = (state: RootState) => state.nflState.week
+export const selectCurrentWeek = (state: RootState) => state.nflState.week - 1
 
 export default nflStateSlice.reducer

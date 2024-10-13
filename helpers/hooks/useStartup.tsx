@@ -20,7 +20,7 @@ function useStartup() {
     getNFLState().then((nflState: NFLState) => {
       dispatch(addState(nflState))
 
-      if (nflState.week !== lastFetchedWeek) {
+      if (nflState.week - 1 !== lastFetchedWeek) {
         Promise.all([
           getUsers(ladsLeagueId2024),
           getRosters(ladsLeagueId2024),
@@ -40,7 +40,7 @@ function useStartup() {
           dispatch(addLeagueDetails(leagueDetails))
           dispatch(addRosters(mergedArray))
           localStorage.setItem('seasonMatchups', JSON.stringify(seasonMatchups))
-          dispatch(addLastFetchedWeek(nflState.week))
+          dispatch(addLastFetchedWeek(nflState.week - 1))
 
           setStartupLoading(false)
         })
@@ -49,11 +49,6 @@ function useStartup() {
       }
     })
   }, [])
-
-  // check last fetched week
-  // if last fetched week is current week, return
-  // if last fetched week is not current week, refresh data
-  //
 
   return { startupLoading }
 }

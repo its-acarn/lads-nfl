@@ -74,7 +74,7 @@ export function getStandings(seasonMatchups: any) {
 
   seasonMatchups.forEach((week: any, weekIndex: number) => {
     const oneBasedWeekIndex = weekIndex + 1
-    if (oneBasedWeekIndex > store.getState().nflState.week) {
+    if (oneBasedWeekIndex > store.getState().nflState.week - 1) {
       return
     }
 
@@ -117,7 +117,7 @@ export function getStandings(seasonMatchups: any) {
 
   seasonMatchups.forEach((week: any, weekIndex: number) => {
     const oneBasedWeekIndex = weekIndex + 1
-    if (oneBasedWeekIndex > store.getState().nflState.week) {
+    if (oneBasedWeekIndex > store.getState().nflState.week - 1) {
       return
     }
 
