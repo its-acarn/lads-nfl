@@ -238,7 +238,7 @@ const League = () => {
         color={'lightgrey'}
         fontWeight={200}
         textAlign={'center'}>
-        Last updated: Week {lastFetchedWeek - 1}
+        Last updated: Week {lastFetchedWeek}
       </Text>
     </VStack>
   )
