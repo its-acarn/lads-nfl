@@ -9,11 +9,14 @@ import { BoardState, PlayerMap, PoolPlayer, Position, SimOpts, SurvivalReport } 
 const POSITIONS: Position[] = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF']
 const PER_POSITION_FLOOR = 5 // always simulate at least this many per position
 
+// Temperature defaults chosen in the Phase 2 calibration run: replay shows
+// rooms pick close to market order, so the base noise is modest and live
+// reach calibration (reachScale) widens it when the room is chaotic.
 export const DEFAULT_SIM_OPTS: SimOpts = {
   sims: 2000,
   seed: 20260813,
-  baseTemperature: 5,
-  temperatureSlope: 0.05,
+  baseTemperature: 3,
+  temperatureSlope: 0.02,
   reachScale: 1,
   candidateLimit: 60,
 }
