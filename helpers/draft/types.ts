@@ -40,6 +40,13 @@ export interface SleeperDraft {
   start_time: number | null
 }
 
+export interface SleeperPickMetadata {
+  first_name?: string
+  last_name?: string
+  position?: string
+  team?: string
+}
+
 export interface SleeperPick {
   pick_no: number
   round: number
@@ -48,6 +55,9 @@ export interface SleeperPick {
   picked_by: string
   roster_id: number | null
   is_keeper: boolean | null
+  // Embedded player snapshot; the position/name fallback for players that
+  // have since dropped out of players.trim.json (retired, released).
+  metadata?: SleeperPickMetadata | null
 }
 
 export interface SleeperTradedPick {

@@ -1,0 +1,148 @@
+// Fold the Sleeper picks feed into a BoardState: available pool, per-roster
+// positional counts, my roster, current (lowest unfilled) pick number, and my
+// remaining picks. Validators throw rather than guessing.
+
+import { myPickNumbers, myRosterId, assertSupportedDraft } from './snake'
+import {
+  BoardState,
+  DraftConfig,
+  PlayerMap,
+  PoolPlayer,
+  Position,
+  ResolvedBoard,
+  SleeperPick,
+} from './types'
+import { buildValuer, ValueOpts } from './value'
+
+const POSITIONS: Position[] = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF']
+const OFF_BOARD_SEARCH_RANK = 9999999
+
+function emptyCounts(): Record<Position, number> {
+  return { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
+}
+
+export function positionOfPick(pick: SleeperPick, players: PlayerMap): Position {
+  const known = players[pick.player_id]
+  if (known) return known.position
+  const metaPos = pick.metadata && pick.metadata.position
+  if (metaPos && POSITIONS.indexOf(metaPos as Position) !== -1) return metaPos as Position
+  throw new Error(
+    `pick ${pick.pick_no}: player ${pick.player_id} unknown to players map and pick.metadata.position is unusable (${String(metaPos)})`
+  )
+}
+
+export function nameOfPick(pick: SleeperPick, players: PlayerMap): string {
+  const known = players[pick.player_id]
+  if (known && known.full_name) return known.full_name
+  const meta = pick.metadata
+  if (meta && (meta.first_name || meta.last_name)) {
+    return `${meta.first_name || ''} ${meta.last_name || ''}`.trim()
+  }
+  return pick.player_id
+}
+
+export function buildState(
+  cfg: DraftConfig,
+  picks: SleeperPick[],
+  board: ResolvedBoard,
+  players: PlayerMap,
+  valueOpts?: Partial<ValueOpts>
+): BoardState {
+  assertSupportedDraft(cfg.draft)
+  const teams = cfg.draft.settings.teams
+  const rounds = cfg.draft.settings.rounds
+  const totalPicks = teams * rounds
+
+  const picksByNo: Record<number, SleeperPick> = {}
+  for (let i = 0; i < picks.length; i++) {
+    const p = picks[i]
+    if (p.pick_no < 1 || p.pick_no > totalPicks) throw new Error(`pick_no ${p.pick_no} out of range 1..${totalPicks}`)
+    if (picksByNo[p.pick_no]) throw new Error(`duplicate pick_no ${p.pick_no} in picks feed`)
+    picksByNo[p.pick_no] = p
+  }
+
+  // Lowest unfilled pick number — robust to a non-contiguous feed (keepers).
+  let currentPickNo = totalPicks + 1
+  for (let n = 1; n <= totalPicks; n++) {
+    if (!picksByNo[n]) {
+      currentPickNo = n
+      break
+    }
+  }
+  const currentRound = Math.min(rounds, Math.floor((currentPickNo - 1) / teams) + 1)
+
+  const posCountsByRoster: Record<number, Record<Position, number>> = {}
+  const pickedIds: Record<string, boolean> = {}
+  const myRoster = myRosterId(cfg.draft, cfg.myUserId)
+  const myRosterIds: string[] = []
+  for (let i = 0; i < picks.length; i++) {
+    const p = picks[i]
+    pickedIds[p.player_id] = true
+    const rosterId = p.roster_id
+    const pos = positionOfPick(p, players)
+    if (rosterId !== null && rosterId !== undefined) {
+      if (!posCountsByRoster[rosterId]) posCountsByRoster[rosterId] = emptyCounts()
+      posCountsByRoster[rosterId][pos]++
+      if (rosterId === myRoster) myRosterIds.push(p.player_id)
+    }
+  }
+  const myPosCounts = posCountsByRoster[myRoster] || emptyCounts()
+
+  const myPickNos = myPickNumbers(cfg)
+  const myRemainingPickNos = myPickNos.filter((n) => n >= currentPickNo)
+
+  // Available pool, valued off the board.
+  const searchRankById: Record<string, number | null> = {}
+  const allIds = Object.keys(players)
+  for (let i = 0; i < allIds.length; i++) {
+    searchRankById[allIds[i]] = players[allIds[i]].search_rank
+  }
+  const valuer = buildValuer(board, searchRankById, valueOpts)
+
+  const boardRankById: Record<string, number> = {}
+  const tierById: Record<string, number> = {}
+  for (let i = 0; i < board.players.length; i++) {
+    boardRankById[board.players[i].player_id] = board.players[i].rank
+    tierById[board.players[i].player_id] = board.players[i].tier
+  }
+
+  const pool: PoolPlayer[] = []
+  for (let i = 0; i < allIds.length; i++) {
+    const id = allIds[i]
+    if (pickedIds[id]) continue
+    const p = players[id]
+    const onBoardValue = valuer.valueForBoardPlayer(id)
+    const searchRank = typeof p.search_rank === 'number' ? p.search_rank : OFF_BOARD_SEARCH_RANK
+    const value = onBoardValue !== null ? onBoardValue : valuer.valueForOffBoard(searchRank)
+    pool.push({
+      player_id: id,
+      name: p.full_name || `${p.first_name || ''} ${p.last_name || ''}`.trim() || id,
+      pos: p.position,
+      team: p.team,
+      value,
+      offBoard: onBoardValue === null,
+      tier: tierById[id] !== undefined ? tierById[id] : null,
+      boardRank: boardRankById[id] !== undefined ? boardRankById[id] : null,
+      searchRank,
+      injuryStatus: p.injury_status,
+      status: p.status,
+    })
+  }
+  // Value desc; deterministic tie-breaks by searchRank then player_id.
+  pool.sort((a, b) => b.value - a.value || a.searchRank - b.searchRank || (a.player_id < b.player_id ? -1 : 1))
+
+  return {
+    cfg,
+    board,
+    totalPicks,
+    picksByNo,
+    currentPickNo,
+    currentRound,
+    myPickNos,
+    myRemainingPickNos,
+    myRosterIds,
+    myPosCounts,
+    posCountsByRoster,
+    pool,
+  }
+}
