@@ -1,0 +1,25 @@
+{
+ "league_id": "992218083563216896",
+ "name": "LadsLadsLads",
+ "season": "2023",
+ "status": "complete",
+ "previous_league_id": "798545046239588352",
+ "draft_id": "992218083563216897",
+ "total_rosters": 12,
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "K",
+  "DEF",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ]
+}

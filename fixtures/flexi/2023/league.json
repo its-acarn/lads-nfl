@@ -1,0 +1,33 @@
+{
+ "league_id": "943648270117601280",
+ "name": "I’m bringing Flexi back",
+ "season": "2023",
+ "status": "complete",
+ "previous_league_id": "0",
+ "draft_id": "1003008896862244864",
+ "total_rosters": 10,
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "FLEX",
+  "FLEX",
+  "SUPER_FLEX",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ]
+}

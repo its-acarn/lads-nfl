@@ -1,0 +1,104 @@
+{
+ "season": 2026,
+ "leagueId": "<2026 lads league id>",
+ "draftId": "<2026 draft id>",
+ "myUserId": "<andrew's sleeper user_id>",
+ "players": [
+  {
+   "name": "Bijan Robinson",
+   "pos": "RB",
+   "team": "ATL",
+   "tier": 1,
+   "rank": 1,
+   "player_id": "9509"
+  },
+  {
+   "name": "Jahmyr Gibbs",
+   "pos": "RB",
+   "team": "DET",
+   "tier": 1,
+   "rank": 2,
+   "player_id": "9221"
+  },
+  {
+   "name": "Ja'Marr Chase",
+   "pos": "WR",
+   "team": "CIN",
+   "tier": 1,
+   "rank": 3,
+   "player_id": "7564"
+  },
+  {
+   "name": "Jonathan Taylor",
+   "pos": "RB",
+   "team": "IND",
+   "tier": 2,
+   "rank": 4,
+   "player_id": "6813"
+  },
+  {
+   "name": "James Cook",
+   "pos": "RB",
+   "team": "BUF",
+   "tier": 2,
+   "rank": 5,
+   "player_id": "8138"
+  },
+  {
+   "name": "Puka Nacua",
+   "pos": "WR",
+   "team": "LAR",
+   "tier": 2,
+   "rank": 6,
+   "player_id": "9493"
+  },
+  {
+   "name": "Jaxon Smith-Njigba",
+   "pos": "WR",
+   "team": "SEA",
+   "tier": 2,
+   "rank": 7,
+   "player_id": "9488"
+  },
+  {
+   "name": "Derrick Henry",
+   "pos": "RB",
+   "team": "BAL",
+   "tier": 3,
+   "rank": 8,
+   "player_id": "3198"
+  },
+  {
+   "name": "CeeDee Lamb",
+   "pos": "WR",
+   "team": "DAL",
+   "tier": 3,
+   "rank": 9,
+   "player_id": "6786"
+  },
+  {
+   "name": "Josh Allen",
+   "pos": "QB",
+   "team": "BUF",
+   "tier": 3,
+   "rank": 10,
+   "player_id": "4984"
+  }
+ ],
+ "doNotDraftIds": [],
+ "pins": [],
+ "rules": {
+  "maxByPos": {
+   "QB": 2,
+   "RB": 6,
+   "WR": 6,
+   "TE": 2,
+   "K": 1,
+   "DEF": 1
+  },
+  "minRoundK": 13,
+  "minRoundDEF": 12,
+  "stashRound": 12,
+  "offBoardDiscount": 0.8
+ }
+}
