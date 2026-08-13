@@ -65,6 +65,7 @@ poll /draft/<id> + /picks ──> state.ts ──> recommend.ts ──> notifier
   "season": 2026,
   "leagueId": "<2026 lads league id>",
   "draftId": "<2026 draft id>",
+  "myUserId": "<andrew's sleeper user_id>",
   "players": [
     { "name": "Bijan Robinson", "pos": "RB", "team": "ATL", "tier": 1, "rank": 1 }
     // rank is overall 1..N; tier is per-position or overall — resolver validates monotonicity
@@ -93,7 +94,8 @@ Known fixture set on day one: lads 2022/2023/2024 + flexi 2023/2024 = **five com
 
 ```ts
 buildState(cfg: DraftConfig, picks: SleeperPick[], board: ResolvedBoard, players: PlayerMap): BoardState
-myPickNumbers(cfg: DraftConfig): number[]            // snake/linear + reversal_round + traded slots
+myPickNumbers(cfg: DraftConfig): number[]            // snake/linear + reversal_round + traded slots;
+                                                     // my slot = draft.draft_order[cfg.myUserId]
 needWeights(state: BoardState): Record<Position, number>
 survival(state: BoardState, opts: SimOpts): SurvivalReport  // P(available at my next pick) per player,
                                                             // E[best value at my next pick] per position
@@ -132,7 +134,7 @@ type DraftMessage =
 
 **Goal:** given a board state, produce the pick a competent drafter would make, deterministically under a fixed seed.
 
-1. **`snake.ts`** — pick-number math: snake + linear, `reversal_round` (3RR), traded picks from `traded_picks.json`, keeper picks (arrive pre-filled in the picks feed with `is_keeper`). Rejects `type: "auction"` loudly.
+1. **`snake.ts`** — pick-number math: snake + linear, `reversal_round` (3RR), traded picks from `traded_picks.json`, keeper picks (arrive pre-filled in the picks feed with `is_keeper`). My slot comes from `draft.draft_order[myUserId]` — hard error at LOAD if the configured `user_id` is missing from that map. Rejects `type: "auction"` loudly.
 2. **`state.ts`** — fold the picks feed into: available pool, every roster's positional counts, my roster, current pick number, my remaining pick numbers, picks-until-my-next.
 3. **`needs.ts`** — from `roster_positions`: unfilled dedicated starter → 1.0; FLEX-eligible while FLEX unfilled → 0.75; bench depth decays 0.5 / 0.35 / 0.2 by count already held; position at `maxByPos` cap → 0. Flex eligibility map: `FLEX = {RB,WR,TE}`, `SUPER_FLEX = {QB,RB,WR,TE}`, `REC_FLEX = {WR,TE}`, `WRRB_FLEX = {RB,WR}`; IDP slots → hard error (not this league). **Forced mode:** when `roundsRemaining == mandatoryUnfilledCount`, the candidate set collapses to unfilled mandatory positions — this is what stops the bot skipping K/DEF into an illegal lineup.
 4. **`value.ts`** — on-board value: plateau per tier with geometric decay (tier 1 = 100, each tier × 0.85 — tunable), minus a small within-tier rank epsilon so ordering is stable. Off-board players: interpolate onto the board's value curve by ADP (`search_rank` proxy) × `offBoardDiscount`, always flagged `offBoard: true` in output.
@@ -160,7 +162,7 @@ type DraftMessage =
 
 1. **`notifier.ts`** — `Notifier { send(msg: DraftMessage): Promise<void> }`; `ConsoleNotifier` with timestamped, phone-width formatting (the copy is the deliverable — Phase 4 channels reuse it verbatim).
 2. **Poller** — 3 s interval + jitter; exponential backoff 2→4→8→30 s on 429/5xx; `AbortController` timeouts; after 5 consecutive failures emit `bot_error` and keep retrying. Draft pause/resume tracked from `draft.status`.
-3. **State machine** (below). On-clock detection: `picks.length + 1` is mine ⇒ send `on_clock`. Sleeper's public API exposes no pick clock, so escalation timers are a **local stopwatch** from on-clock detection (escalate at 40 s, re-escalate at 90 s).
+3. **State machine** (below). On-clock detection: the lowest **unfilled** pick number equals one of mine ⇒ send `on_clock` — keyed on pick numbers, never `picks.length + 1`, so a non-contiguous feed (e.g. pre-filled keeper picks) can't shift the count. Sleeper's public API exposes the configured clock length (`draft.settings.pick_timer`, seconds) but not elapsed time, so escalation timers are a **local stopwatch** from on-clock detection, with thresholds derived from `pick_timer` (escalate at ~1/3, re-escalate at ~3/4 of the clock — 40 s / 90 s on the typical 120 s timer; those remain the fallbacks if `pick_timer` is 0/absent, i.e. no clock).
 4. **Idempotency & crash safety** — every message keyed `(kind, pickNo)`; a sent-log persisted to disk means a crashed-and-restarted bot rebuilds state from the picks feed and never re-spams. All state is derivable from `picks` + sent-log.
 5. **Verify loop** — when my pick lands: matches instruction (primary or a fallback) ⇒ `pick_confirmed`; anything else ⇒ `pick_mismatch`, and the engine recomputes from the roster actually held.
 6. **Dry-run mode** — `npm run bot -- --dry-run --fixtures fixtures/lads/2024 --speed 60` replays a fixture through the *real* poller/state machine on an accelerated clock. This is how the whole loop is tested end-to-end offline, and the demo gate for the phase.
@@ -172,8 +174,8 @@ stateDiagram-v2
     WAIT_START --> TRACK: status drafting
     TRACK --> TRACK: new picks -> rebuild state
     TRACK --> HEADS_UP: my pick <= 3 away (once)
-    HEADS_UP --> ON_CLOCK: picks.length + 1 == my pick
-    ON_CLOCK --> ON_CLOCK: 40s/90s local timer -> escalate
+    HEADS_UP --> ON_CLOCK: lowest unfilled pick == mine
+    ON_CLOCK --> ON_CLOCK: local timer at 1/3 + 3/4 of pick_timer -> escalate
     ON_CLOCK --> VERIFY: my pick appears in feed
     VERIFY --> TRACK: confirmed or mismatch (recompute)
     TRACK --> PAUSED: status paused
@@ -201,7 +203,7 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 |---|---|---|
 | `search_rank` is a weak ADP proxy | Survival estimates off | Calibration vs 5 real drafts (Phase 2); temperature scaling from observed reach; fallbacks absorb residual error |
 | Sleeper response shapes drift from fixtures | Live crash | Loud validators at every parse; `bot_error` messages rather than silent death; fixtures refreshed close to draft day |
-| No pick clock in public API | Escalation timing is approximate | Local stopwatch from on-clock detection; conservative 40 s first nudge |
+| No *elapsed* pick clock in public API (`settings.pick_timer` gives length only) | Escalation timing is approximate | Local stopwatch from on-clock detection; thresholds at ~1/3 and ~3/4 of `pick_timer`, 40 s/90 s fallback when no clock |
 | Commissioner mis-picks or autodraft fires first | Wrong roster assumed | Verify step + `pick_mismatch` + recompute from actual roster |
 | Andrew's board has unresolvable names | Bad or missing values | Resolver hard-fails with a per-name report; no guessing |
 | League is auction, IDP, or otherwise odd | Engine assumptions break | Hard errors on unsupported `type`/slots at LOAD, not mid-draft |
@@ -210,9 +212,10 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 ## 12. Inputs needed from Andrew
 
 1. **2026 lads league ID + draft ID** (`config/config.ts` currently ends at 2024).
-2. **The tiered board** — any format with name/pos/tier (+ optional overall rank); resolver handles the rest.
-3. Confirmation the 2026 league has **no keepers/IDP/auction** surprises (or say so, and Phase 1 scopes them in).
-4. (Optional, Phase 4) mock-draft observation of autodraft queue behaviour — only affects the fallback queue.
+2. **Andrew's Sleeper `user_id`** (or username, resolved once via `/user/<username>`) — `myPickNumbers()` needs it to find the draft slot in `draft.draft_order`. Display-name matching is possible but ambiguous; an explicit id is one config field.
+3. **The tiered board** — any format with name/pos/tier (+ optional overall rank); resolver handles the rest.
+4. Confirmation the 2026 league has **no keepers/IDP/auction** surprises (or say so, and Phase 1 scopes them in).
+5. (Optional, Phase 4) mock-draft observation of autodraft queue behaviour — only affects the fallback queue.
 
 ## 13. Decision log
 
