@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export"
+    "export": "next export",
+    "test": "vitest run",
+    "fixtures": "tsx scripts/fetchFixtures.ts",
+    "resolve-board": "tsx scripts/resolveBoard.ts",
+    "replay": "tsx scripts/replay.ts",
+    "bot": "tsx scripts/draftbot.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -45,6 +50,8 @@
     "@types/styled-components": "^5.1.26",
     "eslint": "8.23.1",
     "eslint-config-next": "^13.5.6",
-    "typescript": "4.8.3"
+    "tsx": "^4.23.12",
+    "typescript": "4.8.3",
+    "vitest": "^2.1.9"
   }
 }

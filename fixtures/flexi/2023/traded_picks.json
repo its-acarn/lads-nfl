@@ -1,0 +1,26 @@
+[
+ {
+  "round": 3,
+  "season": "2023",
+  "draft_id": 1003008896862244900,
+  "roster_id": 1,
+  "owner_id": 5,
+  "previous_owner_id": 1
+ },
+ {
+  "round": 4,
+  "season": "2023",
+  "draft_id": 1003008896862244900,
+  "roster_id": 1,
+  "owner_id": 6,
+  "previous_owner_id": 1
+ },
+ {
+  "round": 2,
+  "season": "2023",
+  "draft_id": 1003008896862244900,
+  "roster_id": 3,
+  "owner_id": 8,
+  "previous_owner_id": 3
+ }
+]

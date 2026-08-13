@@ -1,0 +1,73 @@
+{
+ "created": 1644750484575,
+ "creators": [
+  "607175319979364352"
+ ],
+ "draft_id": "798545046239588353",
+ "draft_order": {
+  "343030530742226944": 1,
+  "343060966679908352": 6,
+  "343095636201152512": 12,
+  "343155561086468096": 2,
+  "606994681867337728": 11,
+  "607175319979364352": 8,
+  "607210515017592832": 9,
+  "607239949397319680": 5,
+  "607299959171137536": 7,
+  "82919512949014528": 3,
+  "83214854349275136": 4,
+  "91526980289576960": 10
+ },
+ "last_message_id": "866478234693304320",
+ "last_message_time": 1660947018840,
+ "last_picked": 1660947018165,
+ "league_id": "798545046239588352",
+ "metadata": {
+  "description": "",
+  "name": "LadsLadsLads",
+  "scoring_type": "half_ppr"
+ },
+ "season": "2022",
+ "season_type": "regular",
+ "settings": {
+  "alpha_sort": 0,
+  "autopause_enabled": 0,
+  "autopause_end_time": 540,
+  "autopause_start_time": 1260,
+  "autostart": 0,
+  "cpu_autopick": 1,
+  "enforce_position_limits": 1,
+  "nomination_timer": 60,
+  "pick_timer": 120,
+  "player_type": 0,
+  "reversal_round": 0,
+  "rounds": 14,
+  "slots_bn": 5,
+  "slots_def": 1,
+  "slots_flex": 1,
+  "slots_k": 1,
+  "slots_qb": 1,
+  "slots_rb": 2,
+  "slots_te": 1,
+  "slots_wr": 2,
+  "teams": 12
+ },
+ "slot_to_roster_id": {
+  "1": 4,
+  "2": 3,
+  "3": 6,
+  "4": 7,
+  "5": 11,
+  "6": 9,
+  "7": 12,
+  "8": 1,
+  "9": 10,
+  "10": 8,
+  "11": 2,
+  "12": 5
+ },
+ "sport": "nfl",
+ "start_time": 1660939246201,
+ "status": "complete",
+ "type": "snake"
+}

@@ -1,0 +1,73 @@
+{
+ "created": 1704884285040,
+ "creators": [
+  "607175319979364352"
+ ],
+ "draft_id": "1050764486069710849",
+ "draft_order": {
+  "343030530742226944": 10,
+  "343060966679908352": 6,
+  "343095636201152512": 11,
+  "343155561086468096": 7,
+  "606994681867337728": 12,
+  "607175319979364352": 4,
+  "607210515017592832": 8,
+  "607239949397319680": 9,
+  "607299959171137536": 2,
+  "82919512949014528": 3,
+  "83214854349275136": 5,
+  "91526980289576960": 1
+ },
+ "last_message_id": "1135721287512264704",
+ "last_message_time": 1725139564925,
+ "last_picked": 1725139564194,
+ "league_id": "1050764486069710848",
+ "metadata": {
+  "description": "",
+  "name": "LadsLadsLads",
+  "scoring_type": "half_ppr"
+ },
+ "season": "2024",
+ "season_type": "regular",
+ "settings": {
+  "alpha_sort": 0,
+  "autopause_enabled": 0,
+  "autopause_end_time": 540,
+  "autopause_start_time": 1260,
+  "autostart": 1,
+  "cpu_autopick": 1,
+  "enforce_position_limits": 1,
+  "nomination_timer": 60,
+  "pick_timer": 120,
+  "player_type": 0,
+  "reversal_round": 0,
+  "rounds": 14,
+  "slots_bn": 5,
+  "slots_def": 1,
+  "slots_flex": 1,
+  "slots_k": 1,
+  "slots_qb": 1,
+  "slots_rb": 2,
+  "slots_te": 1,
+  "slots_wr": 2,
+  "teams": 12
+ },
+ "slot_to_roster_id": {
+  "1": 8,
+  "2": 12,
+  "3": 6,
+  "4": 1,
+  "5": 7,
+  "6": 9,
+  "7": 3,
+  "8": 10,
+  "9": 11,
+  "10": 4,
+  "11": 5,
+  "12": 2
+ },
+ "sport": "nfl",
+ "start_time": 1725130814174,
+ "status": "complete",
+ "type": "snake"
+}

@@ -1,0 +1,69 @@
+{
+ "created": 1693498465318,
+ "creators": [
+  "343030530742226944",
+  "343155561086468096"
+ ],
+ "draft_id": "1003008896862244864",
+ "draft_order": {
+  "343030530742226944": 7,
+  "343060966679908352": 1,
+  "343155561086468096": 10,
+  "607210515017592832": 8,
+  "82919512949014528": 4,
+  "868067093839499264": 5,
+  "951447809096601600": 6,
+  "960996276198244352": 9,
+  "967212552092475392": 3
+ },
+ "last_message_id": "1004449757462294528",
+ "last_message_time": 1693841993254,
+ "last_picked": 1693841992731,
+ "league_id": "943648270117601280",
+ "metadata": {
+  "description": "",
+  "name": "I’m bringing Flexi back",
+  "scoring_type": "dynasty_2qb"
+ },
+ "season": "2023",
+ "season_type": "regular",
+ "settings": {
+  "alpha_sort": 0,
+  "autopause_enabled": 1,
+  "autopause_end_time": 360,
+  "autopause_start_time": 1320,
+  "autostart": 1,
+  "cpu_autopick": 1,
+  "enforce_position_limits": 1,
+  "nomination_timer": 60,
+  "pick_timer": 28800,
+  "player_type": 0,
+  "reversal_round": 0,
+  "rounds": 4,
+  "slots_bn": 12,
+  "slots_flex": 3,
+  "slots_qb": 1,
+  "slots_rb": 2,
+  "slots_super_flex": 1,
+  "slots_te": 1,
+  "slots_wr": 2,
+  "teams": 10
+ },
+ "slot_to_roster_id": {
+  "1": 3,
+  "2": 5,
+  "3": 10,
+  "4": 7,
+  "5": 4,
+  "6": 8,
+  "7": 2,
+  "8": 6,
+  "9": 9,
+  "10": 1,
+  "": null
+ },
+ "sport": "nfl",
+ "start_time": 1693498857567,
+ "status": "complete",
+ "type": "snake"
+}

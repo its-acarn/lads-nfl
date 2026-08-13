@@ -1,0 +1,67 @@
+{
+ "created": 1599124415131,
+ "creators": [
+  "607175319979364352"
+ ],
+ "draft_id": "607175440704036864",
+ "draft_order": {
+  "343030530742226944": 10,
+  "343060966679908352": 3,
+  "343095636201152512": 9,
+  "343155561086468096": 6,
+  "606994681867337728": 2,
+  "607175319979364352": 7,
+  "607210515017592832": 1,
+  "607239949397319680": 12,
+  "607299959171137536": 5,
+  "82919512949014528": 11,
+  "83214854349275136": 4,
+  "91526980289576960": 8
+ },
+ "last_message_id": "608088410996887552",
+ "last_message_time": 1599342084219,
+ "last_picked": 1599342083820,
+ "league_id": "607175439160524800",
+ "metadata": {
+  "description": "",
+  "name": "LadsLadsLads",
+  "scoring_type": "half_ppr"
+ },
+ "season": "2020",
+ "season_type": "regular",
+ "settings": {
+  "alpha_sort": 0,
+  "cpu_autopick": 1,
+  "pick_timer": 120,
+  "player_type": 0,
+  "reversal_round": 0,
+  "rounds": 14,
+  "slots_bn": 5,
+  "slots_def": 1,
+  "slots_flex": 1,
+  "slots_k": 1,
+  "slots_qb": 1,
+  "slots_rb": 2,
+  "slots_te": 1,
+  "slots_wr": 2,
+  "teams": 12
+ },
+ "slot_to_roster_id": {
+  "1": 10,
+  "2": 2,
+  "3": 9,
+  "4": 7,
+  "5": 12,
+  "6": 3,
+  "7": 1,
+  "8": 8,
+  "9": 5,
+  "10": 4,
+  "11": 6,
+  "12": 11
+ },
+ "sport": "nfl",
+ "start_time": 1599332915821,
+ "status": "complete",
+ "type": "snake"
+}

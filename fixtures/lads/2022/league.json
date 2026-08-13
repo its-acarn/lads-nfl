@@ -1,0 +1,25 @@
+{
+ "league_id": "798545046239588352",
+ "name": "LadsLadsLads",
+ "season": "2022",
+ "status": "complete",
+ "previous_league_id": "726147788903157760",
+ "draft_id": "798545046239588353",
+ "total_rosters": 12,
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "K",
+  "DEF",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ]
+}
