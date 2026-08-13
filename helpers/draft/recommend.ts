@@ -50,8 +50,8 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
 
   const shape = parseLineup(state.cfg.rosterPositions)
   const needs = computeNeeds(state.myPosCounts, shape, rules)
-  const forced = isForcedMode(state.myRemainingPickNos.length, needs)
-  const forcedSet: Position[] = forced ? forcedPositions(needs) : []
+  let forced = isForcedMode(state.myRemainingPickNos.length, needs)
+  let forcedSet: Position[] = forced ? forcedPositions(needs) : []
 
   const globalRationale: string[] = []
   if (forced) {
@@ -59,6 +59,58 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
       `forced mode: ${state.myRemainingPickNos.length} pick(s) left for ${needs.unfilledMandatoryCount} unfilled starter slot(s) (${forcedSet.join(', ')})`
     )
   }
+
+  // Schedule-forced: my raw pick count may cover the unfilled starters, but
+  // only the picks that land BEFORE a position's supply runs out actually
+  // count for it. Supply horizon per position ~ the worst ADP among its
+  // remaining players (in a market replay that IS the pick number where the
+  // last one goes; live it is the usual rooms-draft-near-ADP approximation).
+  // When the union of still-viable picks is no bigger than the number of
+  // unfilled starter slots, collapse now instead of at the last pick.
+  if (!forced && needs.unfilledMandatoryCount > 0) {
+    const unfilled = forcedPositions(needs)
+    const viableUnion: Record<number, boolean> = {}
+    for (let u = 0; u < unfilled.length; u++) {
+      let horizon = 0
+      for (let i = 0; i < state.pool.length; i++) {
+        const p = state.pool[i]
+        if (p.pos === unfilled[u] && p.searchRank > horizon && p.searchRank < 1000000) {
+          horizon = p.searchRank
+        }
+      }
+      for (let n = 0; n < state.myRemainingPickNos.length; n++) {
+        if (state.myRemainingPickNos[n] <= horizon) viableUnion[state.myRemainingPickNos[n]] = true
+      }
+    }
+    if (Object.keys(viableUnion).length <= needs.unfilledMandatoryCount) {
+      forced = true
+      forcedSet = unfilled
+      globalRationale.push(
+        `forced by scarcity schedule: only ${Object.keys(viableUnion).length} viable pick(s) left for ${needs.unfilledMandatoryCount} unfilled starter slot(s) (${forcedSet.join(', ')})`
+      )
+    }
+  }
+
+  // ---- survival first: guardrails consult it for scarcity overrides -------
+  const report = survival(state, opts)
+
+  // Scarcity override: an unfilled mandatory position whose entire remaining
+  // pool fits inside the sim (<= 5 players) and is predicted extinct by my
+  // next pick may ignore its round floor. A real player universe never gets
+  // this thin; a market-pool replay (only drafted players exist) does, and a
+  // competent drafter grabs the last one when the run starts.
+  const poolCountByPos: Record<Position, number> = { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
+  for (let i = 0; i < state.pool.length; i++) poolCountByPos[state.pool[i].pos]++
+  const isUrgent = (pos: Position): boolean =>
+    needs.unfilledMandatory[pos] > 0 &&
+    report.myNextPickNo !== null &&
+    report.expectedBestValueByPos[pos] < 1e-9 &&
+    poolCountByPos[pos] > 0 &&
+    poolCountByPos[pos] <= 5
+  const urgentK = isUrgent('K')
+  const urgentDEF = isUrgent('DEF')
+  if (urgentK) globalRationale.push('scarcity override: last K(s) on the market, floor waived')
+  if (urgentDEF) globalRationale.push('scarcity override: last DEF(s) on the market, floor waived')
 
   // ---- guardrails ---------------------------------------------------------
   const eligible: PoolPlayer[] = []
@@ -69,8 +121,8 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     if (forced) {
       if (forcedSet.indexOf(p.pos) === -1) continue
     } else {
-      if (p.pos === 'K' && round < rules.minRoundK) continue
-      if (p.pos === 'DEF' && round < rules.minRoundDEF) continue
+      if (p.pos === 'K' && round < rules.minRoundK && !urgentK) continue
+      if (p.pos === 'DEF' && round < rules.minRoundDEF && !urgentDEF) continue
     }
     if (round < rules.stashRound && isStashOnly(p)) continue
     eligible.push(p)
@@ -90,9 +142,7 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   }
   candidates = candidates.slice(0, opts.candidateLimit)
 
-  // ---- survival + scoring -------------------------------------------------
-  const report = survival(state, opts)
-
+  // ---- scoring ------------------------------------------------------------
   const scored: { p: PoolPlayer; score: number }[] = []
   for (let i = 0; i < candidates.length; i++) {
     const p = candidates[i]

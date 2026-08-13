@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`golden replay transcript: lads/2024 slot 1 > agreement transcript is stable 1`] = `
+"pick   1 R 1 actual: RB Christian McCaffrey | engine: RB Christian McCaffrey -> primary
+pick  24 R 2 actual: WR Mike Evans | engine: WR Mike Evans -> primary
+pick  25 R 3 actual: WR Brandon Aiyuk | engine: QB Josh Allen -> miss
+pick  48 R 4 actual: QB Jalen Hurts | engine: QB Jalen Hurts -> primary
+pick  49 R 5 actual: WR Stefon Diggs | engine: TE Trey McBride -> miss
+pick  72 R 6 actual: RB Zamir White | engine: RB Zamir White -> primary
+pick  73 R 7 actual: WR Zay Flowers | engine: QB Joe Burrow -> miss
+pick  96 R 8 actual: WR Keenan Allen | engine: WR Keenan Allen -> primary
+pick  97 R 9 actual: RB Jonathon Brooks | engine: TE Brock Bowers -> miss
+pick 120 R10 actual: WR Mike Williams | engine: WR Mike Williams -> primary
+pick 121 R11 actual: RB Zach Charbonnet | engine: QB Caleb Williams -> top3
+pick 144 R12 actual: DEF San Francisco 49ers | engine: DEF San Francisco 49ers [forced] -> primary
+pick 145 R13 actual: RB Dameon Pierce | engine: K Harrison Butker [forced] -> miss
+pick 168 R14 actual: TE Taysom Hill | engine: TE Taysom Hill [forced] -> primary
+rates: primary 57% top3 64% pos 64%"
+`;
+
+exports[`golden replay transcript: lads/2024 slot 1 > counterfactual transcript is stable and beats the real roster 1`] = `
+"pick   1 R 1 RB Christian McCaffrey (100.0)
+pick  24 R 2 WR Mike Evans (84.8)
+pick  25 R 3 QB Josh Allen (71.9)
+pick  48 R 4 WR Brandon Aiyuk (72.0)
+pick  49 R 5 TE Trey McBride (51.7)
+pick  72 R 6 QB Jalen Hurts (60.9)
+pick  73 R 7 WR Stefon Diggs (51.7)
+pick  96 R 8 RB Zamir White (43.7)
+pick  97 R 9 WR Zay Flowers (37.0)
+pick 120 R10 WR Keenan Allen (31.1)
+pick 121 R11 RB Jonathon Brooks (26.3)
+pick 144 R12 DEF San Francisco 49ers (15.3) [forced]
+pick 145 R13 K Harrison Butker (12.8) [forced]
+pick 168 R14 TE Taysom Hill (10.4)
+value: engine 669.5 vs real 586.3"
+`;

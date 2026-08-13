@@ -229,6 +229,11 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 | Value function | Tier plateaus, geometric decay, rank epsilon | Uses exactly the information Andrew's board encodes; tunable in Phase 2 |
 | Opponent model | Gumbel-perturbed ADP order, calibrated temperature | Simple, fast, calibratable against 5 real drafts |
 | Byes | Deferred (optional 0.97 backup-collision multiplier later) | Marginal in redraft; not worth v1 complexity |
+| Synthetic replay tiers | Tier = draft round (not per-position gap cuts) | Tier feeds the value curve, which must stay monotone in overall market order; a per-position tier index would hand tier-1 value to a round-13 kicker |
+| Replay reachScale | Neutral (1.0) in replay; live calibration vs the real board | The market board's ADP is the realized pick order, so observed displacement is 0 by construction there |
+| Replay lineup check | Parity rule: missing starter counts only if the real roster filled it | Market pools contain only drafted players (lads 2023: 8 Ks for 12 teams) — some lineups are genuinely unfillable in replay |
+| Schedule-forced mode | Forced collapse also fires when the union of my picks that land before each unfilled starter's supply horizon can only just cover those slots | One-pick-ahead VONA defers K/DEF into extinction during late runs; the 2023/2024 replays proved it |
+| Temperature defaults | base 3, slope 0.02/pick | Phase 2 calibration: rooms pick close to market order (weighted MAE 5.5pts across 46k samples) |
 | Keepers | None in 2026 (confirmed by Andrew); `is_keeper` picks still folded into state defensively | Costs nothing and protects the pick-number math if a surprise appears in the feed |
 | Confirmation loop | Via Sleeper picks feed only | API is read-only; also removes any need for inbound webhooks |
 | Message copy | Finalised in Phase 3 console output | WhatsApp/Telegram in Phase 4 reuse strings verbatim |
