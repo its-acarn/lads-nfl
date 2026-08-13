@@ -134,7 +134,7 @@ type DraftMessage =
 
 **Goal:** given a board state, produce the pick a competent drafter would make, deterministically under a fixed seed.
 
-1. **`snake.ts`** — pick-number math: snake + linear, `reversal_round` (3RR), traded picks from `traded_picks.json`, keeper picks (arrive pre-filled in the picks feed with `is_keeper`). My slot comes from `draft.draft_order[myUserId]` — hard error at LOAD if the configured `user_id` is missing from that map. Rejects `type: "auction"` loudly.
+1. **`snake.ts`** — pick-number math: snake + linear, `reversal_round` (3RR), traded picks from `traded_picks.json`, keeper picks (arrive pre-filled in the picks feed with `is_keeper` — none expected in 2026, confirmed, but folding them into state is free so they're handled defensively). My slot comes from `draft.draft_order[myUserId]` — hard error at LOAD if the configured `user_id` is missing from that map. Rejects `type: "auction"` loudly.
 2. **`state.ts`** — fold the picks feed into: available pool, every roster's positional counts, my roster, current pick number, my remaining pick numbers, picks-until-my-next.
 3. **`needs.ts`** — from `roster_positions`: unfilled dedicated starter → 1.0; FLEX-eligible while FLEX unfilled → 0.75; bench depth decays 0.5 / 0.35 / 0.2 by count already held; position at `maxByPos` cap → 0. Flex eligibility map: `FLEX = {RB,WR,TE}`, `SUPER_FLEX = {QB,RB,WR,TE}`, `REC_FLEX = {WR,TE}`, `WRRB_FLEX = {RB,WR}`; IDP slots → hard error (not this league). **Forced mode:** when `roundsRemaining == mandatoryUnfilledCount`, the candidate set collapses to unfilled mandatory positions — this is what stops the bot skipping K/DEF into an illegal lineup.
 4. **`value.ts`** — on-board value: plateau per tier with geometric decay (tier 1 = 100, each tier × 0.85 — tunable), minus a small within-tier rank epsilon so ordering is stable. Off-board players: interpolate onto the board's value curve by ADP (`search_rank` proxy) × `offBoardDiscount`, always flagged `offBoard: true` in output.
@@ -214,7 +214,7 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 1. **2026 lads league ID + draft ID** (`config/config.ts` currently ends at 2024).
 2. **Andrew's Sleeper `user_id`** (or username, resolved once via `/user/<username>`) — `myPickNumbers()` needs it to find the draft slot in `draft.draft_order`. Display-name matching is possible but ambiguous; an explicit id is one config field.
 3. **The tiered board** — any format with name/pos/tier (+ optional overall rank); resolver handles the rest.
-4. Confirmation the 2026 league has **no keepers/IDP/auction** surprises (or say so, and Phase 1 scopes them in).
+4. ~~Keepers~~ **Confirmed: no keepers in the 2026 league** (Andrew, Aug 2026). Still outstanding: confirmation of **no IDP/auction** surprises (or say so, and Phase 1 scopes them in).
 5. (Optional, Phase 4) mock-draft observation of autodraft queue behaviour — only affects the fallback queue.
 
 ## 13. Decision log
@@ -229,5 +229,6 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 | Value function | Tier plateaus, geometric decay, rank epsilon | Uses exactly the information Andrew's board encodes; tunable in Phase 2 |
 | Opponent model | Gumbel-perturbed ADP order, calibrated temperature | Simple, fast, calibratable against 5 real drafts |
 | Byes | Deferred (optional 0.97 backup-collision multiplier later) | Marginal in redraft; not worth v1 complexity |
+| Keepers | None in 2026 (confirmed by Andrew); `is_keeper` picks still folded into state defensively | Costs nothing and protects the pick-number math if a surprise appears in the feed |
 | Confirmation loop | Via Sleeper picks feed only | API is read-only; also removes any need for inbound webhooks |
 | Message copy | Finalised in Phase 3 console output | WhatsApp/Telegram in Phase 4 reuse strings verbatim |
