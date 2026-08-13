@@ -1,0 +1,198 @@
+// The decision rule behind every instruction:
+//   score(p) = (V(p) − E[best V at pos(p) at my next pick]) × need(pos(p))
+// over the guardrail-filtered candidate set, with pins and forced mode on
+// top. Position-best candidates always have edge ≥ 0 (the pool only
+// shrinks), so cross-position comparison is anchored by non-negative edges.
+
+import { computeNeeds, forcedPositions, isForcedMode, parseLineup } from './needs'
+import { roundOf } from './snake'
+import { survival } from './survival'
+import { BoardState, PoolPlayer, Position, Recommendation, Scored, SimOpts } from './types'
+
+// Injury designations that keep a player out of the candidate set before
+// board.rules.stashRound.
+const STASH_INJURY = ['Out', 'IR', 'PUP', 'Sus', 'COV', 'DNR', 'NA']
+const STASH_STATUS = [
+  'Injured Reserve',
+  'Physically Unable to Perform',
+  'Non Football Injury',
+  'Suspended',
+  'Inactive',
+]
+
+function isStashOnly(p: PoolPlayer): boolean {
+  if (p.injuryStatus && STASH_INJURY.indexOf(p.injuryStatus) !== -1) return true
+  if (p.status && STASH_STATUS.indexOf(p.status) !== -1) return true
+  return false
+}
+
+function toScored(p: PoolPlayer, score: number, survivalPct: number | null, rationale: string[]): Scored {
+  return {
+    player_id: p.player_id,
+    name: p.name,
+    pos: p.pos,
+    team: p.team,
+    value: Math.round(p.value * 10) / 10,
+    offBoard: p.offBoard,
+    score: Math.round(score * 100) / 100,
+    survivalToNextPct: survivalPct === null ? null : Math.round(survivalPct * 100),
+    rationale,
+  }
+}
+
+export function recommend(state: BoardState, opts: SimOpts): Recommendation {
+  if (state.myRemainingPickNos.length === 0) {
+    throw new Error('recommend: no remaining picks for my roster')
+  }
+  const pickNo = state.myRemainingPickNos[0]
+  const round = roundOf(state.cfg.draft, pickNo)
+  const rules = state.board.rules
+
+  const shape = parseLineup(state.cfg.rosterPositions)
+  const needs = computeNeeds(state.myPosCounts, shape, rules)
+  const forced = isForcedMode(state.myRemainingPickNos.length, needs)
+  const forcedSet: Position[] = forced ? forcedPositions(needs) : []
+
+  const globalRationale: string[] = []
+  if (forced) {
+    globalRationale.push(
+      `forced mode: ${state.myRemainingPickNos.length} pick(s) left for ${needs.unfilledMandatoryCount} unfilled starter slot(s) (${forcedSet.join(', ')})`
+    )
+  }
+
+  // ---- guardrails ---------------------------------------------------------
+  const eligible: PoolPlayer[] = []
+  for (let i = 0; i < state.pool.length; i++) {
+    const p = state.pool[i]
+    if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
+    if ((state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
+    if (forced) {
+      if (forcedSet.indexOf(p.pos) === -1) continue
+    } else {
+      if (p.pos === 'K' && round < rules.minRoundK) continue
+      if (p.pos === 'DEF' && round < rules.minRoundDEF) continue
+    }
+    if (round < rules.stashRound && isStashOnly(p)) continue
+    eligible.push(p)
+  }
+
+  let candidates = eligible
+  let relaxed = false
+  if (candidates.length === 0) {
+    // Never come back empty mid-draft: relax everything except do-not-draft.
+    relaxed = true
+    for (let i = 0; i < state.pool.length && candidates.length < 10; i++) {
+      const p = state.pool[i]
+      if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
+      candidates.push(p)
+    }
+    globalRationale.push('guardrails relaxed: no legal candidates under current rules')
+  }
+  candidates = candidates.slice(0, opts.candidateLimit)
+
+  // ---- survival + scoring -------------------------------------------------
+  const report = survival(state, opts)
+
+  const scored: { p: PoolPlayer; score: number }[] = []
+  for (let i = 0; i < candidates.length; i++) {
+    const p = candidates[i]
+    const expectedBest = report.myNextPickNo === null ? 0 : report.expectedBestValueByPos[p.pos]
+    const edge = p.value - expectedBest
+    const need = Math.max(needs.weights[p.pos], relaxed ? 0.05 : 0)
+    scored.push({ p, score: edge * need })
+  }
+  scored.sort(
+    (a, b) => b.score - a.score || b.p.value - a.p.value || (a.p.player_id < b.p.player_id ? -1 : 1)
+  )
+
+  // ---- pins override in their round window --------------------------------
+  let pinned: PoolPlayer | null = null
+  for (let i = 0; i < state.board.pins.length; i++) {
+    const pin = state.board.pins[i]
+    if (round < pin.fromRound || round > pin.toRound) continue
+    for (let j = 0; j < state.pool.length; j++) {
+      const p = state.pool[j]
+      if (p.player_id !== pin.player_id) continue
+      if ((state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) break // capped: pin unusable
+      if (pinned === null || p.value > pinned.value) pinned = p
+      break
+    }
+  }
+
+  const rationaleFor = (p: PoolPlayer, score: number): string[] => {
+    const r: string[] = []
+    if (p.tier !== null) {
+      let leftInTier = 0
+      for (let i = 0; i < state.pool.length; i++) {
+        if (state.pool[i].pos === p.pos && state.pool[i].tier === p.tier) leftInTier++
+      }
+      r.push(`${leftInTier} left in ${p.pos} T${p.tier}`)
+    } else {
+      r.push('off-board (ADP interpolation)')
+    }
+    const surv = report.survivalById[p.player_id]
+    if (report.myNextPickNo !== null && surv !== undefined) {
+      r.push(`${Math.round(surv * 100)}% survives to pick ${report.myNextPickNo}`)
+    }
+    const expectedBest = report.myNextPickNo === null ? 0 : report.expectedBestValueByPos[p.pos]
+    if (report.myNextPickNo !== null) {
+      r.push(`edge vs next pick ${(p.value - expectedBest) >= 0 ? '+' : ''}${(p.value - expectedBest).toFixed(1)}`)
+    }
+    if (needs.unfilledMandatory[p.pos] > 0) r.push(`fills ${p.pos} starter slot`)
+    else if (needs.weights[p.pos] === 0.75) r.push('fills flex')
+    else r.push(`bench depth (need ${needs.weights[p.pos].toFixed(2)})`)
+    if (score !== undefined) r.push(`score ${score.toFixed(2)}`)
+    return r
+  }
+
+  const survFor = (p: PoolPlayer): number | null => {
+    const s = report.survivalById[p.player_id]
+    return report.myNextPickNo === null ? null : s !== undefined ? s : null
+  }
+
+  let primary: Scored
+  let rest: { p: PoolPlayer; score: number }[]
+  if (pinned !== null) {
+    const pinScore = scored.filter((s) => s.p.player_id === pinned!.player_id)
+    const score = pinScore.length > 0 ? pinScore[0].score : 0
+    const r = rationaleFor(pinned, score)
+    r.unshift(`pinned for rounds (board pin)`)
+    primary = toScored(pinned, score, survFor(pinned), r)
+    rest = scored.filter((s) => s.p.player_id !== pinned!.player_id)
+  } else {
+    if (scored.length === 0) throw new Error('recommend: empty candidate set even after relaxing guardrails')
+    primary = toScored(scored[0].p, scored[0].score, survFor(scored[0].p), rationaleFor(scored[0].p, scored[0].score))
+    rest = scored.slice(1)
+  }
+
+  // Fallbacks: next two by score; when the top three are effectively tied and
+  // share a position, swap the second fallback for the best other-position
+  // candidate so the relay always has a cross-position out.
+  const fallbacks: Scored[] = []
+  for (let i = 0; i < rest.length && fallbacks.length < 2; i++) {
+    fallbacks.push(toScored(rest[i].p, rest[i].score, survFor(rest[i].p), rationaleFor(rest[i].p, rest[i].score)))
+  }
+  if (fallbacks.length === 2) {
+    const samePos = primary.pos === fallbacks[0].pos && primary.pos === fallbacks[1].pos
+    const spread = Math.abs(primary.score - fallbacks[1].score)
+    const tied = spread <= 0.05 * Math.max(Math.abs(primary.score), 1)
+    if (samePos && tied) {
+      for (let i = 0; i < rest.length; i++) {
+        if (rest[i].p.pos !== primary.pos) {
+          fallbacks[1] = toScored(rest[i].p, rest[i].score, survFor(rest[i].p), rationaleFor(rest[i].p, rest[i].score))
+          fallbacks[1].rationale.push('position diversity (top three tied)')
+          break
+        }
+      }
+    }
+  }
+
+  return {
+    pickNo,
+    round,
+    forced,
+    primary,
+    fallbacks,
+    rationale: globalRationale,
+  }
+}
