@@ -94,7 +94,7 @@ describe('the swap counterfactual holds together', () => {
     }
   })
 
-  it('decides all fourteen of Andrew&apos;s picks and no others', () => {
+  it('decides all fourteen of Andrew\'s picks and no others', () => {
     expect(headline.myPicks.map((p) => p.pickNo)).toEqual(myPickNos)
   })
 

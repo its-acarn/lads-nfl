@@ -58,8 +58,12 @@ comes after the roster has been read.
       run reproduces the real feed byte for byte. Four pick outcomes are
       distinguished: agreed, swapped, self (the engine reordered two of
       Andrew's own picks) and no-partner.
-- [ ] **M6 — Run, report, record.** Produce the committed roster report and
-      write the findings back into this plan.
+- [x] **M6 — Run, report, record.** Done. `npm run backtest` writes
+      `docs/plans/draft-backtest-2025/report.md` across four configurations and
+      reproduces byte for byte on a second run. All four pass their invariants.
+      Headline: 4 of 14 players appear on both rosters, 3 divergences are the
+      engine reordering Andrew's own picks, and 7 of 14 comparable divergences
+      are within one tier of his own board.
 - [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
       reading the M6 report raises a question that points would settle.
 
@@ -185,6 +189,26 @@ August 2025 foot injury cratered his ADP late in the month, and FFC's window is
 and neither carries outcome knowledge, so this is not a leak — but the prior in
 use is a little staler than the cross-check, and any surprising engine pick
 around an injured player should be read with that in mind.
+
+**Found during M6: the quarterback assumption does not hold.** Pricing the QB
+column level with the last tier makes the engine take its first quarterback in
+round 8; Andrew really took his in round 13. Five rounds is not a rounding
+error. The cause is structural rather than a bug: tier 8 holds 53 players, so
+every one of the 23 quarterbacks is valued identically to a last-tier receiver,
+and an unfilled QB slot carries a need weight of 1.0 against 0.75 for a
+flex-eligible skill player — so the engine takes one the moment the board thins.
+Coherent behaviour on an under-specified input. The fix is tier breaks in that
+column, which only Andrew can supply, and the report says so.
+
+**Found during M6: raw pick agreement badly understates how close the two
+drafts are.** The headline number is 1 of 14, which reads as near-total
+disagreement. It is not. Four of the fourteen players appear on both rosters;
+three of the divergences are the engine reordering picks Andrew made himself,
+leaving the roster unchanged; and seven of the fourteen comparable divergences
+are between two players in the same tier of his own board — cases where his
+board says the pair are interchangeable and the engine simply broke the tie on
+roster need. The report leads with those three statistics rather than the raw
+count, because the raw count is true but misleading.
 
 **Found during M5: the simultaneous credit needed a mechanism, not just a
 rule.** The credit is recorded at the displaced manager's own later pick
@@ -351,12 +375,51 @@ imports from it, so picking it up later disturbs nothing.
 
 ## Outcomes & Retrospective
 
-Not yet started. To be filled in at M6 with the roster the engine would have
-drafted, how far it diverged from what Andrew really did, whether its stated
-reasoning reads as sound at each divergence, how different the forced-mode and
-cascade variants look, and what the exercise revealed about the engine that the
-existing replay could not. If reading it leaves the soundness question open, say
-so plainly here — that is the signal to pick up the deferred M7.
+M1 through M6 are complete. The report is at
+`docs/plans/draft-backtest-2025/report.md` and reproduces byte for byte.
+
+**What the engine would have drafted.** Two quarterbacks, four running backs,
+five receivers and three tight ends, against Andrew's one, six, six and one. The
+engine is markedly heavier at tight end and lighter at running back. Four
+players are common to both rosters: Bucky Irving, Mark Andrews, Rashee Rice and
+Brock Purdy.
+
+**How far it really diverged.** Raw agreement is 1 of 14, which overstates the
+gap considerably. Three of the divergences are the engine reordering Andrew's
+own picks — it took the same player at a different one of his turns, leaving the
+roster unchanged. Seven of the fourteen comparable divergences are between two
+players sitting in the same tier of Andrew's own board, which is his board
+saying they are interchangeable and the engine breaking the tie on roster need.
+The genuine differences of opinion are a smaller set than the headline suggests.
+
+**Does the reasoning read as sound?** Mostly yes, and it is inspectable: every
+divergence in the report carries the engine's own rationale — tier scarcity,
+survival percentage to the next pick, the value edge, which slot it fills. The
+one clear misbehaviour is quarterbacks, and it is an input problem rather than
+an engine problem. See Surprises: the QB column has no tier breaks, the plan
+priced it level with the last tier, and that guess is too generous by about five
+rounds. That is the single change most worth making before this is run again.
+
+**Forced mode and cascade.** Both sensitivity runs pass the same invariants and
+are reported alongside. Forced mode on spends two of fourteen picks on positions
+the board does not rank at all, which is exactly why forced-off is the
+like-for-like comparison.
+
+**What this revealed that the existing replay could not.** Three things. The
+temperature and reach defaults now run against a real ADP prior rather than a
+degenerate one. The engine's treatment of an under-specified position — the QB
+column — became visible, where a synthetic market board would have hidden it by
+construction. And the hindsight-freedom of the whole arrangement is now a
+falsifiable property with a control that fails, rather than a claim.
+
+**Is the soundness question closed?** No, and it should not be read as closed. A
+single draft at a single slot cannot establish that the decision rule is good,
+only that it is not obviously broken. The per-pick rationale makes the reasoning
+judgeable, which was the point of deferring scoring, but if reading the report
+leaves real doubt about whether these picks were arrived at soundly, that is the
+signal to pick up M7 and score them. Two open items would improve any re-run
+more than points would: QB tier breaks, and a second slot or season for
+comparison.
 
 ## Context
 
