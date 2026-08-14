@@ -30,11 +30,16 @@ function findByName(name: string): string[] {
 
 describe('the 2025 universe', () => {
   it('contains every player the draft under test actually took', () => {
+    // Not by construction: membership comes from the spreadsheet alone, never
+    // from the pick feed, because a pool built from who got drafted would tell
+    // the engine which names the room is going to take. This asserts the
+    // spreadsheet happens to cover the whole draft.
     const picks = loadLads2025Picks()
     for (let i = 0; i < picks.length; i++) {
       expect(universe.players[picks[i].player_id], `pick ${picks[i].pick_no}`).toBeTruthy()
     }
     expect(picks.length).toBe(168)
+    expect(universe.draftedButAbsent).toEqual([])
   })
 
   it('gives everyone an ADP from the spreadsheet, with no fallback layer needed', () => {
