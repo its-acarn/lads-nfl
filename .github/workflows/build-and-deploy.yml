@@ -5,6 +5,11 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
+  # Also run on pull requests, so a change is checked BEFORE it lands rather
+  # than after. Without this the first CI run of any change happens on main,
+  # and a failure there means a broken Pages deploy.
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,22 +19,37 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - uses: actions/checkout@v3
-        
+
       # a standard step for GitHub actions on Node
       # https://github.com/actions/setup-node
       - uses: actions/setup-node@v3
         with:
-          # update the Node version to meet your needs
-          node-version: 16
+          # Node 16 went end-of-life in September 2023, and the repo's dev
+          # tooling (tsx, vitest) declares Node >= 18, so installing under 16
+          # produced EBADENGINE warnings on every run. Nothing in the build
+          # path used either package, so it worked -- but it was one
+          # engine-strict setting away from breaking the deploy.
+          node-version: 20
           cache: npm
+      - name: Install
+        run: npm ci
+
+      # The engine has 143 tests and none of them ran in CI before. They are
+      # seeded and read only committed fixtures, so they need no network and
+      # give the same answer every time.
+      - name: Test
+        run: npm test
+
       - name: Build
         run: |
-          npm ci
           npm run build
           npm run export
           touch out/.nojekyll
 
+      # Only publish from main. On a pull request everything above still runs,
+      # which is the point, but nothing is deployed.
       - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages
