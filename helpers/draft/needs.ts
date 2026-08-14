@@ -41,6 +41,27 @@ export function parseLineup(rosterPositions: string[]): LineupShape {
   return { dedicated, flexSlots, benchSlots }
 }
 
+// A position the board caps at zero is one the drafter has decided never to
+// draft. Leaving its starter slot in the lineup is actively dangerous: the slot
+// stays permanently unfilled, so unfilledMandatoryCount never reaches zero,
+// forced mode fires on the last picks, the candidate set collapses to that
+// position, the cap guardrail then rejects every candidate in it, and
+// recommend() drops into its relax-everything path -- arbitrary picks at the
+// worst possible moment.
+//
+// Converting those slots to bench is the honest representation: the drafter
+// intends to fill them off waivers, which is what a third of this league does
+// with kickers and defenses every year.
+export function effectiveLineup(rosterPositions: string[], rules: BoardRules): string[] {
+  const out: string[] = []
+  for (let i = 0; i < rosterPositions.length; i++) {
+    const slot = rosterPositions[i]
+    const capped = POSITIONS.indexOf(slot as Position) !== -1 && rules.maxByPos[slot as Position] === 0
+    out.push(capped ? 'BN' : slot)
+  }
+  return out
+}
+
 export interface NeedsResult {
   weights: Record<Position, number>
   unfilledMandatory: Record<Position, number> // dedicated starter slots still open

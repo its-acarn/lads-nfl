@@ -6,6 +6,7 @@
 // code that will actually ship.
 
 import { BoardRules, DraftConfig, SimOpts, SleeperDraft, SleeperTradedPick } from '../types'
+import { effectiveLineup } from '../needs'
 import { DEFAULT_SIM_OPTS } from '../survival'
 
 export const ANDREW_USER_ID = '82919512949014528'
@@ -32,14 +33,12 @@ export const REACH_REFERENCE = 6
 // omits both, his real 2025 roster had neither, and a third of this league
 // drafts no kicker in a given year, so this is what his season actually looked
 // like. The live bot needs the same configuration before September.
-export function lineupFor(rosterPositions: string[], forcedMode: boolean): string[] {
-  if (forcedMode) return rosterPositions.slice()
-  const out: string[] = []
-  for (let i = 0; i < rosterPositions.length; i++) {
-    const slot = rosterPositions[i]
-    out.push(slot === 'K' || slot === 'DEF' ? 'BN' : slot)
-  }
-  return out
+// Derived from the caps rather than toggled separately, so there is one source
+// of truth: a position capped at zero loses its starter slot. Forced mode is
+// then nothing more than raising the K and DEF caps back to one, which restores
+// their slots automatically.
+export function lineupFor(rosterPositions: string[], rules: BoardRules): string[] {
+  return effectiveLineup(rosterPositions, rules)
 }
 
 // With forced mode on, kickers and defenses become draftable again. They stay
@@ -61,6 +60,7 @@ export function rulesFor(rules: BoardRules, forcedMode: boolean): BoardRules {
     minRoundDEF: rules.minRoundDEF,
     stashRound: rules.stashRound,
     offBoardDiscount: rules.offBoardDiscount,
+    vonaFromRound: rules.vonaFromRound,
   }
 }
 
@@ -68,13 +68,14 @@ export function draftConfig(
   draft: SleeperDraft,
   tradedPicks: SleeperTradedPick[],
   rosterPositions: string[],
+  rules: BoardRules,
   forcedMode: boolean
 ): DraftConfig {
   return {
     draft,
     tradedPicks,
     myUserId: ANDREW_USER_ID,
-    rosterPositions: lineupFor(rosterPositions, forcedMode),
+    rosterPositions: lineupFor(rosterPositions, rulesFor(rules, forcedMode)),
   }
 }
 

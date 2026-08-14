@@ -43,7 +43,7 @@ const board = loadBoard2025()
 const adp = loadSheetAdp()
 const jimmygPicks = loadJimmygPicks()
 
-const myPickNos = myPickNumbers(draftConfig(draft, tradedPicks, league.roster_positions, false))
+const myPickNos = myPickNumbers(draftConfig(draft, tradedPicks, league.roster_positions, board.rules, false))
 const rosterId = myRosterId(draft, board.myUserId)
 
 function pipeline(forcedMode: boolean): PipelineInputs {

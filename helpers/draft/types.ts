@@ -107,6 +107,20 @@ export interface BoardRules {
   minRoundDEF: number
   stashRound: number
   offBoardDiscount: number
+  // The round from which positional scarcity (value over next available) takes
+  // over from straight board order.
+  //
+  // Before this round the engine takes the highest-ranked available player on
+  // the board, full stop. From it onward it scores on the scarcity rule
+  // instead. This exists because the two are in direct competition and the
+  // board has to win early: within a tier the ordering term is worth
+  // hundredths of a point while positional scarcity is worth several points,
+  // so without a gate the board's ordering is arithmetically invisible and the
+  // engine will pass over a higher-ranked player for a scarcer position.
+  //
+  // Omit for the previous behaviour (scarcity from round 1), which is what the
+  // synthetic-market replay in replay.ts still uses.
+  vonaFromRound?: number
 }
 
 export interface BoardInput {

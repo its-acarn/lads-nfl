@@ -166,3 +166,57 @@ describe('recommend', () => {
     expect(elapsed).toBeLessThan(250)
   })
 })
+
+describe('vonaFromRound — board order before scarcity takes over', () => {
+  // Why this gate exists: within a tier the ordering term is worth hundredths
+  // of a point while a positional-scarcity edge is worth several, so without a
+  // gate the board's own ordering is arithmetically invisible. The 2025
+  // backtest surfaced it concretely — the engine passed over the board's rank-2
+  // player for its rank-4 player at pick 2 because the rank-4 player's position
+  // was thinning faster.
+  function boardWith(vonaFromRound?: number) {
+    return {
+      ...market.board,
+      rules: { ...market.board.rules, vonaFromRound },
+    }
+  }
+
+  function primaryAt(pickNo: number, vonaFromRound?: number) {
+    const state = buildState(cfg, feedBefore(pickNo), boardWith(vonaFromRound), market.players)
+    return recommend(state, OPTS)
+  }
+
+  it('takes the highest-value board player in the board-order phase', () => {
+    const rec = primaryAt(1, 6)
+    const state = buildState(cfg, feedBefore(1), boardWith(6), market.players)
+    // Best available by board value among eligible candidates, with scarcity
+    // playing no part whatsoever.
+    let best = state.pool[0]
+    for (let i = 0; i < state.pool.length; i++) {
+      if (state.pool[i].value > best.value) best = state.pool[i]
+    }
+    expect(rec.primary.player_id).toBe(best.player_id)
+  })
+
+  it('says so in the rationale, so the reason is never a guess', () => {
+    const rec = primaryAt(1, 6)
+    expect(rec.rationale.join(' ')).toMatch(/board order/)
+    expect(rec.primary.rationale.join(' ')).toMatch(/your board rank/)
+  })
+
+  it('hands over to the scarcity rule from the configured round', () => {
+    // Round 6 of a 12-team draft starts at pick 61.
+    const gated = primaryAt(61, 6)
+    const ungated = primaryAt(61, 1)
+    expect(gated.rationale.join(' ')).not.toMatch(/board order/)
+    expect(gated.primary.player_id).toBe(ungated.primary.player_id)
+  })
+
+  it('defaults to the previous behaviour when the rule is absent', () => {
+    // The synthetic-market replay and its golden snapshots depend on this.
+    const withoutRule = primaryAt(1, undefined)
+    const scarcityFromRoundOne = primaryAt(1, 1)
+    expect(withoutRule.primary.player_id).toBe(scarcityFromRoundOne.primary.player_id)
+    expect(withoutRule.rationale.join(' ')).not.toMatch(/board order/)
+  })
+})
