@@ -12,8 +12,32 @@ export const FLEX_ELIGIBILITY: Record<string, Position[]> = {
 }
 
 const POSITIONS: Position[] = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF']
-const BENCH_DECAY = [0.5, 0.35, 0.2]
-const BENCH_FLOOR = 0.1
+
+// Defaults. Every replay and golden snapshot in the repo was recorded against
+// these, so a board that overrides nothing behaves exactly as before.
+export const DEFAULT_NEED_WEIGHTS = {
+  starter: 1.0,
+  flex: 0.75,
+  benchDecay: [0.5, 0.35, 0.2],
+  benchFloor: 0.1,
+}
+
+export interface ResolvedNeedWeights {
+  starter: number
+  flex: number
+  benchDecay: number[]
+  benchFloor: number
+}
+
+export function needWeightsFrom(rules: BoardRules): ResolvedNeedWeights {
+  const w = rules.needWeights || {}
+  return {
+    starter: w.starter === undefined ? DEFAULT_NEED_WEIGHTS.starter : w.starter,
+    flex: w.flex === undefined ? DEFAULT_NEED_WEIGHTS.flex : w.flex,
+    benchDecay: w.benchDecay === undefined ? DEFAULT_NEED_WEIGHTS.benchDecay : w.benchDecay,
+    benchFloor: w.benchFloor === undefined ? DEFAULT_NEED_WEIGHTS.benchFloor : w.benchFloor,
+  }
+}
 
 export interface LineupShape {
   dedicated: Record<Position, number>
@@ -114,6 +138,7 @@ export function computeNeeds(
     if (!flexFilled[f]) unfilledFlexCount++
   }
 
+  const w = needWeightsFrom(rules)
   const weights: Record<Position, number> = { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
   for (let i = 0; i < POSITIONS.length; i++) {
     const pos = POSITIONS[i]
@@ -123,7 +148,7 @@ export function computeNeeds(
       continue
     }
     if (unfilledMandatory[pos] > 0) {
-      weights[pos] = 1.0
+      weights[pos] = w.starter
       continue
     }
     let flexEligible = false
@@ -131,13 +156,13 @@ export function computeNeeds(
       if (!flexFilled[f] && shape.flexSlots[f].indexOf(pos) !== -1) flexEligible = true
     }
     if (flexEligible) {
-      weights[pos] = 0.75
+      weights[pos] = w.flex
       continue
     }
     // Pure bench depth: surplus[pos] players are already benched (after flex
     // allocation), so the NEXT one at this position gets the decayed weight.
     const benched = surplus[pos]
-    weights[pos] = benched < BENCH_DECAY.length ? BENCH_DECAY[benched] : BENCH_FLOOR
+    weights[pos] = benched < w.benchDecay.length ? w.benchDecay[benched] : w.benchFloor
   }
 
   return { weights, unfilledMandatory, unfilledMandatoryCount, unfilledFlexCount }

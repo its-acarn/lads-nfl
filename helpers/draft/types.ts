@@ -101,12 +101,52 @@ export interface BoardPin {
   toRound: number
 }
 
+// How much a position matters to the roster at each stage of filling it.
+// Omitted fields keep the engine's defaults, which are what every replay and
+// golden snapshot in the repo was recorded against.
+export interface NeedWeightRules {
+  // An unfilled dedicated starter slot. Lowering this makes the engine less
+  // eager to plug a hole and more willing to take the better player.
+  starter?: number
+  // Eligible for a still-open flex slot.
+  flex?: number
+  // Pure bench depth, indexed by how many spare players at that position are
+  // already held. Beyond the end of the list, benchFloor applies.
+  benchDecay?: number[]
+  benchFloor?: number
+}
+
+// Overrides for the board value curve. Omitted fields keep the defaults in
+// value.ts (tierBase 100, tierDecay 0.85, rankEpsilon 0.01).
+export interface ValueRules {
+  // Value of a tier-1 player. Pure scale; on its own it changes nothing.
+  tierBase?: number
+  // Multiplier per tier step, and the single biggest lever on how much the
+  // tiers matter. Lower makes them dominant, higher flattens the board toward
+  // one long list.
+  tierDecay?: number
+  // Subtracted per overall-rank step, so it is the weight of ordering WITHIN a
+  // tier. Raising it far enough to outweigh positional scarcity would invert
+  // the tier plateaus; use vonaFromRound for that instead.
+  rankEpsilon?: number
+}
+
 export interface BoardRules {
   maxByPos: Record<Position, number>
-  minRoundK: number
-  minRoundDEF: number
+  // Earliest round each position may be drafted, by position. Absent means no
+  // floor. Generalised from the original minRoundK/minRoundDEF pair so that
+  // any position can carry one -- quarterbacks in particular, which had no way
+  // to express "not before round 11" short of re-tiering the board.
+  //
+  // A floor yields to the scarcity override: if the position is an unfilled
+  // starter slot, its entire remaining pool is five players or fewer, and the
+  // simulation expects it extinct by the next pick, the engine takes one
+  // anyway rather than finish with the slot empty.
+  minRoundByPos?: Partial<Record<Position, number>>
   stashRound: number
   offBoardDiscount: number
+  needWeights?: NeedWeightRules
+  value?: ValueRules
   // The round from which positional scarcity (value over next available) takes
   // over from straight board order.
   //

@@ -61,10 +61,11 @@ comes after the roster has been read.
 - [x] **M6 — Run, report, record.** Done. `npm run backtest` writes
       `docs/plans/draft-backtest-2025/report.md` across four configurations and
       reproduces byte for byte on a second run. All four pass their invariants.
-      Re-run after the board-order and roster-rule changes: rounds 1 and 2 now
-      match Andrew's real picks exactly, **11 of 14** comparable divergences are
-      within one tier of his own board (was 7), and the engine's roster shape —
-      1 QB, 6 RB, 6 WR, 1 TE — matches his real one exactly.
+      Re-run after the board-order rule, the roster rules and the QB round
+      floor: **4 of 14 picks now match exactly** (rounds 1, 2, 6 and 14),
+      **10 of 14** comparable divergences are within one tier of Andrew's own
+      board, and the engine takes its quarterback in round 11 against his round
+      13 — close enough that the report's own QB check now reads "holds".
 - [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
       reading the M6 report raises a question that points would settle.
 
@@ -395,6 +396,24 @@ now exposes `effectiveLineup`, which converts any such slot to bench, and
 `bot.ts` applies it at LOAD. The backtest derives its forced-mode toggle from
 the same function, so there is one source of truth rather than two.
 
+**Round floors generalised to any position; value and need weights moved into
+the board.** The original engine had floors only for kickers and defenses
+(`minRoundK`, `minRoundDEF`), so there was no way to say "no quarterback before
+round 11" short of re-tiering the board — which is exactly the lever the QB
+finding called for. Replaced by `minRoundByPos`, a per-position map, with the
+scarcity override generalised alongside it so any floored position yields when
+its pool is nearly extinct rather than only K and DEF.
+
+At the same time the value curve (`tierBase`, `tierDecay`, `rankEpsilon`) and
+the roster-need weights (starter, flex, bench decay, bench floor) moved from
+hardcoded constants into optional `BoardRules` fields, so they are configured in
+`config/board.json` rather than in code. Every field is optional and defaults to
+the previous constant, which is why the golden snapshots are unchanged.
+
+With `minRoundByPos.QB = 11` the engine takes its quarterback in round 11
+against Andrew's round 13, and the report's own check flips from "does not hold"
+to "holds".
+
 **Only Andrew's slot is backtested.** Running all twelve slots would multiply
 the work and tell us about other people's teams. Slot 2 is the question.
 
@@ -436,9 +455,11 @@ the fix was a decision about which rule is primary rather than a tuning change.
 **Does the reasoning read as sound?** Yes, and it is inspectable: every
 divergence in the report carries the engine's own rationale, and in the
 board-order rounds that rationale now leads with the board rank that drove it.
-The residual concern is quarterbacks — the engine takes one in round 10 against
-Andrew's round 13. Better than the round 8 of the first run, but still early,
-and still traceable to the QB column having no tier breaks.
+The quarterback concern is closed for now by a `minRoundByPos.QB` floor of 11,
+which lands it in round 11 against Andrew's round 13. That is a floor papering
+over an under-specified board rather than a fix: tier breaks in the QB column
+would let the engine price them properly instead of being told when to stop
+waiting. Andrew intends to add them for 2026.
 
 **Forced mode and cascade.** Both sensitivity runs pass the same invariants and
 are reported alongside. Forced mode on spends two of fourteen picks on positions

@@ -5,8 +5,7 @@ import { BoardRules, Position } from './types'
 const LADS_LINEUP = ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN', 'BN']
 const RULES: BoardRules = {
   maxByPos: { QB: 2, RB: 6, WR: 6, TE: 2, K: 1, DEF: 1 },
-  minRoundK: 13,
-  minRoundDEF: 12,
+  minRoundByPos: { K: 13, DEF: 12 },
   stashRound: 12,
   offBoardDiscount: 0.8,
 }
@@ -97,8 +96,7 @@ describe('effectiveLineup', () => {
   function rules(maxByPos: Record<string, number>) {
     return {
       maxByPos: maxByPos as any,
-      minRoundK: 13,
-      minRoundDEF: 12,
+      minRoundByPos: { K: 13, DEF: 12 },
       stashRound: 12,
       offBoardDiscount: 0.8,
     }

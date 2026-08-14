@@ -88,7 +88,7 @@
  "doNotDraftIds": [],
  "pins": [],
  "rules": {
-  "//": "One QB, one TE, no kicker, no defense (Andrew, Aug 2026). vonaFromRound 6: rounds 1-5 follow the board's order outright, positional scarcity only takes over from round 6.",
+  "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB/WR left permissive so the board drives them rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",
   "maxByPos": {
    "QB": 1,
    "RB": 8,
@@ -97,10 +97,34 @@
    "K": 0,
    "DEF": 0
   },
-  "minRoundK": 13,
-  "minRoundDEF": 12,
+  "//minRoundByPos": "Earliest round each position may be drafted. Omit a position for no floor. A floor yields only to the scarcity override: unfilled starter slot, five or fewer left in the pool, and predicted extinct by the next pick.",
+  "minRoundByPos": {
+   "QB": 11,
+   "K": 13,
+   "DEF": 12
+  },
+  "//vonaFromRound": "Rounds below this follow the board's order outright; from it, positional scarcity takes over. Set it above the number of rounds to disable scarcity entirely.",
+  "vonaFromRound": 6,
+  "//stashRound": "Before this round, players designated Out/IR/PUP/Sus/COV/DNR/NA are excluded. From it they become draftable as stashes.",
   "stashRound": 12,
+  "//offBoardDiscount": "Value multiplier for anyone not on the board, after interpolating their ADP onto its curve. Lower keeps the bot closer to the list.",
   "offBoardDiscount": 0.8,
-  "vonaFromRound": 6
+  "//value": "The board value curve. tierDecay is the big one: each tier is worth this much of the one above, so lower makes tiers dominant and higher flattens the board toward one long list. rankEpsilon is the weight of ordering WITHIN a tier -- raising it far enough to beat positional scarcity would invert the tiers, so use vonaFromRound for that instead. These are the engine defaults, spelled out so they are visible.",
+  "value": {
+   "tierBase": 100,
+   "tierDecay": 0.85,
+   "rankEpsilon": 0.01
+  },
+  "//needWeights": "How hard the bot chases a roster hole. starter is an unfilled dedicated slot, flex an open flex slot, benchDecay pure depth indexed by how many spares are already held, benchFloor everything past that. Lowering starter makes it less willing to reach for a position just because the slot is empty. Engine defaults, spelled out.",
+  "needWeights": {
+   "starter": 1,
+   "flex": 0.75,
+   "benchDecay": [
+    0.5,
+    0.35,
+    0.2
+   ],
+   "benchFloor": 0.1
+  }
  }
 }

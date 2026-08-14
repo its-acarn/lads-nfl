@@ -13,8 +13,7 @@ function boardOf(players: ResolvedBoardPlayer[]): ResolvedBoard {
     pins: [],
     rules: {
       maxByPos: { QB: 2, RB: 6, WR: 6, TE: 2, K: 1, DEF: 1 },
-      minRoundK: 13,
-      minRoundDEF: 12,
+      minRoundByPos: { K: 13, DEF: 12 },
       stashRound: 12,
       offBoardDiscount: 0.8,
     },

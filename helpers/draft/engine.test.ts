@@ -6,6 +6,7 @@ import { loadFixture, loadTrimmedPlayers } from './fixtures.testutil'
 import { buildMarketFixture, marketConfig, userForSlot } from './marketBoard'
 import { buildState } from './state'
 import { recommend } from './recommend'
+import { computeNeeds, parseLineup } from './needs'
 import { DEFAULT_SIM_OPTS, survival } from './survival'
 import { BoardState, SimOpts, SleeperPick } from './types'
 
@@ -115,8 +116,9 @@ describe('recommend', () => {
       const st = stateBefore(myPicks[i])
       const rec = recommend(st, OPTS)
       if (rec.forced) continue
-      if (rec.round < market.board.rules.minRoundK) expect(rec.primary.pos).not.toBe('K')
-      if (rec.round < market.board.rules.minRoundDEF) expect(rec.primary.pos).not.toBe('DEF')
+      const floors = market.board.rules.minRoundByPos || {}
+      if (floors.K !== undefined && rec.round < floors.K) expect(rec.primary.pos).not.toBe('K')
+      if (floors.DEF !== undefined && rec.round < floors.DEF) expect(rec.primary.pos).not.toBe('DEF')
     }
   })
 
@@ -218,5 +220,78 @@ describe('vonaFromRound — board order before scarcity takes over', () => {
     const scarcityFromRoundOne = primaryAt(1, 1)
     expect(withoutRule.primary.player_id).toBe(scarcityFromRoundOne.primary.player_id)
     expect(withoutRule.rationale.join(' ')).not.toMatch(/board order/)
+  })
+})
+
+describe('minRoundByPos — a round floor for any position', () => {
+  // Generalised from the original minRoundK/minRoundDEF pair. Quarterbacks in
+  // particular had no way to express "not before round 11" short of re-tiering
+  // the board, which is what left the 2025 backtest taking one in round 8.
+  function boardFloored(minRoundByPos: Record<string, number>) {
+    return { ...market.board, rules: { ...market.board.rules, minRoundByPos } }
+  }
+
+  it('keeps a position out until its floor, for positions that never had one', () => {
+    const board = boardFloored({ QB: 11 })
+    for (let round = 1; round <= 10; round++) {
+      const pickNo = (round - 1) * 12 + 1
+      const state = buildState(cfg, feedBefore(pickNo), board, market.players)
+      if (state.myRemainingPickNos.length === 0) continue
+      const rec = recommend(state, OPTS)
+      expect(rec.primary.pos, `round ${rec.round}`).not.toBe('QB')
+    }
+  })
+
+  it('lets a floor go when the position is about to run out', () => {
+    // The scarcity override applies to any floored position now, not just
+    // kickers and defenses: an unfilled starter slot whose pool is nearly gone
+    // beats the floor, because finishing with the slot empty is worse.
+    const board = boardFloored({ QB: 99 })
+    const late = sorted[sorted.length - 1].pick_no
+    const state = buildState(cfg, feedBefore(late), board, market.players)
+    const rec = recommend(state, OPTS)
+    // Either it found a legal non-QB, or it waived the floor and said so.
+    if (rec.primary.pos === 'QB') expect(rec.rationale.join(' ')).toMatch(/scarcity override/)
+  })
+
+  it('applies no floor to a position the map omits', () => {
+    const board = boardFloored({})
+    const state = buildState(cfg, feedBefore(1), board, market.players)
+    expect(() => recommend(state, OPTS)).not.toThrow()
+  })
+})
+
+describe('value and need weights are configurable from the board', () => {
+  it('reads tierDecay from board.rules.value', () => {
+    const flat = { ...market.board, rules: { ...market.board.rules, value: { tierDecay: 0.99 } } }
+    const steep = { ...market.board, rules: { ...market.board.rules, value: { tierDecay: 0.5 } } }
+    const flatPool = buildState(cfg, feedBefore(25), flat, market.players).pool
+    const steepPool = buildState(cfg, feedBefore(25), steep, market.players).pool
+    // Compare one specific player across the two curves. Comparing the top of
+    // the pool against its tenth would prove nothing: at pick 25 those are all
+    // in the same tier, so only rankEpsilon separates them and tierDecay
+    // cannot move the gap at all.
+    const target = market.board.players.filter((p) => p.tier >= 5)[0]
+    const valueIn = (pool: typeof flatPool) => pool.filter((p) => p.player_id === target.player_id)[0].value
+    expect(target).toBeTruthy()
+    expect(valueIn(steepPool)).toBeLessThan(valueIn(flatPool))
+  })
+
+  it('reads need weights from board.rules.needWeights', () => {
+    const shape = parseLineup(cfg.rosterPositions)
+    const base = computeNeeds({ QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }, shape, market.board.rules)
+    const lowered = computeNeeds({ QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }, shape, {
+      ...market.board.rules,
+      needWeights: { starter: 0.5 },
+    })
+    expect(base.weights.QB).toBe(1)
+    expect(lowered.weights.QB).toBe(0.5)
+  })
+
+  it('leaves defaults untouched when the board says nothing', () => {
+    const shape = parseLineup(cfg.rosterPositions)
+    const needs = computeNeeds({ QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }, shape, market.board.rules)
+    expect(needs.weights.QB).toBe(1)
+    expect(needs.weights.RB).toBe(1)
   })
 })

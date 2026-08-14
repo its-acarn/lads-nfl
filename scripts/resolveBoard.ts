@@ -7,6 +7,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import {
+  FANTASY_POSITIONS,
+  Position,
   BoardInput,
   BoardPlayerInput,
   PlayerMap,
@@ -62,8 +64,17 @@ function main(): void {
   if (!Array.isArray(board.players) || board.players.length === 0) throw new Error('board.players missing/empty')
   if (typeof board.myUserId !== 'string') throw new Error('board.myUserId missing (Sleeper user_id as a string)')
   const rules = board.rules
-  if (!rules || typeof rules.minRoundK !== 'number' || typeof rules.minRoundDEF !== 'number')
-    throw new Error('board.rules.minRoundK/minRoundDEF missing')
+  if (!rules) throw new Error('board.rules missing')
+  if (rules.minRoundByPos !== undefined) {
+    const floored = Object.keys(rules.minRoundByPos)
+    for (let i = 0; i < floored.length; i++) {
+      const k = floored[i]
+      if (FANTASY_POSITIONS.indexOf(k as Position) === -1)
+        throw new Error(`board.rules.minRoundByPos has an unknown position "${k}"`)
+      if (typeof (rules.minRoundByPos as Record<string, unknown>)[k] !== 'number')
+        throw new Error(`board.rules.minRoundByPos.${k} is not a number`)
+    }
+  }
   if (typeof rules.stashRound !== 'number' || typeof rules.offBoardDiscount !== 'number')
     throw new Error('board.rules.stashRound/offBoardDiscount missing')
 

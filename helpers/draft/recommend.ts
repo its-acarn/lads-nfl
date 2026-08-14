@@ -107,10 +107,19 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     report.expectedBestValueByPos[pos] < 1e-9 &&
     poolCountByPos[pos] > 0 &&
     poolCountByPos[pos] <= 5
-  const urgentK = isUrgent('K')
-  const urgentDEF = isUrgent('DEF')
-  if (urgentK) globalRationale.push('scarcity override: last K(s) on the market, floor waived')
-  if (urgentDEF) globalRationale.push('scarcity override: last DEF(s) on the market, floor waived')
+
+  // Round floors, and the override that lets one yield. Applies to any
+  // position carrying a floor, not just kickers and defenses.
+  const minRoundByPos = rules.minRoundByPos || {}
+  const urgent: Record<string, boolean> = {}
+  const flooredPositions = Object.keys(minRoundByPos) as Position[]
+  for (let i = 0; i < flooredPositions.length; i++) {
+    const pos = flooredPositions[i]
+    urgent[pos] = isUrgent(pos)
+    if (urgent[pos]) {
+      globalRationale.push(`scarcity override: last ${pos}(s) on the market, round floor waived`)
+    }
+  }
 
   // ---- guardrails ---------------------------------------------------------
   const eligible: PoolPlayer[] = []
@@ -121,8 +130,8 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     if (forced) {
       if (forcedSet.indexOf(p.pos) === -1) continue
     } else {
-      if (p.pos === 'K' && round < rules.minRoundK && !urgentK) continue
-      if (p.pos === 'DEF' && round < rules.minRoundDEF && !urgentDEF) continue
+      const floor = minRoundByPos[p.pos]
+      if (floor !== undefined && round < floor && !urgent[p.pos]) continue
     }
     if (round < rules.stashRound && isStashOnly(p)) continue
     eligible.push(p)
