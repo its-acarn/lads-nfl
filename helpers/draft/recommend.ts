@@ -48,9 +48,13 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   const round = roundOf(state.cfg.draft, pickNo)
   const rules = state.board.rules
 
+  // Two behaviours the drafter can switch off entirely. Both default on.
+  const useNeed = rules.useRosterNeed !== false
+  const useForced = rules.useForcedStarters !== false
+
   const shape = parseLineup(state.cfg.rosterPositions)
   const needs = computeNeeds(state.myPosCounts, shape, rules)
-  let forced = isForcedMode(state.myRemainingPickNos.length, needs)
+  let forced = useForced && isForcedMode(state.myRemainingPickNos.length, needs)
   let forcedSet: Position[] = forced ? forcedPositions(needs) : []
 
   const globalRationale: string[] = []
@@ -67,7 +71,7 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   // last one goes; live it is the usual rooms-draft-near-ADP approximation).
   // When the union of still-viable picks is no bigger than the number of
   // unfilled starter slots, collapse now instead of at the last pick.
-  if (!forced && needs.unfilledMandatoryCount > 0) {
+  if (useForced && !forced && needs.unfilledMandatoryCount > 0) {
     const unfilled = forcedPositions(needs)
     const viableUnion: Record<number, boolean> = {}
     for (let u = 0; u < unfilled.length; u++) {
@@ -175,7 +179,10 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     const p = candidates[i]
     const expectedBest = report.myNextPickNo === null ? 0 : report.expectedBestValueByPos[p.pos]
     const edge = p.value - expectedBest
-    const need = Math.max(needs.weights[p.pos], relaxed ? 0.05 : 0)
+    // With roster need switched off every eligible position weighs the same,
+    // so the pick turns purely on board value and scarcity. Caps and round
+    // floors still apply; they are filters, not weights.
+    const need = useNeed ? Math.max(needs.weights[p.pos], relaxed ? 0.05 : 0) : 1
     // Position caps are enforced by the guardrail filter above, and a need
     // weight only reaches zero when a position is capped, so straight board
     // value cannot pick an ineligible player here.
@@ -222,9 +229,12 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     if (report.myNextPickNo !== null) {
       r.push(`edge vs next pick ${(p.value - expectedBest) >= 0 ? '+' : ''}${(p.value - expectedBest).toFixed(1)}`)
     }
-    if (needs.unfilledMandatory[p.pos] > 0) r.push(`fills ${p.pos} starter slot`)
-    else if (needs.weights[p.pos] === 0.75) r.push('fills flex')
-    else r.push(`bench depth (need ${needs.weights[p.pos].toFixed(2)})`)
+    // Only claim roster need influenced the pick when it actually did.
+    if (useNeed) {
+      if (needs.unfilledMandatory[p.pos] > 0) r.push(`fills ${p.pos} starter slot`)
+      else if (needs.weights[p.pos] === 0.75) r.push('fills flex')
+      else r.push(`bench depth (need ${needs.weights[p.pos].toFixed(2)})`)
+    }
     if (score !== undefined) r.push(boardOrderPhase ? `board value ${score.toFixed(2)}` : `score ${score.toFixed(2)}`)
     return r
   }

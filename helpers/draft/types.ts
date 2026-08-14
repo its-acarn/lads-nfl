@@ -147,6 +147,19 @@ export interface BoardRules {
   offBoardDiscount: number
   needWeights?: NeedWeightRules
   value?: ValueRules
+
+  // Weight each candidate by what the roster still needs — a starter-shaped
+  // hole scoring higher than pure bench depth. Set false to judge a pick on
+  // board value and scarcity alone, with position mattering only through
+  // maxByPos and minRoundByPos. Defaults to true.
+  useRosterNeed?: boolean
+
+  // Collapse the candidate set to unfilled starter slots once the remaining
+  // picks only just cover them, so the drafter cannot finish with an illegal
+  // lineup. Set false to let the board and scarcity decide right to the end —
+  // which means accepting that a required slot may go unfilled and be covered
+  // off waivers instead. Defaults to true.
+  useForcedStarters?: boolean
   // The round from which positional scarcity (value over next available) takes
   // over from straight board order.
   //

@@ -37,6 +37,12 @@
     "//value": "The board value curve. tierDecay is the big one: each tier is worth this much of the one above, so lower makes tiers dominant and higher flattens the board toward one long list. rankEpsilon is the weight of ordering WITHIN a tier -- raising it far enough to beat positional scarcity would invert the tiers, so use vonaFromRound for that instead. These are the engine defaults, spelled out so they are visible.",
     "value": { "tierBase": 100, "tierDecay": 0.85, "rankEpsilon": 0.01 },
 
+    "//useRosterNeed": "false = a pick is judged on board value and scarcity alone. Position still matters through maxByPos and minRoundByPos, but a starter-shaped hole no longer outscores bench depth.",
+    "useRosterNeed": false,
+
+    "//useForcedStarters": "false = never collapse the candidate set to unfilled starter slots near the end. The board and scarcity decide to the last pick, which means a required slot can go unfilled and be covered off waivers.",
+    "useForcedStarters": false,
+
     "//needWeights": "How hard the bot chases a roster hole. starter is an unfilled dedicated slot, flex an open flex slot, benchDecay pure depth indexed by how many spares are already held, benchFloor everything past that. Lowering starter makes it less willing to reach for a position just because the slot is empty. Engine defaults, spelled out.",
     "needWeights": { "starter": 1.0, "flex": 0.75, "benchDecay": [0.5, 0.35, 0.2], "benchFloor": 0.1 }
   }

@@ -96,6 +96,10 @@ const BOARD_RULES = {
   stashRound: 12,
   offBoardDiscount: 0.8,
   vonaFromRound: 6,
+  // Andrew's call: judge a pick on his board and on scarcity alone. No
+  // roster-need weighting, and no collapsing to unfilled starters at the end.
+  useRosterNeed: false,
+  useForcedStarters: false,
 }
 
 function fail(msg: string): never {
