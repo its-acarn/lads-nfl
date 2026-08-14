@@ -245,8 +245,10 @@ export function replayCounterfactual(
       myPicks.push({ pickNo, round, name: chosen.name, pos: chosen.pos, value: valueOf[chosen.player_id] || 0, forced: rec.forced })
 
       if (!rec.forced) {
-        if (chosen.pos === 'K' && round < rules.minRoundK) violations.push(`pick ${pickNo}: K before round ${rules.minRoundK}`)
-        if (chosen.pos === 'DEF' && round < rules.minRoundDEF) violations.push(`pick ${pickNo}: DEF before round ${rules.minRoundDEF}`)
+        const floor = (rules.minRoundByPos || {})[chosen.pos]
+        if (floor !== undefined && round < floor) {
+          violations.push(`pick ${pickNo}: ${chosen.pos} before round ${floor}`)
+        }
       }
       if (posCounts[chosen.pos] > rules.maxByPos[chosen.pos]) {
         violations.push(`pick ${pickNo}: ${chosen.pos} over cap ${rules.maxByPos[chosen.pos]}`)

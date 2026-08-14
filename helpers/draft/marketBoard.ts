@@ -34,8 +34,7 @@ export function marketRules(draft: SleeperDraft): BoardRules {
   const rounds = draft.settings.rounds
   return {
     maxByPos: { QB: 3, RB: 8, WR: 8, TE: 3, K: 1, DEF: 1 },
-    minRoundK: Math.max(1, rounds - 1),
-    minRoundDEF: Math.max(1, rounds - 2),
+    minRoundByPos: { K: Math.max(1, rounds - 1), DEF: Math.max(1, rounds - 2) },
     stashRound: Math.max(1, rounds - 2),
     offBoardDiscount: 0.8,
   }

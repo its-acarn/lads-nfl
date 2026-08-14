@@ -32,10 +32,16 @@ export function buildValuer(
   searchRankById: Record<string, number | null>,
   opts?: Partial<ValueOpts>
 ): Valuer {
+  // Precedence: an explicit argument beats the board's own `rules.value`,
+  // which beats the engine defaults. The board is where a drafter configures
+  // this; the argument exists so a caller can experiment without editing it.
+  const fromBoard = board.rules.value || {}
+  const pick = (a: number | undefined, b: number | undefined, d: number): number =>
+    a !== undefined ? a : b !== undefined ? b : d
   const o: ValueOpts = {
-    tierBase: opts && opts.tierBase !== undefined ? opts.tierBase : DEFAULT_VALUE_OPTS.tierBase,
-    tierDecay: opts && opts.tierDecay !== undefined ? opts.tierDecay : DEFAULT_VALUE_OPTS.tierDecay,
-    rankEpsilon: opts && opts.rankEpsilon !== undefined ? opts.rankEpsilon : DEFAULT_VALUE_OPTS.rankEpsilon,
+    tierBase: pick(opts && opts.tierBase, fromBoard.tierBase, DEFAULT_VALUE_OPTS.tierBase),
+    tierDecay: pick(opts && opts.tierDecay, fromBoard.tierDecay, DEFAULT_VALUE_OPTS.tierDecay),
+    rankEpsilon: pick(opts && opts.rankEpsilon, fromBoard.rankEpsilon, DEFAULT_VALUE_OPTS.rankEpsilon),
   }
 
   const valueById: Record<string, number> = {}

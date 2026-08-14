@@ -92,8 +92,7 @@ const DRAFTABLE_DEPTH = 168
 // The forced-mode sensitivity run in M6 overrides the K and DEF caps.
 const BOARD_RULES = {
   maxByPos: { QB: 1, RB: 8, WR: 8, TE: 1, K: 0, DEF: 0 },
-  minRoundK: 13,
-  minRoundDEF: 12,
+  minRoundByPos: { QB: 11, K: 13, DEF: 12 },
   stashRound: 12,
   offBoardDiscount: 0.8,
   vonaFromRound: 6,
