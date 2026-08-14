@@ -23,6 +23,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { ladsLeagueId2025 } from '../config/config'
+import { BacktestLeague, FfcSnapshot, JimmygPick } from '../helpers/draft/backtest/types'
 
 const SLEEPER = 'https://api.sleeper.app/v1'
 const FFC = 'https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2025'
@@ -92,20 +93,6 @@ function writeJson(file: string, data: unknown): void {
 
 // ---------------------------------------------------------------------------
 
-export interface FfcPlayer {
-  name: string
-  position: string
-  team: string | null
-  adp: number
-}
-
-export interface FfcSnapshot {
-  startDate: string
-  endDate: string
-  totalDrafts: number
-  players: FfcPlayer[]
-}
-
 // Fantasy Football Calculator's payload is {meta: {...}, players: [...]}. Only
 // the fields the cross-check consumes are kept.
 export function validateFfc(raw: unknown): FfcSnapshot {
@@ -142,15 +129,6 @@ export function validateFfc(raw: unknown): FfcSnapshot {
   }
 }
 
-export interface JimmygPick {
-  pick_no: number
-  player_id: string
-  first_name: string | null
-  last_name: string | null
-  position: string | null
-  team: string | null
-}
-
 // Only pick order and the draft-day player snapshot are kept: this fixture is
 // an ADP sample, not a draft to be replayed.
 export function validateJimmyg(raw: unknown): JimmygPick[] {
@@ -172,14 +150,6 @@ export function validateJimmyg(raw: unknown): JimmygPick[] {
   })
   out.sort((a, b) => a.pick_no - b.pick_no)
   return out
-}
-
-export interface BacktestLeague {
-  league_id: string
-  season: string
-  roster_positions: string[]
-  playoff_week_start: number
-  scoring_settings: Record<string, number>
 }
 
 export function validateLeague2025(raw: unknown): BacktestLeague {
