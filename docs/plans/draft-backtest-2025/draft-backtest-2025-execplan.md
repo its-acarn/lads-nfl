@@ -1,0 +1,629 @@
+# ExecPlan — Hindsight-Free 2025 Draft Backtest
+
+**Status:** Draft, awaiting the board spreadsheet URL · **Owner:** Andrew ·
+**Branch:** `claude/sleeper-api-draft-selection-wua79b`
+
+## Purpose
+
+Answer one question with evidence: **if the draft bot had picked for Andrew in
+the 2025 LadsLadsLads draft, what would his team have looked like?**
+
+The answer must be trustworthy, which means the engine gets to see only what a
+real drafter would have seen at the moment of each pick — no knowledge of which
+players get taken later, and no knowledge of how the 2025 season turned out.
+Every existing replay in this repository violates that rule, so the backtest is
+built as new code alongside them rather than as a flag on top of them.
+
+The output is a committed report: the fourteen players the engine would have
+drafted, set against the fourteen Andrew really drafted, round by round, with
+every divergence named and the engine's reasoning at that pick shown; and an
+explicit statement of what the test cannot tell us.
+
+Whether that roster would also have *scored* more is a second and separate
+question. It is worth answering, but it is **deferred** — Milestone 7 holds it,
+nothing in Milestones 1 through 6 depends on it, and the decision to build it
+comes after the roster has been read.
+
+## Progress
+
+- [ ] **M1 — Contemporaneous data acquisition.** Fetch and commit the 2025-era
+      data the backtest needs, with validators.
+- [ ] **M2 — Contemporaneous player universe and ADP prior.** Assemble the set
+      of players who were draftable in August 2025, each with a pre-season ADP.
+- [ ] **M3 — Board import from the spreadsheet.** Turn Andrew's 2025 Google
+      Sheet into a resolved board against the 2025 universe.
+- [ ] **M4 — Visibility chokepoint and the lookahead proof.** Route all pick
+      visibility through one function and prove by test that the engine cannot
+      see the future.
+- [ ] **M5 — Pairwise-swap counterfactual.** Replay the real draft with the
+      engine substituted at Andrew's slot, using the swap model.
+- [ ] **M6 — Run, report, record.** Produce the committed roster report and
+      write the findings back into this plan.
+- [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
+      reading the M6 report raises a question that points would settle.
+
+Nothing is implemented yet. This plan is the only artifact so far.
+
+## Surprises & Discoveries
+
+Recorded during investigation, before any code was written. These are the
+findings that shaped the design; treat them as established facts.
+
+**The existing replay harness reads the future in four places.** The most
+severe is `helpers/draft/marketBoard.ts:67`, which sets each player's
+`search_rank` — the engine's proxy for Average Draft Position — to the pick
+number at which that player was actually taken. The opponent simulator
+therefore knows exactly when every player will come off the board. Second, the
+market pool contains only players who were actually drafted, so the engine
+never considers anyone the room passed over. Third, `fixtures/players.trim.json`
+is an August 2026 snapshot whose ADP encodes how the 2025 season turned out.
+Fourth, the "schedule-forced" heuristic at `helpers/draft/recommend.ts:76`
+derives a position's supply horizon from `search_rank`, which under the first
+leak is literally the pick number where the last player at that position goes;
+its own code comment admits this.
+
+**A genuine 2025 pre-season ADP list exists.** Fantasy Football Calculator
+publishes one over a public JSON API, aggregated across 718 real drafts, in
+this league's exact format — half-PPR, twelve teams — snapshotted 31 August
+2025, before the NFL season began. Measured against what the lads room actually
+did, its Pearson correlation with realized pick order is 0.903, with a mean
+absolute deviation of 12.0 picks and a median of 8.6. It covers 127 of the 168
+lads picks and is 156 players deep.
+
+**A second, independent 2025 sample exists in Andrew's own leagues.** The
+"Jimmy G-whizz" league (league id `1267961681892356096`, draft id
+`1267961683133878272`) is a twelve-team, fifteen-round snake drafted on 31
+August 2025, eight days after the lads draft and still before the season. Its
+realized pick order correlates with the lads order at 0.893 and covers 92% of
+the lads picks — 154 of 168. It runs 180 picks deep, so it extends past the end
+of the Fantasy Football Calculator list.
+
+**Using pre-season consensus ADP is more faithful than using Andrew's own
+board.** Sleeper's live `search_rank` field, which the production bot will
+consume in September 2026, *is* pre-season consensus. So a 2025 pre-season
+consensus list is the exact analogue of live conditions, not a compromise.
+
+**The 2026 player map is missing players who mattered in 2025.** Of the 156
+players on the Fantasy Football Calculator list, 19 fail to match
+`fixtures/players.trim.json`. Past a trivial naming quirk for defenses
+("Denver Defense" versus "Denver Broncos"), the misses include Tyreek Hill,
+Austin Ekeler and Keenan Allen — all absent from the 2026 snapshot because they
+are not on an NFL roster now. The backtest therefore cannot use that file as
+its player universe.
+
+**This league streams kickers and defenses.** Across 2022, 2023, 2024 and 2025,
+four or five of the twelve teams drafted no kicker at all, and two to five
+drafted no defense. Only seven to ten of each were taken per draft, against
+twelve required lineup slots. Andrew's own 2025 roster is fourteen skill
+players with no kicker and no defense. The engine's "forced mode" will spend
+rounds 13 and 14 on a kicker and a defense, so the backtest must be able to
+measure whether that costs him rather than assume it does not.
+
+**Sleeper publishes its own computed fantasy points per player per week.** The
+weekly stats payload carries a `pts_half_ppr` field alongside the raw stats.
+This gives the scoring code an independent ground truth to validate against
+before it is trusted with the league's own custom settings.
+
+## Decision Log
+
+**The backtest is new code, not a flag on the existing replay.** The existing
+`helpers/draft/replay.ts` is built around the synthetic market board and its
+hindsight is structural, not incidental. Bolting a hindsight-free mode onto it
+would leave two code paths tangled in one file and make it easy for a future
+change to reintroduce a leak. The backtest lives in `helpers/draft/backtest/`
+with its own tests. The existing replay stays exactly as it is and keeps
+serving its original purpose, which is validating pick mathematics and
+guardrails.
+
+**The counterfactual uses a pairwise swap, not a cascade.** When the engine
+takes a player Andrew did not take, the manager who really took that player
+instead takes the player Andrew really took. Every other pick in the draft is
+untouched. Andrew proposed this and it is better than the cascade the existing
+`replay.ts:266` performs, in which a displaced manager falls through to the next
+entry on their own queue and shifts every subsequent pick, compounding drift
+across fourteen rounds. The swap holds the rest of the room constant, so the
+only variable is which player of each pair sits on which roster. That is a
+controlled experiment; the cascade is a noisy simulation.
+
+**The swap is credited simultaneously.** The naive swap has a bias that favours
+the engine. If the engine takes player X at pick 2, and the manager who really
+took X was not due until pick 40, then player Y — the man Andrew really took at
+pick 2 — sits unclaimed in the pool for 38 picks, and the engine could come back
+and draft him too, ending up with both. In reality Y was gone at pick 2. So the
+moment the engine takes X, Y is credited to the displaced manager's roster and
+removed from the pool. That manager's later pick becomes a no-op. The exchange
+stays one-for-one and nobody drafts a player who was genuinely unavailable.
+
+**The swap assumption is an idealisation and the report must say so.** A
+manager denied player X would not necessarily reach for player Y; they would
+take whatever their own board said next, possibly at another position. The swap
+buys experimental control at the cost of behavioural realism. The cascade model
+is retained as a sensitivity check so the two together bracket the honest
+answer, and the report states this in plain language rather than implying the
+room was faithfully simulated.
+
+**The harness may use hindsight; the engine may not.** Performing the swap
+requires knowing who took X later, which is future knowledge. That knowledge
+lives entirely in the opponent simulation and never enters the engine's inputs.
+The boundary is enforced by a single visibility function and proved by a test,
+not asserted in a comment.
+
+**The ADP prior is layered.** Fantasy Football Calculator's 2025 consensus is
+primary. Where a player is absent from it, the Jimmy G-whizz realized pick order
+supplies a rank. Where a player is absent from both, Andrew's board rank is
+used. Where a player is on none of the three, they are ranked below everyone
+who is, ordered deterministically. Every layer predates the 2025 season.
+
+**Scoring gives both rosters a replacement-level kicker and defense if they did
+not draft one.** This mirrors what every manager in this league actually does —
+stream them off waivers — and makes the comparison fair. It also correctly
+charges the engine for spending a draft pick on a position it could have had
+for free.
+
+**Only Andrew's slot is backtested.** Running all twelve slots would multiply
+the work and tell us about other people's teams. Slot 2 is the question.
+
+**The deliverable is the roster; scoring is deferred.** The question this plan
+answers is what Andrew's team would have looked like, not whether it would have
+scored more. Season points are the only check in scope that could catch an
+engine drafting plausible-looking players for unsound reasons, so the milestone
+is retained rather than cut — but it is deferred behind the report, on the
+reasoning that reading the roster first tells us whether points are needed at
+all. The cost is a real risk, recorded here so it is not forgotten: a believable
+roster may end the exercise before anyone checks it was arrived at soundly. The
+mitigation is that M6 prints the engine's own rationale for every pick, so the
+reasoning is inspectable even without points. Everything scoring needs — the
+weekly statistics fetch included — lives inside M7, and no earlier milestone
+imports from it, so picking it up later disturbs nothing.
+
+## Outcomes & Retrospective
+
+Not yet started. To be filled in at M6 with the roster the engine would have
+drafted, how far it diverged from what Andrew really did, whether its stated
+reasoning reads as sound at each divergence, how different the forced-mode and
+cascade variants look, and what the exercise revealed about the engine that the
+existing replay could not. If reading it leaves the soundness question open, say
+so plainly here — that is the signal to pick up the deferred M7.
+
+## Context
+
+### What this repository is
+
+A Next.js 13 static site for a group of Sleeper fantasy football leagues,
+deployed to GitHub Pages. Alongside the site, an open pull request (#2) adds a
+draft assistant: a pure-TypeScript decision engine under `helpers/draft/` with
+no React or Next imports, command-line scripts under `scripts/`, committed JSON
+snapshots of historical drafts under `fixtures/`, and a live loop that watches a
+draft in progress and prints pick instructions to a console. Tests run under
+vitest; the engine is deterministic under a fixed random seed.
+
+The bot never picks. Sleeper's public API is read-only, so the bot watches the
+pick feed, tells a human what to take, and verifies afterwards what actually
+landed.
+
+### Terms used in this plan
+
+**ADP** — Average Draft Position. The consensus pick number at which a player
+is taken across many drafts. The engine uses it as its model of what opponents
+will do. Sleeper exposes a proxy called `search_rank`.
+
+**Board** — a drafter's own ranked list of players, grouped into tiers. Andrew's
+2025 board lives in a Google Sheet. The engine's value function is driven by it.
+
+**Tier** — a group of players a drafter considers roughly interchangeable. The
+engine's value function pays a large premium for a higher tier and only a tiny
+amount for a better rank within a tier, so tiers, not ranks, drive decisions.
+
+**Hindsight / lookahead** — using information that did not exist at the moment
+of the decision. Two distinct kinds matter here: knowing which players get
+drafted later in the same draft, and knowing how the season turned out.
+
+**Counterfactual** — a re-run of a real draft with one drafter's decisions
+replaced, to see what would have happened.
+
+**Pairwise swap** — the counterfactual model defined in the Decision Log: the
+engine takes X instead of Y, and the manager who really took X takes Y instead.
+
+**Cascade** — the alternative counterfactual model, in which a displaced manager
+falls through to the next player on their own real queue.
+
+**Survival** — the engine's estimate of the probability that a given player is
+still available at the drafter's next pick. Computed by Monte Carlo simulation
+over the ADP prior.
+
+**Forced mode** — engine behaviour that collapses the candidate set to unfilled
+mandatory starting positions when picks are running out, so the drafter cannot
+finish with an illegal lineup.
+
+**Optimal weekly lineup** — the highest-scoring legal starting lineup that could
+have been fielded from a roster in a given week, chosen with hindsight. Used for
+scoring because it removes start/sit skill from the comparison and isolates the
+quality of the players drafted.
+
+**Replacement level** — the score of a freely available player at a position;
+here, the median weekly score among kickers or defenses.
+
+### The specific draft under test
+
+The 2025 LadsLadsLads league is `1181351037804883968` and its draft is
+`1181351037804883969`: a twelve-team, fourteen-round snake with no reversal
+round and a 120-second pick timer, drafted 23 August 2025. The starting lineup
+that season was quarterback, two running backs, two receivers, a tight end, one
+flex, a kicker and a defense, with five bench spots.
+
+Andrew is Sleeper user `82919512949014528`, display name StranraerCarny. In the
+2025 draft he held **draft slot 2, roster id 6**, giving him picks 2, 23, 26,
+47, 50, 71, 74, 95, 98, 119, 122, 143, 146 and 167.
+
+The roster he actually drafted, in order: Bijan Robinson, Bucky Irving, Jaxon
+Smith-Njigba, TreVeyon Henderson, Tetairoa McMillan, Mark Andrews, Rashee Rice,
+Josh Downs, Jordan Addison, Trey Benson, Nick Chubb, Dylan Sampson, Brock Purdy
+and Brandon Aiyuk. Fourteen skill players, no kicker, no defense.
+
+The league's scoring settings carry 42 keys. The ones that matter most: half a
+point per reception, four points per passing touchdown, six per rushing or
+receiving touchdown, one tenth of a point per rushing or receiving yard, four
+hundredths per passing yard, minus one per interception and minus two per lost
+fumble.
+
+### Files this plan will create or change
+
+New, all under `helpers/draft/backtest/`: `universe.ts` (the contemporaneous
+player set and ADP prior), `visibility.ts` (the single chokepoint through which
+picks become visible), and `swap.ts` (the pairwise-swap counterfactual). Each
+gets a matching `.test.ts`, plus `lookahead.test.ts` which holds the proof.
+Deferred to M7: `scoring.ts` (league scoring and optimal weekly lineups).
+
+New scripts: `scripts/fetchBacktestData.ts` (network fetch into fixtures),
+`scripts/importSheet.ts` (Google Sheet to board), and `scripts/backtest.ts`
+(the runner).
+
+New fixture directory `fixtures/backtest2025/` holding the fetched 2025-era
+data. New npm scripts `backtest:data`, `backtest:board` and `backtest`.
+
+Unchanged: everything under `helpers/draft/` that already exists. The backtest
+consumes `recommend()`, `buildState()`, `survival()` and `needs.ts` exactly as
+the live bot does. If the backtest cannot be built without modifying the
+engine, that is a finding worth recording, not a licence to fork it.
+
+### Prerequisite not yet supplied
+
+Andrew's 2025 board spreadsheet URL. M3 cannot start without it. M1, M2 and M4
+do not depend on it and can proceed immediately. When the URL arrives, the sheet
+must be shared as "anyone with the link can view" so the CSV export endpoint
+works without authentication; this was verified against a public sheet and
+returns `HTTP 200` with content type `text/csv`.
+
+## Milestone 1 — Contemporaneous data acquisition
+
+**Goal:** get every piece of 2025-era data onto disk, validated, so that
+everything downstream runs offline and reproducibly.
+
+Write `scripts/fetchBacktestData.ts`, modelled on the existing
+`scripts/fetchFixtures.ts` — same hand-rolled validators that throw loudly on
+shape drift rather than writing bad data, same "network-touching scripts are
+small and separate" convention. It fetches three things and writes them under
+`fixtures/backtest2025/`. Weekly player statistics are *not* fetched here; they
+are needed only for scoring and so belong to the deferred M7.
+
+The 2025 pre-season ADP consensus, from
+`https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2025`,
+written to `adp.ffc.json`. Validate that the payload's `meta.start_date` falls
+before 4 September 2025 — the first day of the 2025 NFL season — and fail
+loudly if it does not, because an ADP list dated after kickoff would carry
+outcome knowledge and silently poison the whole exercise.
+
+The Jimmy G-whizz draft picks, from
+`https://api.sleeper.app/v1/draft/1267961683133878272/picks`, written to
+`adp.jimmyg.json`. Validate that exactly 180 picks come back.
+
+The league's 2025 settings, from
+`https://api.sleeper.app/v1/league/1181351037804883968`, written to
+`league.json`. Validate that `scoring_settings.rec` is 0.5, confirming the
+half-PPR format match with the ADP list, and that `roster_positions` matches the
+2025 lineup this plan assumes.
+
+**Result:** `fixtures/backtest2025/` exists and is committed. Every later
+milestone runs with no network access.
+
+**Proof:** from the repository root, `npm run backtest:data` prints one line per
+file written and exits zero. Then `ls fixtures/backtest2025` lists exactly
+`adp.ffc.json`, `adp.jimmyg.json` and `league.json`. A validation line in the
+script's output reports the ADP snapshot date and asserts it precedes kickoff,
+printing something of the form
+`ADP snapshot 2025-08-31 — precedes 2025 kickoff, OK`.
+
+## Milestone 2 — Contemporaneous player universe and ADP prior
+
+**Goal:** define exactly which players existed to be drafted in August 2025, and
+give each one a pre-season ADP, using nothing dated after 23 August 2025 except
+where explicitly justified.
+
+Write `helpers/draft/backtest/universe.ts`. The universe is the union of three
+sets: every player drafted in the 2025 lads draft, taken from
+`fixtures/lads/2025/picks.json`; every player on the Fantasy Football Calculator
+list; and every player drafted in the Jimmy G-whizz draft. Andrew's board joins
+this union at M3.
+
+Player attributes come from each pick's `metadata` object, which Sleeper stamps
+at draft time and which therefore carries the player's position, team and injury
+status as they were on draft day. Where a player appears only in the ADP list
+and was never drafted in either fixture, fall back to the ADP list's own name,
+position and team. The 2026 file `fixtures/players.trim.json` may be consulted
+only to resolve a Sleeper player id from a name, never for ADP, injury status or
+team, and the module must make that restriction structural rather than a
+convention — expose only an id-lookup function, not the player records.
+
+Name matching reuses the normalisation already written in
+`scripts/resolveBoard.ts:26`, which lowercases, strips punctuation and drops
+generational suffixes so "Marvin Harrison Jr." matches "marvin harrison". It
+needs one addition: the ADP source names defenses as "Denver Defense" while
+Sleeper names them "Denver Broncos", so defense entries match on the city
+portion and the position tag.
+
+The ADP prior is layered as recorded in the Decision Log: Fantasy Football
+Calculator rank first, then Jimmy G-whizz realized pick order for players it
+does not cover, then board rank, then a deterministic tail for everyone else.
+Emit the layered result as a `search_rank`-shaped integer per player, because
+that is what `helpers/draft/survival.ts` already consumes — no engine change is
+needed.
+
+**Result:** a single function that returns the 2025 player universe with a
+pre-season ADP attached to every member, provably free of 2026 data.
+
+**Proof:** a new spec `helpers/draft/backtest/universe.test.ts` asserts that
+every one of the 168 players drafted in lads/2025 is present in the universe;
+that at least 150 of them carry an ADP from the Fantasy Football Calculator or
+Jimmy G-whizz layers rather than the deterministic tail; that Tyreek Hill,
+Austin Ekeler and Keenan Allen are all present, since their absence from the
+2026 map is precisely the failure this milestone exists to prevent; and that no
+player record contains a field sourced from `players.trim.json` other than the
+id. Run with `npm test`; the file appears in the passing list.
+
+## Milestone 3 — Board import from the spreadsheet
+
+**Goal:** turn Andrew's 2025 Google Sheet into a resolved board that the engine
+can consume, failing loudly on anything ambiguous.
+
+Write `scripts/importSheet.ts`. It takes a Google Sheets URL, converts it to the
+CSV export form by extracting the document id and appending
+`/export?format=csv`, fetches it, and parses the result. Column detection is
+tolerant: find the rank, tier, name, position and team columns by header name,
+accepting common variants, and ignore every other column so notes, bye weeks and
+projections can stay in the sheet untouched. If a required column cannot be
+identified, print the headers that were found and exit non-zero rather than
+guessing.
+
+Resolution then runs against the M2 universe rather than the 2026 player map.
+The existing rules in `scripts/resolveBoard.ts` carry over unchanged: ranks must
+be unique, tiers must never decrease as rank increases, and every unresolved or
+ambiguous name is reported by name with a reason and causes a non-zero exit. The
+resolver never guesses.
+
+If the sheet turns out to be tiered per position rather than overall — which
+would violate the monotonic-tier rule and which the engine's value function
+cannot consume, since a tier-one kicker would price like a tier-one running back
+— stop and report it rather than mangling the data. Recovering from that case
+means interleaving positions by ADP to synthesise an overall order, which
+changes what is being tested and is Andrew's decision to make, not an
+autonomous one.
+
+Output is `config/board.2025.json`, committed, so the backtest is reproducible
+without the spreadsheet.
+
+**Result:** Andrew's real 2025 rankings, in the shape the engine consumes.
+
+**Proof:** `npm run backtest:board -- --sheet <url>` prints
+`resolved N players -> config/board.2025.json` and exits zero, or prints a
+per-name failure report and exits non-zero. Committing the output means the
+command need not be re-run to reproduce the backtest.
+
+## Milestone 4 — Visibility chokepoint and the lookahead proof
+
+**Goal:** make it structurally impossible for the engine to see the future, and
+prove it by test rather than by inspection. This is the milestone that makes the
+whole exercise credible, so it lands before any counterfactual is built.
+
+Write `helpers/draft/backtest/visibility.ts`, exposing a single function that
+takes the full pick feed and a pick number and returns only those picks with a
+strictly lower pick number. Every path by which the backtest constructs engine
+state goes through it. Nothing else in `helpers/draft/backtest/` may index the
+raw pick array.
+
+Then write the proof, in `helpers/draft/backtest/lookahead.test.ts`. For each of
+Andrew's fourteen picks, build the engine state twice. The first build uses the
+real feed. The second uses a feed in which every pick at or after the current
+pick number has been replaced — players randomly reassigned among those picks,
+under a fixed seed so the test is deterministic. Run `recommend()` on both and
+assert the primary pick, both fallbacks and the full rationale come out
+identical.
+
+If the engine reads the future in any way, the two runs diverge and the test
+fails. This is a falsifiable property, not a promise.
+
+The test is itself verified by deliberately breaking it: temporarily feed the
+engine the unsliced pick array, confirm the test fails, then revert. A test that
+cannot fail proves nothing, and this check is recorded in Progress when done.
+
+Expect this milestone to surface a real problem. The schedule-forced heuristic
+at `helpers/draft/recommend.ts:76` derives a position's supply horizon from
+`search_rank`. Under the honest ADP prior that becomes a rough estimate rather
+than the exact future it was tuned against, so forced mode will behave
+differently here than in the existing replay. That is a finding to record in
+Surprises & Discoveries, not a reason to change the engine — the engine must
+stay exactly as the live bot will run it, or the backtest tests something that
+will never be deployed.
+
+**Result:** a single, auditable boundary between what the engine knows and what
+the harness knows.
+
+**Proof:** `npm test` shows `lookahead.test.ts` passing with fourteen
+assertions. The deliberate-break check is performed once and its result recorded
+in this plan's Progress section.
+
+## Milestone 5 — Pairwise-swap counterfactual
+
+**Goal:** replay the real 2025 draft with the engine picking at slot 2, using
+the swap model, and produce the roster it would have ended up with.
+
+Write `helpers/draft/backtest/swap.ts`. Walk the real draft pick by pick. At any
+pick that is not Andrew's, the real player is taken, unless that player has
+already been credited to a displaced manager by an earlier swap, in which case
+the pick is a no-op. At each of Andrew's picks, build state from
+`visibility.ts`, call `recommend()`, and take the primary.
+
+If the engine's choice matches what Andrew really did, nothing else happens and
+that round is identical to reality. If it differs, apply the swap immediately:
+the engine's player joins Andrew's roster, and the player Andrew really took is
+credited at that same instant to whichever manager really took the engine's
+player, and removed from the pool. If the engine took someone no manager ever
+drafted, there is no displaced manager and no swap partner; Andrew's real pick
+simply leaves the pool uncredited, and that case is counted and reported.
+
+The invariant that proves the model held: at the end, the multiset of all
+drafted players across all twelve rosters must differ from reality by exactly
+the set of swapped pairs, every roster must hold exactly fourteen players, and
+no player may appear twice. Assert all three.
+
+Also implement the cascade model — a displaced manager falls through to the next
+player on their own real queue — behind a flag, for the sensitivity check the
+Decision Log commits to. Both models share the same visibility chokepoint.
+
+**Result:** the roster the engine would have drafted, plus a transcript showing
+every pick, every divergence and every swap.
+
+**Proof:** `npm run backtest -- --model swap` prints a fourteen-row transcript
+of Andrew's picks with the engine's choice, his real choice, and the displaced
+manager where one exists; then prints the three invariant checks as explicit
+pass lines. A spec `helpers/draft/backtest/swap.test.ts` asserts the invariants
+hold and that a draft in which the engine agrees with every real pick reproduces
+the real draft byte for byte.
+
+## Milestone 6 — Run, report, record
+
+**Goal:** produce the answer — the roster — in a form Andrew can read and
+challenge.
+
+Write `scripts/backtest.ts` to tie the pieces together and emit a report to
+`docs/plans/draft-backtest-2025/report.md`, committed. It runs four
+configurations: the swap model with forced mode on and off, and the cascade
+model with forced mode on and off. The swap run with forced mode on is the
+headline; the others are sensitivity checks.
+
+The report leads with the thing that answers the question: the two rosters set
+side by side, round by round. For each of the fourteen rounds it shows the pick
+number, the player Andrew really took, the player the engine would have taken,
+and — where they differ — the manager who was displaced and the player they
+received in exchange. Rounds where the engine agreed are marked as such, because
+agreement is as informative as divergence.
+
+Underneath each divergence it prints the engine's own rationale for that pick,
+verbatim from the recommendation: how many players remained in that tier, the
+survival percentage to the next pick, the value edge, and which roster slot it
+filled. This is what makes the roster judgeable without points. A name alone
+tells Andrew nothing about whether the reasoning was sound; the rationale does.
+
+Then a summary: how many of the fourteen picks the engine agreed with, how many
+diverged, and how many diverged into a player no manager drafted at all. Then
+the forced-mode comparison shown as two rosters, since the kicker and defense
+are the most visible difference between them and this league streams both. Then
+the cascade rosters, as the sensitivity check the Decision Log commits to.
+
+It closes with the limits, in plain language and not as a footnote: this is one
+draft at one slot; opponents are semi-scripted and do not react to being sniped,
+which mildly favours the engine; the swap assumption is convenient rather than
+behavioural, and the cascade rosters show how much that choice moved the answer;
+and **this report makes no claim about whether the resulting team is better** —
+it says what the team would have been and why, nothing more. Judging whether it
+would have scored more is deferred to M7.
+
+Then update this plan: tick M1 through M6 in Progress, record what the run
+revealed in Surprises & Discoveries, and write Outcomes & Retrospective.
+
+**Result:** a committed, reproducible roster comparison with the reasoning
+behind every pick and its own caveats attached.
+
+**Proof:** `npm run backtest` exits zero and writes the report. The report
+contains a fourteen-row round-by-round comparison for the headline
+configuration, an agreement summary of the form `engine agreed with 6 of 14
+picks; 8 diverged; 1 into a player no manager drafted`, and all four
+configurations. Re-running the command reproduces the report byte for byte,
+because the engine is seeded and every input is committed — checked by running
+it twice and diffing.
+
+## Milestone 7 (deferred) — Real-points scoring
+
+**Deferred by decision.** Not scheduled. Build this only if reading the M6
+report raises a question that points would settle. Nothing in M1 through M6
+imports from it, and the weekly-statistics fetch it needs lives here rather than
+in M1, so this milestone can be picked up or abandoned without disturbing
+anything.
+
+**Goal:** score any roster on what actually happened in the 2025 season, under
+this league's own rules, and trust the result.
+
+Extend `scripts/fetchBacktestData.ts` to also fetch weekly player statistics for
+the 2025 regular season, from
+`https://api.sleeper.app/v1/stats/nfl/regular/2025/<week>` for weeks 1 through
+the league's `playoff_week_start` minus one, written to
+`fixtures/backtest2025/stats/week-<n>.json`. Trim each week to the players in
+the backtest universe plus the fields the scorer needs, to keep the committed
+size reasonable.
+
+Then write `helpers/draft/backtest/scoring.ts` with two pieces. The first
+applies a Sleeper scoring-settings object to a player's raw weekly statistics,
+producing a points total — a sum over the settings keys present in the stat
+line. The second chooses the optimal legal lineup for a roster in a week: fill
+each dedicated starting slot and the flex with the highest scorers available,
+respecting flex eligibility of running backs, receivers and tight ends.
+
+Validate the first piece before trusting it. Run it with generic half-PPR
+settings over every player in a sample of weeks and compare the output to
+Sleeper's own `pts_half_ppr` field, which is present in the same payload. They
+must agree within a small rounding tolerance. Only once that passes is the
+scorer run with the league's own 42-key settings, which differ from generic
+half-PPR in details like the field-goal distance buckets and defensive points
+allowed.
+
+Both rosters get a replacement-level kicker and defense in any week they lack
+one, valued at the median weekly score among all kickers or all defenses that
+week. This mirrors the streaming every manager in this league does, and charges
+the engine correctly for having spent picks on those positions.
+
+**Result:** a season point total and weekly series for any roster, trusted
+because it reproduces Sleeper's own arithmetic.
+
+**Proof:** a spec `helpers/draft/backtest/scoring.test.ts` asserts agreement
+with `pts_half_ppr` within 0.01 points across at least 500 player-weeks, and
+asserts that the optimal-lineup chooser puts the highest-scoring eligible player
+in the flex. The M6 report gains a points section stating the totals for both
+rosters, with the added caveat that optimal weekly lineups assume perfect
+start/sit decisions for both, and that the comparison ignores waivers and
+trades, which are most of a fantasy season.
+
+## Acceptance
+
+The work is done when, from a clean checkout of this branch with dependencies
+installed and no network access, this sequence succeeds:
+
+    npm test
+    npm run backtest
+
+`npm test` reports every spec passing, including `universe.test.ts`,
+`lookahead.test.ts` and `swap.test.ts`. `npm run backtest` exits zero and writes
+`docs/plans/draft-backtest-2025/report.md` containing the two rosters side by
+side round by round, the engine's rationale beneath every divergence, an
+agreement summary, results for all four configurations, and the stated limits —
+including the explicit statement that the report makes no claim about which team
+would have scored more.
+
+M7 is deferred and forms no part of acceptance. `scoring.test.ts` does not
+exist and `fixtures/backtest2025/stats/` is absent; both arrive only if M7 is
+picked up.
+
+The lookahead property is proved, not asserted: `lookahead.test.ts` shows that
+scrambling every pick after the decision point leaves the engine's
+recommendation unchanged at all fourteen of Andrew's picks.
+
+`npm run build` still passes, so the GitHub Pages deployment is unaffected, and
+`package-lock.json` remains at `lockfileVersion: 2` for the Node 16 workflow.
