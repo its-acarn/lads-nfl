@@ -14,7 +14,8 @@
     "replay": "tsx scripts/replay.ts",
     "bot": "tsx scripts/draftbot.ts",
     "backtest:data": "tsx scripts/fetchBacktestData.ts",
-    "backtest:board": "tsx scripts/importSheet.ts"
+    "backtest:board": "tsx scripts/importSheet.ts",
+    "backtest": "tsx scripts/backtest.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
