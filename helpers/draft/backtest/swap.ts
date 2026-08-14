@@ -146,6 +146,30 @@ export function runCounterfactual(inputs: SwapInputs): CounterfactualResult {
 
   const decide = inputs.decide || decideAt
 
+  // Draft order of last resort: the drafter's own board first, then everyone
+  // else by market ADP. Used when a displaced manager cannot be paid back and
+  // has no queue left to fall through.
+  const fallbackOrder: string[] = []
+  const seenInOrder: Record<string, boolean> = {}
+  const boardByRank = inputs.pipeline.board.players.slice().sort((a, b) => a.rank - b.rank)
+  for (let i = 0; i < boardByRank.length; i++) {
+    if (seenInOrder[boardByRank[i].player_id]) continue
+    seenInOrder[boardByRank[i].player_id] = true
+    fallbackOrder.push(boardByRank[i].player_id)
+  }
+  const adpByRank = inputs.pipeline.adp.slice().sort((a, b) => (a.sleeper || a.rank) - (b.sleeper || b.rank))
+  for (let i = 0; i < adpByRank.length; i++) {
+    if (seenInOrder[adpByRank[i].player_id]) continue
+    seenInOrder[adpByRank[i].player_id] = true
+    fallbackOrder.push(adpByRank[i].player_id)
+  }
+  const bestAvailable = (takenSoFar: Record<string, boolean>): string | null => {
+    for (let i = 0; i < fallbackOrder.length; i++) {
+      if (!takenSoFar[fallbackOrder[i]]) return fallbackOrder[i]
+    }
+    return null
+  }
+
   const taken: Record<string, boolean> = {}
   const rosterOf: Record<string, number> = {}
   const noOpPicks: Record<number, boolean> = {}
@@ -256,8 +280,12 @@ export function runCounterfactual(inputs: SwapInputs): CounterfactualResult {
       continue
     }
 
-    // Their real player is gone. Under the swap model this should not happen;
-    // under the cascade model it is the normal case.
+    // Their real player is gone. Normal under cascade; under swap it means the
+    // exchange could not be paid — the engine took their player AND the player
+    // they were owed in return had already gone to the engine at an earlier
+    // pick. Either way they still get to draft: skipping the pick would leave a
+    // hole in the feed, which puts a later pick number on the clock and breaks
+    // the whole walk.
     let replacement: SleeperPick | null = null
     if (inputs.model === 'cascade') {
       const queue = actual.roster_id === null ? [] : queueByRoster[actual.roster_id] || []
@@ -270,8 +298,17 @@ export function runCounterfactual(inputs: SwapInputs): CounterfactualResult {
       }
     }
     if (replacement === null) {
-      fallbacks.push(`pick ${pickNo}: roster ${String(actual.roster_id)} had no replacement under the ${inputs.model} model`)
-      continue
+      // Best available, by the drafter's board first and then market ADP —
+      // the most defensible thing to assume of a manager with no plan left.
+      const nextUp = bestAvailable(taken)
+      if (nextUp === null) {
+        fallbacks.push(`pick ${pickNo}: roster ${String(actual.roster_id)} had nobody left to draft at all`)
+        continue
+      }
+      fallbacks.push(
+        `pick ${pickNo}: roster ${String(actual.roster_id)} lost their player and could not be paid back; took best available (${nextUp})`
+      )
+      replacement = clonePick(actual, nextUp, null)
     }
     taken[replacement.player_id] = true
     if (actual.roster_id !== null) rosterOf[replacement.player_id] = actual.roster_id

@@ -158,3 +158,41 @@ describe('the cascade model, kept as a sensitivity check', () => {
     expect(cascade.invariants.everyRosterHolds14).toBe(true)
   })
 })
+
+describe('a displaced manager who cannot be paid back still drafts', () => {
+  it('leaves no hole in the feed', () => {
+    // Regression. The swap can fail to pay a manager back: the engine takes
+    // their player, and the player they were owed in exchange had already gone
+    // to the engine at an earlier pick. The old code skipped that pick
+    // entirely, leaving a gap in the feed — which then put a later pick number
+    // on the clock and broke the rest of the walk with a misleading error.
+    //
+    // Reproduced by promoting a late-ADP player to tier 2, which makes the
+    // engine reach far enough for the chain to occur.
+    const spears = board.players.filter((p) => p.name === 'Tyjae Spears')[0]
+    expect(spears, 'fixture should contain Tyjae Spears').toBeTruthy()
+    const promoted = {
+      ...board,
+      players: board.players.map((p) => (p.player_id === spears.player_id ? { ...p, tier: 2 } : p)),
+      rules: { ...board.rules, useRosterNeed: false, useForcedStarters: true, vonaFromRound: 3 },
+    }
+
+    const r = runCounterfactual({
+      pipeline: { ...pipeline(false, 500), board: promoted },
+      realFeed,
+      myPickNos,
+      myRosterId: rosterId,
+      model: 'swap',
+    })
+
+    const seen: Record<number, boolean> = {}
+    for (let i = 0; i < r.syntheticFeed.length; i++) seen[r.syntheticFeed[i].pick_no] = true
+    const missing: number[] = []
+    for (let n = 1; n <= realFeed.length; n++) if (!seen[n]) missing.push(n)
+    expect(missing, 'every pick number must be filled').toEqual([])
+    expect(r.invariants.everyRosterHolds14).toBe(true)
+    expect(r.invariants.duplicates).toEqual([])
+    // The situation did occur, so the test is exercising the path it targets.
+    expect(r.fallbacks.length).toBeGreaterThan(0)
+  })
+})

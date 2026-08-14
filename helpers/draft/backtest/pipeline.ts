@@ -105,10 +105,19 @@ export function decideAt(inputs: PipelineInputs, req: DecisionRequest): Decision
 
   const state = buildState(cfg, visible, board, universe.players)
   if (state.myRemainingPickNos.length === 0 || state.myRemainingPickNos[0] !== pickNo) {
+    // Name the actual gap, not just the drafter's next pick. The two are
+    // different when the feed is missing an earlier pick entirely, and
+    // reporting only the latter sends you looking in the wrong place.
+    const seen: Record<number, boolean> = {}
+    for (let i = 0; i < visible.length; i++) seen[visible[i].pick_no] = true
+    const gaps: number[] = []
+    for (let n = 1; n < pickNo && gaps.length < 5; n++) if (!seen[n]) gaps.push(n)
     throw new Error(
       `decideAt: asked to decide pick ${pickNo} but the state's next pick is ` +
-        `${state.myRemainingPickNos.length > 0 ? state.myRemainingPickNos[0] : 'none'} — ` +
-        `the feed does not put that pick on the clock`
+        `${state.myRemainingPickNos.length > 0 ? state.myRemainingPickNos[0] : 'none'}. ` +
+        (gaps.length > 0
+          ? `The feed is missing earlier pick(s): ${gaps.join(', ')}.`
+          : 'The feed does not put that pick on the clock.')
     )
   }
 
