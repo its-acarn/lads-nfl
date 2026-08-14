@@ -5,7 +5,7 @@
 // feed plus the log and never re-spams.
 
 import { recommend } from './recommend'
-import { parseLineup } from './needs'
+import { effectiveLineup, parseLineup } from './needs'
 import { assertSupportedDraft } from './snake'
 import { buildState, nameOfPick } from './state'
 import { computeReachScale, DEFAULT_SIM_OPTS } from './survival'
@@ -122,7 +122,14 @@ export async function runBot(
 
   // ---- LOAD: hard errors here, not mid-draft ------------------------------
   const league = await deps.feed.getLeague()
-  parseLineup(league.roster_positions)
+  // A position the board caps at zero is one Andrew has decided never to draft,
+  // so its starter slot becomes bench. Without this the slot stays permanently
+  // unfilled, forced mode fires on the last picks, the candidate set collapses
+  // to a position the cap then rejects entirely, and recommend() falls through
+  // to its relax-everything path — arbitrary picks in the final rounds of a
+  // live draft. See effectiveLineup in needs.ts.
+  const lineup = effectiveLineup(league.roster_positions, board.rules)
+  parseLineup(lineup)
   let draft = await deps.feed.getDraft()
   counters.draftFetches++
   assertSupportedDraft(draft)
@@ -143,7 +150,7 @@ export async function runBot(
     draft,
     tradedPicks,
     myUserId: optsIn.myUserId,
-    rosterPositions: league.roster_positions,
+    rosterPositions: lineup,
   })
 
   const sendOnce = async (key: string, msg: DraftMessage, payload?: string[]): Promise<boolean> => {

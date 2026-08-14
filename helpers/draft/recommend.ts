@@ -143,13 +143,34 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   candidates = candidates.slice(0, opts.candidateLimit)
 
   // ---- scoring ------------------------------------------------------------
+  // Two regimes. Early on the board wins outright: take the highest-ranked
+  // player still available and let scarcity wait. From `vonaFromRound` the
+  // scarcity rule takes over.
+  //
+  // The gate exists because the two cannot simply be blended. Within a tier the
+  // ordering term is worth hundredths of a point while a positional-scarcity
+  // edge is worth several, so any weighting that lets the board's order compete
+  // late would have to be large enough to invert the tier plateaus themselves —
+  // a mid-tier-1 player would price below a top-tier-2 one and the board would
+  // stop being a board.
+  const vonaFrom = rules.vonaFromRound === undefined ? 1 : rules.vonaFromRound
+  const boardOrderPhase = round < vonaFrom
+  if (boardOrderPhase) {
+    globalRationale.push(
+      `board order (round ${round} < ${vonaFrom}): taking the highest-ranked player available, scarcity ignored`
+    )
+  }
+
   const scored: { p: PoolPlayer; score: number }[] = []
   for (let i = 0; i < candidates.length; i++) {
     const p = candidates[i]
     const expectedBest = report.myNextPickNo === null ? 0 : report.expectedBestValueByPos[p.pos]
     const edge = p.value - expectedBest
     const need = Math.max(needs.weights[p.pos], relaxed ? 0.05 : 0)
-    scored.push({ p, score: edge * need })
+    // Position caps are enforced by the guardrail filter above, and a need
+    // weight only reaches zero when a position is capped, so straight board
+    // value cannot pick an ineligible player here.
+    scored.push({ p, score: boardOrderPhase ? p.value : edge * need })
   }
   scored.sort(
     (a, b) => b.score - a.score || b.p.value - a.p.value || (a.p.player_id < b.p.player_id ? -1 : 1)
@@ -171,6 +192,10 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
 
   const rationaleFor = (p: PoolPlayer, score: number): string[] => {
     const r: string[] = []
+    // In the board-order phase the ranking IS the reason, so lead with it. The
+    // scarcity figures below are still printed as context, but they did not
+    // decide this pick and the rationale should not imply they did.
+    if (boardOrderPhase && p.boardRank !== null) r.push(`your board rank ${p.boardRank}`)
     if (p.tier !== null) {
       let leftInTier = 0
       for (let i = 0; i < state.pool.length; i++) {
@@ -191,7 +216,7 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     if (needs.unfilledMandatory[p.pos] > 0) r.push(`fills ${p.pos} starter slot`)
     else if (needs.weights[p.pos] === 0.75) r.push('fills flex')
     else r.push(`bench depth (need ${needs.weights[p.pos].toFixed(2)})`)
-    if (score !== undefined) r.push(`score ${score.toFixed(2)}`)
+    if (score !== undefined) r.push(boardOrderPhase ? `board value ${score.toFixed(2)}` : `score ${score.toFixed(2)}`)
     return r
   }
 

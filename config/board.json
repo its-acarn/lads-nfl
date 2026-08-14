@@ -19,10 +19,12 @@
   "doNotDraft": [],
   "pins": [],
   "rules": {
-    "maxByPos": { "QB": 2, "RB": 6, "WR": 6, "TE": 2, "K": 1, "DEF": 1 },
+    "//": "One QB, one TE, no kicker, no defense (Andrew, Aug 2026). vonaFromRound 6: rounds 1-5 follow the board's order outright, positional scarcity only takes over from round 6.",
+    "maxByPos": { "QB": 1, "RB": 8, "WR": 8, "TE": 1, "K": 0, "DEF": 0 },
     "minRoundK": 13,
     "minRoundDEF": 12,
     "stashRound": 12,
-    "offBoardDiscount": 0.8
+    "offBoardDiscount": 0.8,
+    "vonaFromRound": 6
   }
 }

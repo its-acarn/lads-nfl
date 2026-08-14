@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { computeNeeds, forcedPositions, isForcedMode, parseLineup } from './needs'
+import { computeNeeds, effectiveLineup, forcedPositions, isForcedMode, parseLineup } from './needs'
 import { BoardRules, Position } from './types'
 
 const LADS_LINEUP = ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN', 'BN']
@@ -88,5 +88,45 @@ describe('forced mode', () => {
   it('never fires with a complete lineup', () => {
     const needs = computeNeeds(counts({ QB: 1, RB: 2, WR: 2, TE: 1, K: 1, DEF: 1 }), shape, RULES)
     expect(isForcedMode(1, needs)).toBe(false)
+  })
+})
+
+describe('effectiveLineup', () => {
+  const lads2025 = ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN', 'BN']
+
+  function rules(maxByPos: Record<string, number>) {
+    return {
+      maxByPos: maxByPos as any,
+      minRoundK: 13,
+      minRoundDEF: 12,
+      stashRound: 12,
+      offBoardDiscount: 0.8,
+    }
+  }
+
+  it('turns a starter slot into bench when the board caps that position at zero', () => {
+    // Without this the slot never fills, forced mode fires on the last picks,
+    // the candidate set collapses to a position the cap rejects entirely, and
+    // recommend() drops into its relax-everything path — arbitrary picks at the
+    // end of a live draft.
+    const out = effectiveLineup(lads2025, rules({ QB: 1, RB: 8, WR: 8, TE: 1, K: 0, DEF: 0 }))
+    expect(out.indexOf('K')).toBe(-1)
+    expect(out.indexOf('DEF')).toBe(-1)
+    expect(out.length).toBe(lads2025.length)
+    expect(out.filter((s) => s === 'BN').length).toBe(7)
+  })
+
+  it('leaves the lineup alone when the position is draftable', () => {
+    const out = effectiveLineup(lads2025, rules({ QB: 2, RB: 8, WR: 8, TE: 3, K: 1, DEF: 1 }))
+    expect(out).toEqual(lads2025)
+  })
+
+  it('stops forced mode ever demanding a position that cannot be drafted', () => {
+    const capped = rules({ QB: 1, RB: 8, WR: 8, TE: 1, K: 0, DEF: 0 })
+    const shape = parseLineup(effectiveLineup(lads2025, capped))
+    const needs = computeNeeds({ QB: 1, RB: 2, WR: 2, TE: 1, K: 0, DEF: 0 }, shape, capped)
+    expect(needs.unfilledMandatory.K).toBe(0)
+    expect(needs.unfilledMandatory.DEF).toBe(0)
+    expect(needs.unfilledMandatoryCount).toBe(0)
   })
 })

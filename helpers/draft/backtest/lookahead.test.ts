@@ -55,7 +55,7 @@ const inputs: PipelineInputs = {
   sims: SIMS,
 }
 
-const myPicks = myPickNumbers(draftConfig(draft, tradedPicks, league.roster_positions, false))
+const myPicks = myPickNumbers(draftConfig(draft, tradedPicks, league.roster_positions, board.rules, false))
 
 // Reassign which player sits in each pick at or after `pickNo`, keeping the
 // slots themselves — pick_no, round, draft_slot, roster_id — exactly as they

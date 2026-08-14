@@ -1,6 +1,6 @@
 # ExecPlan — Hindsight-Free 2025 Draft Backtest
 
-**Status:** Draft, awaiting the board spreadsheet URL · **Owner:** Andrew ·
+**Status:** M1–M6 implemented; M7 deferred · **Owner:** Andrew ·
 **Branch:** `claude/sleeper-api-draft-selection-wua79b`
 
 ## Purpose
@@ -61,13 +61,15 @@ comes after the roster has been read.
 - [x] **M6 — Run, report, record.** Done. `npm run backtest` writes
       `docs/plans/draft-backtest-2025/report.md` across four configurations and
       reproduces byte for byte on a second run. All four pass their invariants.
-      Headline: 4 of 14 players appear on both rosters, 3 divergences are the
-      engine reordering Andrew's own picks, and 7 of 14 comparable divergences
-      are within one tier of his own board.
+      Re-run after the board-order and roster-rule changes: rounds 1 and 2 now
+      match Andrew's real picks exactly, **11 of 14** comparable divergences are
+      within one tier of his own board (was 7), and the engine's roster shape —
+      1 QB, 6 RB, 6 WR, 1 TE — matches his real one exactly.
 - [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
       reading the M6 report raises a question that points would settle.
 
-Nothing is implemented yet. This plan is the only artifact so far.
+M1 through M6 are implemented, tested and committed. M7 is deferred by
+decision, not by omission.
 
 ## Surprises & Discoveries
 
@@ -357,6 +359,42 @@ stream them off waivers — and makes the comparison fair. It also correctly
 charges the engine for spending a draft pick on a position it could have had
 for free.
 
+**Board order beats positional scarcity until round 6.** Added after reading the
+first run. The engine passed over Bijan Robinson — rank 2 on Andrew's board — to
+take CeeDee Lamb, rank 4, at pick 2. The arithmetic: both are tier 1, so their
+board values differ by 0.02, while the positional-scarcity edge differed by 7.7
+(the simulation expected the best remaining running back at pick 23 to be worth
+84.7 against 77.0 for the best receiver). The board's within-tier ordering was
+therefore arithmetically invisible.
+
+This cannot be fixed by tuning. Making the ordering term competitive would take
+roughly 3.85 points per rank step, and with twelve players in tier 1 that puts
+the twelfth around 56 while the first tier-2 player sits at 85 — the plateaus
+invert and the board stops being a board. The two rules are in direct
+competition and one has to be primary.
+
+Andrew's call: board order outright for rounds 1–5, scarcity from round 6. Set
+as `BoardRules.vonaFromRound`, defaulting to 1 (previous behaviour) so the
+synthetic-market replay and its golden snapshots are untouched. Recorded here
+because it is a change to the engine the live bot runs, not a backtest-only
+setting: `config/board.json` carries it for 2026 as well.
+
+**Roster rules: one quarterback, one tight end, no kicker, no defense.**
+Andrew's stated construction, applied to both the 2025 backtest board and the
+live 2026 board. Running backs and receivers stay permissive so the board drives
+those rather than a cap.
+
+**A position capped at zero loses its starter slot.** Setting `maxByPos.K` and
+`maxByPos.DEF` to zero while the league lineup still lists both as dedicated
+starters is actively dangerous: the slots never fill, so
+`unfilledMandatoryCount` never reaches zero, forced mode fires on the last
+picks, the candidate set collapses to those positions, the cap guardrail then
+rejects every candidate in them, and `recommend()` falls through to its
+relax-everything path — arbitrary picks at the end of a live draft. `needs.ts`
+now exposes `effectiveLineup`, which converts any such slot to bench, and
+`bot.ts` applies it at LOAD. The backtest derives its forced-mode toggle from
+the same function, so there is one source of truth rather than two.
+
 **Only Andrew's slot is backtested.** Running all twelve slots would multiply
 the work and tell us about other people's teams. Slot 2 is the question.
 
@@ -378,27 +416,29 @@ imports from it, so picking it up later disturbs nothing.
 M1 through M6 are complete. The report is at
 `docs/plans/draft-backtest-2025/report.md` and reproduces byte for byte.
 
-**What the engine would have drafted.** Two quarterbacks, four running backs,
-five receivers and three tight ends, against Andrew's one, six, six and one. The
-engine is markedly heavier at tight end and lighter at running back. Four
-players are common to both rosters: Bucky Irving, Mark Andrews, Rashee Rice and
-Brock Purdy.
+**What the engine would have drafted.** One quarterback, six running backs, six
+receivers and one tight end — the same shape as Andrew's real roster. Four
+players are common to both: Bijan Robinson, Bucky Irving, Mark Andrews and
+Brandon Aiyuk.
 
-**How far it really diverged.** Raw agreement is 1 of 14, which overstates the
-gap considerably. Three of the divergences are the engine reordering Andrew's
-own picks — it took the same player at a different one of his turns, leaving the
-roster unchanged. Seven of the fourteen comparable divergences are between two
-players sitting in the same tier of Andrew's own board, which is his board
-saying they are interchangeable and the engine breaking the tie on roster need.
-The genuine differences of opinion are a smaller set than the headline suggests.
+**How far it really diverged.** Rounds 1 and 2 match Andrew's real picks exactly.
+Eleven of the fourteen comparable divergences are between two players in the
+same tier of his own board, which is his board saying they are interchangeable
+and the engine breaking the tie on roster need. Genuine differences of opinion
+are a small residue.
 
-**Does the reasoning read as sound?** Mostly yes, and it is inspectable: every
-divergence in the report carries the engine's own rationale — tier scarcity,
-survival percentage to the next pick, the value edge, which slot it fills. The
-one clear misbehaviour is quarterbacks, and it is an input problem rather than
-an engine problem. See Surprises: the QB column has no tier breaks, the plan
-priced it level with the last tier, and that guess is too generous by about five
-rounds. That is the single change most worth making before this is run again.
+This is after the board-order change. The first run was much worse and is worth
+recording: with scarcity applied from round 1, the engine passed over Bijan
+Robinson (board rank 2) for CeeDee Lamb (rank 4) at pick 2, and only 7 of 14
+divergences were same-tier. Andrew flagged it, the arithmetic confirmed it, and
+the fix was a decision about which rule is primary rather than a tuning change.
+
+**Does the reasoning read as sound?** Yes, and it is inspectable: every
+divergence in the report carries the engine's own rationale, and in the
+board-order rounds that rationale now leads with the board rank that drove it.
+The residual concern is quarterbacks — the engine takes one in round 10 against
+Andrew's round 13. Better than the round 8 of the first run, but still early,
+and still traceable to the QB column having no tier breaks.
 
 **Forced mode and cascade.** Both sensitivity runs pass the same invariants and
 are reported alongside. Forced mode on spends two of fourteen picks on positions

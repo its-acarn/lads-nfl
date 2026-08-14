@@ -77,16 +77,26 @@ const EXPECTED_LIST_HEADER = ['Rank', 'Player', 'Team', 'Bye', 'POS', 'Sleeper']
 // drafted that year resolves by construction.
 const DRAFTABLE_DEPTH = 168
 
-// Permissive caps: the board should drive the picks, not the cap. K and DEF
-// are zero because Andrew does not draft them -- his board omits them, his real
-// 2025 roster had neither, and a third of this league drafts no kicker in a
-// given year. The forced-mode sensitivity run in M6 overrides these.
+// Andrew's roster rules, as stated: one quarterback, one tight end, no kicker
+// and no defense. RB and WR are left permissive so the board drives those, not
+// the cap -- with 14 picks and the four other positions settled, everything
+// else is running backs and receivers anyway.
+//
+// vonaFromRound 6: rounds 1-5 take the highest-ranked player on the board and
+// ignore positional scarcity entirely; from round 6 the scarcity rule takes
+// over. Without this the board's within-tier ordering is worth hundredths of a
+// point against several points of scarcity and is simply never heard -- which
+// is how the first run passed over Bijan Robinson, ranked 2, for CeeDee Lamb,
+// ranked 4, at pick 2.
+//
+// The forced-mode sensitivity run in M6 overrides the K and DEF caps.
 const BOARD_RULES = {
-  maxByPos: { QB: 2, RB: 8, WR: 8, TE: 3, K: 0, DEF: 0 },
+  maxByPos: { QB: 1, RB: 8, WR: 8, TE: 1, K: 0, DEF: 0 },
   minRoundK: 13,
   minRoundDEF: 12,
   stashRound: 12,
   offBoardDiscount: 0.8,
+  vonaFromRound: 6,
 }
 
 function fail(msg: string): never {

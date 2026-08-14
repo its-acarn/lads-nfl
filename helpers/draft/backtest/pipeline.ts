@@ -91,7 +91,7 @@ export function decideAt(inputs: PipelineInputs, req: DecisionRequest): Decision
   }
 
   const visible = visibleAt(req.stateFeed, pickNo)
-  const cfg = draftConfig(inputs.draft, inputs.tradedPicks, inputs.rosterPositions, inputs.forcedMode)
+  const cfg = draftConfig(inputs.draft, inputs.tradedPicks, inputs.rosterPositions, inputs.board.rules, inputs.forcedMode)
   const board: ResolvedBoard = {
     season: inputs.board.season,
     leagueId: inputs.board.leagueId,
