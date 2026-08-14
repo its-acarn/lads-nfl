@@ -125,7 +125,11 @@ function fingerprint(pickNo: number, feedForRun: SleeperPick[], adpForRun: Sheet
     forcedMode: false,
     sims: SIMS,
   }
-  return JSON.stringify(decideAt(run, feedForRun, pickNo).recommendation)
+  // Both roles get the same feed here on purpose: the permutation must reach
+  // every artifact, or the check tests nothing.
+  return JSON.stringify(
+    decideAt(run, { attributeFeed: feedForRun, stateFeed: feedForRun, pickNo }).recommendation
+  )
 }
 
 describe('Andrew held 14 picks in the 2025 draft', () => {
