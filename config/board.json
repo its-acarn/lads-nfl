@@ -1,9 +1,9 @@
 {
-  "//": "Sample board so the resolver + tests run before Andrew's real 2026 board lands. Replace players/leagueId/draftId/myUserId with the real thing. Names taken from live Sleeper data, Aug 2026.",
+  "//": "League IDs are live (lads 2026, draft 2026-09-05 19:00 UTC, snake, 12 teams, 14 rounds). The players list below is still the 10-player SAMPLE — replace it with Andrew's real tiered board and re-run `npm run resolve-board`.",
   "season": 2026,
-  "leagueId": "<2026 lads league id>",
-  "draftId": "<2026 draft id>",
-  "myUserId": "<andrew's sleeper user_id>",
+  "leagueId": "1325817907900354560",
+  "draftId": "1325817907912904704",
+  "myUserId": "82919512949014528",
   "players": [
     { "name": "Bijan Robinson", "pos": "RB", "team": "ATL", "tier": 1, "rank": 1 },
     { "name": "Jahmyr Gibbs", "pos": "RB", "team": "DET", "tier": 1, "rank": 2 },

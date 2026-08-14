@@ -10,7 +10,7 @@
 
 import * as fs from 'fs'
 import * as path from 'path'
-import { ladsLeagueId2024, flexiLeagueId2024 } from '../config/config'
+import { ladsLeagueId2026, flexiLeagueId2026 } from '../config/config'
 import {
   FANTASY_POSITIONS,
   PlayerMap,
@@ -20,9 +20,12 @@ import {
 } from '../helpers/draft/types'
 
 const API = 'https://api.sleeper.app/v1'
+// Root at the CURRENT season's leagues so the previous_league_id walk always
+// reaches the newest completed season. The in-progress season is skipped by
+// the league.status !== 'complete' check in snapshotChain.
 const ROOTS: Record<string, string> = {
-  lads: ladsLeagueId2024,
-  flexi: flexiLeagueId2024,
+  lads: ladsLeagueId2026,
+  flexi: flexiLeagueId2026,
 }
 const OUT_DIR = path.join(__dirname, '..', 'fixtures')
 
