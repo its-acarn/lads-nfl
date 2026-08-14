@@ -12,7 +12,9 @@
     "fixtures": "tsx scripts/fetchFixtures.ts",
     "resolve-board": "tsx scripts/resolveBoard.ts",
     "replay": "tsx scripts/replay.ts",
-    "bot": "tsx scripts/draftbot.ts"
+    "bot": "tsx scripts/draftbot.ts",
+    "backtest:data": "tsx scripts/fetchBacktestData.ts",
+    "backtest:board": "tsx scripts/importSheet.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",

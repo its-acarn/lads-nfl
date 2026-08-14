@@ -34,12 +34,27 @@ export function loadFixture(name: string, season: string): FixtureDraft {
   }
 }
 
+const DRAFT_FIXTURE_FILES = ['league.json', 'draft.json', 'picks.json', 'traded_picks.json']
+
+// A draft fixture is identified by what a directory CONTAINS, not by where it
+// sits. fixtures/ also holds directories that are not league/season pairs --
+// backtest2025/ among them -- and treating every child as a league made the
+// loader throw the moment one appeared.
+function isDraftFixture(dir: string): boolean {
+  for (let i = 0; i < DRAFT_FIXTURE_FILES.length; i++) {
+    if (!fs.existsSync(path.join(dir, DRAFT_FIXTURE_FILES[i]))) return false
+  }
+  return true
+}
+
 export function loadAllFixtures(): FixtureDraft[] {
   const out: FixtureDraft[] = []
   const names = fs.readdirSync(FIXTURES_DIR).filter((n) => fs.statSync(path.join(FIXTURES_DIR, n)).isDirectory())
   for (let i = 0; i < names.length; i++) {
-    const seasons = fs.readdirSync(path.join(FIXTURES_DIR, names[i]))
+    const leagueDir = path.join(FIXTURES_DIR, names[i])
+    const seasons = fs.readdirSync(leagueDir).filter((s) => fs.statSync(path.join(leagueDir, s)).isDirectory())
     for (let j = 0; j < seasons.length; j++) {
+      if (!isDraftFixture(path.join(leagueDir, seasons[j]))) continue
       out.push(loadFixture(names[i], seasons[j]))
     }
   }

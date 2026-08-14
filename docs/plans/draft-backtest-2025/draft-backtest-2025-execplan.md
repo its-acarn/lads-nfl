@@ -26,10 +26,17 @@ comes after the roster has been read.
 
 ## Progress
 
-- [ ] **M1 — Contemporaneous data acquisition.** Fetch and commit the 2025-era
-      data the backtest needs, with validators.
-- [ ] **M2 — Board and ADP import from the spreadsheet.** Turn the `LLL Tiers`
-      tab into a resolved board and the `List` tab into an ADP list.
+- [x] **M1 — Contemporaneous data acquisition.** Done. `npm run backtest:data`
+      writes `adp.ffc.json` (156 players, 718 drafts, snapshot 2025-08-31..09-01,
+      validated as preceding the 2025-09-04 kickoff), `adp.jimmyg.json` (180
+      picks) and `league.2025.json` (14 lineup slots, 42 scoring keys, playoffs
+      from week 15, so scoring would run weeks 1–14).
+- [x] **M2 — Board and ADP import from the spreadsheet.** Done.
+      `npm run backtest:board` writes `config/board.2025.json` (157 players,
+      8 tiers: T1=12 T2=10 T3=10 T4=14 T5=15 T6=22 T7=21 T8=53; QB=23 RB=57
+      TE=18 WR=59, no K, no DEF) and `fixtures/backtest2025/adp.sheet.json`
+      (327 of 358 rows; ids from lads2025=168, jimmyg2025=25, trim2026=134).
+      All 157 board names resolved, Ollie Gordon included. 37 specs cover it.
 - [ ] **M3 — Contemporaneous player universe and ADP prior.** Assemble the set
       of players who were draftable in August 2025, each with a pre-season ADP.
 - [ ] **M4 — Visibility chokepoint and the lookahead proof.** Route all pick
@@ -131,6 +138,24 @@ order, from Allen and Lamar down to Penix, with nothing to price them against
 the skill tiers. Andrew's revealed behaviour is to draft the position very late:
 in 2025 he took Brock Purdy, eleventh on that column, at pick 146 in round 13.
 
+**Found during M1: `loadAllFixtures` assumed every directory under `fixtures/`
+was a league.** It read each child as a league and each grandchild as a season,
+so the moment `fixtures/backtest2025/` appeared the whole existing suite threw
+on a missing `league.json`. Fixed by identifying a draft fixture from its
+contents — a directory holding all four of `league.json`, `draft.json`,
+`picks.json` and `traded_picks.json` — rather than from its position in the
+tree. Latent fragility that any new fixture directory would have triggered.
+
+**Found during M2: 31 of the 358 ADP rows cannot be resolved to a Sleeper id at
+all.** They sit at ranks 226 to 356 — Tyler Lockett, Amari Cooper, Brandin
+Cooks, Russell Wilson among them — and are unresolvable because they were
+drafted in neither 2025 fixture *and* have since dropped out of the 2026 player
+map, so no source of any vintage supplies an id. They are reported and dropped
+rather than blocking the import. This cannot silently lose anyone who mattered:
+the id index is built from the lads 2025 picks feed, so every player actually
+drafted that year resolves by construction, and an unresolved entry inside the
+168-pick draftable depth is still fatal.
+
 ## Decision Log
 
 **The backtest is new code, not a flag on the existing replay.** The existing
@@ -184,6 +209,45 @@ if the two disagree sharply the discrepancy is worth understanding before
 trusting either. The Jimmy G-whizz realized pick order extends the tail past
 `List`. Anyone on none of these is ranked below everyone who is, ordered
 deterministically. Every layer predates the 2025 season.
+
+**Player ids resolve from draft-day metadata first, not the 2026 map.** Raised
+during pre-implementation review of this plan. M3 originally said to consult
+`fixtures/players.trim.json` for name-to-id lookup, but that file is an August
+2026 snapshot and is missing Tyreek Hill, Austin Ekeler and Keenan Allen — the
+exact players this plan exists to keep. The lookup order is therefore: the 2025
+lads picks feed's `metadata` first, then the Jimmy G-whizz picks feed, then the
+2026 map as a last resort for players neither draft touched. Both feeds carry
+`player_id` alongside `first_name` and `last_name`, stamped at draft time, so
+the first two layers are contemporaneous and authoritative.
+
+**"Forced mode off" is a lineup configuration, not an engine flag.** Raised
+during pre-implementation review. The engine has no switch for it, and simply
+setting `maxByPos.K` and `maxByPos.DEF` to zero is actively harmful: the league
+lineup lists K and DEF as dedicated starters, so `unfilledMandatoryCount` never
+falls below two, `isForcedMode` fires on the last two picks, the candidate set
+collapses to K and DEF, the cap guardrail then rejects every one of them, and
+`recommend()` falls through to its relax-everything path — producing two
+arbitrary picks precisely where the comparison matters most. The correct
+mechanism is to hand the engine a lineup in which K and DEF are replaced by
+bench slots, so no mandatory K or DEF slot ever exists. This is a harness-level
+configuration of an engine input, not a change to the engine, which keeps the
+backtest testing the code that will actually ship. The forced-on sensitivity run
+instead uses the real lineup with `maxByPos.K` and `maxByPos.DEF` at one, and
+lets kickers and defenses be valued off-board from their `List` ADP — no board
+entries needed.
+
+**The lookahead proof must rebuild the whole pipeline, not just re-slice the
+feed.** Raised during pre-implementation review. As M4 was originally worded the
+test would compare `recommend()` on two identically-sliced feeds and pass
+trivially, proving only that the slice works. The leak this plan exists to
+remove did not live in the pick array — it lived in the *ADP prior*, which the
+old harness derived from realized pick order. So the test permutes the players
+occupying picks at and after the decision point and then rebuilds everything
+downstream — universe, ADP prior, board, state — before asserting the
+recommendation is unchanged. Under that construction, any input derived from the
+draft's outcome shifts and the test fails. Its ability to fail is verified once
+by temporarily reinstating an ADP prior built from pick order, confirming a red
+test, and reverting.
 
 **Preference and market are kept strictly apart.** `LLL Tiers` feeds the value
 function and nothing else; `List` feeds the opponent model and nothing else. The
