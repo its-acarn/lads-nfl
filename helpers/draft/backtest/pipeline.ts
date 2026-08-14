@@ -55,14 +55,42 @@ export interface Decision {
   universe: Universe
 }
 
-export function decideAt(inputs: PipelineInputs, feed: SleeperPick[], pickNo: number): Decision {
+export interface DecisionRequest {
+  // Where draft-day attributes come from. Always the REAL feed, including in a
+  // counterfactual: a pick's metadata describes the player as he stood before
+  // the draft began, and a drafter obviously knows every player's position and
+  // team in advance. Membership and order are never taken from it.
+  attributeFeed: SleeperPick[]
+  // The feed whose earlier picks define the board state. In a counterfactual
+  // this is the synthetic draft built so far, which diverges from reality.
+  stateFeed: SleeperPick[]
+  pickNo: number
+  // Players already spoken for whose pick has not yet landed.
+  //
+  // The swap credits a displaced manager the instant the engine takes their
+  // player, but that credit is recorded at the manager's own later pick number,
+  // so visibleAt() would not hide him in the meantime. Without this the engine
+  // could draft the same player its swap already gave away, ending up with both
+  // -- the exact double-draft the simultaneous credit exists to prevent.
+  //
+  // This is not future knowledge. In the counterfactual those players ARE
+  // already on someone's roster; this makes the pool tell the truth.
+  excludeIds?: string[]
+}
+
+export function decideAt(inputs: PipelineInputs, req: DecisionRequest): Decision {
+  const pickNo = req.pickNo
   const universe = buildUniverse({
     adp: inputs.adp,
-    ladsPicks: feed,
+    ladsPicks: req.attributeFeed,
     jimmygPicks: inputs.jimmygPicks,
   })
 
-  const visible = visibleAt(feed, pickNo)
+  if (req.excludeIds && req.excludeIds.length > 0) {
+    for (let i = 0; i < req.excludeIds.length; i++) delete universe.players[req.excludeIds[i]]
+  }
+
+  const visible = visibleAt(req.stateFeed, pickNo)
   const cfg = draftConfig(inputs.draft, inputs.tradedPicks, inputs.rosterPositions, inputs.forcedMode)
   const board: ResolvedBoard = {
     season: inputs.board.season,

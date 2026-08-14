@@ -52,8 +52,12 @@ comes after the roster has been read.
       leaky prior built from realized pick order diverges at **13 of 14** — all
       but the last pick, which has no future to rearrange. The
       deliberate-break check is a permanent test, not a one-off.
-- [ ] **M5 — Pairwise-swap counterfactual.** Replay the real draft with the
-      engine substituted at Andrew's slot, using the swap model.
+- [x] **M5 — Pairwise-swap counterfactual.** Done. `swap.ts` walks the real
+      draft with the engine at slot 2. All twelve rosters end on exactly 14, no
+      player is drafted twice, no manager needed a fallback, and an all-agreeing
+      run reproduces the real feed byte for byte. Four pick outcomes are
+      distinguished: agreed, swapped, self (the engine reordered two of
+      Andrew's own picks) and no-partner.
 - [ ] **M6 — Run, report, record.** Produce the committed roster report and
       write the findings back into this plan.
 - [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
@@ -181,6 +185,18 @@ August 2025 foot injury cratered his ADP late in the month, and FFC's window is
 and neither carries outcome knowledge, so this is not a leak — but the prior in
 use is a little staler than the cross-check, and any surprising engine pick
 around an injured player should be read with that in mind.
+
+**Found during M5: the simultaneous credit needed a mechanism, not just a
+rule.** The credit is recorded at the displaced manager's own later pick
+number, which is where it belongs — but `buildState` derives availability from
+the pick feed, so `visibleAt` would keep showing that player as available until
+that pick landed, and the engine could draft the very player its own swap had
+given away. Fixed with an explicit `excludeIds` on the decision request: players
+already spoken for whose pick has not yet landed are removed from the pool. That
+is not future knowledge; in the counterfactual those players genuinely are on
+someone's roster, so it makes the pool tell the truth. The duplicate-detection
+invariant would have caught it, which is why that invariant is asserted rather
+than assumed.
 
 **Found during M2: 31 of the 358 ADP rows cannot be resolved to a Sleeper id at
 all.** They sit at ranks 226 to 356 — Tyler Lockett, Amari Cooper, Brandin
