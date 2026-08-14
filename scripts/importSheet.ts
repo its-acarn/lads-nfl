@@ -82,8 +82,8 @@ const DRAFTABLE_DEPTH = 168
 // the cap -- with 14 picks and the four other positions settled, everything
 // else is running backs and receivers anyway.
 //
-// vonaFromRound 6: rounds 1-5 take the highest-ranked player on the board and
-// ignore positional scarcity entirely; from round 6 the scarcity rule takes
+// vonaFromRound 9: rounds 1-8 take the highest-ranked player on the board and
+// ignore positional scarcity entirely; from round 9 the scarcity rule takes
 // over. Without this the board's within-tier ordering is worth hundredths of a
 // point against several points of scarcity and is simply never heard -- which
 // is how the first run passed over Bijan Robinson, ranked 2, for CeeDee Lamb,
@@ -95,11 +95,11 @@ const BOARD_RULES = {
   minRoundByPos: { QB: 11, K: 13, DEF: 12 },
   stashRound: 12,
   offBoardDiscount: 0.8,
-  vonaFromRound: 6,
+  vonaFromRound: 9,
   // Andrew's call: judge a pick on his board and on scarcity alone. No
   // roster-need weighting, and no collapsing to unfilled starters at the end.
   useRosterNeed: false,
-  useForcedStarters: false,
+  useForcedStarters: true,
 }
 
 function fail(msg: string): never {

@@ -23,19 +23,20 @@ TE (1): Mark Andrews
 **What the engine would have drafted**
 
 ```
+QB (1): Brock Purdy
 RB (7): Bijan Robinson, Bucky Irving, James Conner, Tyrone Tracy, Brian Robinson, Rhamondre Stevenson, Isaac Guerendo
-WR (6): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney, Brandon Aiyuk, Tory Horton
+WR (5): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney, Brandon Aiyuk
 TE (1): Mark Andrews
 ```
 
-engine agreed with 3 of 14 picks; 11 diverged; 2 into a player no manager drafted.
+engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no manager drafted.
 
 ## How different is it, really
 
 Pick-for-pick agreement understates how close the two drafts are, in two ways.
 
-- **4 of 14 players appear on both rosters**: Bijan Robinson, Bucky Irving, Mark Andrews, Brandon Aiyuk.
-- **1 of the divergences are the engine reordering your own picks** — it took a player you took yourself, just at a different one of your turns. No third party is involved and the roster is unaffected.
+- **5 of 14 players appear on both rosters**: Bijan Robinson, Bucky Irving, Mark Andrews, Brock Purdy, Brandon Aiyuk.
+- **2 of the divergences are the engine reordering your own picks** — it took a player you took yourself, just at a different one of your turns. No third party is involved and the roster is unaffected.
 - **10 of 14 comparable divergences are within the same tier of your own board.** Where that holds, the engine is not disagreeing with you about who is better — your board says the two are interchangeable, and the engine broke the tie on roster need.
 
 ## Round by round
@@ -55,7 +56,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 | 11 | 122 | RB Nick Chubb | T8 | WR Darnell Mooney | T8 | diverged, same tier |
 | 12 | 143 | RB Dylan Sampson | T8 | WR Brandon Aiyuk | T8 | reordered your own pick |
 | 13 | 146 | QB Brock Purdy | T8 | RB Isaac Guerendo | T8 | diverged, nobody drafted him |
-| 14 | 167 | WR Brandon Aiyuk | T8 | WR Tory Horton | T8 | diverged, nobody drafted him |
+| 14 | 167 | WR Brandon Aiyuk | T8 | QB Brock Purdy | T8 | reordered your own pick |
 
 ## Every pick, with the engine's reasoning
 
@@ -64,7 +65,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **You took:** RB Bijan Robinson
 - **Engine took:** RB Bijan Robinson
 - **Engine's reasoning:** your board rank 2 · 5 left in RB T1 · 0% survives to pick 23 · edge vs next pick +15.3 · board value 99.98
-- **Context:** board order (round 1 < 6): taking the highest-ranked player available, scarcity ignored
+- **Context:** board order (round 1 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 1.00
 
 ### Round 2 — pick 23 · agreed
@@ -72,7 +73,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **You took:** RB Bucky Irving
 - **Engine took:** RB Bucky Irving
 - **Engine's reasoning:** your board rank 19 · 1 left in RB T2 · 40% survives to pick 26 · edge vs next pick +7.7 · board value 84.81
-- **Context:** board order (round 2 < 6): taking the highest-ranked player available, scarcity ignored
+- **Context:** board order (round 2 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.50
 
 ### Round 3 — pick 26 · diverged
@@ -81,7 +82,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **Engine took:** WR Tee Higgins
 - **Exchange:** roster 7 receives Jaxon Smith-Njigba in place of their pick 29
 - **Engine's reasoning:** your board rank 25 · 5 left in WR T3 · 0% survives to pick 47 · edge vs next pick +8.2 · board value 72.00
-- **Context:** board order (round 3 < 6): taking the highest-ranked player available, scarcity ignored
+- **Context:** board order (round 3 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.50
 
 ### Round 4 — pick 47 · diverged
@@ -90,7 +91,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **Engine took:** WR Tyreek Hill
 - **Exchange:** roster 7 receives TreVeyon Henderson in place of their pick 53
 - **Engine's reasoning:** your board rank 31 · 1 left in WR T3 · 0% survives to pick 50 · edge vs next pick +10.9 · board value 71.94
-- **Context:** board order (round 4 < 6): taking the highest-ranked player available, scarcity ignored
+- **Context:** board order (round 4 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.50
 
 ### Round 5 — pick 50 · diverged
@@ -99,14 +100,15 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **Engine took:** RB James Conner
 - **Exchange:** roster 3 receives Tetairoa McMillan in place of their pick 54
 - **Engine's reasoning:** your board rank 41 · 1 left in RB T4 · 0% survives to pick 71 · edge vs next pick +14.0 · board value 61.00
-- **Context:** board order (round 5 < 6): taking the highest-ranked player available, scarcity ignored
+- **Context:** board order (round 5 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.50
 
 ### Round 6 — pick 71 · agreed
 
 - **You took:** TE Mark Andrews
 - **Engine took:** TE Mark Andrews
-- **Engine's reasoning:** 1 left in TE T5 · 100% survives to pick 74 · edge vs next pick +0.0 · score 0.02
+- **Engine's reasoning:** your board rank 60 · 1 left in TE T5 · 100% survives to pick 74 · edge vs next pick +0.0 · board value 51.60
+- **Context:** board order (round 6 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.68
 
 ### Round 7 — pick 74 · diverged
@@ -114,7 +116,8 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **You took:** WR Rashee Rice
 - **Engine took:** RB Tyrone Tracy
 - **Exchange:** roster 3 receives Rashee Rice in place of their pick 102
-- **Engine's reasoning:** 6 left in RB T6 · 0% survives to pick 95 · edge vs next pick +0.2 · score 0.18
+- **Engine's reasoning:** your board rank 65 · 6 left in RB T6 · 0% survives to pick 95 · edge vs next pick +0.2 · board value 43.72
+- **Context:** board order (round 7 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.74
 
 ### Round 8 — pick 95 · diverged
@@ -122,7 +125,8 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 - **You took:** WR Josh Downs
 - **Engine took:** RB Brian Robinson
 - **Exchange:** roster 12 receives Josh Downs in place of their pick 106
-- **Engine's reasoning:** 2 left in RB T6 · 46% survives to pick 98 · edge vs next pick +0.1 · score 0.10
+- **Engine's reasoning:** your board rank 79 · 2 left in RB T6 · 46% survives to pick 98 · edge vs next pick +0.1 · board value 43.58
+- **Context:** board order (round 8 < 9): taking the highest-ranked player available, scarcity ignored
 - **Reach calibration at this pick:** 0.94
 
 ### Round 9 — pick 98 · diverged
@@ -168,9 +172,11 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 ### Round 14 — pick 167 · diverged
 
 - **You took:** WR Brandon Aiyuk
-- **Engine took:** WR Tory Horton
-- **Exchange:** none — no manager ever drafted Tory Horton, so Brandon Aiyuk goes undrafted
-- **Engine's reasoning:** 1 left in WR T8 · score 30.74
+- **Engine took:** QB Brock Purdy
+- **Exchange:** none — Brock Purdy is a player you took at another of your own picks, so no manager is displaced
+- **Forced:** the candidate set was collapsed to unfilled starters
+- **Engine's reasoning:** 11 left in QB T8 · score 30.61
+- **Context:** forced mode: 1 pick(s) left for 1 unfilled starter slot(s) (QB)
 - **Reach calibration at this pick:** 2.00
 
 ## The quarterback check
@@ -179,10 +185,10 @@ Andrew's board lists 23 quarterbacks in preference order with no tier breaks,
 so the plan priced them level with the last tier — an assumption, not something
 the sheet states. The check on it is which round the engine actually takes one.
 
-- Engine took its first quarterback in **never**.
+- Engine took its first quarterback in **round 14 (pick 167), Brock Purdy**.
 - Andrew really took Brock Purdy at pick 146, **round 13**.
 
-**The assumption does not hold.** The engine reaches for a quarterback 86 rounds earlier than Andrew did. Pricing the QB column level with the last tier gives every one of the 23 quarterbacks the same value as a last-tier skill player, and because an empty QB slot carries a full 1.0 need weight against 0.75 for a flex-eligible receiver, the engine takes one the moment the board thins. That is coherent engine behaviour on a bad input, not an engine fault — the sheet simply never said where quarterbacks belong. The fix is tier breaks in that column, which costs a few minutes and would replace the guess with Andrew's actual view.
+The assumption holds: the engine reaches for a quarterback at about the same point Andrew did.
 
 ## Sensitivity checks
 
@@ -207,12 +213,13 @@ behaviourally plausible, but every roster drifts further from reality with each
 round, so the comparison gets noisier the deeper it goes.
 
 ```
+QB (1): Brock Purdy
 RB (7): Bijan Robinson, Bucky Irving, James Conner, Tyrone Tracy, Brian Robinson, Rhamondre Stevenson, Isaac Guerendo
-WR (6): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney, Brandon Aiyuk, Tory Horton
+WR (5): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney, Brandon Aiyuk
 TE (1): Mark Andrews
 ```
 
-Forced off: engine agreed with 3 of 14 picks; 11 diverged; 2 into a player no manager drafted.
+Forced off: engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no manager drafted.
 
 ```
 QB (1): Kyler Murray
@@ -227,9 +234,9 @@ Forced on: engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no man
 
 ## Integrity checks
 
-- **swap / forced off (headline)**: every roster holds 14 — yes; duplicates — 0; added vs reality — 2; removed vs reality — 2; manager fallbacks — 0
+- **swap / forced off (headline)**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
 - **swap / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
-- **cascade / forced off**: every roster holds 14 — yes; duplicates — 0; added vs reality — 2; removed vs reality — 2; manager fallbacks — 0
+- **cascade / forced off**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
 - **cascade / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
 
 The ADP prior in use agrees with Fantasy Football Calculator's independent 2025 pre-season consensus at Pearson 0.885 over 152 matched players (4 unmatched).
