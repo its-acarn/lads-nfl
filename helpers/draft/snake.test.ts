@@ -65,8 +65,16 @@ describe('assertSupportedDraft', () => {
 describe('ownership against every committed fixture', () => {
   const fixtures = loadAllFixtures()
 
-  it('loads all seven fixture drafts', () => {
-    expect(fixtures.length).toBe(7)
+  // Assert the SHAPES the pick math has to handle rather than a fixture count
+  // — `npm run fixtures` gains a season every year and a magic number would
+  // fail every September for no real reason.
+  it('covers every draft shape the engine supports', () => {
+    expect(fixtures.length).toBeGreaterThanOrEqual(7)
+    expect(fixtures.some((f) => f.draft.type === 'snake')).toBe(true)
+    expect(fixtures.some((f) => f.draft.type === 'linear')).toBe(true)
+    expect(fixtures.some((f) => f.tradedPicks.length > 0)).toBe(true)
+    expect(fixtures.some((f) => f.name === 'lads')).toBe(true)
+    expect(fixtures.some((f) => f.name === 'flexi')).toBe(true)
   })
 
   for (let f = 0; f < fixtures.length; f++) {

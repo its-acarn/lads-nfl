@@ -1,0 +1,25 @@
+{
+ "league_id": "1181351037804883968",
+ "name": "LadsLadsLads",
+ "season": "2025",
+ "status": "complete",
+ "previous_league_id": "1050764486069710848",
+ "draft_id": "1181351037804883969",
+ "total_rosters": 12,
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "K",
+  "DEF",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ]
+}
