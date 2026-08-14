@@ -28,10 +28,10 @@ comes after the roster has been read.
 
 - [ ] **M1 — Contemporaneous data acquisition.** Fetch and commit the 2025-era
       data the backtest needs, with validators.
-- [ ] **M2 — Contemporaneous player universe and ADP prior.** Assemble the set
+- [ ] **M2 — Board and ADP import from the spreadsheet.** Turn the `LLL Tiers`
+      tab into a resolved board and the `List` tab into an ADP list.
+- [ ] **M3 — Contemporaneous player universe and ADP prior.** Assemble the set
       of players who were draftable in August 2025, each with a pre-season ADP.
-- [ ] **M3 — Board import from the spreadsheet.** Turn Andrew's 2025 Google
-      Sheet into a resolved board against the 2025 universe.
 - [ ] **M4 — Visibility chokepoint and the lookahead proof.** Route all pick
       visibility through one function and prove by test that the engine cannot
       see the future.
@@ -104,6 +104,33 @@ weekly stats payload carries a `pts_half_ppr` field alongside the raw stats.
 This gives the scoring code an independent ground truth to validate against
 before it is trusted with the league's own custom settings.
 
+**The board spreadsheet carries its own ADP list, and it is a better prior than
+the one this plan originally chose.** The `List` tab is 358 players deep against
+Fantasy Football Calculator's 156, includes 21 kickers and 30 defenses, and its
+`Sleeper` column is a 2025 snapshot of the very `search_rank` field the
+production bot consumes live. Same source, same units, contemporaneous. It also
+correlates 0.982 with the sheet's own rank column, which is expected once you
+know both are ADP rather than preference.
+
+**`List` was initially misread as Andrew's ranking.** It is not; it is pasted
+market reference data. That misreading produced an apparent 19-way conflict
+between "his tiers" and "his ranks" that does not exist — a board differing from
+ADP in 19 of 133 places is a board doing its job. Recorded because the same
+mistake would corrupt the value function if repeated: `LLL Tiers` is preference,
+`List` is market.
+
+**Kickers and defenses are ranked in `List` but absent from `LLL Tiers`.** They
+sit at ADP ranks 118 to 326 — Brandon Aubrey 118, Denver 124, Philadelphia 125 —
+so the null-`search_rank` problem that makes defenses indistinguishable in the
+2026 player map does not arise here. Andrew nonetheless does not tier them,
+drafted neither in 2025, and a third of this league drafts no kicker in any
+given year.
+
+**The quarterback column has no tier breaks.** Twenty-three names in preference
+order, from Allen and Lamar down to Penix, with nothing to price them against
+the skill tiers. Andrew's revealed behaviour is to draft the position very late:
+in 2025 he took Brock Purdy, eleventh on that column, at pick 146 in round 13.
+
 ## Decision Log
 
 **The backtest is new code, not a flag on the existing replay.** The existing
@@ -148,11 +175,41 @@ lives entirely in the opponent simulation and never enters the engine's inputs.
 The boundary is enforced by a single visibility function and proved by a test,
 not asserted in a comment.
 
-**The ADP prior is layered.** Fantasy Football Calculator's 2025 consensus is
-primary. Where a player is absent from it, the Jimmy G-whizz realized pick order
-supplies a rank. Where a player is absent from both, Andrew's board rank is
-used. Where a player is on none of the three, they are ranked below everyone
-who is, ordered deterministically. Every layer predates the 2025 season.
+**The ADP prior is layered, with the spreadsheet's own list primary.** The
+`List` tab's `Sleeper` column leads, because it is the same `search_rank` field
+the production bot consumes and it is 358 players deep including kickers and
+defenses. `List`'s own rank column fills any gap in it. Fantasy Football
+Calculator's 2025 consensus is demoted to a cross-check rather than a source —
+if the two disagree sharply the discrepancy is worth understanding before
+trusting either. The Jimmy G-whizz realized pick order extends the tail past
+`List`. Anyone on none of these is ranked below everyone who is, ordered
+deterministically. Every layer predates the 2025 season.
+
+**Preference and market are kept strictly apart.** `LLL Tiers` feeds the value
+function and nothing else; `List` feeds the opponent model and nothing else. The
+engine's idea of what is *good* comes only from Andrew; its idea of what the
+room will *do* comes only from ADP. Blending them would let market opinion leak
+into the value function and quietly turn the backtest into a test of consensus.
+
+**Quarterbacks are priced alongside the last tier.** The QB column has no tier
+breaks, so it is treated as a preference ladder sitting at the back of the
+board, level with "Last Tier". The engine therefore takes a quarterback only
+once the skill tiers have thinned. This matches both the one-quarterback lineup
+and Andrew's revealed behaviour of taking one in round 13. It is an assumption,
+not a reading of the sheet, so M6 must report which round the engine actually
+takes its quarterback in — that number is the check on whether the assumption
+was right, and it is cheap to revise.
+
+**Kickers and defenses are never drafted, and forced mode is off.** They are
+absent from the board because Andrew does not draft them, and the league streams
+both. The engine spends all fourteen picks on skill players and one
+quarterback, finishing with a lineup that is illegal on paper and filled from
+waivers in practice — which is exactly what Andrew's real 2025 roster did. This
+makes the backtest a like-for-like comparison. The consequence for M6 is that
+**the forced-mode-off run is the headline** and forced-on becomes the
+sensitivity check, inverting what this plan originally specified. The live bot
+will need the same setting configured before September, which is a finding for
+the main draft-bot work, not for this backtest.
 
 **Scoring gives both rosters a replacement-level kicker and defense if they did
 not draft one.** This mirrors what every manager in this league actually does —
@@ -286,13 +343,25 @@ consumes `recommend()`, `buildState()`, `survival()` and `needs.ts` exactly as
 the live bot does. If the backtest cannot be built without modifying the
 engine, that is a finding worth recording, not a licence to fork it.
 
-### Prerequisite not yet supplied
+### The board spreadsheet
 
-Andrew's 2025 board spreadsheet URL. M3 cannot start without it. M1, M2 and M4
-do not depend on it and can proceed immediately. When the URL arrives, the sheet
-must be shared as "anyone with the link can view" so the CSV export endpoint
-works without authentication; this was verified against a public sheet and
-returns `HTTP 200` with content type `text/csv`.
+Supplied and readable. Document id `1_unKKpufduAF1loscJ4rOCHLXiwi0UF5DM-jsY25i88`,
+shared as "anyone with the link can view", so the CSV export endpoint serves it
+without authentication. Three tabs, of which two are used:
+
+`LLL Tiers` (gid `1292573651`) is **the board** — Andrew's own preferences, and
+the authority on what the engine should want. It is laid out as one column per
+tier rather than one row per player: seven numbered tiers, two further columns
+both labelled "Last Tier", and a separate ungraded column of 23 quarterbacks.
+157 players in total across the tier block, which occupies rows 2 through 24;
+everything below that in column A is a scratch list and is ignored.
+
+`List` is **not** a ranking Andrew authored — it is a pasted ADP reference,
+358 players deep, carrying rank, team, bye week, position and a `Sleeper`
+column holding Sleeper's own ADP for that player. It is used as the opponent
+model's ADP prior and never as a statement of preference.
+
+`Jimmy Tiers` is the board for a different league and is ignored entirely.
 
 ## Milestone 1 — Contemporaneous data acquisition
 
@@ -308,8 +377,9 @@ are needed only for scoring and so belong to the deferred M7.
 
 The 2025 pre-season ADP consensus, from
 `https://fantasyfootballcalculator.com/api/v1/adp/half-ppr?teams=12&year=2025`,
-written to `adp.ffc.json`. Validate that the payload's `meta.start_date` falls
-before 4 September 2025 — the first day of the 2025 NFL season — and fail
+written to `adp.ffc.json`. This is a **cross-check**, not the prior — the prior
+comes from the spreadsheet in M2. Validate that the payload's `meta.start_date`
+falls before 4 September 2025 — the first day of the 2025 NFL season — and fail
 loudly if it does not, because an ADP list dated after kickoff would carry
 outcome knowledge and silently poison the whole exercise.
 
@@ -333,17 +403,73 @@ script's output reports the ADP snapshot date and asserts it precedes kickoff,
 printing something of the form
 `ADP snapshot 2025-08-31 — precedes 2025 kickoff, OK`.
 
-## Milestone 2 — Contemporaneous player universe and ADP prior
+## Milestone 2 — Board and ADP import from the spreadsheet
+
+**Goal:** turn the two useful tabs of Andrew's 2025 spreadsheet into two
+committed artifacts — the board that drives value, and the ADP list that drives
+the opponent model — failing loudly on anything ambiguous. This runs before the
+universe is built because the universe's ADP prior comes from here.
+
+Write `scripts/importSheet.ts`. It takes a Google Sheets document id, fetches
+each needed tab through the CSV export endpoint
+(`/export?format=csv&gid=<gid>`), and parses both.
+
+From `List` (the ADP reference, 358 rows, header `Rank, Player, Team, Bye, POS,
+Sleeper`): emit `fixtures/backtest2025/adp.sheet.json` — one entry per player
+with name, team, position and both rank columns. The `POS` column carries a
+position with its positional rank appended, so `WR1` and `RB12` must be split
+into position and index. Fail loudly if the header row does not match, rather
+than guessing at column positions.
+
+From `LLL Tiers` (the board, gid `1292573651`): read only the tier block, rows 2
+through 24, one column per tier. Column headers give the tier: `Tier 1` through
+`Tier 7`, then two columns both labelled `Last Tier`, then `QB's`. Treat the two
+`Last Tier` columns as one tier, numbered 8 — they are adjacent, identically
+labelled, and nothing distinguishes them. Everything below row 24 in column A is
+a scratch list and must be ignored; a naive read of the whole column picks up
+351 extra names, which is how this was first got wrong.
+
+Quarterbacks come from the `QB's` column with no tier of their own. Per the
+Decision Log they are assigned tier 8, level with `Last Tier`, preserving their
+column order as the within-tier ordering. Kickers and defenses are deliberately
+absent from the board and stay absent — they are not imported from `List`.
+
+Rank is then derived, not read: sort by tier, then by position within the tier
+column, and number 1..N. This satisfies the resolver's monotonicity rule by
+construction. The `List` rank is never used as a board rank, because `List` is
+market data and not Andrew's preference; mixing them is the specific error the
+Decision Log forbids.
+
+Resolution of names to Sleeper player ids reuses the normalisation in
+`scripts/resolveBoard.ts:26` and reports every unresolved or ambiguous name with
+a reason, exiting non-zero. The resolver never guesses. One known casualty:
+Ollie Gordon appears in the tier block but not in `List`, so he has no ADP; that
+is fine, since board membership and ADP are independent.
+
+Output is `config/board.2025.json` and `fixtures/backtest2025/adp.sheet.json`,
+both committed, so the backtest is reproducible without the spreadsheet.
+
+**Result:** Andrew's real 2025 preferences and a 358-deep contemporaneous ADP
+list, cleanly separated.
+
+**Proof:** `npm run backtest:board` prints
+`board: 157 players in 8 tiers -> config/board.2025.json` and
+`adp: 358 players -> fixtures/backtest2025/adp.sheet.json`, then exits zero. A
+spec asserts the board contains no kicker and no defense, that tier is
+non-decreasing in derived rank across all 157 entries, and that the scratch list
+below row 24 contributed nothing.
+
+## Milestone 3 — Contemporaneous player universe and ADP prior
 
 **Goal:** define exactly which players existed to be drafted in August 2025, and
 give each one a pre-season ADP, using nothing dated after 23 August 2025 except
 where explicitly justified.
 
-Write `helpers/draft/backtest/universe.ts`. The universe is the union of three
+Write `helpers/draft/backtest/universe.ts`. The universe is the union of four
 sets: every player drafted in the 2025 lads draft, taken from
-`fixtures/lads/2025/picks.json`; every player on the Fantasy Football Calculator
-list; and every player drafted in the Jimmy G-whizz draft. Andrew's board joins
-this union at M3.
+`fixtures/lads/2025/picks.json`; every player on the spreadsheet's `List` tab;
+every player drafted in the Jimmy G-whizz draft; and every player on Andrew's
+board.
 
 Player attributes come from each pick's `metadata` object, which Sleeper stamps
 at draft time and which therefore carries the player's position, team and injury
@@ -357,66 +483,33 @@ convention — expose only an id-lookup function, not the player records.
 Name matching reuses the normalisation already written in
 `scripts/resolveBoard.ts:26`, which lowercases, strips punctuation and drops
 generational suffixes so "Marvin Harrison Jr." matches "marvin harrison". It
-needs one addition: the ADP source names defenses as "Denver Defense" while
-Sleeper names them "Denver Broncos", so defense entries match on the city
-portion and the position tag.
+needs one addition: the Fantasy Football Calculator cross-check names defenses
+as "Denver Defense" while Sleeper names them "Denver Broncos", so defense
+entries match on the city portion and the position tag.
 
-The ADP prior is layered as recorded in the Decision Log: Fantasy Football
-Calculator rank first, then Jimmy G-whizz realized pick order for players it
-does not cover, then board rank, then a deterministic tail for everyone else.
-Emit the layered result as a `search_rank`-shaped integer per player, because
-that is what `helpers/draft/survival.ts` already consumes — no engine change is
-needed.
+The ADP prior is layered as recorded in the Decision Log: the spreadsheet's
+`Sleeper` column first, then the spreadsheet's own rank column where that is
+blank, then the Jimmy G-whizz realized pick order for players the sheet does not
+cover, then a deterministic tail. Emit the layered result as a
+`search_rank`-shaped integer per player, because that is what
+`helpers/draft/survival.ts` already consumes — no engine change is needed.
+
+Cross-check rather than merge: compare the layered prior against the Fantasy
+Football Calculator list fetched in M1 and report the correlation and the
+largest disagreements. A sharp divergence means one of the two sources is not
+what it appears to be, and is worth understanding before either is trusted.
 
 **Result:** a single function that returns the 2025 player universe with a
 pre-season ADP attached to every member, provably free of 2026 data.
 
 **Proof:** a new spec `helpers/draft/backtest/universe.test.ts` asserts that
 every one of the 168 players drafted in lads/2025 is present in the universe;
-that at least 150 of them carry an ADP from the Fantasy Football Calculator or
-Jimmy G-whizz layers rather than the deterministic tail; that Tyreek Hill,
-Austin Ekeler and Keenan Allen are all present, since their absence from the
-2026 map is precisely the failure this milestone exists to prevent; and that no
-player record contains a field sourced from `players.trim.json` other than the
-id. Run with `npm test`; the file appears in the passing list.
-
-## Milestone 3 — Board import from the spreadsheet
-
-**Goal:** turn Andrew's 2025 Google Sheet into a resolved board that the engine
-can consume, failing loudly on anything ambiguous.
-
-Write `scripts/importSheet.ts`. It takes a Google Sheets URL, converts it to the
-CSV export form by extracting the document id and appending
-`/export?format=csv`, fetches it, and parses the result. Column detection is
-tolerant: find the rank, tier, name, position and team columns by header name,
-accepting common variants, and ignore every other column so notes, bye weeks and
-projections can stay in the sheet untouched. If a required column cannot be
-identified, print the headers that were found and exit non-zero rather than
-guessing.
-
-Resolution then runs against the M2 universe rather than the 2026 player map.
-The existing rules in `scripts/resolveBoard.ts` carry over unchanged: ranks must
-be unique, tiers must never decrease as rank increases, and every unresolved or
-ambiguous name is reported by name with a reason and causes a non-zero exit. The
-resolver never guesses.
-
-If the sheet turns out to be tiered per position rather than overall — which
-would violate the monotonic-tier rule and which the engine's value function
-cannot consume, since a tier-one kicker would price like a tier-one running back
-— stop and report it rather than mangling the data. Recovering from that case
-means interleaving positions by ADP to synthesise an overall order, which
-changes what is being tested and is Andrew's decision to make, not an
-autonomous one.
-
-Output is `config/board.2025.json`, committed, so the backtest is reproducible
-without the spreadsheet.
-
-**Result:** Andrew's real 2025 rankings, in the shape the engine consumes.
-
-**Proof:** `npm run backtest:board -- --sheet <url>` prints
-`resolved N players -> config/board.2025.json` and exits zero, or prints a
-per-name failure report and exits non-zero. Committing the output means the
-command need not be re-run to reproduce the backtest.
+that at least 150 of them carry an ADP from the spreadsheet or Jimmy G-whizz
+layers rather than the deterministic tail; that Tyreek Hill, Austin Ekeler and
+Keenan Allen are all present, since their absence from the 2026 map is precisely
+the failure this milestone exists to prevent; and that no player record contains
+a field sourced from `players.trim.json` other than the id. Run with `npm test`;
+the file appears in the passing list.
 
 ## Milestone 4 — Visibility chokepoint and the lookahead proof
 
@@ -506,9 +599,16 @@ challenge.
 
 Write `scripts/backtest.ts` to tie the pieces together and emit a report to
 `docs/plans/draft-backtest-2025/report.md`, committed. It runs four
-configurations: the swap model with forced mode on and off, and the cascade
-model with forced mode on and off. The swap run with forced mode on is the
-headline; the others are sensitivity checks.
+configurations: the swap model with forced mode off and on, and the cascade
+model with forced mode off and on. **The swap run with forced mode off is the
+headline** — Andrew's board has no kickers or defenses and his real 2025 roster
+had neither, so forced-off is the like-for-like comparison. The others are
+sensitivity checks.
+
+The report must also state which round the engine took its quarterback in. The
+QB column carries no tier, so pricing it level with "Last Tier" is an assumption
+this plan made rather than something the sheet said; that round number is the
+check on whether the assumption held, and revising it is cheap.
 
 The report leads with the thing that answers the question: the two rosters set
 side by side, round by round. For each of the fourteen rounds it shows the pick
@@ -525,9 +625,9 @@ tells Andrew nothing about whether the reasoning was sound; the rationale does.
 
 Then a summary: how many of the fourteen picks the engine agreed with, how many
 diverged, and how many diverged into a player no manager drafted at all. Then
-the forced-mode comparison shown as two rosters, since the kicker and defense
-are the most visible difference between them and this league streams both. Then
-the cascade rosters, as the sensitivity check the Decision Log commits to.
+the forced-mode comparison shown as two rosters, since a forced run spends two
+of the fourteen picks on positions the board does not rank at all. Then the
+cascade rosters, as the sensitivity check the Decision Log commits to.
 
 It closes with the limits, in plain language and not as a footnote: this is one
 draft at one slot; opponents are semi-scripted and do not react to being sniped,
