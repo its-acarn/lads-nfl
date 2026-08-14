@@ -29,7 +29,7 @@ import {
   ResolvedBoardPlayer,
   SleeperPick,
 } from '../helpers/draft/types'
-import { JimmygPick } from './fetchBacktestData'
+import { JimmygPick, SheetAdpEntry } from '../helpers/draft/backtest/types'
 
 const ROOT = path.join(__dirname, '..')
 const DEFAULT_DOC_ID = '1_unKKpufduAF1loscJ4rOCHLXiwi0UF5DM-jsY25i88'
@@ -193,7 +193,10 @@ async function fetchTab(docId: string, tab: string): Promise<string[][]> {
 // The List tab -> ADP
 // ---------------------------------------------------------------------------
 
-export interface SheetAdpEntry {
+// An ADP row mid-import, before its id is resolved. The committed shape
+// (helpers/draft/backtest/types.ts) has a non-null player_id because entries
+// that never resolve are dropped rather than written.
+export interface PendingAdpEntry {
   player_id: string | null
   name: string
   pos: Position
@@ -204,12 +207,12 @@ export interface SheetAdpEntry {
   sleeper: number | null
 }
 
-export function parseListTab(rows: string[][]): SheetAdpEntry[] {
+export function parseListTab(rows: string[][]): PendingAdpEntry[] {
   const header = EXPECTED_LIST_HEADER.map((_, i) => cell(rows, 0, i))
   if (header.join(',') !== EXPECTED_LIST_HEADER.join(',')) {
     fail(`List tab header changed: got [${header.join(', ')}], expected [${EXPECTED_LIST_HEADER.join(', ')}]`)
   }
-  const out: SheetAdpEntry[] = []
+  const out: PendingAdpEntry[] = []
   for (let r = 1; r < rows.length; r++) {
     const name = cell(rows, r, 1)
     if (name.length === 0) continue
@@ -345,7 +348,7 @@ async function main(): Promise<void> {
 
   // --- resolve ADP ---------------------------------------------------------
   const adpDiag: Diagnostics = { unresolved: [], provenance: {} }
-  const adpByName: Record<string, SheetAdpEntry> = {}
+  const adpByName: Record<string, PendingAdpEntry> = {}
   for (let i = 0; i < adp.length; i++) {
     const e = adp[i]
     const hit = index.resolve(e.name, e.pos)
@@ -426,7 +429,9 @@ async function main(): Promise<void> {
   // every consumer would have to filter.
   const adpResolved: SheetAdpEntry[] = []
   for (let i = 0; i < adp.length; i++) {
-    if (adp[i].player_id !== null) adpResolved.push(adp[i])
+    const e = adp[i]
+    if (e.player_id === null) continue
+    adpResolved.push({ player_id: e.player_id, name: e.name, pos: e.pos, team: e.team, rank: e.rank, sleeper: e.sleeper })
   }
 
   // --- invariants ----------------------------------------------------------

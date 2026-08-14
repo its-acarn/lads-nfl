@@ -37,8 +37,13 @@ comes after the roster has been read.
       TE=18 WR=59, no K, no DEF) and `fixtures/backtest2025/adp.sheet.json`
       (327 of 358 rows; ids from lads2025=168, jimmyg2025=25, trim2026=134).
       All 157 board names resolved, Ollie Gordon included. 37 specs cover it.
-- [ ] **M3 — Contemporaneous player universe and ADP prior.** Assemble the set
-      of players who were draftable in August 2025, each with a pre-season ADP.
+- [x] **M3 — Contemporaneous player universe and ADP prior.** Done.
+      `helpers/draft/backtest/universe.ts` builds 327 players with a dense
+      `search_rank` of 1..327. ADP provenance: 292 from the sheet's Sleeper
+      column, 35 from its rank column, and **zero** from either fallback layer —
+      every player both 2025 drafts took is already on the sheet. All 168 lads
+      picks present. Cross-check against Fantasy Football Calculator: 152
+      matched, 4 unmatched, Pearson 0.885.
 - [ ] **M4 — Visibility chokepoint and the lookahead proof.** Route all pick
       visibility through one function and prove by test that the engine cannot
       see the future.
@@ -145,6 +150,32 @@ on a missing `league.json`. Fixed by identifying a draft fixture from its
 contents — a directory holding all four of `league.json`, `draft.json`,
 `picks.json` and `traded_picks.json` — rather than from its position in the
 tree. Latent fragility that any new fixture directory would have triggered.
+
+**Sleeper freezes pick metadata at pick time — verified, not assumed.** This
+matters enormously, because it means the draft feed itself carries
+contemporaneous position, team and injury designations. The check: the
+lads/2020 fixture's newest `news_updated` timestamp is 2020-09-05, the day of
+that draft. Were the field refreshed on read it would show 2026 dates. In
+lads/2025 the range runs 2025-02-17 to 2025-08-23T19:15, the last of those
+fifteen minutes into the draft itself. So the backtest gets real draft-day
+attributes for free, and the engine's stash rule acts on the designations that
+actually stood: 25 Questionable, 4 PUP, 1 Sus across the 168 picks.
+
+**Found during M3: the two ADP fallback layers are inert.** Every player taken
+in either 2025 draft, and every player on the board, already appears on the
+spreadsheet's 358-row List tab, so the Jimmy G-whizz tail-extension and the
+deterministic tail both resolve zero players. Both are implemented anyway and
+asserted to be zero, so a future sheet that stops covering the field turns them
+non-zero rather than failing.
+
+**The spreadsheet's ADP snapshot is slightly older than Fantasy Football
+Calculator's.** The two correlate at 0.885, but the largest disagreements lean
+one way: Joe Mixon sits at 63 in the sheet against an FFC ADP of 135.5. Mixon's
+August 2025 foot injury cratered his ADP late in the month, and FFC's window is
+31 August while the sheet was evidently captured earlier. Both are pre-season
+and neither carries outcome knowledge, so this is not a leak — but the prior in
+use is a little staler than the cross-check, and any surprising engine pick
+around an injured player should be read with that in mind.
 
 **Found during M2: 31 of the 358 ADP rows cannot be resolved to a Sleeper id at
 all.** They sit at ranks 226 to 356 — Tyler Lockett, Amari Cooper, Brandin
