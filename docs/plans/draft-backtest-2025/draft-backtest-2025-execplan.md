@@ -44,9 +44,14 @@ comes after the roster has been read.
       every player both 2025 drafts took is already on the sheet. All 168 lads
       picks present. Cross-check against Fantasy Football Calculator: 152
       matched, 4 unmatched, Pearson 0.885.
-- [ ] **M4 — Visibility chokepoint and the lookahead proof.** Route all pick
-      visibility through one function and prove by test that the engine cannot
-      see the future.
+- [x] **M4 — Visibility chokepoint and the lookahead proof.** Done, and it
+      holds. `visibility.ts` is the single seam; `pipeline.ts` rebuilds
+      universe, ADP, state and simulation from the feed at every decision so
+      the proof has something to bite on. Measured: the honest pipeline
+      diverges at **0 of 14** picks under a scrambled future; a deliberately
+      leaky prior built from realized pick order diverges at **13 of 14** — all
+      but the last pick, which has no future to rearrange. The
+      deliberate-break check is a permanent test, not a one-off.
 - [ ] **M5 — Pairwise-swap counterfactual.** Replay the real draft with the
       engine substituted at Andrew's slot, using the swap model.
 - [ ] **M6 — Run, report, record.** Produce the committed roster report and

@@ -51,6 +51,10 @@ export interface Universe {
   players: PlayerMap
   adpProvenance: AdpProvenance
   size: number
+  // Players the lads 2025 draft took who are not in the universe, because the
+  // spreadsheet never listed them. They are undraftable here. Reported, never
+  // patched in — patching would reintroduce feed-derived membership.
+  draftedButAbsent: string[]
 }
 
 interface Attributes {
@@ -117,14 +121,19 @@ export function buildUniverse(inputs: UniverseInputs): Universe {
     if (jimmygPickNo[p.player_id] === undefined) jimmygPickNo[p.player_id] = p.pick_no
   }
 
-  // Membership: everyone the spreadsheet ranked, plus anyone either 2025 draft
-  // actually took. A player taken in the draft under test must be in the
-  // universe whatever the sheet says.
+  // MEMBERSHIP comes from the spreadsheet alone -- a pre-draft document -- and
+  // never from who happened to get drafted. Deriving the pool from the pick
+  // feed is precisely the leak this backtest exists to remove: a pool
+  // containing only drafted players tells the engine which names the room is
+  // going to take. The feed is read for frozen draft-day attributes and for
+  // nothing else.
+  //
+  // Anyone drafted but absent from the sheet would simply not be draftable
+  // here, so that count is reported rather than silently patched; it is
+  // currently zero, and the spec holds it there.
   const members: Record<string, boolean> = {}
   const adpIds = Object.keys(adpById)
   for (let i = 0; i < adpIds.length; i++) members[adpIds[i]] = true
-  for (let i = 0; i < inputs.ladsPicks.length; i++) members[inputs.ladsPicks[i].player_id] = true
-  for (let i = 0; i < inputs.jimmygPicks.length; i++) members[inputs.jimmygPicks[i].player_id] = true
 
   const ids = Object.keys(members).sort()
   const ranked: Ranked[] = []
@@ -173,7 +182,21 @@ export function buildUniverse(inputs: UniverseInputs): Universe {
     players[r.player_id] = trimmed
   }
 
-  return { players, adpProvenance: provenance, size: Object.keys(players).length }
+  const draftedButAbsent: string[] = []
+  const seenAbsent: Record<string, boolean> = {}
+  for (let i = 0; i < inputs.ladsPicks.length; i++) {
+    const id = inputs.ladsPicks[i].player_id
+    if (players[id] || seenAbsent[id]) continue
+    seenAbsent[id] = true
+    draftedButAbsent.push(id)
+  }
+
+  return {
+    players,
+    adpProvenance: provenance,
+    size: Object.keys(players).length,
+    draftedButAbsent,
+  }
 }
 
 // ---------------------------------------------------------------------------
