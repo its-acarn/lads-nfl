@@ -74,8 +74,7 @@ poll /draft/<id> + /picks ──> state.ts ──> recommend.ts ──> notifier
   "pins": [{ "name": "Player Name", "fromRound": 2, "toRound": 3 }],
   "rules": {
     "maxByPos":    { "QB": 2, "RB": 6, "WR": 6, "TE": 2, "K": 1, "DEF": 1 },
-    "minRoundK":   13,
-    "minRoundDEF": 12,
+    "minRoundByPos": { "QB": 11, "K": 13, "DEF": 12 },
     "stashRound":  12,          // Out/IR players excluded before this round
     "offBoardDiscount": 0.8
   }
@@ -88,7 +87,7 @@ poll /draft/<id> + /picks ──> state.ts ──> recommend.ts ──> notifier
 
 `fetchFixtures.ts` walks `previous_league_id` from the current lads league (same pattern as `helpers/api/getAllPreviousLeagueDetails.ts`) and snapshots, per season: `/league/<id>`, `/league/<id>/drafts`, `/draft/<id>`, `/draft/<id>/picks`, `/draft/<id>/traded_picks`. It also fetches `/players/nfl` once (~15 MB as of Aug 2026 — not the ~5 MB the docs suggest) and writes `players.trim.json` keeping fantasy positions (QB/RB/WR/TE/K/DEF) on an NFL roster — **any** `status`, since IR/Inactive players must stay in the pool for the `stashRound` logic — plus all 32 DEFs, with fields `{player_id, full_name, first_name, last_name, position, team, search_rank, injury_status, status, age}`. Measured against the live blob: ~1,060 players, roughly 220 KB. The full players blob is never committed.
 
-Known fixture set on day one: lads 2022/2023/2024 + flexi 2023/2024 = **five completed snake drafts** for calibration (league IDs already in `config/config.ts`).
+Known fixture set on day one: lads 2022/2023/2024 + flexi 2023/2024 = **five completed snake drafts** for calibration (league IDs already in `config/config.ts`). *Now nine: rooting the walk at the current season's leagues reached lads 2020/2021/2025 and flexi 2025 as well.*
 
 ### 4.3 Engine surface (signatures locked in Phase 1)
 
@@ -237,3 +236,20 @@ For orientation only: `WhatsAppNotifier` (Meta Cloud API, free test number, serv
 | Keepers | None in 2026 (confirmed by Andrew); `is_keeper` picks still folded into state defensively | Costs nothing and protects the pick-number math if a surprise appears in the feed |
 | Confirmation loop | Via Sleeper picks feed only | API is read-only; also removes any need for inbound webhooks |
 | Message copy | Finalised in Phase 3 console output | WhatsApp/Telegram in Phase 4 reuse strings verbatim |
+
+### Added after Phase 3
+
+Everything above describes the engine as designed. These came out of the 2025
+backtest and the review that followed it, and they are what will actually run.
+
+| Decision | Choice | Why |
+|---|---|---|
+| Board order vs scarcity | `vonaFromRound` — board order below it, scarcity from it. Currently 9 | The two compete and cannot be blended. Within a tier the ordering term is worth hundredths of a point against several points of scarcity, so the board's ordering was arithmetically invisible: the engine passed over the board's rank-2 player for its rank-4 player at pick 2. Raising the epsilon enough to compete would invert the tier plateaus |
+| Round floors | `minRoundByPos`, replacing `minRoundK`/`minRoundDEF` | Only kickers and defenses could carry a floor, so "no quarterback before round 11" was inexpressible short of re-tiering the board. The scarcity override generalised with it |
+| Roster need | `useRosterNeed`, default on, **off** for 2026 | Andrew judges a pick on his board and on scarcity alone. Position still matters through the caps and floors, which are filters rather than weights |
+| Forced starters | `useForcedStarters`, default on, **on** for 2026 | With need weighting off, nothing else fills an empty quarterback slot — measured: the engine drafted no quarterback at all with both disabled. It fires once, at the final pick, and only when a required slot is still empty |
+| Zero-capped positions | `effectiveLineup` turns their starter slot into bench | A position capped at zero never fills, so `unfilledMandatoryCount` never reaches zero, forced mode fires on the last picks, the cap guardrail rejects every candidate, and `recommend()` drops into its relax-everything path — arbitrary picks in the closing rounds |
+| Guardrail relaxation | Graded: floors, then stash, then the forced collapse, then caps — each named in the rationale | Dropping all of them at once and reporting only "guardrails relaxed" made a breached position cap indistinguishable from a healthy pick. The live-rules replay produced seven such breaches with nothing explaining them |
+| Players Sleeper does not rank | ADP interpolated from the board's own rank→ADP curve | All 32 defenses have `search_rank: null`. Sharing one sentinel gave every one survival 1.0, so E[best DEF] equalled the best defense's own value and its edge was exactly zero — a defense could never be chosen on score, only by forced mode |
+| Replay coverage | `npm run replay -- --rules live` overlays `config/board.json` | The whole replay corpus, golden snapshot included, exercised `marketRules`, which sets none of the rules above. It described a configuration that will never run |
+| Live-mode gates | Explicit `draftReady`, plus a 48-hour limit on the player map | The ids were filled in weeks before the board was, so "the ids look real" was never evidence the board was ready. The draftable pool is exactly the player map's keys and the stash rule reads its injury designations |
