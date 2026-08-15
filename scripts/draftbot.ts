@@ -30,7 +30,12 @@ const API = 'https://api.sleeper.app/v1'
 
 function arg(name: string): string | null {
   const idx = process.argv.indexOf(`--${name}`)
-  return idx !== -1 && process.argv[idx + 1] ? process.argv[idx + 1] : null
+  if (idx === -1) return null
+  const next = process.argv[idx + 1]
+  // A following flag is not a value: `--slot --speed 60` used to read slot as
+  // "--speed" and then NaN it silently.
+  if (!next || next.indexOf('--') === 0) return null
+  return next
 }
 function flag(name: string): boolean {
   return process.argv.indexOf(`--${name}`) !== -1
@@ -70,6 +75,37 @@ class FileSentLog implements SentLog {
     fs.renameSync(tmp, this.file)
     return Promise.resolve()
   }
+}
+
+// The draftable pool is exactly players.trim.json's keys, and the stash rule
+// reads its injury designations, so a stale snapshot silently hides anyone
+// signed since it was taken and treats a since-injured player as healthy. The
+// bot would cheerfully instruct a pick that is out for the season.
+const MAX_PLAYER_MAP_AGE_HOURS = 48
+
+function assertPlayerMapIsFresh(): void {
+  const metaFile = path.join(ROOT, 'fixtures', 'players.trim.meta.json')
+  if (!fs.existsSync(metaFile)) {
+    throw new Error(
+      'fixtures/players.trim.meta.json is missing, so the player map has no known age. ' +
+        'Run `npm run fixtures` before drafting.'
+    )
+  }
+  const meta = readJson<{ fetchedAt?: string }>(metaFile)
+  const fetchedAt = meta.fetchedAt ? Date.parse(meta.fetchedAt) : NaN
+  if (!isFinite(fetchedAt)) {
+    throw new Error('fixtures/players.trim.meta.json has no usable fetchedAt — run `npm run fixtures`')
+  }
+  const ageHours = (Date.now() - fetchedAt) / 3600000
+  if (ageHours > MAX_PLAYER_MAP_AGE_HOURS) {
+    throw new Error(
+      `player map is ${Math.round(ageHours)}h old (limit ${MAX_PLAYER_MAP_AGE_HOURS}h). ` +
+        'Run `npm run fixtures` to refresh it — late signings would be undraftable and ' +
+        'preseason injuries invisible to the stash rule.'
+    )
+  }
+  // eslint-disable-next-line no-console
+  console.log(`player map age: ${Math.round(ageHours)}h (limit ${MAX_PLAYER_MAP_AGE_HOURS}h) — OK`)
 }
 
 // ---------------------------------------------------------------------------
@@ -204,11 +240,22 @@ async function main(): Promise<void> {
   } else {
     board = readJson<ResolvedBoard>(path.join(ROOT, 'config', 'board.resolved.json'))
     players = readJson<PlayerMap>(path.join(ROOT, 'fixtures', 'players.trim.json'))
+    // Three separate gates, because passing one says nothing about the others.
+    // The ids were filled in weeks before the player list was, so "the ids look
+    // real" was never evidence the board was ready to draft from.
     if (board.leagueId.indexOf('<') !== -1 || board.draftId.indexOf('<') !== -1 || board.myUserId.indexOf('<') !== -1) {
       throw new Error(
         'config/board.json still has placeholder leagueId/draftId/myUserId — fill them in and re-run `npm run resolve-board`'
       )
     }
+    if (board.draftReady !== true) {
+      throw new Error(
+        `config/board.json is not marked draft-ready (it has ${board.players.length} players). ` +
+          'Fill in the real tiered board, re-run `npm run resolve-board`, then set "draftReady": true. ' +
+          'Running live against a partial board would draft from ADP interpolation, not from your rankings.'
+      )
+    }
+    assertPlayerMapIsFresh()
     myUserId = board.myUserId
     feed = new HttpFeed(board.leagueId, board.draftId)
     logName = board.draftId

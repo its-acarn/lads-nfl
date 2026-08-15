@@ -232,7 +232,8 @@ function main(): void {
   out.push(
     `- **${close.sameTier} of ${close.tierComparable} comparable divergences are within the same tier of your own board.** ` +
       'Where that holds, the engine is not disagreeing with you about who is better — your ' +
-      'board says the two are interchangeable, and the engine broke the tie on roster need.'
+      'board says the two are interchangeable, and the engine broke the tie on ' +
+      (board.rules.useRosterNeed === false ? 'positional scarcity.' : 'roster need.')
   )
   out.push('')
   out.push('## Round by round')
@@ -257,17 +258,32 @@ function main(): void {
   out.push('')
   const qbPick = headline.myPicks.filter((p) => p.engine.pos === 'QB')[0]
   const engineQbRound = qbPick ? qbPick.round : 99
+  // A quarterback taken under forced mode says nothing about how the board
+  // prices quarterbacks — forced mode collapses the candidate set to unfilled
+  // starter slots and would have taken one whatever the tiers said.
   const gap = Math.abs(engineQbRound - 13)
-  if (gap >= 3) {
+  if (qbPick && qbPick.forced) {
+    out.push(
+      '**This check is inconclusive.** The engine took its quarterback under forced mode, which ' +
+        'collapses the candidate set to unfilled starter slots — so the pick reflects the lineup ' +
+        'requirement, not how the board prices quarterbacks. It would have taken one whatever the ' +
+        'tiers said. Tier breaks in the QB column would let the engine price them properly and ' +
+        'make this check mean something.'
+    )
+  } else if (!qbPick) {
+    out.push(
+      '**The engine drafted no quarterback at all.** With roster-need weighting off, a ' +
+        'last-tier quarterback never outscores a mid-tier skill player on scarcity alone, and ' +
+        'nothing forces the slot. That is a lineup you would have to fill from waivers.'
+    )
+  } else if (gap >= 3) {
     out.push(
       `**The assumption does not hold.** The engine reaches for a quarterback ${gap} rounds ` +
-        'earlier than Andrew did. Pricing the QB column level with the last tier gives every ' +
-        'one of the 23 quarterbacks the same value as a last-tier skill player, and because ' +
-        'an empty QB slot carries a full 1.0 need weight against 0.75 for a flex-eligible ' +
-        'receiver, the engine takes one the moment the board thins. That is coherent engine ' +
-        'behaviour on a bad input, not an engine fault — the sheet simply never said where ' +
-        'quarterbacks belong. The fix is tier breaks in that column, which costs a few ' +
-        'minutes and would replace the guess with Andrew\'s actual view.'
+        'from where Andrew did. Pricing the QB column level with the last tier gives every one ' +
+        'of the 23 quarterbacks the same value as a last-tier skill player, so the engine takes ' +
+        'one the moment the board thins. That is coherent behaviour on an under-specified input, ' +
+        'not an engine fault — the sheet never said where quarterbacks belong. Tier breaks in ' +
+        'that column would replace the guess with Andrew\'s actual view.'
     )
   } else {
     out.push('The assumption holds: the engine reaches for a quarterback at about the same point Andrew did.')

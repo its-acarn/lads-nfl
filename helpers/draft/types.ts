@@ -177,6 +177,11 @@ export interface BoardRules {
 }
 
 export interface BoardInput {
+  // Explicit confirmation that this board is the real one and may drive a
+  // live draft. Absent or false, `npm run bot` refuses to start. Exists
+  // because the id placeholders are filled in long before the player list is,
+  // so "the ids look real" is not evidence the board is ready.
+  draftReady?: boolean
   season: number
   leagueId: string
   draftId: string
@@ -196,6 +201,7 @@ export interface ResolvedPin extends BoardPin {
 }
 
 export interface ResolvedBoard {
+  draftReady?: boolean
   season: number
   leagueId: string
   draftId: string

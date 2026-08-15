@@ -131,6 +131,13 @@ export function buildUniverse(inputs: UniverseInputs): Universe {
   // Anyone drafted but absent from the sheet would simply not be draftable
   // here, so that count is reported rather than silently patched; it is
   // currently zero, and the spec holds it there.
+  //
+  // A consequence worth stating plainly: because membership is exactly the ADP
+  // sheet's keys, the jimmygTail and deterministicTail layers below are
+  // UNREACHABLE, not merely empty. They would only fire for a member with no
+  // sheet entry, which by construction cannot exist. They are kept because
+  // membership may later widen; until it does, their counts are structurally
+  // zero and prove nothing.
   const members: Record<string, boolean> = {}
   const adpIds = Object.keys(adpById)
   for (let i = 0; i < adpIds.length; i++) members[adpIds[i]] = true

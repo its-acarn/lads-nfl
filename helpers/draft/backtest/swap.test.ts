@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { myPickNumbers, myRosterId } from '../snake'
 import { Scored, SleeperPick } from '../types'
-import { draftConfig } from './config'
+import { draftConfig, rulesFor } from './config'
 import {
   loadBoard2025,
   loadJimmygPicks,
@@ -194,5 +194,31 @@ describe('a displaced manager who cannot be paid back still drafts', () => {
     expect(r.invariants.duplicates).toEqual([])
     // The situation did occur, so the test is exercising the path it targets.
     expect(r.fallbacks.length).toBeGreaterThan(0)
+  })
+})
+
+describe('rulesFor', () => {
+  it('changes only the K and DEF caps', () => {
+    // Regression: it used to rebuild a six-field literal, silently dropping
+    // every rule added later. The forced-on sensitivity arm then ran with
+    // roster-need weighting back on and differed from the headline by much
+    // more than the two positions it was supposed to isolate.
+    const rules = {
+      maxByPos: { QB: 1, RB: 8, WR: 8, TE: 1, K: 0, DEF: 0 },
+      minRoundByPos: { QB: 11 },
+      stashRound: 12,
+      offBoardDiscount: 0.8,
+      vonaFromRound: 9,
+      useRosterNeed: false,
+      useForcedStarters: true,
+      needWeights: { starter: 0.9 },
+      value: { tierDecay: 0.8 },
+    }
+    const forced = rulesFor(rules, true)
+    expect(forced.maxByPos).toEqual({ QB: 1, RB: 8, WR: 8, TE: 1, K: 1, DEF: 1 })
+    for (const key of ['minRoundByPos', 'stashRound', 'offBoardDiscount', 'vonaFromRound', 'useRosterNeed', 'useForcedStarters', 'needWeights', 'value'] as const) {
+      expect(forced[key], `rulesFor dropped ${key}`).toEqual(rules[key])
+    }
+    expect(rulesFor(rules, false)).toBe(rules)
   })
 })

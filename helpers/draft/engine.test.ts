@@ -295,3 +295,48 @@ describe('value and need weights are configurable from the board', () => {
     expect(needs.weights.RB).toBe(1)
   })
 })
+
+describe('pins respect the guardrails', () => {
+  // The pin block used to scan the raw pool and check only maxByPos, so a pin
+  // overrode do-not-draft, round floors, the stash rule and — worst — the
+  // forced collapse, which could leave a mandatory starter slot empty: the
+  // exact outcome forced mode exists to prevent.
+  function boardWithPin(extra: Record<string, unknown>) {
+    const target = market.board.players.filter((p) => p.pos === 'WR')[0]
+    return {
+      board: {
+        ...market.board,
+        pins: [{ name: target.name, fromRound: 1, toRound: 14, player_id: target.player_id }],
+        rules: { ...market.board.rules, ...extra },
+      },
+      target,
+    }
+  }
+
+  it('does not let a pin override a do-not-draft', () => {
+    const { board, target } = boardWithPin({})
+    const withBan = { ...board, doNotDraftIds: [target.player_id] }
+    const state = buildState(cfg, feedBefore(1), withBan, market.players)
+    const rec = recommend(state, OPTS)
+    expect(rec.primary.player_id).not.toBe(target.player_id)
+  })
+
+  it('does not let a pin override a round floor', () => {
+    const { board, target } = boardWithPin({ minRoundByPos: { WR: 13 } })
+    const state = buildState(cfg, feedBefore(1), board, market.players)
+    const rec = recommend(state, OPTS)
+    expect(rec.primary.player_id).not.toBe(target.player_id)
+  })
+
+  it('yields to forced mode rather than leaving a starter slot empty', () => {
+    const { board, target } = boardWithPin({})
+    // Late enough that forced mode is collapsing to unfilled starters.
+    const late = sorted[sorted.length - 1].pick_no
+    const state = buildState(cfg, feedBefore(late), board, market.players)
+    const rec = recommend(state, OPTS)
+    if (rec.forced) {
+      expect(rec.primary.player_id).not.toBe(target.player_id)
+      expect(rec.rationale.join(' ')).toMatch(/pin skipped/)
+    }
+  })
+})

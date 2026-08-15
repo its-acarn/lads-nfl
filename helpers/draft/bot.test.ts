@@ -215,3 +215,89 @@ describe('runBot end-to-end over lads/2024', () => {
     expect(dupes).toEqual([])
   }, 120000)
 })
+
+describe('failure paths', () => {
+  // Previously untested, and the reason a real fault could go unnoticed:
+  // consecutiveFailures === 5 fired exactly once, so a permanent error
+  // produced one message and then thirty-second silence for the rest of the
+  // draft — indistinguishable from a healthy bot with nothing to say.
+  class BrokenFeed implements Feed {
+    getLeague() {
+      return Promise.resolve(fx.league)
+    }
+    getDraft() {
+      return Promise.resolve({ ...fx.draft, status: 'drafting' })
+    }
+    getPicks(): Promise<SleeperPick[]> {
+      return Promise.reject(new Error('sleeper is down'))
+    }
+    getTradedPicks() {
+      return Promise.resolve(fx.tradedPicks)
+    }
+  }
+
+  it('keeps reporting a permanent failure, not just the first one', async () => {
+    const notifier = new CollectingNotifier()
+    const opts = makeOpts()
+    opts.maxLoops = 40
+    const result = await runBot(market.board, market.players, opts, {
+      feed: new BrokenFeed(),
+      notifier,
+      log: new MemoryLog(),
+      sleep: () => Promise.resolve(),
+      now: () => 0,
+      jitter: () => 0,
+    })
+    const errors = notifier.messages.filter((m) => m.kind === 'bot_error')
+    expect(errors.length, 'should report every fifth failure, not only the fifth').toBeGreaterThanOrEqual(3)
+    // and the loop is still alive rather than having thrown out
+    expect(result.completed).toBe(false)
+    expect(result.counters.loops).toBeGreaterThan(30)
+  }, 60000)
+
+  it('refuses to start when the configured drafter owns no picks', async () => {
+    // Resolved at LOAD now. Previously this surfaced only once picks started
+    // landing, mid-draft, as a single message.
+    const opts = makeOpts()
+    opts.myUserId = 'not-a-real-user'
+    await expect(
+      runBot(market.board, market.players, opts, {
+        feed: new FakeFeed(new FakeClock(), false),
+        notifier: new CollectingNotifier(),
+        log: new MemoryLog(),
+        sleep: () => Promise.resolve(),
+        now: () => 0,
+        jitter: () => 0,
+      })
+    ).rejects.toThrow(/not in draft_order|owns no picks/)
+  }, 30000)
+
+  it('does not fetch picks while the draft is paused', async () => {
+    // A paused draft forces a draft fetch every loop; also fetching picks
+    // doubled the call rate exactly when nothing can happen.
+    class PausedFeed extends BrokenFeed {
+      picksCalls = 0
+      getDraft() {
+        return Promise.resolve({ ...fx.draft, status: 'paused' })
+      }
+      getPicks(): Promise<SleeperPick[]> {
+        this.picksCalls++
+        return Promise.resolve([])
+      }
+    }
+    const feed = new PausedFeed()
+    const opts = makeOpts()
+    opts.maxLoops = 20
+    const notifier = new CollectingNotifier()
+    await runBot(market.board, market.players, opts, {
+      feed,
+      notifier,
+      log: new MemoryLog(),
+      sleep: () => Promise.resolve(),
+      now: () => 0,
+      jitter: () => 0,
+    })
+    expect(feed.picksCalls, 'no picks fetch while paused').toBe(0)
+    expect(notifier.messages.filter((m) => m.kind === 'draft_paused').length, 'announced once').toBe(1)
+  }, 30000)
+})

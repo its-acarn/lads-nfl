@@ -6,7 +6,7 @@
 
 import { recommend } from './recommend'
 import { effectiveLineup, parseLineup } from './needs'
-import { assertSupportedDraft } from './snake'
+import { assertSupportedDraft, myPickNumbers } from './snake'
 import { buildState, nameOfPick } from './state'
 import { computeReachScale, DEFAULT_SIM_OPTS } from './survival'
 import {
@@ -49,6 +49,12 @@ export interface BotOptions {
   simOpts: SimOpts
   maxLoops: number | null // safety valve for tests; null = run forever
 }
+
+// Poll jitter, as a fraction of the poll interval. Expressed relatively so
+// that an accelerated dry run and a live draft poll at the same rate in
+// DRAFT time, which is what makes the dry run's call-rate measurement mean
+// anything about live.
+export const JITTER_FRACTION = 0.15
 
 export const DEFAULT_BOT_OPTIONS: Omit<BotOptions, 'myUserId'> = {
   pollMs: 3000,
@@ -135,6 +141,21 @@ export async function runBot(
   assertSupportedDraft(draft)
   const tradedPicks: SleeperTradedPick[] = await deps.feed.getTradedPicks()
 
+  // Resolve the drafter HERE, before the draft starts. myPickNumbers is
+  // otherwise first reached inside buildState, which runs inside the poll
+  // loop's try — so a wrong user id or an unset draft order surfaces only
+  // once picks are landing, and then only as a single bot_error before the
+  // loop retries in silence. Failing at LOAD is loud and early.
+  const myPicks = myPickNumbers({
+    draft,
+    tradedPicks,
+    myUserId: optsIn.myUserId,
+    rosterPositions: lineup,
+  })
+  if (myPicks.length === 0) {
+    throw new Error(`user_id ${optsIn.myUserId} owns no picks in this draft — check config/board.json`)
+  }
+
   const pickTimer =
     draft.settings.pick_timer && draft.settings.pick_timer > 0 ? draft.settings.pick_timer : 120
   const escalateAt1 = Math.round(pickTimer / 3)
@@ -177,15 +198,28 @@ export async function runBot(
         continue
       }
 
+      // While paused, no pick can land, so fetching them is wasted budget —
+      // and expensive, because a non-drafting status also forces a draft
+      // fetch every loop above. Doing both doubled the call rate at exactly
+      // the moment the draft is going nowhere. Announce the pause once, then
+      // poll only the draft until it resumes.
+      if (draft.status === 'paused') {
+        if (lastStatus !== 'paused') {
+          await sendOnce(`draft_paused:${counters.picksFetches}`, { kind: 'draft_paused' })
+        }
+        lastStatus = draft.status
+        consecutiveFailures = 0
+        await deps.sleep(optsIn.pollMs + Math.round(deps.jitter() * optsIn.pollMs * JITTER_FRACTION))
+        continue
+      }
+
       const picks = await deps.feed.getPicks()
       counters.picksFetches++
       const state = buildState(cfg(), picks, board, players)
 
-      // Pause / resume transitions, keyed by picks-made so a restart during
-      // the same pause does not re-announce.
-      if (draft.status === 'paused' && lastStatus !== 'paused') {
-        await sendOnce(`draft_paused:${picks.length}`, { kind: 'draft_paused' })
-      }
+      // Resume transition. The pause itself is handled above, before the
+      // picks fetch, so that a paused draft costs one call per loop and not
+      // two.
       if (draft.status === 'drafting' && lastStatus === 'paused') {
         await sendOnce(`draft_resumed:${picks.length}`, { kind: 'draft_resumed' })
       }
@@ -298,10 +332,19 @@ export async function runBot(
       }
 
       consecutiveFailures = 0
-      await deps.sleep(optsIn.pollMs + Math.round(deps.jitter() * 500))
+      // Jitter as a FRACTION of the poll interval, not an absolute 0-500ms.
+      // With an absolute jitter the dry run's accelerated pollMs (50ms at
+      // speed 60) is swamped by it, so the dry run polls roughly five times
+      // less often in draft-time than live does — and its measured call rate
+      // understates the live rate by the same factor.
+      await deps.sleep(optsIn.pollMs + Math.round(deps.jitter() * optsIn.pollMs * JITTER_FRACTION))
     } catch (err) {
       consecutiveFailures++
-      if (consecutiveFailures === 5) {
+      // Every fifth consecutive failure, not only the fifth. A permanent
+      // fault — a bad user id, a shape the parser rejects — otherwise emits
+      // one message and then retries in silence for the rest of the draft,
+      // which looks exactly like a healthy bot with nothing to say.
+      if (consecutiveFailures % 5 === 0) {
         try {
           await deps.notifier.send({
             kind: 'bot_error',
