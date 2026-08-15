@@ -211,7 +211,13 @@ describe('runBot end-to-end over lads/2024', () => {
       const k = keyOf(all[i])
       seen[k] = (seen[k] || 0) + 1
     }
-    const dupes = Object.keys(seen).filter((k) => seen[k] > 1 && k.indexOf('escalation') === -1)
+    // 'loaded' is a startup banner, not an idempotent per-pick message: a
+    // restart SHOULD re-announce the slot and pick numbers, because the whole
+    // point of it is to confirm the configuration each time the bot comes up.
+    // Escalations likewise repeat by design.
+    const dupes = Object.keys(seen).filter(
+      (k) => seen[k] > 1 && k.indexOf('escalation') === -1 && k.indexOf('loaded') === -1
+    )
     expect(dupes).toEqual([])
   }, 120000)
 })

@@ -86,6 +86,38 @@ export function effectiveLineup(rosterPositions: string[], rules: BoardRules): s
   return out
 }
 
+// Sleeper's draft object carries the whole lineup in settings.slots_*, so a
+// draft with no league behind it -- a mock -- can still say what it is. This
+// is what makes a mock-draft smoke test possible: the only thing runBot needed
+// a league for was roster_positions.
+const SLOT_KEY_TO_POSITION: [string, string][] = [
+  ['slots_qb', 'QB'],
+  ['slots_rb', 'RB'],
+  ['slots_wr', 'WR'],
+  ['slots_te', 'TE'],
+  ['slots_flex', 'FLEX'],
+  ['slots_super_flex', 'SUPER_FLEX'],
+  ['slots_rec_flex', 'REC_FLEX'],
+  ['slots_wrrb_flex', 'WRRB_FLEX'],
+  ['slots_k', 'K'],
+  ['slots_def', 'DEF'],
+  ['slots_bn', 'BN'],
+]
+
+export function lineupFromDraftSettings(settings: Record<string, unknown>): string[] {
+  const out: string[] = []
+  for (let i = 0; i < SLOT_KEY_TO_POSITION.length; i++) {
+    const [key, slot] = SLOT_KEY_TO_POSITION[i]
+    const n = settings[key]
+    if (typeof n !== 'number' || n <= 0) continue
+    for (let k = 0; k < n; k++) out.push(slot)
+  }
+  if (out.length === 0) {
+    throw new Error('draft.settings carries no slots_* fields — cannot derive a lineup without a league')
+  }
+  return out
+}
+
 export interface NeedsResult {
   weights: Record<Position, number>
   unfilledMandatory: Record<Position, number> // dedicated starter slots still open

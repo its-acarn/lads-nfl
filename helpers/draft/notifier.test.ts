@@ -59,3 +59,19 @@ describe('formatDraftMessage', () => {
     expect(formatDraftMessage({ kind: 'bot_error', message: 'boom', consecutiveFailures: 5 })).toContain('5 consecutive failures')
   })
 })
+
+describe('the LOAD confirmation', () => {
+  it('states the slot and every pick number before the draft starts', () => {
+    // A wrong slot or user id is far cheaper to spot here than at pick one.
+    const out = formatDraftMessage({
+      kind: 'loaded',
+      slot: 5,
+      pickNos: [5, 20, 29, 44],
+      rounds: 14,
+      teams: 12,
+    })
+    expect(out).toContain('12 teams, 14 rounds')
+    expect(out).toContain('slot 5')
+    expect(out).toContain('5, 20, 29, 44')
+  })
+})

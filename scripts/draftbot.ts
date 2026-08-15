@@ -15,6 +15,7 @@ import * as path from 'path'
 import { runBot, BotOptions, DEFAULT_BOT_OPTIONS, Feed, SentLog } from '../helpers/draft/bot'
 import { ConsoleNotifier } from '../helpers/draft/notifier'
 import { buildMarketFixture, marketConfig, userForSlot } from '../helpers/draft/marketBoard'
+import { lineupFromDraftSettings } from '../helpers/draft/needs'
 import { DEFAULT_SIM_OPTS } from '../helpers/draft/survival'
 import {
   PlayerMap,
@@ -112,6 +113,69 @@ function assertPlayerMapIsFresh(): void {
 // Live feed
 // ---------------------------------------------------------------------------
 
+// A mock draft has no league behind it: draft.league_id is null. Everything
+// else the bot needs is there -- slot_to_roster_id is present and already the
+// identity mapping, draft_order carries your slot, and the picks endpoints
+// work. So the only gap is roster_positions, and there are two ways to fill
+// it: a LEAGUE MOCK carries the real league id in metadata.league_id, and
+// failing that the lineup is derivable from settings.slots_*.
+class MockFeed implements Feed {
+  private draft: SleeperDraft | null = null
+
+  constructor(private draftId: string) {}
+
+  private async getJson(url: string): Promise<unknown> {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 15000)
+    try {
+      const res = await fetch(url, { signal: controller.signal })
+      if (!res.ok) throw new Error(`GET ${url} -> HTTP ${res.status}`)
+      return await res.json()
+    } finally {
+      clearTimeout(timer)
+    }
+  }
+
+  async getDraft(): Promise<SleeperDraft> {
+    this.draft = (await this.getJson(`${API}/draft/${this.draftId}`)) as SleeperDraft
+    return this.draft
+  }
+
+  async getLeague(): Promise<SleeperLeague> {
+    const draft = this.draft || (await this.getDraft())
+    const meta = (draft as unknown as { metadata?: Record<string, string> }).metadata || {}
+    const leagueId = draft.league_id || meta.league_id || null
+    if (leagueId) {
+      // A league mock: use the real league, so the smoke test runs against the
+      // lineup the actual draft will use.
+      // eslint-disable-next-line no-console
+      console.log(`mock of league ${leagueId} — using its real lineup`)
+      return (await this.getJson(`${API}/league/${leagueId}`)) as SleeperLeague
+    }
+    // A standalone mock: reconstruct the lineup from the draft itself.
+    const rosterPositions = lineupFromDraftSettings(draft.settings as unknown as Record<string, unknown>)
+    // eslint-disable-next-line no-console
+    console.log(`standalone mock — lineup derived from draft settings: ${rosterPositions.join(', ')}`)
+    return {
+      league_id: `mock-${this.draftId}`,
+      name: 'Mock draft',
+      season: draft.season,
+      status: 'in_season',
+      previous_league_id: null,
+      draft_id: this.draftId,
+      total_rosters: draft.settings.teams,
+      roster_positions: rosterPositions,
+    }
+  }
+
+  getPicks(): Promise<SleeperPick[]> {
+    return this.getJson(`${API}/draft/${this.draftId}/picks`) as Promise<SleeperPick[]>
+  }
+  getTradedPicks(): Promise<SleeperTradedPick[]> {
+    return this.getJson(`${API}/draft/${this.draftId}/traded_picks`) as Promise<SleeperTradedPick[]>
+  }
+}
+
 class HttpFeed implements Feed {
   constructor(private leagueId: string, private draftId: string) {}
 
@@ -207,6 +271,7 @@ class FixtureFeed implements Feed {
 
 async function main(): Promise<void> {
   const dryRun = flag('dry-run')
+  const mockDraftId = arg('mock')
   const notifier = new ConsoleNotifier()
 
   let feed: Feed
@@ -217,7 +282,24 @@ async function main(): Promise<void> {
   let pollMs = 3000
   let logName: string
 
-  if (dryRun) {
+  if (mockDraftId) {
+    // Smoke test against a live Sleeper mock. The board-readiness gate is
+    // deliberately skipped: the point of a mock is to exercise the loop
+    // BEFORE the real board is finished. The player map still has to be
+    // fresh, because a stale one would make the smoke test lie about which
+    // players are draftable.
+    board = readJson<ResolvedBoard>(path.join(ROOT, 'config', 'board.resolved.json'))
+    players = readJson<PlayerMap>(path.join(ROOT, 'fixtures', 'players.trim.json'))
+    assertPlayerMapIsFresh()
+    myUserId = board.myUserId
+    feed = new MockFeed(mockDraftId)
+    logName = `mock-${mockDraftId}`
+    // eslint-disable-next-line no-console
+    console.log(
+      `MOCK DRAFT ${mockDraftId} — board has ${board.players.length} players` +
+        (board.draftReady === true ? '' : ' (NOT marked draft-ready; fine for a smoke test)')
+    )
+  } else if (dryRun) {
     const dir = arg('fixtures') || 'fixtures/lads/2024'
     const slot = parseInt(arg('slot') || '1', 10)
     const speed = parseFloat(arg('speed') || '60')
@@ -263,13 +345,16 @@ async function main(): Promise<void> {
 
   const log = new FileSentLog(path.join(ROOT, '.draftbot', `sent-log.${logName}.json`))
 
+  // --max-loops bounds a run, which is what makes a mock smoke test finite:
+  // a pre_draft mock would otherwise poll until interrupted.
+  const maxLoopsArg = arg('max-loops')
   const opts: BotOptions = {
     ...DEFAULT_BOT_OPTIONS,
     myUserId,
     pollMs,
     timeScale,
     simOpts: DEFAULT_SIM_OPTS,
-    maxLoops: null,
+    maxLoops: maxLoopsArg ? parseInt(maxLoopsArg, 10) : null,
   }
 
   const started = Date.now()

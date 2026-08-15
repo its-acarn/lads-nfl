@@ -12,6 +12,11 @@ function line(s: Scored): string {
 
 export function formatDraftMessage(msg: DraftMessage): string {
   switch (msg.kind) {
+    case 'loaded':
+      return (
+        `READY — ${msg.teams} teams, ${msg.rounds} rounds, you are slot ${msg.slot}.\n` +
+        `Your picks: ${msg.pickNos.join(', ')}`
+      )
     case 'heads_up': {
       const rows: string[] = []
       for (let i = 0; i < msg.shortlist.length; i++) rows.push(`${i + 1}. ${line(msg.shortlist[i])}`)

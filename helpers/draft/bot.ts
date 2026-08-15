@@ -6,7 +6,7 @@
 
 import { recommend } from './recommend'
 import { effectiveLineup, parseLineup } from './needs'
-import { assertSupportedDraft, myPickNumbers } from './snake'
+import { assertSupportedDraft, myDraftSlot, myPickNumbers } from './snake'
 import { buildState, nameOfPick } from './state'
 import { computeReachScale, DEFAULT_SIM_OPTS } from './survival'
 import {
@@ -155,6 +155,15 @@ export async function runBot(
   if (myPicks.length === 0) {
     throw new Error(`user_id ${optsIn.myUserId} owns no picks in this draft — check config/board.json`)
   }
+  // Say what was resolved, before the draft starts. A wrong slot or a
+  // misconfigured user id is far cheaper to spot here than at pick one.
+  await deps.notifier.send({
+    kind: 'loaded',
+    slot: myDraftSlot(draft, optsIn.myUserId),
+    pickNos: myPicks,
+    rounds: draft.settings.rounds,
+    teams: draft.settings.teams,
+  })
 
   const pickTimer =
     draft.settings.pick_timer && draft.settings.pick_timer > 0 ? draft.settings.pick_timer : 120
