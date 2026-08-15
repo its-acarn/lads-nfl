@@ -60,12 +60,20 @@ comes after the roster has been read.
       Andrew's own picks) and no-partner.
 - [x] **M6 — Run, report, record.** Done. `npm run backtest` writes
       `docs/plans/draft-backtest-2025/report.md` across four configurations and
-      reproduces byte for byte on a second run. All four pass their invariants.
-      Re-run after the board-order rule, the roster rules and the QB round
-      floor: **4 of 14 picks now match exactly** (rounds 1, 2, 6 and 14),
-      **10 of 14** comparable divergences are within one tier of Andrew's own
-      board, and the engine takes its quarterback in round 11 against his round
-      13 — close enough that the report's own QB check now reads "holds".
+      reproduces byte for byte. Current run, under the shipping configuration:
+      3 of 14 picks identical, 5 of 14 players on both rosters, 10 of 14 picks
+      landing in the same tier of Andrew's own board, and the engine's roster
+      shape — 1 QB, 7 RB, 5 WR, 1 TE — against his 1/6/6/1.
+- [x] **Post-review hardening.** A review of PR #2 raised nine findings; seven
+      were correct as written, one half-correct, and all are addressed. See
+      Surprises for the two that were substantive bugs rather than tidying, and
+      the Decision Log for the one whose conclusion was disputed with evidence.
+- [x] **Replay coverage for the shipping configuration.** The replay corpus,
+      golden snapshot included, exercised `marketRules` — which sets none of
+      `vonaFromRound`, `useRosterNeed`, `useForcedStarters`, `minRoundByPos` or
+      the real caps. `npm run replay -- --rules live` now overlays
+      `config/board.json`, a second golden covers lads/2024 under it, and the
+      result across all nine fixtures is zero unannounced violations.
 - [ ] **M7 (deferred) — Real-points scoring.** Not scheduled. Build only if
       reading the M6 report raises a question that points would settle.
 
@@ -192,6 +200,24 @@ August 2025 foot injury cratered his ADP late in the month, and FFC's window is
 and neither carries outcome knowledge, so this is not a leak — but the prior in
 use is a little staler than the cross-check, and any surprising engine pick
 around an injured player should be read with that in mind.
+
+**Found by review: the live loop went silent after one error.** `bot.ts` tested
+`consecutiveFailures === 5` — exact equality — and only reset on success, so a
+permanent fault emitted a single `bot_error` and then retried in silence for the
+rest of the draft, indistinguishable from a healthy bot with nothing to say.
+Compounding it, the drafter was never resolved at LOAD: `myPickNumbers` was
+first reached inside `buildState`, inside the poll loop's try, so a wrong user
+id surfaced only once picks started landing. Neither path had any test coverage.
+
+**Found by running the replay under the live rules: the guardrail escape hatch
+hid its own failures.** When no candidate survived the guardrails, `recommend()`
+dropped all of them at once except do-not-draft and reported only "guardrails
+relaxed". Under the shipping configuration the corpus produced seven breached
+position caps — QB over 1, TE over 1, K over 0, DEF over 0 — every one at a
+final pick, with nothing in the output to explain them. A breached cap was
+indistinguishable from a healthy pick. This is the clearest argument for the
+coverage gap having mattered: the bug was invisible for as long as the corpus
+only ever ran `marketRules`.
 
 **Found during M6: the quarterback assumption does not hold.** Pricing the QB
 column level with the last tier makes the engine take its first quarterback in
@@ -414,6 +440,19 @@ With `minRoundByPos.QB = 11` the engine takes its quarterback in round 11
 against Andrew's round 13, and the report's own check flips from "does not hold"
 to "holds".
 
+**Ranking a defense does fix which one gets picked — the review's conclusion on
+that point was wrong, and this records why.** The reviewer was right that all 32
+defenses share `search_rank: null`, that every one therefore survives with
+probability 1, and that a defense's edge is consequently exactly zero. That half
+is fixed: board players Sleeper does not rank now get an ADP interpolated from
+the board's own rank-to-ADP curve. But the conclusion drawn from it — that
+ranking a defense "does not fix the arbitrariness" — does not hold.
+`recommend()` breaks ties score → value → `player_id`, so a board-ranked defense
+at value 72.24 beats an unranked one at 0.00 and never reaches the alphabetical
+fallback. Reproduced directly. Two supporting measurements were also taken
+against the wrong player map: in the backtest, defenses carry real distinct ADPs
+from the spreadsheet, so the cited "0-value tie" was a value win.
+
 **Only Andrew's slot is backtested.** Running all twelve slots would multiply
 the work and tell us about other people's teams. Slot 2 is the question.
 
@@ -472,6 +511,13 @@ degenerate one. The engine's treatment of an under-specified position — the QB
 column — became visible, where a synthetic market board would have hidden it by
 construction. And the hindsight-freedom of the whole arrangement is now a
 falsifiable property with a control that fails, rather than a claim.
+
+**What the review changed.** Nine findings, seven correct as written. Two were
+substantive bugs in the live loop and the guardrail relaxation (see Surprises);
+the rest were guardrail bypasses, missing operational gates, an over-claiming
+test header, and a PR description that denied containing ~9,800 lines it
+contained. One was half-correct and is recorded in the Decision Log with the
+evidence for the half that was disputed. The suite went from 143 specs to 155.
 
 **Is the soundness question closed?** No, and it should not be read as closed. A
 single draft at a single slot cannot establish that the decision rule is good,
