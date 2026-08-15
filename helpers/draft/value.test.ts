@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { boardValue, buildValuer, DEFAULT_VALUE_OPTS } from './value'
+import { buildState } from './state'
 import { ResolvedBoard, ResolvedBoardPlayer } from './types'
 
 function boardOf(players: ResolvedBoardPlayer[]): ResolvedBoard {
@@ -74,5 +75,75 @@ describe('buildValuer off-board interpolation', () => {
     expect(justPast).toBeLessThan(v.valueForBoardPlayer('c')! * 0.8)
     expect(farPast).toBeLessThanOrEqual(justPast)
     expect(farPast).toBeGreaterThanOrEqual(0)
+  })
+})
+
+describe('players Sleeper gives no ADP for', () => {
+  // All 32 team defenses have search_rank null in the live player map. Left on
+  // a shared sentinel they were indistinguishable to the simulation: every one
+  // survived with certainty, so E[best DEF] equalled the best defense's own
+  // value and its edge was exactly zero — a defense could never be chosen on
+  // score, only by forced mode.
+  const draft = {
+    draft_id: 'd', league_id: 'l', type: 'snake', status: 'drafting', season: '2026',
+    settings: { teams: 12, rounds: 14 },
+    draft_order: { me: 1 },
+    // every slot must map: ownedPickNumbers walks all of them
+    slot_to_roster_id: { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, '11': 11, '12': 12 },
+    start_time: null,
+  }
+  const cfg = { draft: draft as any, tradedPicks: [], myUserId: 'me', rosterPositions: ['QB', 'RB', 'WR', 'TE', 'BN', 'BN'] }
+
+  function build(boardExtra: any[], playersExtra: Record<string, any>) {
+    const board = {
+      season: 2026, leagueId: 'l', draftId: 'd', myUserId: 'me',
+      players: [
+        { name: 'Early Guy', pos: 'RB', tier: 1, rank: 1, player_id: 'early' },
+        { name: 'Late Guy', pos: 'WR', tier: 5, rank: 100, player_id: 'late' },
+      ].concat(boardExtra),
+      doNotDraftIds: [], pins: [],
+      rules: { maxByPos: { QB: 2, RB: 8, WR: 8, TE: 3, K: 1, DEF: 2 }, stashRound: 12, offBoardDiscount: 0.8 },
+    }
+    const players: Record<string, any> = {
+      early: { player_id: 'early', full_name: 'Early Guy', first_name: null, last_name: null, position: 'RB', team: null, search_rank: 5, injury_status: null, status: null, age: null },
+      late: { player_id: 'late', full_name: 'Late Guy', first_name: null, last_name: null, position: 'WR', team: null, search_rank: 200, injury_status: null, status: null, age: null },
+    }
+    for (const k of Object.keys(playersExtra)) players[k] = playersExtra[k]
+    return buildState(cfg as any, [], board as any, players)
+  }
+
+  const def = (id: string) => ({
+    player_id: id, full_name: id, first_name: null, last_name: null,
+    position: 'DEF', team: null, search_rank: null, injury_status: null, status: null, age: null,
+  })
+
+  it('estimates an ADP for a board player Sleeper does not rank', () => {
+    const state = build(
+      [{ name: 'RankedD', pos: 'DEF', tier: 5, rank: 50, player_id: 'rankedD' }],
+      { rankedD: def('rankedD') }
+    )
+    const d = state.pool.filter((p) => p.player_id === 'rankedD')[0]
+    // Interpolated between board rank 1 (ADP 5) and rank 100 (ADP 200), not
+    // parked on the far sentinel.
+    expect(d.searchRank).toBeGreaterThan(5)
+    expect(d.searchRank).toBeLessThan(9999999)
+  })
+
+  it('ranks a board defense ahead of an unranked one', () => {
+    const state = build(
+      [{ name: 'RankedD', pos: 'DEF', tier: 5, rank: 50, player_id: 'rankedD' }],
+      { rankedD: def('rankedD'), aaaUnranked: def('aaaUnranked') }
+    )
+    const defs = state.pool.filter((p) => p.pos === 'DEF')
+    // Sorted by value desc; the board-ranked one must lead despite the other
+    // sorting first alphabetically.
+    expect(defs[0].player_id).toBe('rankedD')
+    expect(defs[0].searchRank).toBeLessThan(defs[1].searchRank)
+  })
+
+  it('leaves a player with no board rank and no ADP on the sentinel', () => {
+    const state = build([], { aaaUnranked: def('aaaUnranked') })
+    const d = state.pool.filter((p) => p.player_id === 'aaaUnranked')[0]
+    expect(d.searchRank).toBe(9999999)
   })
 })

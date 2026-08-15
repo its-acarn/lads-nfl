@@ -178,6 +178,12 @@ async function snapshotPlayers(): Promise<void> {
   const count = Object.keys(trimmed).length
   if (count < 500) fail(`players trim looks wrong: only ${count} players kept`)
   writeJson(path.join(OUT_DIR, 'players.trim.json'), trimmed)
+  // Sidecar rather than a key inside the map, which is a plain
+  // Record<player_id, TrimmedPlayer> that the engine iterates. Live mode
+  // refuses to start on a stale snapshot: the draftable pool is exactly this
+  // file's keys, and the stash rule reads its injury designations, so an old
+  // trim silently hides late signings and preseason injuries.
+  writeJson(path.join(OUT_DIR, 'players.trim.meta.json'), { fetchedAt: new Date().toISOString() })
 }
 
 async function main(): Promise<void> {

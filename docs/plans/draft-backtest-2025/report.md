@@ -37,7 +37,7 @@ Pick-for-pick agreement understates how close the two drafts are, in two ways.
 
 - **5 of 14 players appear on both rosters**: Bijan Robinson, Bucky Irving, Mark Andrews, Brock Purdy, Brandon Aiyuk.
 - **2 of the divergences are the engine reordering your own picks** — it took a player you took yourself, just at a different one of your turns. No third party is involved and the roster is unaffected.
-- **10 of 14 comparable divergences are within the same tier of your own board.** Where that holds, the engine is not disagreeing with you about who is better — your board says the two are interchangeable, and the engine broke the tie on roster need.
+- **10 of 14 comparable divergences are within the same tier of your own board.** Where that holds, the engine is not disagreeing with you about who is better — your board says the two are interchangeable, and the engine broke the tie on positional scarcity.
 
 ## Round by round
 
@@ -188,7 +188,7 @@ the sheet states. The check on it is which round the engine actually takes one.
 - Engine took its first quarterback in **round 14 (pick 167), Brock Purdy**.
 - Andrew really took Brock Purdy at pick 146, **round 13**.
 
-The assumption holds: the engine reaches for a quarterback at about the same point Andrew did.
+**This check is inconclusive.** The engine took its quarterback under forced mode, which collapses the candidate set to unfilled starter slots — so the pick reflects the lineup requirement, not how the board prices quarterbacks. It would have taken one whatever the tiers said. Tier breaks in the QB column would let the engine price them properly and make this check mean something.
 
 ## Sensitivity checks
 
@@ -197,7 +197,7 @@ league lineup requires, spending two of fourteen picks on positions Andrew's
 board does not rank at all and that a third of this league never drafts.
 
 ```
-QB (1): Kyler Murray
+QB (1): Brock Purdy
 RB (6): Bijan Robinson, Bucky Irving, James Conner, Tyrone Tracy, Brian Robinson, Rhamondre Stevenson
 WR (4): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney
 TE (1): Mark Andrews
@@ -205,7 +205,7 @@ K (1): Cam Little
 DEF (1): Washington Commanders
 ```
 
-engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no manager drafted. First quarterback in round 11 (pick 122), Kyler Murray.
+engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no manager drafted. First quarterback in round 12 (pick 143), Brock Purdy.
 
 **Cascade opponents** — instead of receiving the player Andrew really took, a
 displaced manager falls through to the next name on their own real queue. More
@@ -222,7 +222,7 @@ TE (1): Mark Andrews
 Forced off: engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no manager drafted.
 
 ```
-QB (1): Kyler Murray
+QB (1): Brock Purdy
 RB (6): Bijan Robinson, Bucky Irving, James Conner, Tyrone Tracy, Brian Robinson, Rhamondre Stevenson
 WR (4): Tee Higgins, Tyreek Hill, Jayden Reed, Darnell Mooney
 TE (1): Mark Andrews
@@ -235,9 +235,9 @@ Forced on: engine agreed with 3 of 14 picks; 11 diverged; 1 into a player no man
 ## Integrity checks
 
 - **swap / forced off (headline)**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
-- **swap / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
+- **swap / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 2
 - **cascade / forced off**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
-- **cascade / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 0
+- **cascade / forced on**: every roster holds 14 — yes; duplicates — 0; added vs reality — 1; removed vs reality — 1; manager fallbacks — 2
 
 The ADP prior in use agrees with Fantasy Football Calculator's independent 2025 pre-season consensus at Pearson 0.885 over 152 matched players (4 unmatched).
 

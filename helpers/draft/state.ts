@@ -106,13 +106,62 @@ export function buildState(
     tierById[board.players[i].player_id] = board.players[i].tier
   }
 
+  // Sleeper publishes no search_rank for team defenses -- all 32 are null.
+  // Null and its own 9999999 sentinel both mean "no ADP".
+  const hasRealRank = (sr: number | null): boolean =>
+    typeof sr === 'number' && sr < OFF_BOARD_SEARCH_RANK
+
+  // Estimate an ADP for board players Sleeper has none for, by interpolating
+  // the board's own (board rank -> ADP) relationship. A defense sitting at
+  // board rank 120 gets roughly the ADP of the other players ranked near 120,
+  // which is a defensible guess at when the room takes him.
+  //
+  // Parking them on a far sentinel instead -- which is what happened before --
+  // makes the simulation believe no defense is ever drafted: every one
+  // survives with probability 1, so E[best DEF] equals the best defense's own
+  // value and its edge is exactly zero. A defense could then never be chosen
+  // on score, only by forced mode.
+  const adpCurve: { boardRank: number; adp: number }[] = []
+  for (let i = 0; i < board.players.length; i++) {
+    const sr = players[board.players[i].player_id] ? players[board.players[i].player_id].search_rank : null
+    if (hasRealRank(sr)) adpCurve.push({ boardRank: board.players[i].rank, adp: sr as number })
+  }
+  adpCurve.sort((a, b) => a.boardRank - b.boardRank)
+
+  let maxKnownRank = 0
+  for (let i = 0; i < allIds.length; i++) {
+    const sr = players[allIds[i]].search_rank
+    if (hasRealRank(sr) && (sr as number) > maxKnownRank) maxKnownRank = sr as number
+  }
+
+  const estimateAdp = (boardRank: number): number => {
+    if (adpCurve.length === 0) return maxKnownRank + 1 + boardRank
+    if (boardRank <= adpCurve[0].boardRank) return adpCurve[0].adp
+    const last = adpCurve[adpCurve.length - 1]
+    if (boardRank >= last.boardRank) return last.adp + (boardRank - last.boardRank)
+    for (let i = 1; i < adpCurve.length; i++) {
+      if (boardRank <= adpCurve[i].boardRank) {
+        const a = adpCurve[i - 1]
+        const b = adpCurve[i]
+        const t = (boardRank - a.boardRank) / (b.boardRank - a.boardRank)
+        return Math.round(a.adp + (b.adp - a.adp) * t)
+      }
+    }
+    return last.adp
+  }
+
   const pool: PoolPlayer[] = []
   for (let i = 0; i < allIds.length; i++) {
     const id = allIds[i]
     if (pickedIds[id]) continue
     const p = players[id]
     const onBoardValue = valuer.valueForBoardPlayer(id)
-    const searchRank = typeof p.search_rank === 'number' ? p.search_rank : OFF_BOARD_SEARCH_RANK
+    const boardRank = boardRankById[id]
+    const searchRank = hasRealRank(p.search_rank)
+      ? (p.search_rank as number)
+      : boardRank !== undefined
+      ? estimateAdp(boardRank)
+      : OFF_BOARD_SEARCH_RANK
     const value = onBoardValue !== null ? onBoardValue : valuer.valueForOffBoard(searchRank)
     pool.push({
       player_id: id,

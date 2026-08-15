@@ -193,16 +193,32 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   )
 
   // ---- pins override in their round window --------------------------------
+  // Resolved against `eligible`, not the raw pool, so a pin still respects
+  // do-not-draft, position caps, round floors and the stash rule. Scanning the
+  // pool directly meant a pin overrode every guardrail except the cap.
+  //
+  // And a pin never overrides forced mode: the collapse exists to stop the
+  // drafter finishing with a mandatory starter slot empty, which is exactly
+  // what a late-window pin used to be able to cause.
   let pinned: PoolPlayer | null = null
-  for (let i = 0; i < state.board.pins.length; i++) {
-    const pin = state.board.pins[i]
-    if (round < pin.fromRound || round > pin.toRound) continue
-    for (let j = 0; j < state.pool.length; j++) {
-      const p = state.pool[j]
-      if (p.player_id !== pin.player_id) continue
-      if ((state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) break // capped: pin unusable
-      if (pinned === null || p.value > pinned.value) pinned = p
-      break
+  if (forced && state.board.pins.length > 0) {
+    for (let i = 0; i < state.board.pins.length; i++) {
+      const pin = state.board.pins[i]
+      if (round >= pin.fromRound && round <= pin.toRound) {
+        globalRationale.push('pin skipped: forced mode is filling mandatory starter slots')
+        break
+      }
+    }
+  } else {
+    for (let i = 0; i < state.board.pins.length; i++) {
+      const pin = state.board.pins[i]
+      if (round < pin.fromRound || round > pin.toRound) continue
+      for (let j = 0; j < eligible.length; j++) {
+        const p = eligible[j]
+        if (p.player_id !== pin.player_id) continue
+        if (pinned === null || p.value > pinned.value) pinned = p
+        break
+      }
     }
   }
 

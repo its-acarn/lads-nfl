@@ -47,19 +47,15 @@ export function lineupFor(rosterPositions: string[], rules: BoardRules): string[
 // entries are needed or wanted.
 export function rulesFor(rules: BoardRules, forcedMode: boolean): BoardRules {
   if (!forcedMode) return rules
+  // Spread, never rebuild field by field. A literal silently dropped every
+  // rule added after it was written -- useRosterNeed, useForcedStarters,
+  // needWeights, value -- so the forced-on arm quietly ran with need weighting
+  // back on and differed from the headline by far more than K and DEF. The
+  // whole point of this function is that the two runs differ ONLY in whether
+  // kickers and defenses are draftable.
   return {
-    maxByPos: {
-      QB: rules.maxByPos.QB,
-      RB: rules.maxByPos.RB,
-      WR: rules.maxByPos.WR,
-      TE: rules.maxByPos.TE,
-      K: 1,
-      DEF: 1,
-    },
-    minRoundByPos: rules.minRoundByPos,
-    stashRound: rules.stashRound,
-    offBoardDiscount: rules.offBoardDiscount,
-    vonaFromRound: rules.vonaFromRound,
+    ...rules,
+    maxByPos: { ...rules.maxByPos, K: 1, DEF: 1 },
   }
 }
 

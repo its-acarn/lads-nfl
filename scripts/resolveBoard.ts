@@ -145,6 +145,7 @@ function main(): void {
   }
 
   const out: ResolvedBoard = {
+    draftReady: board.draftReady,
     season: board.season,
     leagueId: board.leagueId,
     draftId: board.draftId,
