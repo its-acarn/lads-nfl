@@ -13,11 +13,13 @@
 // against what actually happened by my next pick.
 
 import { buildMarketFixture, marketConfig } from './marketBoard'
+import { effectiveLineup } from './needs'
 import { recommend } from './recommend'
 import { buildState } from './state'
 import { survival } from './survival'
 import { roundOf, slotToRoster } from './snake'
 import {
+  BoardRules,
   BoardState,
   DraftConfig,
   PlayerMap,
@@ -76,6 +78,9 @@ export interface CounterfactualResult {
   myValue: number
   realValue: number
   guardrailViolations: string[]
+  // Rules the engine had to give up because nothing legal remained, and said
+  // so at the time. Not faults; reported so they are never invisible.
+  forcedRelaxations: string[]
   posCounts: Record<Position, number>
 }
 
@@ -93,7 +98,18 @@ interface Prepared {
   userId: string
 }
 
-function prepare(fx: ReplayFixture, realPlayers: PlayerMap, slot: number): Prepared {
+// An optional overlay of the rules the LIVE bot will run with. Without it the
+// replay exercises marketRules, which sets none of vonaFromRound,
+// useRosterNeed, useForcedStarters or the real position caps -- so the whole
+// replay corpus described an engine configuration that will never run.
+export type RulesOverlay = Partial<BoardRules> | null
+
+function prepare(
+  fx: ReplayFixture,
+  realPlayers: PlayerMap,
+  slot: number,
+  overlay?: RulesOverlay
+): Prepared {
   if (!fx.draft.draft_order) throw new Error(`${fx.name}/${fx.season}: draft_order missing`)
   const users = Object.keys(fx.draft.draft_order)
   let userId: string | null = null
@@ -111,7 +127,14 @@ function prepare(fx: ReplayFixture, realPlayers: PlayerMap, slot: number): Prepa
     draft = { ...fx.draft, draft_order: patchedOrder }
   }
   const market = buildMarketFixture(draft, fx.picks, realPlayers, userId)
+  if (overlay) {
+    market.board.rules = { ...market.board.rules, ...overlay }
+  }
   const cfg = marketConfig(draft, fx.league, fx.tradedPicks, userId)
+  // A position the board caps at zero must lose its starter slot, or forced
+  // mode demands a player the caps forbid and recommend() drops into its
+  // relax-everything path.
+  cfg.rosterPositions = effectiveLineup(cfg.rosterPositions, market.board.rules)
   const sorted = fx.picks.slice().sort((a, b) => a.pick_no - b.pick_no)
   const myPickNos = buildState(cfg, [], market.board, market.players).myPickNos
   return { cfg, board: market.board, players: market.players, sorted, myPickNos, userId }
@@ -122,9 +145,10 @@ export function replayAgreement(
   realPlayers: PlayerMap,
   slot: number,
   opts: SimOpts,
-  collectCalibration?: CalibrationSample[]
+  collectCalibration?: CalibrationSample[],
+  overlay?: RulesOverlay
 ): AgreementResult {
-  const prep = prepare(fx, realPlayers, slot)
+  const prep = prepare(fx, realPlayers, slot, overlay)
   const rows: AgreementRow[] = []
   let primaryHits = 0
   let top3Hits = 0
@@ -192,9 +216,10 @@ export function replayCounterfactual(
   fx: ReplayFixture,
   realPlayers: PlayerMap,
   slot: number,
-  opts: SimOpts
+  opts: SimOpts,
+  overlay?: RulesOverlay
 ): CounterfactualResult {
-  const prep = prepare(fx, realPlayers, slot)
+  const prep = prepare(fx, realPlayers, slot, overlay)
   const myRoster = slotToRoster(fx.draft, slot)
   const rules = prep.board.rules
 
@@ -211,6 +236,7 @@ export function replayCounterfactual(
   const synthetic: SleeperPick[] = []
   const myPicks: CounterfactualPick[] = []
   const violations: string[] = []
+  const forcedRelaxations: string[] = []
   const posCounts: Record<Position, number> = { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
   let myValue = 0
   let realValue = 0
@@ -251,7 +277,18 @@ export function replayCounterfactual(
         }
       }
       if (posCounts[chosen.pos] > rules.maxByPos[chosen.pos]) {
-        violations.push(`pick ${pickNo}: ${chosen.pos} over cap ${rules.maxByPos[chosen.pos]}`)
+        // Distinguish a cap the engine broke while legal options existed -- a
+        // fault -- from one it broke because nothing legal remained, which the
+        // engine now announces. The second is the configuration being
+        // unsatisfiable against this pool, not the engine misbehaving, and the
+        // market pool makes it common because it contains only players who
+        // were actually drafted.
+        const announced = rec.rationale.join(' ').indexOf('gave up') !== -1
+        if (announced) {
+          forcedRelaxations.push(`pick ${pickNo}: ${chosen.pos} over cap ${rules.maxByPos[chosen.pos]} (announced)`)
+        } else {
+          violations.push(`pick ${pickNo}: ${chosen.pos} over cap ${rules.maxByPos[chosen.pos]}`)
+        }
       }
 
       synthetic.push({
@@ -327,6 +364,10 @@ export function replayCounterfactual(
     }
     for (let m = 0; m < mandatory.length; m++) {
       const pos = mandatory[m][0]
+      // A position the board caps at zero is one the drafter has chosen never
+      // to draft, so an empty slot there is the intended outcome, not a
+      // violation.
+      if (rules.maxByPos[pos] === 0) continue
       const required = Math.min(mandatory[m][1], realCounts[pos])
       if (finalState.myPosCounts[pos] < required) {
         violations.push(
@@ -336,7 +377,7 @@ export function replayCounterfactual(
     }
   }
 
-  return { slot, picks: myPicks, myValue, realValue, guardrailViolations: violations, posCounts }
+  return { slot, picks: myPicks, myValue, realValue, guardrailViolations: violations, forcedRelaxations, posCounts }
 }
 
 export interface CalibrationBucket {

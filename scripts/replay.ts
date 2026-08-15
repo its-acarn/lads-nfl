@@ -15,7 +15,9 @@ import {
   replayCounterfactual,
 } from '../helpers/draft/replay'
 import { DEFAULT_SIM_OPTS } from '../helpers/draft/survival'
-import { SimOpts } from '../helpers/draft/types'
+import { BoardRules, SimOpts } from '../helpers/draft/types'
+import * as fs from 'fs'
+import * as path from 'path'
 
 function arg(name: string): string | null {
   const idx = process.argv.indexOf(`--${name}`)
@@ -26,10 +28,37 @@ function pct(x: number): string {
   return `${Math.round(x * 100)}%`
 }
 
+// The rules the live bot will actually run with, lifted straight from
+// config/board.json so the two cannot drift. Only the RULES are overlaid --
+// the board's tiers and ADP still come from the fixture's market, because a
+// 2026 board cannot rank a 2020 pool.
+function liveRulesOverlay(): Partial<BoardRules> {
+  const board = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '..', 'config', 'board.json'), 'utf8')
+  ) as { rules: Record<string, unknown> }
+  const r = board.rules
+  const overlay: Partial<BoardRules> = {}
+  const keys = ['maxByPos', 'minRoundByPos', 'stashRound', 'offBoardDiscount', 'vonaFromRound', 'useRosterNeed', 'useForcedStarters', 'needWeights', 'value']
+  for (let i = 0; i < keys.length; i++) {
+    if (r[keys[i]] !== undefined) (overlay as Record<string, unknown>)[keys[i]] = r[keys[i]]
+  }
+  return overlay
+}
+
 function main(): void {
   const simsArg = arg('sims')
   const fixtureArg = arg('fixture')
   const slotArg = arg('slot')
+
+  // --rules live overlays config/board.json's rules onto every replay, so the
+  // corpus exercises the configuration that will actually drive the draft
+  // rather than marketRules, which sets none of it.
+  const useLiveRules = arg('rules') === 'live'
+  const overlay = useLiveRules ? liveRulesOverlay() : null
+  if (useLiveRules) {
+    // eslint-disable-next-line no-console
+    console.log(`RULES: live (from config/board.json) — ${JSON.stringify(overlay)}\n`)
+  }
 
   const realPlayers = loadTrimmedPlayers()
   let fixtures = loadAllFixtures()
@@ -65,19 +94,21 @@ function main(): void {
     let posSum = 0
     let cfWins = 0
     let violationCount = 0
+    let relaxCount = 0
 
     // eslint-disable-next-line no-console
     console.log(`\n=== ${fx.name}/${fx.season} (${fx.draft.type}, ${teams} teams, ${fx.draft.settings.rounds} rounds) ===`)
 
     for (let s = 0; s < slots.length; s++) {
       const slot = slots[s]
-      const agreement = replayAgreement(fx, realPlayers, slot, opts, calibration)
-      const cf = replayCounterfactual(fx, realPlayers, slot, opts)
+      const agreement = replayAgreement(fx, realPlayers, slot, opts, calibration, overlay)
+      const cf = replayCounterfactual(fx, realPlayers, slot, opts, overlay)
       primarySum += agreement.primaryRate
       top3Sum += agreement.top3Rate
       posSum += agreement.samePosRate
       if (cf.myValue >= cf.realValue) cfWins++
       violationCount += cf.guardrailViolations.length
+      relaxCount += cf.forcedRelaxations.length
       for (let v = 0; v < cf.guardrailViolations.length; v++) {
         // eslint-disable-next-line no-console
         console.log(`  VIOLATION slot ${slot}: ${cf.guardrailViolations[v]}`)
@@ -91,7 +122,8 @@ function main(): void {
     const n = slots.length
     // eslint-disable-next-line no-console
     console.log(
-      `  MEAN: primary ${pct(primarySum / n)} top3 ${pct(top3Sum / n)} pos ${pct(posSum / n)} | counterfactual wins ${cfWins}/${n} | violations ${violationCount}`
+      `  MEAN: primary ${pct(primarySum / n)} top3 ${pct(top3Sum / n)} pos ${pct(posSum / n)} | counterfactual wins ${cfWins}/${n} | violations ${violationCount}` +
+        (relaxCount > 0 ? ` | announced relaxations ${relaxCount}` : '')
     )
     if (violationCount > 0) failed = true
   }

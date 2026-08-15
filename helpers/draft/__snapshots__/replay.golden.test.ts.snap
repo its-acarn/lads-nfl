@@ -35,3 +35,20 @@ pick 145 R13 K Harrison Butker (12.8) [forced]
 pick 168 R14 TE Taysom Hill (10.4)
 value: engine 669.5 vs real 586.3"
 `;
+
+exports[`golden replay transcript: lads/2024 slot 1, LIVE rules > agreement transcript is stable under the shipping configuration 1`] = `
+"pick   1 R 1 actual: RB Christian McCaffrey | engine: RB Christian McCaffrey -> primary
+pick  24 R 2 actual: WR Mike Evans | engine: WR Mike Evans -> primary
+pick  25 R 3 actual: WR Brandon Aiyuk | engine: WR Brandon Aiyuk -> primary
+pick  48 R 4 actual: QB Jalen Hurts | engine: WR Stefon Diggs -> miss
+pick  49 R 5 actual: WR Stefon Diggs | engine: WR Stefon Diggs -> primary
+pick  72 R 6 actual: RB Zamir White | engine: RB Zamir White -> primary
+pick  73 R 7 actual: WR Zay Flowers | engine: WR Zay Flowers -> primary
+pick  96 R 8 actual: WR Keenan Allen | engine: WR Keenan Allen -> primary
+pick  97 R 9 actual: RB Jonathon Brooks | engine: TE Brock Bowers -> top3
+pick 120 R10 actual: WR Mike Williams | engine: WR Mike Williams -> primary
+pick 121 R11 actual: RB Zach Charbonnet | engine: RB Zach Charbonnet -> primary
+pick 144 R12 actual: DEF San Francisco 49ers | engine: RB Dameon Pierce -> miss
+pick 145 R13 actual: RB Dameon Pierce | engine: WR Xavier Legette -> top3
+pick 168 R14 actual: TE Taysom Hill | engine: TE Taysom Hill [forced] -> primary"
+`;

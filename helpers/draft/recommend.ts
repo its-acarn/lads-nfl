@@ -126,33 +126,61 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   }
 
   // ---- guardrails ---------------------------------------------------------
-  const eligible: PoolPlayer[] = []
-  for (let i = 0; i < state.pool.length; i++) {
-    const p = state.pool[i]
-    if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
-    if ((state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
-    if (forced) {
-      if (forcedSet.indexOf(p.pos) === -1) continue
-    } else {
-      const floor = minRoundByPos[p.pos]
-      if (floor !== undefined && round < floor && !urgent[p.pos]) continue
-    }
-    if (round < rules.stashRound && isStashOnly(p)) continue
-    eligible.push(p)
+  // Applied in layers so that when no legal candidate exists the engine gives
+  // up the CHEAPEST rule first and says which one. It used to drop every
+  // guardrail at once and report only "guardrails relaxed", so a breached
+  // position cap looked identical to a healthy pick -- and the replay corpus
+  // under the live rules produced seven of them, all at the final picks, with
+  // nothing in the output to explain them.
+  interface Relaxation {
+    floors: boolean
+    stash: boolean
+    collapse: boolean
+    caps: boolean
   }
 
-  let candidates = eligible
-  let relaxed = false
-  if (candidates.length === 0) {
-    // Never come back empty mid-draft: relax everything except do-not-draft.
-    relaxed = true
-    for (let i = 0; i < state.pool.length && candidates.length < 10; i++) {
+  const filterPool = (relax: Relaxation): PoolPlayer[] => {
+    const out: PoolPlayer[] = []
+    for (let i = 0; i < state.pool.length; i++) {
       const p = state.pool[i]
       if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
-      candidates.push(p)
+      if (!relax.caps && (state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
+      if (forced && !relax.collapse) {
+        if (forcedSet.indexOf(p.pos) === -1) continue
+      } else if (!relax.floors) {
+        const floor = minRoundByPos[p.pos]
+        if (floor !== undefined && round < floor && !urgent[p.pos]) continue
+      }
+      if (!relax.stash && round < rules.stashRound && isStashOnly(p)) continue
+      out.push(p)
     }
-    globalRationale.push('guardrails relaxed: no legal candidates under current rules')
+    return out
   }
+
+  const levels: { relax: Relaxation; gaveUp: string | null }[] = [
+    { relax: { floors: false, stash: false, collapse: false, caps: false }, gaveUp: null },
+    { relax: { floors: true, stash: false, collapse: false, caps: false }, gaveUp: 'round floors' },
+    { relax: { floors: true, stash: true, collapse: false, caps: false }, gaveUp: 'round floors and the stash rule' },
+    { relax: { floors: true, stash: true, collapse: true, caps: false }, gaveUp: 'round floors, the stash rule and the forced collapse' },
+    { relax: { floors: true, stash: true, collapse: true, caps: true }, gaveUp: 'every rule including your position caps' },
+  ]
+
+  let candidates: PoolPlayer[] = []
+  let relaxed = false
+  for (let l = 0; l < levels.length; l++) {
+    candidates = filterPool(levels[l].relax)
+    if (candidates.length > 0) {
+      if (levels[l].gaveUp !== null) {
+        relaxed = true
+        globalRationale.push(`no legal candidate — gave up ${levels[l].gaveUp}`)
+      }
+      break
+    }
+  }
+  if (candidates.length === 0) {
+    throw new Error('recommend: no candidate remains even with every guardrail relaxed')
+  }
+
   candidates = candidates.slice(0, opts.candidateLimit)
 
   // ---- scoring ------------------------------------------------------------
@@ -193,7 +221,8 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   )
 
   // ---- pins override in their round window --------------------------------
-  // Resolved against `eligible`, not the raw pool, so a pin still respects
+  // Resolved against the guardrail-filtered candidates, not the raw pool, so a
+  // pin still respects
   // do-not-draft, position caps, round floors and the stash rule. Scanning the
   // pool directly meant a pin overrode every guardrail except the cap.
   //
@@ -213,8 +242,8 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     for (let i = 0; i < state.board.pins.length; i++) {
       const pin = state.board.pins[i]
       if (round < pin.fromRound || round > pin.toRound) continue
-      for (let j = 0; j < eligible.length; j++) {
-        const p = eligible[j]
+      for (let j = 0; j < candidates.length; j++) {
+        const p = candidates[j]
         if (p.player_id !== pin.player_id) continue
         if (pinned === null || p.value > pinned.value) pinned = p
         break
