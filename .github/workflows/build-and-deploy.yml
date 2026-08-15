@@ -18,11 +18,15 @@ jobs:
 
     steps:
       # https://github.com/actions/checkout
-      - uses: actions/checkout@v3
+      # v5 is the earliest major that runs on the node24 action runtime. v3
+      # declares node16 and v4 declares node20, both of which GitHub is
+      # removing from the runners in autumn 2026 -- since June 2026 they have
+      # only worked because the runner force-runs them on node24 anyway.
+      - uses: actions/checkout@v5
 
       # a standard step for GitHub actions on Node
       # https://github.com/actions/setup-node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v5
         with:
           # Node 16 went end-of-life in September 2023, and the repo's dev
           # tooling (tsx, vitest) declares Node >= 18, so installing under 16
