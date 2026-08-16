@@ -95,35 +95,28 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     }
   }
 
-  // ---- survival first: guardrails consult it for scarcity overrides -------
+  // ---- survival: the scoring input, and nothing else ----------------------
+  // It used to feed a scarcity override that could waive a round floor. It no
+  // longer does; see the guardrail note below.
   const report = survival(state, opts)
 
-  // Scarcity override: an unfilled mandatory position whose entire remaining
-  // pool fits inside the sim (<= 5 players) and is predicted extinct by my
-  // next pick may ignore its round floor. A real player universe never gets
-  // this thin; a market-pool replay (only drafted players exist) does, and a
-  // competent drafter grabs the last one when the run starts.
-  const poolCountByPos: Record<Position, number> = { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
-  for (let i = 0; i < state.pool.length; i++) poolCountByPos[state.pool[i].pos]++
-  const isUrgent = (pos: Position): boolean =>
-    needs.unfilledMandatory[pos] > 0 &&
-    report.myNextPickNo !== null &&
-    report.expectedBestValueByPos[pos] < 1e-9 &&
-    poolCountByPos[pos] > 0 &&
-    poolCountByPos[pos] <= 5
-
-  // Round floors, and the override that lets one yield. Applies to any
-  // position carrying a floor, not just kickers and defenses.
+  // Round floors. ABSOLUTE: no code path may breach one.
+  //
+  // The floor is not a workaround for an untiered column, which is how it was
+  // read once and read wrongly. Andrew streams quarterbacks: they are
+  // abundant, weekly matchups matter more than the name on the roster, and
+  // spending an early pick on one is precisely the mistake `minRoundByPos.QB`
+  // exists to prevent. An override does not rescue him from a bad outcome, it
+  // imposes a strategy he rejected.
+  //
+  // The scarcity override that used to sit here waived a floor when an
+  // unfilled mandatory position was down to five players and predicted extinct
+  // by the next pick. Against a floor of 11 in a 14-round draft there are
+  // still four rounds left to take one, so the catastrophe it guarded against
+  // barely exists — while the case it caused, spending pick 101 on a
+  // quarterback, destroys the strategy outright. Where the risks are that
+  // asymmetric, the constraint wins (D7).
   const minRoundByPos = rules.minRoundByPos || {}
-  const urgent: Record<string, boolean> = {}
-  const flooredPositions = Object.keys(minRoundByPos) as Position[]
-  for (let i = 0; i < flooredPositions.length; i++) {
-    const pos = flooredPositions[i]
-    urgent[pos] = isUrgent(pos)
-    if (urgent[pos]) {
-      globalRationale.push(`scarcity override: last ${pos}(s) on the market, round floor waived`)
-    }
-  }
 
   // ---- guardrails ---------------------------------------------------------
   // Applied in layers so that when no legal candidate exists the engine gives
@@ -132,8 +125,9 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   // position cap looked identical to a healthy pick -- and the replay corpus
   // under the live rules produced seven of them, all at the final picks, with
   // nothing in the output to explain them.
+  // Round floors are NOT in this list. The engine gives up the stash rule,
+  // then the forced collapse, then finally position caps — but never a floor.
   interface Relaxation {
-    floors: boolean
     stash: boolean
     collapse: boolean
     caps: boolean
@@ -145,12 +139,13 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
       const p = state.pool[i]
       if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
       if (!relax.caps && (state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
-      if (forced && !relax.collapse) {
-        if (forcedSet.indexOf(p.pos) === -1) continue
-      } else if (!relax.floors) {
-        const floor = minRoundByPos[p.pos]
-        if (floor !== undefined && round < floor && !urgent[p.pos]) continue
-      }
+      // Applied unconditionally, and BEFORE the forced-set test. It used to sit
+      // in an `else if` on that test, so whenever forced mode was active the
+      // floor was not consulted at all — a second, quieter breach path than the
+      // scarcity override, and the one that actually fired in the rehearsal.
+      const floor = minRoundByPos[p.pos]
+      if (floor !== undefined && round < floor) continue
+      if (forced && !relax.collapse && forcedSet.indexOf(p.pos) === -1) continue
       if (!relax.stash && round < rules.stashRound && isStashOnly(p)) continue
       out.push(p)
     }
@@ -158,11 +153,10 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   }
 
   const levels: { relax: Relaxation; gaveUp: string | null }[] = [
-    { relax: { floors: false, stash: false, collapse: false, caps: false }, gaveUp: null },
-    { relax: { floors: true, stash: false, collapse: false, caps: false }, gaveUp: 'round floors' },
-    { relax: { floors: true, stash: true, collapse: false, caps: false }, gaveUp: 'round floors and the stash rule' },
-    { relax: { floors: true, stash: true, collapse: true, caps: false }, gaveUp: 'round floors, the stash rule and the forced collapse' },
-    { relax: { floors: true, stash: true, collapse: true, caps: true }, gaveUp: 'every rule including your position caps' },
+    { relax: { stash: false, collapse: false, caps: false }, gaveUp: null },
+    { relax: { stash: true, collapse: false, caps: false }, gaveUp: 'the stash rule' },
+    { relax: { stash: true, collapse: true, caps: false }, gaveUp: 'the stash rule and the forced collapse' },
+    { relax: { stash: true, collapse: true, caps: true }, gaveUp: 'the stash rule, the forced collapse and your position caps' },
   ]
 
   let candidates: PoolPlayer[] = []
@@ -178,7 +172,20 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
     }
   }
   if (candidates.length === 0) {
-    throw new Error('recommend: no candidate remains even with every guardrail relaxed')
+    // Every remaining player is behind a round floor. Saying so loudly is the
+    // point: quietly breaching one would destroy the strategy the floor
+    // encodes, and the only way past a floor is to edit config/board.json.
+    const blocked: string[] = []
+    const floored = Object.keys(minRoundByPos) as Position[]
+    for (let i = 0; i < floored.length; i++) {
+      const f = minRoundByPos[floored[i]]
+      if (f !== undefined && round < f) blocked.push(`${floored[i]} (floor round ${f})`)
+    }
+    throw new Error(
+      `recommend: no candidate at pick ${pickNo} (round ${round}) that does not breach a round floor. ` +
+        `Floors are absolute and were not relaxed. Blocked positions: ${blocked.join(', ') || 'none'}. ` +
+        'Lower the floor in config/board.json if this is genuinely what you want.'
+    )
   }
 
   candidates = candidates.slice(0, opts.candidateLimit)

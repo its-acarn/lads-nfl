@@ -11,11 +11,11 @@ pick  73 R 7 actual: WR Zay Flowers | engine: QB Joe Burrow -> miss
 pick  96 R 8 actual: WR Keenan Allen | engine: WR Keenan Allen -> primary
 pick  97 R 9 actual: RB Jonathon Brooks | engine: TE Brock Bowers -> miss
 pick 120 R10 actual: WR Mike Williams | engine: WR Mike Williams -> primary
-pick 121 R11 actual: RB Zach Charbonnet | engine: QB Caleb Williams -> top3
+pick 121 R11 actual: RB Zach Charbonnet | engine: RB Zach Charbonnet -> primary
 pick 144 R12 actual: DEF San Francisco 49ers | engine: DEF San Francisco 49ers [forced] -> primary
 pick 145 R13 actual: RB Dameon Pierce | engine: K Harrison Butker [forced] -> miss
 pick 168 R14 actual: TE Taysom Hill | engine: TE Taysom Hill [forced] -> primary
-rates: primary 57% top3 64% pos 64%"
+rates: primary 64% top3 64% pos 64%"
 `;
 
 exports[`golden replay transcript: lads/2024 slot 1 > counterfactual transcript is stable and beats the real roster 1`] = `

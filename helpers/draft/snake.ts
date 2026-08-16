@@ -90,3 +90,33 @@ export function ownedPickNumbers(
 export function myPickNumbers(cfg: DraftConfig): number[] {
   return ownedPickNumbers(cfg.draft, cfg.tradedPicks, myRosterId(cfg.draft, cfg.myUserId))
 }
+
+// Every pick number mapped to the roster that owns it, traded picks applied.
+// The opponent model needs this to know WHOSE picks fall between now and my
+// next one: a roster that already has its starting quarterback is out of the
+// market for another, and a survival curve that cannot see that predicts runs
+// the room will never produce.
+//
+// Built in one pass over rounds x slots rather than by calling
+// ownedPickNumbers once per roster, which would repeat the same traded-pick
+// scan for every team.
+export function pickOwners(draft: SleeperDraft, tradedPicks: SleeperTradedPick[]): Record<number, number> {
+  assertSupportedDraft(draft)
+  const teams = draft.settings.teams
+  const rounds = draft.settings.rounds
+  const out: Record<number, number> = {}
+  for (let round = 1; round <= rounds; round++) {
+    for (let slot = 1; slot <= teams; slot++) {
+      const originalOwner = slotToRoster(draft, slot)
+      let owner = originalOwner
+      for (let t = 0; t < tradedPicks.length; t++) {
+        const trade = tradedPicks[t]
+        if (trade.round === round && trade.roster_id === originalOwner && trade.season === draft.season) {
+          owner = trade.owner_id
+        }
+      }
+      out[pickNoFor(draft, round, slot)] = owner
+    }
+  }
+  return out
+}
