@@ -28,43 +28,48 @@ already exists*). Three things are missing, and this plan supplies them:
   deserves a real account: what was taken, in what round, where the board ranked
   each player, and what was passed over to take them.
 
-**This plan is blocked on one input Andrew must supply: the URL (or document id)
-of his 2026 board spreadsheet, and the name of the tab holding the tiers.** The
-only sheet the repository knows about is the 2025 one. Milestone 1 cannot
-complete without it; Milestones 2 and 3 can be built and proven in the meantime
-against committed fixtures.
+**The 2026 sheet was supplied on 2026-08-16 and is imported.** Document
+`1MR-Pj7QUEf3aq6cFoaQXdCP4cOJEIi7gW6JByXwxqLk` ("NFL FANTASY 2026"), a single
+tab. It is laid out nothing like the 2025 sheet — see *The 2026 sheet* below —
+and one open question about its provenance is recorded there. Every milestone in
+this plan is now complete.
 
 ## Progress
 
-- [ ] **M1 — Andrew's 2026 board, imported and resolved.** Blocked on the 2026
-      sheet URL and tab name.
-- [ ] **M2 — Machine-readable message log.** `--log <path>` writes one JSON
-      object per message. Not blocked.
-- [ ] **M3 — Team report.** `npm run team` renders a completed draft. Not
-      blocked.
+- [x] **M1 — Andrew's 2026 board, imported and resolved.** Done: **265 players,
+      10 tiers, every name resolved.** `helpers/draft/sheetBoard.ts` owns the CSV
+      reader, the gviz fetch and *both* tier parsers, and `scripts/importSheet.ts`
+      imports them instead of owning them (its 21 specs pass unchanged, which is
+      what proves the extraction was faithful). `scripts/importBoard.ts` +
+      `npm run board:import` rewrites only the `players` array by textual
+      splice; the rules block came through byte for byte, verified. 59 specs
+      across the parser and the importer.
+- [x] **M2 — Machine-readable message log.** `JsonlNotifier` + `MultiNotifier`;
+      `--log <path>` on `npm run bot`. Appends, never truncates; a failing
+      notifier is reported once and does not take down its siblings or the
+      draft. `logs/` gitignored.
+- [x] **M3 — Team report.** `helpers/draft/teamReport.ts` + `npm run team`,
+      working from a draft id, a fixture directory, or either plus a log.
 - [x] **M4 (rehearsal half) — done early, 2026-08-16.** A full 168-pick mock
       drafted with the bot attached, before M1–M3. Findings in Outcomes; the
-      `roster_id` bug it exposed is fixed in `8549a6a`. The runbook document
-      itself is still to write.
-- [ ] **M4 (runbook half) — `docs/mock-rehearsal.md`.** Now writable from
-      observed behaviour rather than predicted behaviour.
-- [ ] **M5 (new, highest priority) — Round floors become absolute.** The engine
-      must never breach a `minRoundByPos` floor for any reason. Andrew's QB
-      floor is a streaming strategy, not a workaround, and overriding it
-      destroys the strategy it encodes.
-- [ ] **M6 (new) — Opponent roster awareness.** Track what every other team
-      holds and feed it into the opponent model, weighted heavily for QB and TE,
-      lightly for WR and RB.
-- [ ] **M7 (new) — One instruction, no alternatives.** Messages get shared
-      publicly; the shortlist leaks Andrew's thinking to the other managers.
-      Requires re-instruction when the named player is taken.
-- [ ] **M8 (new) — Retune escalation for a relay.** Escalation fired on all
-      fourteen picks at ~42s because reading a chat message and acting takes
-      longer than that.
+      `roster_id` bug it exposed is fixed in `8549a6a`. **The draft is now
+      committed as `fixtures/rehearsal2026/`**, so M5 and M8 replay it offline.
+- [x] **M4 (runbook half) — `docs/mock-rehearsal.md`.** Written from observed
+      behaviour, including the failure modes that looked like faults.
+- [x] **M5 — Round floors become absolute.** All three breach paths removed.
+      The golden corpus did not move, which is itself a finding: the override
+      never fired in the lads/2024 replay, only live.
+- [x] **M6 — Opponent roster awareness.** A per-position saturation factor over
+      the rosters that actually pick in the gap, folded into the sampler as a
+      log-appetite term. Moved one golden pick, in the right direction.
+- [x] **M7 — One instruction, no alternatives.** Messages name at most one
+      player; the bot re-instructs when that player is sniped mid-pick.
+- [x] **M8 — Retune escalation for a relay.** Thresholds are now configurable
+      fractions of the draft's own pick timer, raised from 1/3 and 3/4 to 0.6
+      and 0.85.
 
-Nothing in this plan has been started. The branch is
-`claude/mock-draft-smoke-test`, which already carries the `--mock` flag and the
-`loaded` message this plan builds on (commit `a384be6`).
+The branch is `claude/mock-draft-smoke-test`. The suite stands at **247 tests**,
+up from 160 at the start of this plan.
 
 ## Surprises & Discoveries
 
@@ -247,6 +252,135 @@ placeholder: anything about Andrew's actual preferences. Nine of ten board names
 were gone by pick 29 and every recommendation after that was ADP interpolation.
 M1 remains the highest-value milestone, and a second rehearsal after it is the
 only way to see the board itself under live conditions.
+
+### The 2026 sheet
+
+**It is a ranked table, not a tier grid.** The plan asked M1 to discover this
+early, and it did. The 2025 sheet was one column per tier with a hard row bound;
+the 2026 sheet is one row per player:
+
+    RK | TIERS | PLAYER NAME | TEAM | POS | BYE WEEK | UPSIDE | BUST | SOS SEASON | ECR VS. ADP
+     1 |     1 | Jahmyr Gibbs| DET  | RB1 |        6 | ...
+
+878 rows, 16 tiers, ranks strictly 1..878 with no gaps, tiers perfectly monotone,
+no duplicate names. Both layouts are now supported and told apart by their header
+row, because the 2025 grid still has to work for the backtest.
+
+**One open question, which is Andrew's to answer: this is consensus, not
+preference.** The `UPSIDE`, `BUST`, `SOS SEASON` and `ECR VS. ADP` columns are
+FantasyPros', the ranks are untouched 1..878, and the tiers are perfectly
+monotone — the sheet is an unedited export. Keeping preference and market apart
+is a load-bearing property of this design: ADP exists to predict what the *other
+managers* will do and must never decide what Andrew wants. A board that is
+literally the consensus collapses that separation, and the engine would be
+drafting ADP while reporting it as Andrew's board.
+
+That is not a reason to refuse the import — Andrew called the sheet a WIP, and
+starting from an export and re-tiering it is a perfectly normal way to build a
+board. But it is the reason `draftReady` is still absent from
+`config/board.json`, which is the gate that stops `npm run bot` running live
+against it. Re-order or re-tier the sheet, re-import, and the separation is
+restored.
+
+**Depth 300, not 878.** 265 players after dropping K and DEF, which the board's
+own `maxByPos` caps at zero. 300 covers all 168 picks with most of a round spare
+plus the depth the survival simulator reads; past it a ranked export is mostly
+players who will never be drafted and, increasingly, players Sleeper's map has
+never heard of. At full depth 61 names fail to resolve; at 300, two did.
+
+**Two names needed correcting, and they needed different corrections.**
+`Hollywood Brown` is Sleeper's `Marquise Brown` — a nickname. `Keenan Allen` is
+in no Sleeper record at all under any name or team, so he is not on an NFL roster
+and cannot be drafted. Andrew chose to record both in `config/board.json` rather
+than edit the spreadsheet, as `nameAliases` and `notInLeague`, because a sheet
+edit would be lost the next time the export is re-downloaded. Both are applied at
+import and **reported on every run**, and a correction that stops matching
+anything is reported too — an exclusion list nobody reads is how a player who has
+since signed stays undraftable all season.
+
+**The rehearsal is worth re-reading now.** With the real board in place, all
+fourteen of its picks are on-board where nine of ten names had previously gone by
+pick 29. `npm run team -- --draft 1394452945935794176` now shows, for instance,
+that pick 68 (RB RJ Harvey, board #92) passed over twenty-four higher-ranked
+players including three quarterbacks — which is the QB floor working exactly as
+intended, and the kind of thing the report exists to surface.
+
+### Found while implementing M1–M8
+
+**The rehearsal mock is now a committed fixture.** `fixtures/rehearsal2026/`
+holds the draft, its 168 picks, its traded picks and the real league. It sits
+outside the `fixtures/<league>/<season>` convention deliberately: every
+`roster_id` in it is null, and the ownership sweep in `snake.test.ts` legitimately
+requires real rosters, so a mock filed as a league fixture would break it. Every
+claim in *Surprises & Discoveries* was re-verified against the fetched artifact —
+168 picks, `slot_to_roster_id` the identity mapping, Andrew at slot 5,
+`pick_timer` 120, `metadata.league_id` the real lads league.
+
+**M5 moved no golden snapshot, and that is the interesting part.** Removing the
+scarcity override was expected to disturb the replay corpus, because
+`marketBoard.ts:37` gives the market rules K and DEF floors and a market-pool
+replay is exactly the thin pool the override was written for. It disturbed
+nothing. The override never fired in the lads/2024 replay at any of the twelve
+slots — its only observed firing was the live rehearsal, where the `roster_id`
+bug had put forced mode into a false state. So the override was not load-bearing
+anywhere the corpus could see, and the case for keeping it was weaker than it
+looked. The new specs in `floors.test.ts` fail against the pre-M5 engine and
+pass after, which is what makes them worth having.
+
+**The second breach path was the one that actually mattered.** Of the three,
+only the `else if` at `recommend.ts:148` — where an active forced mode meant the
+floor was never consulted at all — could fire quietly. The scarcity override at
+least announced itself in the rationale.
+
+**M6 moved exactly one pick, in the right direction.** In the lads/2024 golden
+replay at slot 1, pick 121 (round 11) previously recommended QB Caleb Williams;
+it now recommends RB Zach Charbonnet, **which is what the room actually took**.
+Primary agreement with the real draft rises from 57% to 64%. That is one line of
+one snapshot, but it is the model's blind spot correcting itself against a real
+outcome rather than against a fixture written to suit it.
+
+**M6's calibration gain on the rehearsal is real but small, for an instructive
+reason.** Mean absolute survival error over 780 player/pick pairs at Andrew's
+fourteen picks: 0.2452 → 0.2425 across all positions, and 0.4000 → 0.3834 over
+the 199 quarterback pairs. The improvement is concentrated in QB exactly as
+predicted, but it is a few percent rather than a transformation — because the
+rehearsal room was eleven Sleeper **autopick bots**, and an autopick bot really
+does draft by pure ADP regardless of what its roster already holds. A bot-filled
+mock is the one room where opponent awareness helps least. The lads league is
+not that room, so this number understates the change for the draft that matters.
+
+**M7 needed a decision the plan did not settle.** `sendOnce` stored
+`[primary, ...fallbacks]` as the sent-log payload, and `bot.ts:252` treated any
+of them landing as `CONFIRMED`. Once the fallbacks are no longer communicated
+that is wrong — a fallback pick would be a considered override reported as a
+confirmation. Resolved by making the payload **accumulate every single-name
+instruction actually issued** for the pick: any of them landing is a genuine
+confirmation, because each was live at some point, and the mismatch message now
+names the *last* instruction rather than the first, since naming the first would
+report a player the bot had already withdrawn.
+
+**`heads_up` keeps one name rather than going silent.** The milestone said to
+drop the numbered shortlist; it now shows the single likeliest player. Dropping
+it entirely would have left a message that says only "your pick is coming",
+which is less useful and no safer.
+
+**The formatter, not the caller, enforces the one-name rule.** `formatDraftMessage`
+ignores `fallbacks` and `shortlist` beyond the first entry even when a caller
+populates them, and the bot separately sends them empty. Two independent guards,
+because this is the property that gets shared in public and a single guard is
+one refactor away from leaking.
+
+**M1's byte-for-byte requirement drove a textual splice, not a re-serialise.**
+`config/board.json` is hand-formatted and its `//`-prefixed keys are load-bearing
+documentation; `JSON.stringify` would reflow all of it. `splicePlayers` locates
+the `players` array by bracket-counting (string- and escape-aware), rewrites only
+that span, matches the file's own indentation, and then **verifies before
+writing** that every other top-level key is unchanged and that the bytes before
+and after the array are identical. It refuses to write if not.
+
+**One documentation error fixed in passing.** `config/board.json`'s
+`//minRoundByPos` comment described the scarcity override as the way a floor
+yields. That was true when written and is now false; it says floors are absolute.
 
 ## Context
 
@@ -615,19 +749,41 @@ no rendered message contains `Else`, a shortlist, or a rationale.
 ## Milestone 8 — Retune escalation for a relay
 
 The goal is that escalation means something. In the rehearsal it fired on all
-fourteen picks, at roughly 42 and 91 seconds, because reading a recommendation
-in chat and acting on it took longer than 42 seconds every single time. An alert
-that fires every pick is not an alert.
+fourteen picks because reading a recommendation in chat and acting on it took
+longer than the threshold every single time. An alert that fires every pick is
+not an alert.
 
-The work makes the first threshold configurable and raises its default, and
-reads the draft's own `settings.pick_timer` — 120 seconds in the rehearsal — so
-the thresholds sit at fractions of the actual clock rather than at fixed
-seconds. A draft with no timer keeps the current fixed behaviour.
+**Correction, found during implementation.** This milestone was written as
+though the bot used fixed second-counts. It does not, and did not: `bot.ts:168`
+already read `draft.settings.pick_timer` and derived `escalateAt1 = timer / 3`
+and `escalateAt2 = timer × 0.75` — 40s and 90s on the rehearsal's 120-second
+clock, which is exactly the ~42s and ~91s that were observed. So the work here
+is narrower than described: the *fractions* become configurable and the first
+one is raised. Reading the timer needed nothing.
+
+**A second correction, from the message census.** The Outcomes section reads as
+though both thresholds fired on every pick. They cannot have: the census records
+*fourteen* `STILL OPEN` messages across fourteen picks, so it was the **first**
+escalation firing every time and the second rarely or never. The arithmetic
+agrees — the draft ran 11:47:24 to 12:05:11, and 28 escalations would have
+required every pick to stay open past 91 seconds, which is more time than the
+whole draft took.
+
+The work makes both thresholds configurable fractions of the pick timer
+(`escalateFraction1`, `escalateFraction2` on `BotOptions`) and raises the first
+from 1/3 to 0.6, with the second moving from 0.75 to 0.85. On a 120-second clock
+that is 72s and 102s: the first nudge now sits above the relay's normal cost
+(~76s per pick in the rehearsal) with 48 seconds still left to act, and the
+second leaves 18. A draft publishing no timer falls back to 120 seconds, as
+before.
 
 The proof is a spec asserting that with a 120-second timer the first escalation
-fires later than 42 seconds and before the timer expires, and that the rehearsal
-feed replayed with its real timing produces materially fewer escalations than
-fourteen.
+fires later than 42 seconds and before the timer expires; that both fire in
+order and inside the clock; that the thresholds scale with a 30-second and a
+240-second timer rather than sitting at fixed seconds; and — standing in for the
+"replay the rehearsal with its real timing" check, which is **not possible
+because Sleeper's picks feed carries no timestamps** — that a pick relayed in 55
+draft-seconds trips the old thresholds and not the new ones.
 
 ## Acceptance
 
@@ -667,8 +823,22 @@ board knows them, a tier.
     npx tsc --noEmit
     npm run build
 
-All three pass. The suite stands at 159 tests before this plan; it should grow
-by the specs described in M2 and M3.
+All three pass. The suite stood at 160 tests before this plan and stands at
+**247** after it:
+
+| Spec file | Tests | Covers |
+| :-- | --: | :-- |
+| `helpers/draft/sheetBoard.test.ts` | 12 | M1 — parser, row bounds, rank order |
+| `scripts/importBoard.test.ts` | 13 | M1 — the byte-preserving splice |
+| `helpers/draft/notifier.test.ts` | 17 | M2 — the log; M7 — no message leaks the board |
+| `helpers/draft/teamReport.test.ts` | 19 | M3 |
+| `helpers/draft/floors.test.ts` | 9 | M5 |
+| `helpers/draft/saturation.test.ts` | 13 | M6 |
+| `helpers/draft/bot.test.ts` | 15 | M7 re-instruction, M8 thresholds |
+
+The M5 and M7 specs were each run against the pre-change code and fail there —
+3 of 9 and 5 of 10 respectively — so they pin the new behaviour rather than
+merely describing the current one.
 
 **The rehearsal itself.** A mock draft completed end to end with the bot
 attached, and its report produced. This one is observed rather than asserted,
