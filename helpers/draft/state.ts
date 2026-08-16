@@ -2,7 +2,7 @@
 // positional counts, my roster, current (lowest unfilled) pick number, and my
 // remaining picks. Validators throw rather than guessing.
 
-import { myPickNumbers, myRosterId, assertSupportedDraft } from './snake'
+import { myPickNumbers, myRosterId, slotToRoster, assertSupportedDraft } from './snake'
 import {
   BoardState,
   DraftConfig,
@@ -19,6 +19,29 @@ const OFF_BOARD_SEARCH_RANK = 9999999
 
 function emptyCounts(): Record<Position, number> {
   return { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }
+}
+
+// Which roster a pick belongs to.
+//
+// Sleeper leaves `roster_id` null on EVERY pick of a mock draft — there are no
+// rosters behind a mock to point at. Trusting the field blindly meant every
+// pick was skipped in mock mode, so the engine believed it held nobody: caps
+// stopped binding (it offered a second TE and, on the last pick, a second QB
+// against maxByPos.QB = 1), forced-starter logic read an empty lineup, and
+// DRAFT COMPLETE printed a blank roster. Found by running a real mock; invisible
+// to all nine committed fixtures, which are real drafts where the field is set.
+//
+// `draft_slot` is always present, and slot_to_roster_id maps it — identity for
+// a mock, the real mapping for a league. Prefer the explicit field where it
+// exists so real drafts are unaffected.
+export function rosterIdOfPick(pick: SleeperPick, draft: DraftConfig['draft']): number | null {
+  if (pick.roster_id !== null && pick.roster_id !== undefined) return pick.roster_id
+  if (typeof pick.draft_slot !== 'number') return null
+  try {
+    return slotToRoster(draft, pick.draft_slot)
+  } catch (e) {
+    return null
+  }
 }
 
 export function positionOfPick(pick: SleeperPick, players: PlayerMap): Position {
@@ -78,7 +101,7 @@ export function buildState(
   for (let i = 0; i < picks.length; i++) {
     const p = picks[i]
     pickedIds[p.player_id] = true
-    const rosterId = p.roster_id
+    const rosterId = rosterIdOfPick(p, cfg.draft)
     const pos = positionOfPick(p, players)
     if (rosterId !== null && rosterId !== undefined) {
       if (!posCountsByRoster[rosterId]) posCountsByRoster[rosterId] = emptyCounts()
