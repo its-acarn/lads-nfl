@@ -71,9 +71,12 @@ mapping.** This had been predicted to be missing and to need synthesising. It
 does not. For a mock, where no rosters exist, identity is the accurate model
 rather than a fudge.
 
-**Mocks expire in `pre_draft`.** The mock created for the earlier smoke test was
-still `status: pre_draft` with zero picks when re-checked two days later; the
-room never filled and the draft never began. A mock is not a durable artifact —
+**A mock sits in `pre_draft` until its room fills.** The mock created for the
+earlier smoke test (`1394452945935794176`, created 2026-08-15 21:33) was still
+`status: pre_draft` with zero picks fifteen hours later, holding 1 of its 12
+slots — Andrew's. Nothing had gone wrong; a mock simply does not begin until
+someone starts it, and an empty room never will. A mock is not a durable
+artifact —
 the rehearsal has to be run while the room is live, and a stale id will simply
 wait forever. The bot's behaviour here is correct (it polls and waits) but the
 runbook must say so, or a waiting bot looks like a hung one.
