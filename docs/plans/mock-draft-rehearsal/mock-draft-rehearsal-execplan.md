@@ -42,8 +42,21 @@ against committed fixtures.
       object per message. Not blocked.
 - [ ] **M3 — Team report.** `npm run team` renders a completed draft. Not
       blocked.
-- [ ] **M4 — The runbook.** The procedure written down, then exercised
-      end-to-end against a real mock.
+- [x] **M4 (rehearsal half) — done early, 2026-08-16.** A full 168-pick mock
+      drafted with the bot attached, before M1–M3. Findings in Outcomes; the
+      `roster_id` bug it exposed is fixed in `8549a6a`. The runbook document
+      itself is still to write.
+- [ ] **M4 (runbook half) — `docs/mock-rehearsal.md`.** Now writable from
+      observed behaviour rather than predicted behaviour.
+- [ ] **M5 (new) — Retune escalation for a relay.** Escalation fired on all
+      fourteen picks at ~42s because reading a chat message and acting takes
+      longer than that. Raise the first threshold or exempt it when a relay is
+      attached. Added because the rehearsal found it.
+- [ ] **M6 (new) — Teach the opponent model positional saturation.** The
+      survival simulator samples ADP alone and cannot tell that ten of twelve
+      teams already hold a quarterback, so it forecasts QB runs that cannot
+      happen. Added because the rehearsal found it. Larger than it looks; may
+      warrant its own plan.
 
 Nothing in this plan has been started. The branch is
 `claude/mock-draft-smoke-test`, which already carries the `--mock` flag and the
@@ -131,7 +144,81 @@ watch.
 
 ## Outcomes & Retrospective
 
-Not started. To be completed at the end of M4.
+**A full rehearsal was run on 2026-08-16, out of order, before M1–M3.** Andrew
+started mock `1394452945935794176` and the bot was attached for all 168 picks
+from slot 5, 11:47:24 to 12:05:11 — under eighteen minutes, because eleven
+autopick bots filled the room and picked instantly, stalling only on Andrew's
+turns. It found more than the milestones it skipped would have.
+
+**The headline: a bug that made mock mode structurally wrong.** Sleeper leaves
+`roster_id` null on every pick of a mock. `state.ts` skipped any pick without
+one, so the engine believed it held nobody all draft. Position caps stopped
+binding — it offered a second tight end three times against `maxByPos.TE: 1`,
+and on the final pick recommended a second quarterback against
+`maxByPos.QB: 1`, violating the first rule in the config. Forced-starter logic
+read an empty lineup. `DRAFT COMPLETE` printed a blank roster summary, which is
+exactly the output this feature exists to produce. `K: 0` and `DEF: 0` survived
+by luck, since `0 >= 0` holds whatever the count. Fixed in `8549a6a` by falling
+back to `slot_to_roster_id[draft_slot]`, with a regression test that strips the
+field from the lads/2024 fixture and asserts the state is identical either way.
+No existing test could have caught it: all nine fixtures are real drafts, where
+Sleeper populates the field.
+
+**Every message type fired against live data.** One `READY`, fourteen
+`ON THE CLOCK`, fourteen `STILL OPEN`, eight `CONFIRMED`, six `MISMATCH`, one
+`HEADS UP`, one `DRAFT COMPLETE`. Before this the instruct-and-verify cycle had
+only ever seen fixtures on an accelerated clock.
+
+**Escalation fired on all fourteen picks, at ~42s and again at ~91s.** That is
+not the bot being wrong; it is the relay being slow. Reading a recommendation in
+chat and acting on it took longer than 42 seconds every single time. If the
+assistant is in the loop, the first escalation threshold is mistuned — it will
+cry wolf on every pick. Either raise it or exempt the first nudge when a relay
+is attached.
+
+**`HEADS UP` fired only once in fourteen picks.** With instant bots, every
+intervening pick lands inside one poll cycle, so the bot never observes a state
+where Andrew is one to three picks away — it goes straight from "just picked" to
+"on the clock". Not a defect, but it means a bot-filled mock cannot exercise the
+heads-up path, and a human-paced draft is needed to test it.
+
+**The survival model has a structural blind spot.** `survival.ts:84` builds
+utilities from `-searchRank / temperature` and nothing else, so the opponent
+model cannot know that ten of twelve teams already hold a quarterback. It
+predicted 0% survival for Bo Nix twice; he survived both times. Against that,
+its 0% call on Mahomes was exactly right, and its 80% call on Garrett Wilson was
+wrong in the other direction. Positional saturation is not modelled at all, and
+QB is where that hurts most.
+
+**The QB floor and the scarcity override worked, and their interaction is worth
+keeping.** `minRoundByPos.QB: 11` held quarterbacks off the board while Allen
+(pick 22), Jackson (35) and Maye (52) left. At pick 101 — round 9, exactly
+`vonaFromRound: 9` — scarcity logic came online and the override punched through
+the floor with an edge of +5.6, the largest of the draft to that point. The
+first time that override has run outside a unit test. It then repeated the call
+at 116 (+4.6), 125 (+6.0), 140 (+2.7) and 149 (+4.4) as Andrew passed each time.
+Its reasoning was partly compromised by the roster bug — "unfilled starter slot"
+was true for the wrong reason — so this should be re-checked now the fix is in.
+
+**The resulting team**, for the record, though a bot-filled room says little
+about the lads league:
+
+    R1  #5    RB  Jonathan Taylor      R8  #92   RB  Jonathon Brooks
+    R2  #20   WR  A.J. Brown           R9  #101  RB  Jonah Coleman
+    R3  #29   TE  Trey McBride         R10 #116  WR  Matthew Golden
+    R4  #44   WR  Zay Flowers          R11 #125  WR  Travis Hunter
+    R5  #53   WR  Davante Adams        R12 #140  RB  Brian Robinson
+    R6  #68   RB  RJ Harvey            R13 #149  QB  Baker Mayfield
+    R7  #77   RB  Kyle Monangai        R14 #164  RB  Tyjae Spears
+
+Seven RB, five WR, one TE, one QB. Startable against the league's lineup except
+K and DEF, which the rules deliberately exclude.
+
+**What the rehearsal did not test**, because the board was still the ten-player
+placeholder: anything about Andrew's actual preferences. Nine of ten board names
+were gone by pick 29 and every recommendation after that was ADP interpolation.
+M1 remains the highest-value milestone, and a second rehearsal after it is the
+only way to see the board itself under live conditions.
 
 ## Context
 
