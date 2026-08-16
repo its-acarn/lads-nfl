@@ -13,7 +13,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { runBot, BotOptions, DEFAULT_BOT_OPTIONS, Feed, SentLog } from '../helpers/draft/bot'
-import { ConsoleNotifier } from '../helpers/draft/notifier'
+import { ConsoleNotifier, JsonlNotifier, MultiNotifier } from '../helpers/draft/notifier'
 import { buildMarketFixture, marketConfig, userForSlot } from '../helpers/draft/marketBoard'
 import { lineupFromDraftSettings } from '../helpers/draft/needs'
 import { DEFAULT_SIM_OPTS } from '../helpers/draft/survival'
@@ -272,7 +272,21 @@ class FixtureFeed implements Feed {
 async function main(): Promise<void> {
   const dryRun = flag('dry-run')
   const mockDraftId = arg('mock')
-  const notifier = new ConsoleNotifier()
+
+  // --log writes every message as JSON alongside the console output, so the
+  // relay assistant can follow the draft as data. The console is unchanged and
+  // remains the channel to trust for speed; the log is the one to trust for
+  // fidelity. It appends and never truncates, so a restart mid-draft keeps the
+  // first half of the record (D3).
+  const logPath = arg('log')
+  const jsonl = logPath
+    ? new JsonlNotifier(path.isAbsolute(logPath) ? logPath : path.join(process.cwd(), logPath))
+    : null
+  const notifier = jsonl ? new MultiNotifier([new ConsoleNotifier(), jsonl]) : new ConsoleNotifier()
+  if (logPath) {
+    // eslint-disable-next-line no-console
+    console.log(`logging every message to ${logPath}`)
+  }
 
   let feed: Feed
   let board: ResolvedBoard
@@ -358,14 +372,21 @@ async function main(): Promise<void> {
   }
 
   const started = Date.now()
-  const result = await runBot(board, players, opts, {
-    feed,
-    notifier,
-    log,
-    sleep: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-    now: () => Date.now(),
-    jitter: () => Math.random(),
-  })
+  let result
+  try {
+    result = await runBot(board, players, opts, {
+      feed,
+      notifier,
+      log,
+      sleep: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+      now: () => Date.now(),
+      jitter: () => Math.random(),
+    })
+  } finally {
+    // Every line is already on disk (JsonlNotifier writes synchronously), so
+    // this releases the descriptor rather than flushing a buffer.
+    if (jsonl) jsonl.close()
+  }
 
   if (dryRun) {
     const wallMinutes = (Date.now() - started) / 60000

@@ -2,7 +2,22 @@
 // deliverable: Phase 4 channels (WhatsApp/Telegram) send these exact strings,
 // so review the wording here, not there. Formatting targets a phone screen —
 // short lines, front-loaded verbs, no tables.
+//
+// EVERY MESSAGE NAMES AT MOST ONE PLAYER. These get shared in a public
+// channel, and a shortlist tells the other eleven managers what Andrew is
+// thinking — as does a rationale line like "2 left in RB T2; 0% survives to
+// pick 20", which is exactly the read of the board that must not be public.
+// So `fallbacks` and `shortlist` are never rendered here even when a caller
+// populates them, and the rationale never leaves the process.
+//
+// The alternatives used to be the relay's safety net: a name that gets sniped
+// mid-relay needed somewhere to go. That safety now lives in the bot, which
+// re-issues a fresh single-name instruction when the player it named is taken
+// while the pick is still open (see bot.ts). The message is therefore public-
+// safe AND strictly more useful — it always names someone actually available.
 
+import * as fs from 'fs'
+import * as path from 'path'
 import { DraftMessage, Notifier, Scored } from './types'
 
 function line(s: Scored): string {
@@ -18,21 +33,15 @@ export function formatDraftMessage(msg: DraftMessage): string {
         `Your picks: ${msg.pickNos.join(', ')}`
       )
     case 'heads_up': {
-      const rows: string[] = []
-      for (let i = 0; i < msg.shortlist.length; i++) rows.push(`${i + 1}. ${line(msg.shortlist[i])}`)
-      return `HEADS UP — pick ${msg.myPickNo} is ${msg.picksAway} away.\nShortlist:\n${rows.join('\n')}`
+      // A get-ready signal that names the one player currently at the top, and
+      // nothing about the rest of the board.
+      const head = `HEADS UP — pick ${msg.myPickNo} is ${msg.picksAway} away.`
+      return msg.shortlist.length > 0 ? `${head}\nLikely: ${line(msg.shortlist[0])}` : head
     }
-    case 'on_clock': {
-      const parts = [`ON THE CLOCK — pick ${msg.pickNo}`, `TAKE: ${line(msg.instruction)}`]
-      for (let i = 0; i < msg.fallbacks.length; i++) parts.push(`Else: ${line(msg.fallbacks[i])}`)
-      parts.push(`Why: ${msg.instruction.rationale.slice(0, 3).join('; ')}`)
-      return parts.join('\n')
-    }
-    case 'escalation': {
-      const parts = [`STILL OPEN after ${msg.secondsElapsed}s — pick ${msg.pickNo}`, `TAKE: ${line(msg.instruction)}`]
-      for (let i = 0; i < msg.fallbacks.length; i++) parts.push(`Else: ${line(msg.fallbacks[i])}`)
-      return parts.join('\n')
-    }
+    case 'on_clock':
+      return `ON THE CLOCK — pick ${msg.pickNo}\nTAKE: ${line(msg.instruction)}`
+    case 'escalation':
+      return `STILL OPEN after ${msg.secondsElapsed}s — pick ${msg.pickNo}\nTAKE: ${line(msg.instruction)}`
     case 'pick_confirmed':
       return `CONFIRMED pick ${msg.pickNo}: ${line(msg.player)}. Nice one.`
     case 'pick_mismatch':
@@ -69,5 +78,80 @@ export class ConsoleNotifier implements Notifier {
     // eslint-disable-next-line no-console
     console.log(body)
     return Promise.resolve()
+  }
+}
+
+// One JSON object per line, so a second reader can follow a draft as data.
+// The relay assistant consumes THIS and never the console: the copy above is
+// the Phase 3 deliverable and is meant to be reworded freely, and parsing it
+// would couple the relay to text that is expected to change (D2).
+//
+// Writes are synchronous through a single append descriptor rather than
+// buffered through a write stream. The descriptor is opened once, as planned,
+// but a buffered stream would lose its tail to a `kill -9` -- and the whole
+// reason this log never truncates (D3) is that the record matters most exactly
+// when the bot has died. A draft emits a few dozen messages over two hours, so
+// the cost of writing each one durably is nothing.
+export class JsonlNotifier implements Notifier {
+  private fd: number
+  private clock: () => string
+
+  constructor(file: string, clock?: () => string) {
+    fs.mkdirSync(path.dirname(path.resolve(file)), { recursive: true })
+    this.fd = fs.openSync(file, 'a')
+    this.clock = clock || (() => new Date().toISOString())
+  }
+
+  send(msg: DraftMessage): Promise<void> {
+    // ts sits alongside the message rather than inside it, so the DraftMessage
+    // shape survives the round trip verbatim.
+    fs.writeSync(this.fd, JSON.stringify({ ts: this.clock(), ...msg }) + '\n')
+    return Promise.resolve()
+  }
+
+  close(): void {
+    if (this.fd >= 0) {
+      fs.closeSync(this.fd)
+      this.fd = -1
+    }
+  }
+}
+
+// Fans one message out to several channels. A failure in any one of them must
+// not take down the others or the draft: a disk that fills mid-draft should
+// cost the log, not the rehearsal.
+export class MultiNotifier implements Notifier {
+  private notifiers: Notifier[]
+  private report: (msg: string) => void
+  // Per-notifier, because a full disk fails on every subsequent message and
+  // reporting each one would flood the console Andrew is reading on a
+  // 120-second clock -- the one channel a logging fault must not damage.
+  private reported: boolean[]
+
+  constructor(notifiers: Notifier[], report?: (msg: string) => void) {
+    this.notifiers = notifiers
+    this.reported = notifiers.map(() => false)
+    this.report =
+      report ||
+      ((m: string) => {
+        // eslint-disable-next-line no-console
+        console.error(m)
+      })
+  }
+
+  async send(msg: DraftMessage): Promise<void> {
+    for (let i = 0; i < this.notifiers.length; i++) {
+      try {
+        await this.notifiers[i].send(msg)
+      } catch (err) {
+        if (!this.reported[i]) {
+          this.reported[i] = true
+          this.report(
+            `notifier ${i + 1} of ${this.notifiers.length} failed and will be reported no further: ` +
+              `${err instanceof Error ? err.message : String(err)}`
+          )
+        }
+      }
+    }
   }
 }
