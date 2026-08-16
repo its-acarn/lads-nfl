@@ -48,15 +48,19 @@ against committed fixtures.
       itself is still to write.
 - [ ] **M4 (runbook half) — `docs/mock-rehearsal.md`.** Now writable from
       observed behaviour rather than predicted behaviour.
-- [ ] **M5 (new) — Retune escalation for a relay.** Escalation fired on all
+- [ ] **M5 (new, highest priority) — Round floors become absolute.** The engine
+      must never breach a `minRoundByPos` floor for any reason. Andrew's QB
+      floor is a streaming strategy, not a workaround, and overriding it
+      destroys the strategy it encodes.
+- [ ] **M6 (new) — Opponent roster awareness.** Track what every other team
+      holds and feed it into the opponent model, weighted heavily for QB and TE,
+      lightly for WR and RB.
+- [ ] **M7 (new) — One instruction, no alternatives.** Messages get shared
+      publicly; the shortlist leaks Andrew's thinking to the other managers.
+      Requires re-instruction when the named player is taken.
+- [ ] **M8 (new) — Retune escalation for a relay.** Escalation fired on all
       fourteen picks at ~42s because reading a chat message and acting takes
-      longer than that. Raise the first threshold or exempt it when a relay is
-      attached. Added because the rehearsal found it.
-- [ ] **M6 (new) — Teach the opponent model positional saturation.** The
-      survival simulator samples ADP alone and cannot tell that ten of twelve
-      teams already hold a quarterback, so it forecasts QB runs that cannot
-      happen. Added because the rehearsal found it. Larger than it looks; may
-      warrant its own plan.
+      longer than that.
 
 Nothing in this plan has been started. The branch is
 `claude/mock-draft-smoke-test`, which already carries the `--mock` flag and the
@@ -136,6 +140,30 @@ It is the more repeatable loop and the better board-tuning instrument. Andrew
 chose the live path. *Rationale for recording it:* the two are complements, not
 rivals — a future reader wondering why board tuning is slow should know the
 option was considered and is still open.
+
+**D7 — Round floors are absolute, with no escape hatch at all.** An earlier
+design kept the scarcity override on the grounds that ending a draft without a
+mandatory starter is worse than breaching a floor. That reasoning does not
+survive contact with why the floor exists. *Rationale:* Andrew streams
+quarterbacks. A floor of round 11 across a 14-round draft still leaves four
+rounds to take one, so the catastrophic case the override guarded against
+barely exists — while the case it caused, spending pick 101 on a quarterback,
+destroys the strategy outright. Where the two risks are asymmetric like this,
+the constraint wins. Recorded because the override was written deliberately and
+removing it should look like a decision rather than an oversight.
+
+**D8 — I was wrong to advise tiering the QB column and dropping the floor.**
+Said after the rehearsal, reading the floor as a workaround for an untiered
+column — which is what an earlier note in the repository called it. It is not:
+it encodes a streaming strategy. Recorded because the plan should not leave a
+wrong recommendation standing where a later reader might act on it.
+
+**D9 — Opponent-awareness weighting is per-position and uneven.** Not applied
+uniformly. *Rationale:* Andrew's own ordering — QB and TE matter most because
+the lineup starts one of each, so a team holding one is effectively out of the
+market; WR and RB matter least because two start plus two flex slots, and
+managers keep drafting them long past nominal need. A uniform weight would
+understate the QB effect and overstate the RB one.
 
 **D6 — The team report reads a completed draft by id, not only the bot's own
 final state.** *Rationale:* it then works on any draft, including the real
@@ -477,6 +505,129 @@ Outcomes section of this plan filled in with what the bot got right, what it got
 wrong, and any wording in the messages that proved unclear under time pressure.
 That last point is the real purpose of a rehearsal — the message copy has never
 been read by anyone on a clock.
+
+## Milestone 5 — Round floors become absolute
+
+The goal is that no code path can draft a position before its `minRoundByPos`
+floor, so that a floor expresses a strategy the engine is incapable of
+second-guessing.
+
+The reason matters, because it was misunderstood once already and the wrong
+reading nearly became a recommendation. Andrew's `minRoundByPos.QB: 11` is not a
+patch for an untiered quarterback column. He is a **QB streamer**: quarterbacks
+are abundant, weekly matchups matter more than the name on the roster, and
+spending an early pick on one is the mistake the floor exists to prevent.
+Overriding it does not rescue him from a bad outcome, it imposes a strategy he
+rejected.
+
+The work removes all three breach paths in `helpers/draft/recommend.ts`.
+**First**, the scarcity override: `isUrgent` and the `!urgent[p.pos]` term at
+line 152 go, along with the `scarcity override: ...` rationale. **Second**,
+forced mode: the floor check currently sits in an `else if` branch (line 148),
+so whenever forced mode is active the floor is not consulted at all — the floor
+test must apply unconditionally, before and independent of the forced-set test.
+**Third**, the relaxation ladder: `floors` comes out of every level, so the
+engine gives up the stash rule, the forced collapse, and finally position caps,
+but never a floor. If that leaves no legal candidate at all, it must say so
+loudly rather than quietly breach.
+
+The result is that a floor is a hard constraint with the same standing as a
+position cap, and the only way past it is to edit `config/board.json`.
+
+The proof is a spec that builds a state where every previous path would have
+fired — an unfilled mandatory QB slot, fewer than five quarterbacks left in the
+pool, all predicted extinct before the next pick, forced mode active, and the
+round below the floor — and asserts the recommendation is not a quarterback.
+A second spec asserts the same board with the floor removed *does* return one,
+so the first spec is testing the floor rather than an unrelated preference.
+A third replays the completed mock `1394452945935794176` at all fourteen of
+Andrew's picks and asserts no recommendation ever breaches a floor; measured
+against the current tip, picks 101 through 149 already satisfy this because the
+`roster_id` fix removed the false forced-mode trigger, so the spec pins
+behaviour that is correct today rather than repairing behaviour that is broken.
+
+## Milestone 6 — Opponent roster awareness
+
+The goal is that the engine knows what the other eleven teams already hold, and
+uses it when predicting what they will do next.
+
+Today it does not. `helpers/draft/survival.ts:84` builds every opponent's
+utility as `-searchRank / temperature` and nothing else, so the simulator models
+twelve identical drafters who want the same players in the same order regardless
+of what is already on their rosters. In the rehearsal that produced a
+quarterback run the engine kept forecasting and the room could not deliver: it
+called Bo Nix at 0% survival twice and he survived both times, because ten of
+twelve teams already had a starter and simply would not take another.
+
+The work multiplies each candidate's sampling weight by a **saturation factor**
+derived from `state.posCountsByRoster`, which the `roster_id` fix (`8549a6a`)
+made correct for mocks as well as real drafts. A roster that has filled its
+starting requirement at a position becomes much less likely to take another
+there. The weighting is deliberately uneven, and the ordering is Andrew's:
+**QB and TE strongly**, because the lineup starts one of each and a team with
+one is close to done; **WR and RB weakly**, because two start plus two flex
+slots and managers keep taking them well past nominal need. K and DEF follow the
+QB/TE treatment for the same reason.
+
+The result is a survival curve that stops predicting impossible runs, which
+matters because that curve is the whole input to the VONA edge — the number the
+engine uses to decide whether a pick is urgent.
+
+The proof is a spec asserting that a quarterback's survival probability rises
+when opponents' QB slots are filled, holding everything else constant, and that
+the same manipulation moves a running back's probability by materially less.
+A second check re-runs the rehearsal feed and reports the calibration error at
+Andrew's fourteen picks against the actual outcome, which for the three
+zero-survival quarterback calls should fall.
+
+## Milestone 7 — One instruction, no alternatives
+
+The goal is that a message names exactly one player, because these messages get
+shared in a public channel and a shortlist tells the other eleven managers what
+Andrew is thinking.
+
+The visible half is small: `formatDraftMessage` in `helpers/draft/notifier.ts`
+drops the `Else:` lines from `on_clock`, drops the numbered shortlist from
+`heads_up`, and drops both from the escalation repeat. The rationale line goes
+too — "2 left in RB T2; 0% survives to pick 20" is exactly the read of the board
+that should not be public.
+
+The half that is not small is what the fallbacks were doing. `bot.ts:308` keys
+the instruction `on_clock:${myNext}` through `sendOnce`, so it is issued **once
+per pick and never revised**. The alternatives existed so that a relay holding a
+name that gets sniped mid-relay still has somewhere to go — a real risk here,
+since the rehearsal showed every pick taking more than 42 seconds. Removing them
+without replacing that safety strands Andrew on a drafted player. So the bot
+must detect that the instructed player has been taken while his pick is still
+open and issue a fresh single-name instruction, which means the message key
+becomes `on_clock:${myNext}:${playerId}` and the on-clock stopwatch survives the
+re-issue rather than restarting.
+
+The result is a public-safe message that is also strictly more useful: it always
+names a player who is actually available.
+
+The proof is a spec driving a feed where the instructed player is drafted by
+another team while the pick is open, asserting that a second `on_clock` arrives
+naming a different available player, that it arrives once rather than on every
+poll, and that a restart mid-pick does not duplicate it. A notifier spec asserts
+no rendered message contains `Else`, a shortlist, or a rationale.
+
+## Milestone 8 — Retune escalation for a relay
+
+The goal is that escalation means something. In the rehearsal it fired on all
+fourteen picks, at roughly 42 and 91 seconds, because reading a recommendation
+in chat and acting on it took longer than 42 seconds every single time. An alert
+that fires every pick is not an alert.
+
+The work makes the first threshold configurable and raises its default, and
+reads the draft's own `settings.pick_timer` — 120 seconds in the rehearsal — so
+the thresholds sit at fractions of the actual clock rather than at fixed
+seconds. A draft with no timer keeps the current fixed behaviour.
+
+The proof is a spec asserting that with a 120-second timer the first escalation
+fires later than 42 seconds and before the timer expires, and that the rehearsal
+feed replayed with its real timing produces materially fewer escalations than
+fourteen.
 
 ## Acceptance
 
