@@ -189,6 +189,12 @@ export interface BoardInput {
   players: BoardPlayerInput[]
   doNotDraft: string[]
   pins: BoardPin[]
+  // Import-time corrections for a sheet the drafter did not author. Kept here
+  // rather than in the spreadsheet so they survive re-downloading an export.
+  // Neither reaches the engine: the importer applies them and writes the
+  // corrected names into `players`.
+  nameAliases?: Record<string, string>
+  notInLeague?: string[]
   rules: BoardRules
 }
 
@@ -273,6 +279,10 @@ export interface SimOpts {
   temperatureSlope: number
   reachScale: number
   candidateLimit: number // pool depth fed to the simulator
+  // How hard a filled starting requirement suppresses an opponent's appetite
+  // for another player at that position, 0..1. Uneven by design: see
+  // DEFAULT_SATURATION in survival.ts. Omitted means the default.
+  saturationByPos?: Record<Position, number>
 }
 
 export interface SurvivalEntry {
