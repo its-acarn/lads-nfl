@@ -189,6 +189,12 @@ export interface BoardInput {
   players: BoardPlayerInput[]
   doNotDraft: string[]
   pins: BoardPin[]
+  // Import-time corrections for a sheet the drafter did not author. Kept here
+  // rather than in the spreadsheet so they survive re-downloading an export.
+  // Neither reaches the engine: the importer applies them and writes the
+  // corrected names into `players`.
+  nameAliases?: Record<string, string>
+  notInLeague?: string[]
   rules: BoardRules
 }
 
@@ -273,6 +279,10 @@ export interface SimOpts {
   temperatureSlope: number
   reachScale: number
   candidateLimit: number // pool depth fed to the simulator
+  // How hard a filled starting requirement suppresses an opponent's appetite
+  // for another player at that position, 0..1. Uneven by design: see
+  // DEFAULT_SATURATION in survival.ts. Omitted means the default.
+  saturationByPos?: Record<Position, number>
 }
 
 export interface SurvivalEntry {
@@ -301,6 +311,13 @@ export interface Recommendation {
 // ---------------------------------------------------------------------------
 
 export type DraftMessage =
+  // Emitted once at LOAD, before the draft starts, so a wrong slot or user id
+  // is caught while it still costs nothing.
+  // draftId is what lets a reader prove a log belongs to the draft it is being
+  // read against. Without it `npm run team --draft A --log <log-from-B>`
+  // produces a confident, wrong audit — instructions are keyed on pick number
+  // alone, and pick numbers collide across drafts.
+  | { kind: 'loaded'; draftId: string; slot: number; pickNos: number[]; rounds: number; teams: number }
   | { kind: 'heads_up'; picksAway: number; myPickNo: number; shortlist: Scored[] }
   | { kind: 'on_clock'; pickNo: number; instruction: Scored; fallbacks: Scored[] }
   | {

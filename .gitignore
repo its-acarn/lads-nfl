@@ -39,3 +39,7 @@ next-env.d.ts
 
 # draft bot runtime state
 .draftbot/
+
+# draft bot message logs (--log). Working material: committing one would put a
+# mock draft's noise into the repository permanently.
+logs/

@@ -59,6 +59,25 @@ describe('buildState', () => {
     const dup = sorted.slice(0, 5).concat([sorted[4]])
     expect(() => buildState(cfg, dup, market.board, market.players)).toThrow(/duplicate pick_no/)
   })
+
+  // Sleeper leaves roster_id null on every pick of a MOCK draft. Attributing
+  // picks by that field alone meant a mock produced an empty roster: caps never
+  // bound, forced starters saw no lineup, and DRAFT COMPLETE printed nothing.
+  // Stripping the field from a real fixture reproduces a mock's feed exactly,
+  // and the state must come out identical.
+  it('attributes picks by draft_slot when roster_id is null, as it is in every mock', () => {
+    const withIds = buildState(cfg, sorted, market.board, market.players)
+    const asMock = sorted.map((p) => ({ ...p, roster_id: null }))
+    const withoutIds = buildState(cfg, asMock, market.board, market.players)
+
+    // Teeth: without this the three comparisons below would pass on two empties,
+    // which is precisely the bug.
+    expect(withIds.myRosterIds.length).toBe(14)
+
+    expect(withoutIds.myRosterIds).toEqual(withIds.myRosterIds)
+    expect(withoutIds.myPosCounts).toEqual(withIds.myPosCounts)
+    expect(withoutIds.posCountsByRoster).toEqual(withIds.posCountsByRoster)
+  })
 })
 
 describe('survival', () => {

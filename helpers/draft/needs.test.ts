@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { computeNeeds, effectiveLineup, forcedPositions, isForcedMode, parseLineup } from './needs'
+import { computeNeeds, effectiveLineup, forcedPositions, isForcedMode, lineupFromDraftSettings, parseLineup } from './needs'
 import { BoardRules, Position } from './types'
 
 const LADS_LINEUP = ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN', 'BN']
@@ -126,5 +126,33 @@ describe('effectiveLineup', () => {
     expect(needs.unfilledMandatory.K).toBe(0)
     expect(needs.unfilledMandatory.DEF).toBe(0)
     expect(needs.unfilledMandatoryCount).toBe(0)
+  })
+})
+
+describe('lineupFromDraftSettings', () => {
+  // Sleeper's draft object carries the lineup in settings.slots_*, which is
+  // what makes a mock-draft smoke test possible: a mock has no league, and
+  // roster_positions was the only thing the bot needed one for.
+  it('reconstructs the lads 2026 lineup from a draft alone', () => {
+    const settings = {
+      teams: 12, rounds: 14, pick_timer: 120,
+      slots_qb: 1, slots_rb: 2, slots_wr: 2, slots_te: 1,
+      slots_flex: 2, slots_k: 1, slots_def: 1, slots_bn: 4,
+    }
+    // Exactly what /league/<id> returns for that league.
+    expect(lineupFromDraftSettings(settings)).toEqual([
+      'QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'FLEX', 'FLEX', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN',
+    ])
+  })
+
+  it('handles the flex variants', () => {
+    const out = lineupFromDraftSettings({ slots_qb: 1, slots_super_flex: 1, slots_rec_flex: 1, slots_bn: 2 })
+    expect(out).toEqual(['QB', 'SUPER_FLEX', 'REC_FLEX', 'BN', 'BN'])
+    // and the result must be something parseLineup accepts
+    expect(() => parseLineup(out)).not.toThrow()
+  })
+
+  it('refuses to guess when the draft carries no slots at all', () => {
+    expect(() => lineupFromDraftSettings({ teams: 12, rounds: 14 })).toThrow(/no slots_\* fields/)
   })
 })

@@ -6,7 +6,7 @@
 
 import { recommend } from './recommend'
 import { effectiveLineup, parseLineup } from './needs'
-import { assertSupportedDraft, myPickNumbers } from './snake'
+import { assertSupportedDraft, myDraftSlot, myPickNumbers } from './snake'
 import { buildState, nameOfPick } from './state'
 import { computeReachScale, DEFAULT_SIM_OPTS } from './survival'
 import {
@@ -48,7 +48,15 @@ export interface BotOptions {
   reachReference: number // reference displacement for reach calibration
   simOpts: SimOpts
   maxLoops: number | null // safety valve for tests; null = run forever
+  // Escalation thresholds as fractions of the draft's own pick timer. See
+  // DEFAULT_BOT_OPTIONS for why they are where they are.
+  escalateFraction1: number
+  escalateFraction2: number
 }
+
+// A draft that publishes no pick timer is treated as a two-minute clock, which
+// is Sleeper's own default and what the lads league uses.
+export const DEFAULT_PICK_TIMER = 120
 
 // Poll jitter, as a fraction of the poll interval. Expressed relatively so
 // that an accelerated dry run and a live draft poll at the same rate in
@@ -56,6 +64,19 @@ export interface BotOptions {
 // anything about live.
 export const JITTER_FRACTION = 0.15
 
+// Escalation thresholds, as fractions of the pick timer.
+//
+// These were 1/3 and 3/4 — 40s and 90s on a 120-second clock. The rehearsal
+// emitted fourteen STILL OPEN messages across fourteen picks: the first
+// threshold fired on EVERY pick. That is not the bot being right, it is the
+// threshold being set below the normal cost of the relay. Reading a
+// recommendation in chat and acting on it took longer than 40 seconds every
+// single time, and the whole draft ran 11:47:24 to 12:05:11 — about 76
+// seconds per pick of Andrew's once the instant bots are discounted.
+//
+// An alert that fires on every pick is not an alert. 0.6 puts the first nudge
+// at 72s on a 120s clock: above the relay's normal cost, with 48 seconds still
+// left to act. 0.85 puts the second at 102s, leaving 18 — "take anything now".
 export const DEFAULT_BOT_OPTIONS: Omit<BotOptions, 'myUserId'> = {
   pollMs: 3000,
   draftEveryNPolls: 5,
@@ -64,6 +85,8 @@ export const DEFAULT_BOT_OPTIONS: Omit<BotOptions, 'myUserId'> = {
   reachReference: 6,
   simOpts: DEFAULT_SIM_OPTS,
   maxLoops: null,
+  escalateFraction1: 0.6,
+  escalateFraction2: 0.85,
 }
 
 export interface BotDeps {
@@ -155,11 +178,23 @@ export async function runBot(
   if (myPicks.length === 0) {
     throw new Error(`user_id ${optsIn.myUserId} owns no picks in this draft — check config/board.json`)
   }
+  // Say what was resolved, before the draft starts. A wrong slot or a
+  // misconfigured user id is far cheaper to spot here than at pick one.
+  await deps.notifier.send({
+    kind: 'loaded',
+    draftId: draft.draft_id,
+    slot: myDraftSlot(draft, optsIn.myUserId),
+    pickNos: myPicks,
+    rounds: draft.settings.rounds,
+    teams: draft.settings.teams,
+  })
 
   const pickTimer =
-    draft.settings.pick_timer && draft.settings.pick_timer > 0 ? draft.settings.pick_timer : 120
-  const escalateAt1 = Math.round(pickTimer / 3)
-  const escalateAt2 = Math.round(pickTimer * 0.75)
+    draft.settings.pick_timer && draft.settings.pick_timer > 0
+      ? draft.settings.pick_timer
+      : DEFAULT_PICK_TIMER
+  const escalateAt1 = Math.round(pickTimer * optsIn.escalateFraction1)
+  const escalateAt2 = Math.round(pickTimer * optsIn.escalateFraction2)
 
   let consecutiveFailures = 0
   let lastStatus = ''
@@ -241,9 +276,15 @@ export async function runBot(
           : (((pick.metadata && pick.metadata.position) || 'RB') as Position)
         const landed = scoredRef(pick, players, pos)
         if (instructed.indexOf(pick.player_id) !== -1) {
+          // Any id in this list was a live single-name instruction at some
+          // point during the pick, so taking any of them is a confirmation
+          // rather than an override.
           await deps.notifier.send({ kind: 'pick_confirmed', pickNo: n, player: landed })
         } else {
-          const expectedId = instructed[0]
+          // The LAST instruction is the one that was standing when the pick
+          // landed; naming the first would report a player the bot had
+          // already withdrawn.
+          const expectedId = instructed[instructed.length - 1]
           const expected: Scored = {
             player_id: expectedId,
             name: players[expectedId] ? players[expectedId].full_name || expectedId : expectedId,
@@ -283,27 +324,66 @@ export async function runBot(
 
         if (picksAway > 0 && picksAway <= optsIn.headsUpAt && !deps.log.has(`heads_up:${myNext}`)) {
           const rec: Recommendation = recommend(state, simOpts)
+          // One name. A shortlist in a channel Andrew shares tells the other
+          // eleven managers what he is thinking.
           await sendOnce(`heads_up:${myNext}`, {
             kind: 'heads_up',
             picksAway,
             myPickNo: myNext,
-            shortlist: [rec.primary].concat(rec.fallbacks),
+            shortlist: [rec.primary],
           })
         }
 
         if (picksAway === 0) {
-          if (!deps.log.has(`on_clock:${myNext}`)) {
+          // The instruction names exactly one player, so the bot owes Andrew a
+          // FRESH one if that player is taken while his pick is still open.
+          // Without the fallbacks there is otherwise nowhere to go, and the
+          // rehearsal showed every pick taking longer than 42 seconds to
+          // relay — long enough for a name to go stale.
+          //
+          // `on_clock:<pickNo>` accumulates every id issued for the pick, so
+          // verification below still recognises whichever one Andrew took;
+          // `on_clock:<pickNo>:<playerId>` makes each individual instruction
+          // idempotent across polls and restarts.
+          const issuedKey = `on_clock:${myNext}`
+          const issued = deps.log.get(issuedKey) || []
+          const standing = issued.length > 0 ? issued[issued.length - 1] : null
+          let standingAvailable = false
+          if (standing !== null) {
+            for (let i = 0; i < state.pool.length; i++) {
+              if (state.pool[i].player_id === standing) {
+                standingAvailable = true
+                break
+              }
+            }
+          }
+
+          if (standing === null || !standingAvailable) {
             const rec = recommend(state, simOpts)
-            const ids = [rec.primary.player_id].concat(rec.fallbacks.map((f) => f.player_id))
-            await sendOnce(
-              `on_clock:${myNext}`,
-              { kind: 'on_clock', pickNo: myNext, instruction: rec.primary, fallbacks: rec.fallbacks },
-              ids
-            )
-            onClockPick = myNext
-            onClockSince = deps.now()
-          } else if (onClockPick !== myNext) {
-            // Restarted while on the clock: restart the stopwatch.
+            const id = rec.primary.player_id
+            const key = `${issuedKey}:${id}`
+            if (!deps.log.has(key)) {
+              await deps.notifier.send({
+                kind: 'on_clock',
+                pickNo: myNext,
+                instruction: rec.primary,
+                fallbacks: [],
+              })
+              await deps.log.set(key)
+            }
+            // Advance the standing instruction whether or not a message went
+            // out. recommend() only ever names an available player, so this
+            // guarantees the next poll takes the cheap path above instead of
+            // re-running the Monte Carlo simulation for the rest of the pick.
+            await deps.log.set(issuedKey, issued.filter((x) => x !== id).concat([id]))
+          }
+
+          if (onClockPick !== myNext) {
+            // Either the first instruction for this pick, or a restart while
+            // on the clock. Either way the stopwatch starts now. A RE-issue
+            // does not land here, so the clock survives it: the pick has been
+            // open since the first instruction, and restarting on every snipe
+            // would push escalation back indefinitely.
             onClockPick = myNext
             onClockSince = deps.now()
           }
@@ -323,8 +403,20 @@ export async function runBot(
                   pickNo: myNext,
                   secondsElapsed: Math.round(elapsed),
                   instruction: rec.primary,
-                  fallbacks: rec.fallbacks,
+                  fallbacks: [],
                 })
+                // Record the escalated name as issued, even though today it is
+                // always the same player the on_clock message named. No pick
+                // lands during my own turn, so state is frozen while the pick
+                // is open and recommend() is seeded — it recomputes an
+                // identical primary. That is a real invariant but an implicit
+                // one, and if it ever stopped holding, Andrew would take the
+                // player an escalation named and be told MISMATCH. One line
+                // makes the coupling explicit instead of load-bearing.
+                const issuedNow = deps.log.get(issuedKey) || []
+                if (issuedNow.indexOf(rec.primary.player_id) === -1) {
+                  await deps.log.set(issuedKey, issuedNow.concat([rec.primary.player_id]))
+                }
               }
             }
           }

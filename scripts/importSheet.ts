@@ -30,37 +30,27 @@ import {
   SleeperPick,
 } from '../helpers/draft/types'
 import { JimmygPick, SheetAdpEntry } from '../helpers/draft/backtest/types'
+// The CSV reader, the gviz fetch and the tier-grid parser live in
+// helpers/draft/sheetBoard.ts so that this backtest importer and the live
+// board importer (scripts/importBoard.ts) share one implementation. They are
+// re-exported below because this module's spec imports them from here.
+import {
+  cell,
+  deriveRanks,
+  docIdFrom,
+  fetchTab,
+  parseCsv,
+  parseTiersTab,
+  TierEntry,
+} from '../helpers/draft/sheetBoard'
+
+export { deriveRanks, parseCsv, parseTiersTab }
+export type { TierEntry }
 
 const ROOT = path.join(__dirname, '..')
 const DEFAULT_DOC_ID = '1_unKKpufduAF1loscJ4rOCHLXiwi0UF5DM-jsY25i88'
 const LADS_2025_DRAFT_ID = '1181351037804883969'
 const ANDREW_USER_ID = '82919512949014528'
-
-// The board tab is laid out one column per tier rather than one row per
-// player, and the tier block occupies rows 2..24 only. Below that, column A
-// continues with a 351-name scratch list which is NOT part of the board; a
-// naive read of the whole column swallows it and reports 509 tiered players
-// instead of 157.
-const TIER_BLOCK_FIRST_ROW = 1 // zero-based, i.e. the row after the header
-const TIER_BLOCK_LAST_ROW = 23 // zero-based inclusive -> spreadsheet row 24
-
-// Column header -> tier number. The two adjacent columns both labelled "Last
-// Tier" are one tier; nothing in the sheet distinguishes them. Quarterbacks
-// have no tier of their own and are priced level with the last tier, which is
-// an assumption recorded in the plan's Decision Log, not something the sheet
-// states -- M6 reports which round the engine actually takes a QB in as the
-// check on it.
-const TIER_OF_HEADER: Record<string, number> = {
-  'Tier 1': 1,
-  'Tier 2': 2,
-  'Tier 3': 3,
-  'Tier 4': 4,
-  'Tier 5': 5,
-  'Tier 6': 6,
-  'Tier 7': 7,
-  'Last Tier': 8,
-  "QB's": 8,
-}
 
 const EXPECTED_LIST_HEADER = ['Rank', 'Player', 'Team', 'Bye', 'POS', 'Sleeper']
 
@@ -123,86 +113,6 @@ function writeJson(file: string, data: unknown): void {
 }
 
 // ---------------------------------------------------------------------------
-// CSV
-// ---------------------------------------------------------------------------
-
-// Minimal RFC4180 reader: quoted fields, doubled quotes, embedded commas and
-// newlines. Hand-rolled to keep the dependency tree flat, matching the repo's
-// existing "no schema library, no CSV library" decision.
-export function parseCsv(text: string): string[][] {
-  const rows: string[][] = []
-  let row: string[] = []
-  let field = ''
-  let inQuotes = false
-  let sawAny = false
-  for (let i = 0; i < text.length; i++) {
-    const ch = text.charAt(i)
-    if (inQuotes) {
-      if (ch === '"') {
-        if (text.charAt(i + 1) === '"') {
-          field += '"'
-          i++
-        } else {
-          inQuotes = false
-        }
-      } else {
-        field += ch
-      }
-      continue
-    }
-    if (ch === '"') {
-      inQuotes = true
-      sawAny = true
-    } else if (ch === ',') {
-      row.push(field)
-      field = ''
-      sawAny = true
-    } else if (ch === '\n') {
-      row.push(field)
-      rows.push(row)
-      row = []
-      field = ''
-      sawAny = false
-    } else if (ch !== '\r') {
-      field += ch
-      sawAny = true
-    }
-  }
-  if (sawAny || field.length > 0) {
-    row.push(field)
-    rows.push(row)
-  }
-  return rows
-}
-
-function cell(rows: string[][], r: number, c: number): string {
-  const row = rows[r]
-  if (!row || c >= row.length) return ''
-  return row[c].trim()
-}
-
-// The gviz endpoint addresses a tab by name, which keeps this readable and
-// survives the sheet being reordered; gids would not.
-async function fetchTab(docId: string, tab: string): Promise<string[][]> {
-  const url =
-    `https://docs.google.com/spreadsheets/d/${docId}/gviz/tq` +
-    `?tqx=out:csv&sheet=${encodeURIComponent(tab)}`
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 30000)
-  try {
-    const res = await fetch(url, { signal: controller.signal })
-    if (!res.ok) fail(`GET tab "${tab}" -> HTTP ${res.status}. Is the sheet shared as "anyone with the link"?`)
-    const text = await res.text()
-    if (text.indexOf('<!DOCTYPE') === 0 || text.indexOf('<HTML') === 0) {
-      fail(`tab "${tab}" returned HTML, not CSV — the sheet is not readable without signing in`)
-    }
-    return parseCsv(text)
-  } finally {
-    clearTimeout(timer)
-  }
-}
-
-// ---------------------------------------------------------------------------
 // The List tab -> ADP
 // ---------------------------------------------------------------------------
 
@@ -250,49 +160,6 @@ export function parseListTab(rows: string[][]): PendingAdpEntry[] {
     })
   }
   return out
-}
-
-// ---------------------------------------------------------------------------
-// The LLL Tiers tab -> board
-// ---------------------------------------------------------------------------
-
-export interface TierEntry {
-  name: string
-  tier: number
-  column: number
-  row: number
-  fromQbColumn: boolean
-}
-
-export function parseTiersTab(rows: string[][]): TierEntry[] {
-  const out: TierEntry[] = []
-  let columns = 0
-  for (let c = 0; c < 32; c++) {
-    if (cell(rows, 0, c).length > 0) columns = c + 1
-  }
-  if (columns === 0) fail('LLL Tiers tab has no header row')
-
-  for (let c = 0; c < columns; c++) {
-    const header = cell(rows, 0, c)
-    const tier = TIER_OF_HEADER[header]
-    if (tier === undefined) fail(`LLL Tiers column ${c + 1} has an unrecognised header: "${header}"`)
-    for (let r = TIER_BLOCK_FIRST_ROW; r <= TIER_BLOCK_LAST_ROW; r++) {
-      const name = cell(rows, r, c)
-      if (name.length === 0) continue
-      out.push({ name, tier, column: c, row: r, fromQbColumn: header === "QB's" })
-    }
-  }
-  return out
-}
-
-// Rank is DERIVED from the board's own shape -- tier first, then the order the
-// names appear down each column -- and never read from the List tab, because
-// List is market data and not Andrew's preference. Deriving it this way also
-// makes the resolver's "tier must not decrease as rank increases" rule true by
-// construction.
-export function deriveRanks(entries: TierEntry[]): TierEntry[] {
-  const sorted = entries.slice().sort((a, b) => a.tier - b.tier || a.column - b.column || a.row - b.row)
-  return sorted
 }
 
 // ---------------------------------------------------------------------------
@@ -346,11 +213,7 @@ function buildLayers(): { layers: IdEntry[][]; byId: Record<string, { pos: Posit
 
 async function main(): Promise<void> {
   const sheetArg = arg('sheet')
-  let docId = DEFAULT_DOC_ID
-  if (sheetArg) {
-    const m = /\/spreadsheets\/d\/([A-Za-z0-9_-]+)/.exec(sheetArg)
-    docId = m ? m[1] : sheetArg
-  }
+  const docId = sheetArg ? docIdFrom(sheetArg) : DEFAULT_DOC_ID
 
   const { layers, byId } = buildLayers()
   const index = buildIdIndex(layers)
