@@ -313,7 +313,11 @@ export interface Recommendation {
 export type DraftMessage =
   // Emitted once at LOAD, before the draft starts, so a wrong slot or user id
   // is caught while it still costs nothing.
-  | { kind: 'loaded'; slot: number; pickNos: number[]; rounds: number; teams: number }
+  // draftId is what lets a reader prove a log belongs to the draft it is being
+  // read against. Without it `npm run team --draft A --log <log-from-B>`
+  // produces a confident, wrong audit — instructions are keyed on pick number
+  // alone, and pick numbers collide across drafts.
+  | { kind: 'loaded'; draftId: string; slot: number; pickNos: number[]; rounds: number; teams: number }
   | { kind: 'heads_up'; picksAway: number; myPickNo: number; shortlist: Scored[] }
   | { kind: 'on_clock'; pickNo: number; instruction: Scored; fallbacks: Scored[] }
   | {

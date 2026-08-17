@@ -182,6 +182,7 @@ export async function runBot(
   // misconfigured user id is far cheaper to spot here than at pick one.
   await deps.notifier.send({
     kind: 'loaded',
+    draftId: draft.draft_id,
     slot: myDraftSlot(draft, optsIn.myUserId),
     pickNos: myPicks,
     rounds: draft.settings.rounds,
@@ -404,6 +405,18 @@ export async function runBot(
                   instruction: rec.primary,
                   fallbacks: [],
                 })
+                // Record the escalated name as issued, even though today it is
+                // always the same player the on_clock message named. No pick
+                // lands during my own turn, so state is frozen while the pick
+                // is open and recommend() is seeded — it recomputes an
+                // identical primary. That is a real invariant but an implicit
+                // one, and if it ever stopped holding, Andrew would take the
+                // player an escalation named and be told MISMATCH. One line
+                // makes the coupling explicit instead of load-bearing.
+                const issuedNow = deps.log.get(issuedKey) || []
+                if (issuedNow.indexOf(rec.primary.player_id) === -1) {
+                  await deps.log.set(issuedKey, issuedNow.concat([rec.primary.player_id]))
+                }
               }
             }
           }

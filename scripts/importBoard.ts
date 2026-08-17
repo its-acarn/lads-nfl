@@ -31,6 +31,7 @@ import {
   parseTiersTab,
   positionOfEntry,
   RankedEntry,
+  RankedProblem,
   TierEntry,
   TIER_OF_HEADER,
 } from '../helpers/draft/sheetBoard'
@@ -58,6 +59,10 @@ const DEFAULT_DEPTH = 300
 
 function fail(msg: string): never {
   throw new Error(`importBoard: ${msg}`)
+}
+
+function flag(name: string): boolean {
+  return process.argv.indexOf(`--${name}`) !== -1
 }
 
 function arg(name: string): string | null {
@@ -311,6 +316,28 @@ export function applyCorrections(
   return { entries: out, renamed, excluded, unusedCorrections }
 }
 
+// Which unusable rows actually matter, given how deep we intend to read.
+//
+// A problem row ABOVE the depth cut means the board is silently missing a
+// player the drafter expects at that rank, which is fatal. One below the cut
+// could never have reached the board, so it is reported and ignored — killing
+// an import over a scratch note 550 rows past the cut would be obstructive,
+// and on a sheet that is actively being edited it would happen often.
+export function fatalProblems(
+  problems: RankedProblem[],
+  retained: RankedEntry[]
+): { fatal: RankedProblem[]; ignored: RankedProblem[] } {
+  const fatal: RankedProblem[] = []
+  const ignored: RankedProblem[] = []
+  // Everything at or above the last row we kept is inside the window.
+  const lastRetainedRow = retained.length > 0 ? retained[retained.length - 1].row : -1
+  for (let i = 0; i < problems.length; i++) {
+    if (problems[i].row <= lastRetainedRow) fatal.push(problems[i])
+    else ignored.push(problems[i])
+  }
+  return { fatal, ignored }
+}
+
 // The resolver requires tier not to decrease as rank increases, and the value
 // curve assumes it. Checked here rather than trusted, because a sheet sorted
 // by anything other than rank would break it silently.
@@ -374,7 +401,7 @@ async function main(): Promise<void> {
     const parsed = parseRankedTab(rows)
     // Corrections first, so `depth` counts usable rows rather than rows that
     // are about to be thrown away.
-    const corrected = applyCorrections(parsed, board.nameAliases || {}, board.notInLeague || [])
+    const corrected = applyCorrections(parsed.entries, board.nameAliases || {}, board.notInLeague || [])
     for (let i = 0; i < corrected.renamed.length; i++) {
       // eslint-disable-next-line no-console
       console.log(`  renamed (nameAliases): ${corrected.renamed[i]}`)
@@ -390,6 +417,30 @@ async function main(): Promise<void> {
 
     const entries = corrected.entries
     const limited = entries.slice(0, depth)
+
+    // Only rows inside the window we actually kept can matter.
+    const { fatal, ignored } = fatalProblems(parsed.problems, limited)
+    if (ignored.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log(
+        `  skipped ${ignored.length} unusable row(s) below the depth cut (harmless): ` +
+          ignored.slice(0, 3).map((p) => `row ${p.row + 1} "${p.name}"`).join(', ') +
+          (ignored.length > 3 ? `, +${ignored.length - 3} more` : '')
+      )
+    }
+    if (fatal.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `\nimportBoard FAILED — ${fatal.length} unusable row(s) inside the top ${depth}, ` +
+          'so the board would silently be missing a player you expect at that rank:'
+      )
+      for (let i = 0; i < fatal.length; i++) {
+        // eslint-disable-next-line no-console
+        console.error(`  row ${fatal[i].row + 1} ("${fatal[i].name}"): ${fatal[i].reason}`)
+      }
+      process.exit(1)
+    }
+
     const result = rankedToBoardPlayers(limited, excluded)
     players = result.players
     const droppedKeys = Object.keys(result.dropped)
@@ -448,6 +499,39 @@ async function main(): Promise<void> {
 
   const text = fs.readFileSync(BOARD_FILE, 'utf8')
   const spliced = splicePlayers(text, players)
+
+  // --dry-run runs every check and every invariant, prints the same summary,
+  // and writes nothing. The sheet is a work in progress that gets re-imported
+  // often, and seeing what a change does before it lands is cheaper than
+  // reading it back out of git afterwards.
+  if (flag('dry-run')) {
+    const before = (JSON.parse(text) as BoardInput).players
+    // eslint-disable-next-line no-console
+    console.log(
+      `\nDRY RUN — nothing written. config/board.json would go from ` +
+        `${before.length} to ${players.length} players.`
+    )
+    const changed: string[] = []
+    for (let i = 0; i < Math.max(before.length, players.length); i++) {
+      const a = before[i]
+      const b = players[i]
+      if (!a || !b || a.name !== b.name || a.pos !== b.pos || a.tier !== b.tier) {
+        changed.push(`  rank ${i + 1}: ${a ? `${a.pos} ${a.name} (T${a.tier})` : '—'} -> ${b ? `${b.pos} ${b.name} (T${b.tier})` : '—'}`)
+      }
+    }
+    // eslint-disable-next-line no-console
+    console.log(changed.length === 0 ? '  no change' : `${changed.length} rank(s) differ:`)
+    for (let i = 0; i < Math.min(changed.length, 20); i++) {
+      // eslint-disable-next-line no-console
+      console.log(changed[i])
+    }
+    if (changed.length > 20) {
+      // eslint-disable-next-line no-console
+      console.log(`  ... and ${changed.length - 20} more`)
+    }
+    return
+  }
+
   fs.writeFileSync(BOARD_FILE, spliced)
   if (board.draftReady === true) {
     // eslint-disable-next-line no-console

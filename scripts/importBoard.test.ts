@@ -4,12 +4,13 @@ import * as path from 'path'
 import {
   applyCorrections,
   assertTiersMonotone,
+  fatalProblems,
   findArraySpan,
   rankedToBoardPlayers,
   splicePlayers,
   toBoardPlayers,
 } from './importBoard'
-import { RankedEntry, TierEntry } from '../helpers/draft/sheetBoard'
+import { RankedEntry, RankedProblem, TierEntry } from '../helpers/draft/sheetBoard'
 import { BoardPlayerInput, Position } from '../helpers/draft/types'
 
 const BOARD_FILE = path.join(__dirname, '..', 'config', 'board.json')
@@ -250,6 +251,47 @@ describe('applyCorrections', () => {
     expect(out.renamed).toEqual([])
     expect(out.excluded).toEqual([])
     expect(out.unusedCorrections).toEqual([])
+  })
+})
+
+// A 878-row export read to depth 300 must not be killed by a scratch note at
+// row 850 -- but a bad row at 40 must still stop the import, because the board
+// would silently be missing a player expected at that rank.
+describe('fatalProblems', () => {
+  const retained = [
+    ranked('A', 1, 'RB', 'DET', 1),
+    ranked('B', 1, 'WR', 'CIN', 2),
+    ranked('C', 2, 'TE', 'LV', 5),
+  ]
+  const problem = (row: number): RankedProblem => ({ row, name: `row${row}`, reason: 'unusable tier' })
+
+  it('treats a problem below the last retained row as harmless', () => {
+    const out = fatalProblems([problem(900)], retained)
+    expect(out.fatal).toEqual([])
+    expect(out.ignored.length).toBe(1)
+  })
+
+  it('treats a problem inside the retained window as fatal', () => {
+    const out = fatalProblems([problem(3)], retained)
+    expect(out.fatal.length).toBe(1)
+    expect(out.ignored).toEqual([])
+  })
+
+  it('counts the boundary row itself as inside', () => {
+    expect(fatalProblems([problem(5)], retained).fatal.length).toBe(1)
+    expect(fatalProblems([problem(6)], retained).fatal.length).toBe(0)
+  })
+
+  it('splits a mixed set correctly', () => {
+    const out = fatalProblems([problem(2), problem(400), problem(4), problem(878)], retained)
+    expect(out.fatal.map((p) => p.row)).toEqual([2, 4])
+    expect(out.ignored.map((p) => p.row)).toEqual([400, 878])
+  })
+
+  it('treats every problem as fatal when nothing was retained', () => {
+    // Nothing kept means the depth cut is above everything, so any unusable row
+    // is inside whatever window exists.
+    expect(fatalProblems([problem(1)], []).fatal.length).toBe(0)
   })
 })
 

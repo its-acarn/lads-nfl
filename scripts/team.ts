@@ -10,7 +10,14 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { userForSlot } from '../helpers/draft/marketBoard'
-import { buildTeamReport, LoggedMessage, parseLog, renderTeamReport } from '../helpers/draft/teamReport'
+import {
+  assertLogMatchesDraft,
+  buildTeamReport,
+  draftIdOfLog,
+  LoggedMessage,
+  parseLog,
+  renderTeamReport,
+} from '../helpers/draft/teamReport'
 import {
   DraftConfig,
   PlayerMap,
@@ -115,6 +122,16 @@ async function main(): Promise<void> {
     const logFile = path.isAbsolute(logArg) ? logArg : path.join(process.cwd(), logArg)
     if (!fs.existsSync(logFile)) fail(`no log at ${logArg}`)
     log = parseLog(fs.readFileSync(logFile, 'utf8'))
+    // A log from another draft would produce a confident, wrong audit.
+    assertLogMatchesDraft(log, draft.draft_id)
+    if (draftIdOfLog(log) === null) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `WARNING: ${logArg} predates draft-id stamping, so it cannot be checked against ` +
+          `draft ${draft.draft_id}. If it came from a different draft, the instruction audit ` +
+          'below is wrong. Re-run the bot to get a stamped log.'
+      )
+    }
   }
 
   const report = buildTeamReport(cfg, picks, board, players, log)

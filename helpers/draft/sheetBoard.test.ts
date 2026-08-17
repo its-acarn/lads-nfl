@@ -187,14 +187,14 @@ describe('positionFromToken', () => {
 
 describe('parseRankedTab', () => {
   it('reads name, tier, position and team from each row', () => {
-    const out = parseRankedTab(rankedRows())
+    const out = parseRankedTab(rankedRows()).entries
     expect(out.length).toBe(6)
     expect(out[0]).toMatchObject({ name: 'Jahmyr Gibbs', tier: 1, pos: 'RB', team: 'DET' })
     expect(out[4]).toMatchObject({ name: 'Chiefs', tier: 3, pos: 'DEF', team: 'KC' })
   })
 
   it('keeps the sheet\'s own row order, which is the board order', () => {
-    expect(parseRankedTab(rankedRows()).map((e) => e.name)).toEqual([
+    expect(parseRankedTab(rankedRows()).entries.map((e) => e.name)).toEqual([
       'Jahmyr Gibbs',
       "Ja'Marr Chase",
       'Brock Bowers',
@@ -207,7 +207,7 @@ describe('parseRankedTab', () => {
   it('skips blank rows rather than emitting empty names', () => {
     const rows = rankedRows()
     rows.splice(3, 0, ['', '', '', '', '', '', '', ''])
-    expect(parseRankedTab(rows).length).toBe(6)
+    expect(parseRankedTab(rows).entries.length).toBe(6)
   })
 
   it('finds its columns by header name, not by position', () => {
@@ -215,28 +215,47 @@ describe('parseRankedTab', () => {
       ['PLAYER NAME', 'POS', 'TIER', 'TEAM'],
       ['Jahmyr Gibbs', 'RB1', '1', 'DET'],
     ]
-    expect(parseRankedTab(rows)[0]).toMatchObject({ name: 'Jahmyr Gibbs', pos: 'RB', tier: 1, team: 'DET' })
+    expect(parseRankedTab(rows).entries[0]).toMatchObject({ name: 'Jahmyr Gibbs', pos: 'RB', tier: 1, team: 'DET' })
   })
 
-  // The whole value curve is built on tiers, so a row landing in tier NaN
-  // prices wrong and everything downstream inherits it.
-  it('refuses a row whose tier will not parse', () => {
+  // Whether an unusable row is fatal depends on how deep the caller reads, and
+  // the parser does not know that -- so it reports and the caller decides. A
+  // scratch note 550 rows past a depth cut must not kill an import.
+  it('reports a row whose tier will not parse, rather than throwing', () => {
     const rows = rankedRows()
     rows[1][1] = 'n/a'
-    expect(() => parseRankedTab(rows)).toThrow(/unusable tier/)
+    const out = parseRankedTab(rows)
+    expect(out.problems.length).toBe(1)
+    expect(out.problems[0].name).toBe('Jahmyr Gibbs')
+    expect(out.problems[0].reason).toContain('unusable tier')
+    expect(out.problems[0].row).toBe(1)
+    // And the row is excluded rather than admitted with a broken tier.
+    expect(out.entries.map((e) => e.name)).not.toContain('Jahmyr Gibbs')
   })
 
-  it('refuses a row whose position it does not recognise', () => {
+  it('reports a row whose position it does not recognise', () => {
     const rows = rankedRows()
     rows[1][4] = 'LB1'
-    expect(() => parseRankedTab(rows)).toThrow(/unrecognised position/)
+    const out = parseRankedTab(rows)
+    expect(out.problems.length).toBe(1)
+    expect(out.problems[0].reason).toContain('unrecognised position')
   })
 
+  it('keeps every good row when one row is bad', () => {
+    const rows = rankedRows()
+    rows[3][1] = 'oops'
+    const out = parseRankedTab(rows)
+    expect(out.entries.length).toBe(5)
+    expect(out.problems.length).toBe(1)
+  })
+
+  // A missing COLUMN is different: no row can be read without it, so it is
+  // fatal regardless of depth.
   it('refuses a tab with no tier column', () => {
     expect(() => parseRankedTab([['RK', 'PLAYER NAME', 'POS'], ['1', 'X', 'RB1']])).toThrow(/no tier column/)
   })
 
-  it('refuses a header with no rows under it', () => {
-    expect(() => parseRankedTab([RANKED_HEADER])).toThrow(/no player rows/)
+  it('refuses a header with no usable rows under it', () => {
+    expect(() => parseRankedTab([RANKED_HEADER])).toThrow(/no usable player rows/)
   })
 })

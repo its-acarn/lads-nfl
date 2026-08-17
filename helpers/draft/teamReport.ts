@@ -75,6 +75,39 @@ export interface TeamReport {
 // A logged message as JsonlNotifier writes it: the DraftMessage plus a ts.
 export type LoggedMessage = DraftMessage & { ts?: string }
 
+// Which draft a log belongs to, from its `loaded` banner.
+//
+// Returns null for a log written before `loaded` carried a draftId — those
+// cannot be verified either way, which is a different thing from being wrong
+// and the caller should say so differently.
+export function draftIdOfLog(log: LoggedMessage[]): string | null {
+  for (let i = 0; i < log.length; i++) {
+    const m = log[i]
+    if (m.kind === 'loaded') {
+      const id = (m as { draftId?: string }).draftId
+      return typeof id === 'string' && id.length > 0 ? id : null
+    }
+  }
+  return null
+}
+
+// Instructions are joined to picks by pick NUMBER, and pick numbers collide
+// across drafts — every 12x14 draft has a pick 20. Reading a log against the
+// wrong draft therefore produces a fully-formed audit that is entirely wrong,
+// with nothing in the output to suggest it. With several mock ids in play and
+// logs named by date, that is an easy mistake to make and an expensive one to
+// believe.
+export function assertLogMatchesDraft(log: LoggedMessage[], draftId: string): void {
+  const logDraftId = draftIdOfLog(log)
+  if (logDraftId !== null && logDraftId !== draftId) {
+    throw new Error(
+      `this log is from draft ${logDraftId}, not ${draftId}. Instructions are matched by pick ` +
+        'number, which every draft reuses, so the audit would be confident and wrong. ' +
+        'Pass the log written during THIS draft, or omit --log.'
+    )
+  }
+}
+
 export function parseLog(text: string): LoggedMessage[] {
   const out: LoggedMessage[] = []
   const lines = text.split('\n')

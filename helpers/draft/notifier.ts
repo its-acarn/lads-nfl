@@ -3,12 +3,17 @@
 // so review the wording here, not there. Formatting targets a phone screen —
 // short lines, front-loaded verbs, no tables.
 //
-// EVERY MESSAGE NAMES AT MOST ONE PLAYER. These get shared in a public
-// channel, and a shortlist tells the other eleven managers what Andrew is
-// thinking — as does a rationale line like "2 left in RB T2; 0% survives to
-// pick 20", which is exactly the read of the board that must not be public.
+// EVERY MESSAGE RECOMMENDS AT MOST ONE PLAYER, and the public rendering
+// reveals nothing about the board beyond that name. These get shared in a
+// league channel, where a shortlist tells the other eleven managers what
+// Andrew is thinking — as does a rationale line like "2 left in RB T2; 0%
+// survives to pick 20", and as does a bare survival percentage on its own.
 // So `fallbacks` and `shortlist` are never rendered here even when a caller
-// populates them, and the rationale never leaves the process.
+// populates them, the rationale never leaves the process, and the survival
+// forecast appears only in the 'private' rendering (see Audience below).
+//
+// `pick_mismatch` names two players; both are already public by the time it
+// is sent. That is the one documented exception, explained at its case.
 //
 // The alternatives used to be the relay's safety net: a name that gets sniped
 // mid-relay needed somewhere to go. That safety now lives in the bot, which
@@ -20,12 +25,35 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { DraftMessage, Notifier, Scored } from './types'
 
-function line(s: Scored): string {
-  const tag = s.offBoard ? ' (off-board)' : s.survivalToNextPct !== null ? ` (${s.survivalToNextPct}% survives)` : ''
-  return `${s.pos} ${s.name}${tag}`
+// Two audiences, and they must not get the same string.
+//
+// 'public' is what may be pasted into the league channel, and what Phase 4
+// channels send verbatim. It carries the player's name and nothing that
+// reveals the engine's read of the board.
+//
+// 'private' is Andrew's own console. The survival forecast belongs here and
+// only here: "97% survives" is the single most decision-useful number the
+// engine produces — it is what says *skip this one, he will still be there* —
+// and it is also precisely what a rival manager most wants to know. Suppressing
+// the rationale array while leaving this rendered everywhere was a hole in the
+// one-name rule, not an exception to it.
+export type Audience = 'public' | 'private'
+
+function renderLine(s: Scored, audience: Audience): string {
+  // (off-board) stays in both: it says the player is not on Andrew's board,
+  // which tells a rival nothing they could act on.
+  const offBoard = s.offBoard ? ' (off-board)' : ''
+  const survival =
+    audience === 'private' && !s.offBoard && s.survivalToNextPct !== null
+      ? ` (${s.survivalToNextPct}% survives)`
+      : ''
+  return `${s.pos} ${s.name}${offBoard}${survival}`
 }
 
-export function formatDraftMessage(msg: DraftMessage): string {
+// Defaults to 'public'. A caller that forgets the argument leaks nothing, which
+// is the safe direction for the one property in this file that gets shared.
+export function formatDraftMessage(msg: DraftMessage, audience: Audience = 'public'): string {
+  const line = (s: Scored): string => renderLine(s, audience)
   switch (msg.kind) {
     case 'loaded':
       return (
@@ -44,6 +72,10 @@ export function formatDraftMessage(msg: DraftMessage): string {
       return `STILL OPEN after ${msg.secondsElapsed}s — pick ${msg.pickNo}\nTAKE: ${line(msg.instruction)}`
     case 'pick_confirmed':
       return `CONFIRMED pick ${msg.pickNo}: ${line(msg.player)}. Nice one.`
+    // Two names here, and deliberately so: both are already public. The pick
+    // landed on Sleeper for everyone to see, and the instruction it missed went
+    // out in the on_clock message. Naming them together reveals nothing new and
+    // is the only way to say what actually happened.
     case 'pick_mismatch':
       return `MISMATCH pick ${msg.pickNo}: got ${msg.actual.pos} ${msg.actual.name}, instructed ${line(msg.expected)}. Recomputing from the roster we actually hold.`
     case 'draft_paused':
@@ -71,7 +103,11 @@ export class ConsoleNotifier implements Notifier {
 
   send(msg: DraftMessage): Promise<void> {
     const stamp = this.clock()
-    const body = formatDraftMessage(msg)
+    // Andrew's own screen: the survival forecast belongs here, because it is
+    // what tells him whether a recommendation is urgent or safe to skip. What
+    // he chooses to paste into the channel is the public rendering, which is
+    // formatDraftMessage's default.
+    const body = formatDraftMessage(msg, 'private')
       .split('\n')
       .map((l, i) => (i === 0 ? `[${stamp}] ${l}` : `           ${l}`))
       .join('\n')

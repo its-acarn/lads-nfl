@@ -6,7 +6,15 @@ import { userForSlot } from './marketBoard'
 import { roundOf } from './snake'
 import { rosterIdOfPick } from './state'
 import { myRosterId } from './snake'
-import { buildAudit, buildTeamReport, LoggedMessage, parseLog, renderTeamReport } from './teamReport'
+import {
+  assertLogMatchesDraft,
+  buildAudit,
+  buildTeamReport,
+  draftIdOfLog,
+  LoggedMessage,
+  parseLog,
+  renderTeamReport,
+} from './teamReport'
 import { DraftConfig, Position, ResolvedBoard, Scored } from './types'
 
 const fx = loadFixture('lads', '2025')
@@ -231,7 +239,7 @@ describe('the instruction audit', () => {
   it('ignores every message kind that is not an instruction', () => {
     const p = base.picks[0]
     const audit = buildAudit(base.picks, [
-      { kind: 'loaded', slot: 2, pickNos: [p.pickNo], rounds: 14, teams: 12 },
+      { kind: 'loaded', draftId: fx.draft.draft_id, slot: 2, pickNos: [p.pickNo], rounds: 14, teams: 12 },
       { kind: 'heads_up', picksAway: 2, myPickNo: p.pickNo, shortlist: [scored('x', 'X', 'RB')] },
       { kind: 'on_clock', pickNo: p.pickNo, instruction: scored(p.player_id, p.name, p.pos), fallbacks: [] },
       { kind: 'draft_complete', rosterSummary: '' },
@@ -245,6 +253,46 @@ describe('the instruction audit', () => {
     expect(md).toContain('## Instructions vs. picks')
     expect(md).toContain('taken')
     expect(md).toContain('overridden')
+  })
+})
+
+// Instructions are joined by pick NUMBER, and every 12x14 draft has a pick 20.
+// Reading a log against the wrong draft therefore yields a fully-formed audit
+// that is entirely wrong, with nothing in the output to suggest it.
+describe('a log must belong to the draft it is read against', () => {
+  const loaded = (draftId: string): LoggedMessage => ({
+    kind: 'loaded',
+    draftId,
+    slot: 5,
+    pickNos: [5, 20],
+    rounds: 14,
+    teams: 12,
+  })
+
+  it('reads the draft id out of the loaded banner', () => {
+    expect(draftIdOfLog([loaded('abc123')])).toBe('abc123')
+  })
+
+  it('refuses a log from a different draft, naming both ids', () => {
+    expect(() => assertLogMatchesDraft([loaded('draft-B')], 'draft-A')).toThrow(/from draft draft-B, not draft-A/)
+  })
+
+  it('accepts a log from the same draft', () => {
+    expect(() => assertLogMatchesDraft([loaded('draft-A')], 'draft-A')).not.toThrow()
+  })
+
+  // "Cannot verify" is a different thing from "verified wrong", and the two
+  // deserve different handling: a log written before draft-id stamping is
+  // reported as unverifiable rather than rejected, so logs already on disk stay
+  // usable.
+  it('reports an unstamped log as unverifiable rather than rejecting it', () => {
+    const legacy = [{ kind: 'loaded', slot: 5, pickNos: [5], rounds: 14, teams: 12 } as unknown as LoggedMessage]
+    expect(draftIdOfLog(legacy)).toBe(null)
+    expect(() => assertLogMatchesDraft(legacy, 'draft-A')).not.toThrow()
+  })
+
+  it('treats a log with no loaded banner at all as unverifiable', () => {
+    expect(draftIdOfLog([{ kind: 'draft_complete', rosterSummary: '' }])).toBe(null)
   })
 })
 

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import * as fs from 'fs'
 import * as os from 'os'
 import * as path from 'path'
-import { formatDraftMessage, JsonlNotifier, MultiNotifier } from './notifier'
+import { ConsoleNotifier, formatDraftMessage, JsonlNotifier, MultiNotifier } from './notifier'
 import { DraftMessage, Notifier, Scored } from './types'
 
 const bijan: Scored = {
@@ -23,7 +23,7 @@ describe('formatDraftMessage', () => {
   it('heads_up warns without listing the board', () => {
     const s = formatDraftMessage({ kind: 'heads_up', picksAway: 3, myPickNo: 24, shortlist: [bijan, chase] })
     expect(s).toContain('HEADS UP — pick 24 is 3 away.')
-    expect(s).toContain('Likely: RB Bijan Robinson (12% survives)')
+    expect(s).toContain('Likely: RB Bijan Robinson')
     // The rest of the shortlist stays private even when the caller supplies it.
     expect(s).not.toContain("Ja'Marr Chase")
     expect(s).not.toContain('2.')
@@ -70,22 +70,25 @@ describe('formatDraftMessage', () => {
   })
 })
 
+// One of every message kind, each carrying more players and more rationale
+// than it is allowed to render, so the suppression is tested rather than the
+// absence of anything to suppress.
+const everyKind: DraftMessage[] = [
+  { kind: 'loaded', draftId: 'test-draft', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
+  { kind: 'heads_up', picksAway: 3, myPickNo: 24, shortlist: [bijan, chase, offBoard] },
+  { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] },
+  { kind: 'escalation', pickNo: 24, secondsElapsed: 55, instruction: bijan, fallbacks: [chase, offBoard] },
+  { kind: 'pick_confirmed', pickNo: 24, player: bijan },
+  { kind: 'pick_mismatch', pickNo: 24, expected: bijan, actual: { player_id: 'z', name: 'Wrong Guy', pos: 'TE', team: null } },
+  { kind: 'draft_paused' },
+  { kind: 'draft_resumed' },
+  { kind: 'draft_complete', rosterSummary: 'QB: X' },
+  { kind: 'bot_error', message: 'boom', consecutiveFailures: 5 },
+]
+
 // These messages get shared in a public channel. Anything beyond the single
 // name on the clock tells the other eleven managers what Andrew is thinking.
 describe('no message leaks the board', () => {
-  const everyKind: DraftMessage[] = [
-    { kind: 'loaded', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
-    { kind: 'heads_up', picksAway: 3, myPickNo: 24, shortlist: [bijan, chase, offBoard] },
-    { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] },
-    { kind: 'escalation', pickNo: 24, secondsElapsed: 55, instruction: bijan, fallbacks: [chase, offBoard] },
-    { kind: 'pick_confirmed', pickNo: 24, player: bijan },
-    { kind: 'pick_mismatch', pickNo: 24, expected: bijan, actual: { player_id: 'z', name: 'Wrong Guy', pos: 'TE', team: null } },
-    { kind: 'draft_paused' },
-    { kind: 'draft_resumed' },
-    { kind: 'draft_complete', rosterSummary: 'QB: X' },
-    { kind: 'bot_error', message: 'boom', consecutiveFailures: 5 },
-  ]
-
   it('renders no shortlist, no alternatives and no rationale, whatever it is handed', () => {
     for (let i = 0; i < everyKind.length; i++) {
       const s = formatDraftMessage(everyKind[i])
@@ -98,6 +101,79 @@ describe('no message leaks the board', () => {
       expect(s, kind).not.toContain('12% survives to pick 24')
       expect(s, kind).not.toContain('fills RB starter slot')
     }
+  })
+
+  // The hole this closes: the rationale array was correctly suppressed, but the
+  // survival forecast was rendered on every player in every message. "TAKE: RB
+  // Bijan Robinson (12% survives)" tells a rival the bot expects him gone — the
+  // same class of information the shortlist was removed to protect.
+  it('never renders a survival forecast to the public audience', () => {
+    for (let i = 0; i < everyKind.length; i++) {
+      const s = formatDraftMessage(everyKind[i])
+      expect(s, everyKind[i].kind).not.toContain('% survives')
+      expect(s, everyKind[i].kind).not.toContain('12%')
+      expect(s, everyKind[i].kind).not.toContain('34%')
+    }
+  })
+
+  it('defaults to the public audience when the argument is omitted', () => {
+    const explicit = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }, 'public')
+    const defaulted = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] })
+    expect(defaulted).toBe(explicit)
+    expect(defaulted).not.toContain('% survives')
+  })
+
+  it('keeps (off-board), which reveals nothing actionable', () => {
+    const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: offBoard, fallbacks: [] })
+    expect(s).toContain('(off-board)')
+    expect(s).not.toContain('% survives')
+  })
+})
+
+// Andrew's own console. The forecast is what tells him whether a recommendation
+// is urgent or safe to skip, so it belongs here — and only here.
+describe('the private rendering', () => {
+  it('carries the survival forecast the public one withholds', () => {
+    const msg: DraftMessage = { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }
+    expect(formatDraftMessage(msg, 'private')).toContain('(12% survives)')
+    expect(formatDraftMessage(msg, 'public')).not.toContain('12%')
+  })
+
+  it('still names only one player', () => {
+    const s = formatDraftMessage(
+      { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] },
+      'private'
+    )
+    expect(s).toContain('Bijan Robinson')
+    expect(s).not.toContain("Ja'Marr Chase")
+    expect(s).not.toContain('Else')
+  })
+
+  it('still withholds the rationale, which is a read of the board either way', () => {
+    const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }, 'private')
+    expect(s).not.toContain('3 left in RB T1')
+    expect(s).not.toContain('fills RB starter slot')
+  })
+
+  it('ConsoleNotifier uses it, so Andrew sees the forecast on his own screen', async () => {
+    const written: string[] = []
+    const original = console.log
+    // eslint-disable-next-line no-console
+    console.log = (s?: unknown) => {
+      written.push(String(s))
+    }
+    try {
+      await new ConsoleNotifier(() => '12:00:00').send({
+        kind: 'on_clock',
+        pickNo: 24,
+        instruction: bijan,
+        fallbacks: [],
+      })
+    } finally {
+      // eslint-disable-next-line no-console
+      console.log = original
+    }
+    expect(written.join('\n')).toContain('(12% survives)')
   })
 
   it('names at most one player per message', () => {
@@ -130,6 +206,7 @@ describe('the LOAD confirmation', () => {
     // A wrong slot or user id is far cheaper to spot here than at pick one.
     const out = formatDraftMessage({
       kind: 'loaded',
+      draftId: '1394795000339914752',
       slot: 5,
       pickNos: [5, 20, 29, 44],
       rounds: 14,
@@ -162,7 +239,7 @@ const KINDS: DraftMessage['kind'][] = [
 ]
 
 const SEQUENCE: DraftMessage[] = [
-  { kind: 'loaded', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
+  { kind: 'loaded', draftId: 'test-draft', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
   { kind: 'heads_up', picksAway: 2, myPickNo: 5, shortlist: [bijan, chase] },
   { kind: 'on_clock', pickNo: 5, instruction: bijan, fallbacks: [chase] },
   { kind: 'escalation', pickNo: 5, secondsElapsed: 55, instruction: bijan, fallbacks: [] },

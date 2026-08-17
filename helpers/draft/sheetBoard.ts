@@ -254,7 +254,20 @@ export function isRankedLayout(rows: string[][]): boolean {
   return headerIndex(header, RANKED_NAME_HEADERS) !== -1 && headerIndex(header, RANKED_TIER_HEADERS) !== -1
 }
 
-export function parseRankedTab(rows: string[][]): RankedEntry[] {
+// A row this parser could not use, kept rather than thrown.
+//
+// Whether an unusable row is fatal depends on how deep the caller intends to
+// read, and the parser does not know that. A 878-row export read to depth 300
+// should not be killed by a scratch note at row 850 — but a bad row at 40 must
+// still stop the import, because the board would silently be missing a player
+// the drafter expects. So the parser reports and the caller decides.
+export interface RankedProblem {
+  row: number // zero-based row index, as RankedEntry.row
+  name: string
+  reason: string
+}
+
+export function parseRankedTab(rows: string[][]): { entries: RankedEntry[]; problems: RankedProblem[] } {
   if (rows.length === 0) fail('ranked tab is empty')
   const header = rows[0]
   const nameAt = headerIndex(header, RANKED_NAME_HEADERS)
@@ -262,30 +275,37 @@ export function parseRankedTab(rows: string[][]): RankedEntry[] {
   const posAt = headerIndex(header, RANKED_POS_HEADERS)
   const teamAt = headerIndex(header, RANKED_TEAM_HEADERS)
 
+  // A missing COLUMN is always fatal and never depth-dependent: no row can be
+  // read without it.
   if (nameAt === -1) fail(`ranked tab has no player-name column (looked for ${RANKED_NAME_HEADERS.join(', ')})`)
   if (tierAt === -1) fail(`ranked tab has no tier column (looked for ${RANKED_TIER_HEADERS.join(', ')})`)
   if (posAt === -1) fail(`ranked tab has no position column (looked for ${RANKED_POS_HEADERS.join(', ')})`)
 
-  const out: RankedEntry[] = []
+  const entries: RankedEntry[] = []
+  const problems: RankedProblem[] = []
   for (let r = 1; r < rows.length; r++) {
     const name = cell(rows, r, nameAt)
     if (name.length === 0) continue
 
     const tierRaw = cell(rows, r, tierAt)
     const tier = parseInt(tierRaw, 10)
-    // A tier that will not parse is not a warning: the whole value curve is
-    // built on tiers, and a row that silently lands in tier NaN prices wrong.
+    // The whole value curve is built on tiers, so a row landing in tier NaN
+    // prices wrong and everything downstream inherits it.
     if (!isFinite(tier) || tier <= 0) {
-      fail(`row ${r + 1} ("${name}") has an unusable tier: "${tierRaw}"`)
+      problems.push({ row: r, name, reason: `unusable tier: "${tierRaw}"` })
+      continue
     }
 
     const posRaw = cell(rows, r, posAt)
     const pos = positionFromToken(posRaw)
-    if (!pos) fail(`row ${r + 1} ("${name}") has an unrecognised position: "${posRaw}"`)
+    if (!pos) {
+      problems.push({ row: r, name, reason: `unrecognised position: "${posRaw}"` })
+      continue
+    }
 
     const team = teamAt === -1 ? '' : cell(rows, r, teamAt)
-    out.push({ name, tier, pos, team: team.length > 0 ? team : null, row: r })
+    entries.push({ name, tier, pos, team: team.length > 0 ? team : null, row: r })
   }
-  if (out.length === 0) fail('ranked tab has a header but no player rows')
-  return out
+  if (entries.length === 0) fail('ranked tab has a header but no usable player rows')
+  return { entries, problems }
 }
