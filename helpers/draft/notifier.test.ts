@@ -20,15 +20,6 @@ const chase: Scored = { ...bijan, player_id: '7564', name: "Ja'Marr Chase", pos:
 const offBoard: Scored = { ...bijan, player_id: 'x', name: 'Some Deep Guy', offBoard: true, survivalToNextPct: null }
 
 describe('formatDraftMessage', () => {
-  it('heads_up warns without listing the board', () => {
-    const s = formatDraftMessage({ kind: 'heads_up', picksAway: 3, myPickNo: 24, shortlist: [bijan, chase] })
-    expect(s).toContain('HEADS UP — pick 24 is 3 away.')
-    expect(s).toContain('Likely: RB Bijan Robinson')
-    // The rest of the shortlist stays private even when the caller supplies it.
-    expect(s).not.toContain("Ja'Marr Chase")
-    expect(s).not.toContain('2.')
-  })
-
   it('on_clock leads with TAKE and names nobody else', () => {
     const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] })
     expect(s).toContain('ON THE CLOCK — pick 24')
@@ -75,7 +66,6 @@ describe('formatDraftMessage', () => {
 // absence of anything to suppress.
 const everyKind: DraftMessage[] = [
   { kind: 'loaded', draftId: 'test-draft', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
-  { kind: 'heads_up', picksAway: 3, myPickNo: 24, shortlist: [bijan, chase, offBoard] },
   { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] },
   { kind: 'escalation', pickNo: 24, secondsElapsed: 55, instruction: bijan, fallbacks: [chase, offBoard] },
   { kind: 'pick_confirmed', pickNo: 24, player: bijan },
@@ -116,13 +106,6 @@ describe('no message leaks the board', () => {
     }
   })
 
-  it('defaults to the public audience when the argument is omitted', () => {
-    const explicit = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }, 'public')
-    const defaulted = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] })
-    expect(defaulted).toBe(explicit)
-    expect(defaulted).not.toContain('% survives')
-  })
-
   it('keeps (off-board), which reveals nothing actionable', () => {
     const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: offBoard, fallbacks: [] })
     expect(s).toContain('(off-board)')
@@ -130,32 +113,35 @@ describe('no message leaks the board', () => {
   })
 })
 
-// Andrew's own console. The forecast is what tells him whether a recommendation
-// is urgent or safe to skip, so it belongs here — and only here.
-describe('the private rendering', () => {
-  it('carries the survival forecast the public one withholds', () => {
-    const msg: DraftMessage = { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }
-    expect(formatDraftMessage(msg, 'private')).toContain('(12% survives)')
-    expect(formatDraftMessage(msg, 'public')).not.toContain('12%')
+// There is now ONE rendering. The survival forecast used to appear on Andrew's
+// own console and nowhere else, on the reasoning that it is the number telling
+// him whether to skip a recommendation. But the console is not a private
+// screen: it is the text he relays, verbatim, to someone who drafts the name
+// and does no analysis. A percentage that reader cannot act on is at best noise
+// beside the one instruction that matters, and at worst the board read that
+// every other rule in this file exists to keep out of the league channel.
+describe('the survival forecast', () => {
+  it('appears in no message of any kind', () => {
+    for (let i = 0; i < everyKind.length; i++) {
+      const s = formatDraftMessage(everyKind[i])
+      expect(s, everyKind[i].kind).not.toContain('survives')
+      expect(s, everyKind[i].kind).not.toContain('12%')
+      expect(s, everyKind[i].kind).not.toContain('34%')
+    }
   })
 
-  it('still names only one player', () => {
-    const s = formatDraftMessage(
-      { kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [chase, offBoard] },
-      'private'
-    )
-    expect(s).toContain('Bijan Robinson')
-    expect(s).not.toContain("Ja'Marr Chase")
-    expect(s).not.toContain('Else')
+  it('is gone from the instruction that carries it, leaving the bare name', () => {
+    const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] })
+    expect(s).toBe('ON THE CLOCK — pick 24\nTAKE: RB Bijan Robinson')
   })
 
-  it('still withholds the rationale, which is a read of the board either way', () => {
-    const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] }, 'private')
+  it('still withholds the rationale, which was never renderable either', () => {
+    const s = formatDraftMessage({ kind: 'on_clock', pickNo: 24, instruction: bijan, fallbacks: [] })
     expect(s).not.toContain('3 left in RB T1')
     expect(s).not.toContain('fills RB starter slot')
   })
 
-  it('ConsoleNotifier uses it, so Andrew sees the forecast on his own screen', async () => {
+  it('is absent from the console too, which is the text that gets relayed', async () => {
     const written: string[] = []
     const original = console.log
     // eslint-disable-next-line no-console
@@ -173,18 +159,21 @@ describe('the private rendering', () => {
       // eslint-disable-next-line no-console
       console.log = original
     }
-    expect(written.join('\n')).toContain('(12% survives)')
+    expect(written.join('\n')).toContain('TAKE: RB Bijan Robinson')
+    expect(written.join('\n')).not.toContain('survives')
   })
 
-  it('names at most one player per message', () => {
-    // Every message carrying a player is handed three; only the first may show.
-    const withPlayers = everyKind.filter((m) => m.kind === 'heads_up' || m.kind === 'on_clock' || m.kind === 'escalation')
-    expect(withPlayers.length).toBe(3)
-    for (let i = 0; i < withPlayers.length; i++) {
-      const s = formatDraftMessage(withPlayers[i])
-      expect(s, withPlayers[i].kind).toContain('Bijan Robinson')
-      expect(s, withPlayers[i].kind).not.toContain("Ja'Marr Chase")
-      expect(s, withPlayers[i].kind).not.toContain('Some Deep Guy')
+  it('names exactly one player per message that names any', () => {
+    // Each is handed three players; only the first may show. Every message
+    // that carries players is now one that instructs -- the get-ready warning
+    // that named a provisional player has been removed entirely.
+    const instructing = everyKind.filter((m) => m.kind === 'on_clock' || m.kind === 'escalation')
+    expect(instructing.length).toBe(2)
+    for (let i = 0; i < instructing.length; i++) {
+      const s = formatDraftMessage(instructing[i])
+      expect(s, instructing[i].kind).toContain('Bijan Robinson')
+      expect(s, instructing[i].kind).not.toContain("Ja'Marr Chase")
+      expect(s, instructing[i].kind).not.toContain('Some Deep Guy')
     }
   })
 
@@ -227,7 +216,6 @@ describe('the LOAD confirmation', () => {
 
 const KINDS: DraftMessage['kind'][] = [
   'loaded',
-  'heads_up',
   'on_clock',
   'escalation',
   'pick_confirmed',
@@ -240,7 +228,6 @@ const KINDS: DraftMessage['kind'][] = [
 
 const SEQUENCE: DraftMessage[] = [
   { kind: 'loaded', draftId: 'test-draft', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 },
-  { kind: 'heads_up', picksAway: 2, myPickNo: 5, shortlist: [bijan, chase] },
   { kind: 'on_clock', pickNo: 5, instruction: bijan, fallbacks: [chase] },
   { kind: 'escalation', pickNo: 5, secondsElapsed: 55, instruction: bijan, fallbacks: [] },
   { kind: 'pick_confirmed', pickNo: 5, player: bijan },
@@ -309,8 +296,10 @@ describe('JsonlNotifier', () => {
 
     const all = lines()
     expect(all.length).toBe(3)
-    expect((JSON.parse(all[0]) as DraftMessage).kind).toBe('loaded')
-    expect((JSON.parse(all[2]) as DraftMessage).kind).toBe('on_clock')
+    // Asserted against SEQUENCE rather than hardcoded kinds, so removing a
+    // message kind cannot silently turn this into a test of the wrong line.
+    expect((JSON.parse(all[0]) as DraftMessage).kind).toBe(SEQUENCE[0].kind)
+    expect((JSON.parse(all[2]) as DraftMessage).kind).toBe(SEQUENCE[2].kind)
   })
 
   it('creates the log directory if it does not exist', async () => {

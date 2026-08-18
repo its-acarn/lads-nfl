@@ -98,6 +98,14 @@ export function buildState(
   const pickedIds: Record<string, boolean> = {}
   const myRoster = myRosterId(cfg.draft, cfg.myUserId)
   const myRosterIds: string[] = []
+  const myTeamCountsByPos: Record<Position, Record<string, number>> = {
+    QB: {},
+    RB: {},
+    WR: {},
+    TE: {},
+    K: {},
+    DEF: {},
+  }
   for (let i = 0; i < picks.length; i++) {
     const p = picks[i]
     pickedIds[p.player_id] = true
@@ -106,7 +114,14 @@ export function buildState(
     if (rosterId !== null && rosterId !== undefined) {
       if (!posCountsByRoster[rosterId]) posCountsByRoster[rosterId] = emptyCounts()
       posCountsByRoster[rosterId][pos]++
-      if (rosterId === myRoster) myRosterIds.push(p.player_id)
+      if (rosterId === myRoster) {
+        myRosterIds.push(p.player_id)
+        // The NFL team has to be captured here, while the player is still in
+        // hand: he is off the pool by definition, so nothing downstream can
+        // look him up.
+        const nflTeam = (players[p.player_id] || {}).team
+        if (nflTeam) myTeamCountsByPos[pos][nflTeam] = (myTeamCountsByPos[pos][nflTeam] || 0) + 1
+      }
     }
   }
   const myPosCounts = posCountsByRoster[myRoster] || emptyCounts()
@@ -214,6 +229,7 @@ export function buildState(
     myRemainingPickNos,
     myRosterIds,
     myPosCounts,
+    myTeamCountsByPos,
     posCountsByRoster,
     pool,
   }

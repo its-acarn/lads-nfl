@@ -130,8 +130,11 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   interface Relaxation {
     stash: boolean
     collapse: boolean
+    stacks: boolean
     caps: boolean
   }
+
+  const maxPerNflTeamByPos = rules.maxPerNflTeamByPos || {}
 
   const filterPool = (relax: Relaxation): PoolPlayer[] => {
     const out: PoolPlayer[] = []
@@ -139,6 +142,13 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
       const p = state.pool[i]
       if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
       if (!relax.caps && (state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
+      // One per NFL team at this position. A null team is a free agent and
+      // shares a backfield with nobody, so it constrains nothing.
+      if (!relax.stacks && p.team) {
+        const perTeam = maxPerNflTeamByPos[p.pos]
+        const held = (state.myTeamCountsByPos[p.pos] || {})[p.team] || 0
+        if (perTeam !== undefined && held >= perTeam) continue
+      }
       // Applied unconditionally, and BEFORE the forced-set test. It used to sit
       // in an `else if` on that test, so whenever forced mode was active the
       // floor was not consulted at all — a second, quieter breach path than the
@@ -153,10 +163,19 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   }
 
   const levels: { relax: Relaxation; gaveUp: string | null }[] = [
-    { relax: { stash: false, collapse: false, caps: false }, gaveUp: null },
-    { relax: { stash: true, collapse: false, caps: false }, gaveUp: 'the stash rule' },
-    { relax: { stash: true, collapse: true, caps: false }, gaveUp: 'the stash rule and the forced collapse' },
-    { relax: { stash: true, collapse: true, caps: true }, gaveUp: 'the stash rule, the forced collapse and your position caps' },
+    { relax: { stash: false, collapse: false, stacks: false, caps: false }, gaveUp: null },
+    { relax: { stash: true, collapse: false, stacks: false, caps: false }, gaveUp: 'the stash rule' },
+    { relax: { stash: true, collapse: true, stacks: false, caps: false }, gaveUp: 'the stash rule and the forced collapse' },
+    // One per NFL team goes before position caps: it is a correlation
+    // preference, where a cap is a decision about roster shape.
+    {
+      relax: { stash: true, collapse: true, stacks: true, caps: false },
+      gaveUp: 'the stash rule, the forced collapse and one per NFL team',
+    },
+    {
+      relax: { stash: true, collapse: true, stacks: true, caps: true },
+      gaveUp: 'the stash rule, the forced collapse, one per NFL team and your position caps',
+    },
   ]
 
   let candidates: PoolPlayer[] = []

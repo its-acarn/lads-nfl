@@ -110,25 +110,82 @@ export function docIdFrom(sheetArg: string): string {
   return m ? m[1] : sheetArg
 }
 
-// The gviz endpoint addresses a tab by name, which keeps this readable and
-// survives the sheet being reordered; gids would not.
-export async function fetchTab(docId: string, tab: string): Promise<string[][]> {
-  const url =
-    `https://docs.google.com/spreadsheets/d/${docId}/gviz/tq` +
-    `?tqx=out:csv&sheet=${encodeURIComponent(tab)}`
+export interface SheetTab {
+  name: string
+  gid: string
+}
+
+// The sheet's own tab list, read off the htmlview page, which embeds it as a
+// run of `items.push({name: "...", ..., gid: "..."})` calls.
+//
+// This exists because gviz has no way to say "no such tab": asked for a name
+// the sheet does not have, it serves the FIRST tab with a 200 and no warning,
+// and an import then reads entirely the wrong data while looking healthy. It
+// does the same for an unknown gid. Knowing the real tab list before fetching
+// is the only way to tell the two cases apart.
+export function parseTabList(html: string): SheetTab[] {
+  const out: SheetTab[] = []
+  // `gid:` (the field) rather than `gid=` (which also appears inside pageUrl).
+  const re = /\{name:\s*("(?:[^"\\]|\\.)*")[^}]*?gid:\s*"(\d+)"/g
+  let m = re.exec(html)
+  while (m !== null) {
+    let name = m[1]
+    try {
+      name = JSON.parse(name)
+    } catch {
+      name = name.slice(1, -1)
+    }
+    out.push({ name, gid: m[2] })
+    m = re.exec(html)
+  }
+  return out
+}
+
+export function resolveTabGid(tabs: SheetTab[], tab: string): string {
+  const want = tab.trim().toLowerCase()
+  for (let i = 0; i < tabs.length; i++) {
+    if (tabs[i].name.trim().toLowerCase() === want) return tabs[i].gid
+  }
+  fail(`no tab named "${tab}" in this spreadsheet. It has: ${tabs.map((t) => t.name).join(', ')}`)
+}
+
+async function get(url: string, what: string): Promise<{ status: number; text: string }> {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 30000)
   try {
     const res = await fetch(url, { signal: controller.signal })
-    if (!res.ok) fail(`GET tab "${tab}" -> HTTP ${res.status}. Is the sheet shared as "anyone with the link"?`)
-    const text = await res.text()
-    if (text.indexOf('<!DOCTYPE') === 0 || text.indexOf('<HTML') === 0) {
-      fail(`tab "${tab}" returned HTML, not CSV — the sheet is not readable without signing in`)
-    }
-    return parseCsv(text)
+    return { status: res.status, text: await res.text() }
+  } catch (e) {
+    return fail(`GET ${what} failed: ${e instanceof Error ? e.message : String(e)}`)
   } finally {
     clearTimeout(timer)
   }
+}
+
+export async function fetchTabList(docId: string): Promise<SheetTab[]> {
+  const url = `https://docs.google.com/spreadsheets/d/${docId}/htmlview`
+  const res = await get(url, `tab list for ${docId}`)
+  if (res.status !== 200) {
+    fail(`GET tab list -> HTTP ${res.status}. Is the sheet shared as "anyone with the link"?`)
+  }
+  return parseTabList(res.text)
+}
+
+// Addressed by gid rather than by name, because only the gid form of the
+// export endpoint validates: a wrong gid is a 400 rather than a silent
+// substitution. The caller still names the tab -- resolution happens against
+// the real tab list first -- so nothing about the CLI gets less readable.
+export async function fetchTab(docId: string, tab: string, gid?: string): Promise<string[][]> {
+  const resolved = gid !== undefined ? gid : resolveTabGid(await fetchTabList(docId), tab)
+  const url = `https://docs.google.com/spreadsheets/d/${docId}/export?format=csv&gid=${encodeURIComponent(resolved)}`
+  const res = await get(url, `tab "${tab}"`)
+  if (res.status === 400) fail(`tab "${tab}" (gid ${resolved}) does not exist in this spreadsheet`)
+  if (res.status !== 200) fail(`GET tab "${tab}" -> HTTP ${res.status}. Is the sheet shared as "anyone with the link"?`)
+  const text = res.text
+  if (text.indexOf('<!DOCTYPE') === 0 || text.indexOf('<HTML') === 0) {
+    fail(`tab "${tab}" returned HTML, not CSV — the sheet is not readable without signing in`)
+  }
+  return parseCsv(text)
 }
 
 // ---------------------------------------------------------------------------
@@ -267,6 +324,36 @@ export interface RankedProblem {
   reason: string
 }
 
+// A board maintained by DRAGGING rows cannot also carry hand-typed tier
+// numbers: every drag across a boundary would need a second edit in the tier
+// cell, and forgetting it trips assertTiersMonotone and fails the import. So a
+// sheet may instead mark the FIRST player of each tier with an "x" and let the
+// tier number follow from position -- which makes a tier decrease impossible
+// to express, rather than merely detectable.
+const TIER_BREAK_MARKERS = ['x']
+
+export function isBreakMarker(value: string): boolean {
+  return TIER_BREAK_MARKERS.indexOf(value.trim().toLowerCase()) !== -1
+}
+
+// Numeric unless the column contains no tier number anywhere AND at least one
+// marker. Deliberately conservative in both directions: a half-converted sheet
+// (some numbers, some marks) stays numeric and reports the marks as unusable
+// rather than silently re-tiering a whole board off two stray cells, and a
+// tier column that has simply been wiped stays numeric too, so it fails loudly
+// instead of importing as one flat tier.
+function tierColumnMode(rows: string[][], tierAt: number): 'numeric' | 'markers' {
+  let sawMarker = false
+  for (let r = 1; r < rows.length; r++) {
+    const v = cell(rows, r, tierAt)
+    if (v.length === 0) continue
+    const n = parseInt(v, 10)
+    if (isFinite(n) && n > 0) return 'numeric'
+    if (isBreakMarker(v)) sawMarker = true
+  }
+  return sawMarker ? 'markers' : 'numeric'
+}
+
 export function parseRankedTab(rows: string[][]): { entries: RankedEntry[]; problems: RankedProblem[] } {
   if (rows.length === 0) fail('ranked tab is empty')
   const header = rows[0]
@@ -281,19 +368,39 @@ export function parseRankedTab(rows: string[][]): { entries: RankedEntry[]; prob
   if (tierAt === -1) fail(`ranked tab has no tier column (looked for ${RANKED_TIER_HEADERS.join(', ')})`)
   if (posAt === -1) fail(`ranked tab has no position column (looked for ${RANKED_POS_HEADERS.join(', ')})`)
 
+  const mode = tierColumnMode(rows, tierAt)
   const entries: RankedEntry[] = []
   const problems: RankedProblem[] = []
+  let markerTier = 1
+  let namedRows = 0
   for (let r = 1; r < rows.length; r++) {
     const name = cell(rows, r, nameAt)
     if (name.length === 0) continue
 
     const tierRaw = cell(rows, r, tierAt)
-    const tier = parseInt(tierRaw, 10)
-    // The whole value curve is built on tiers, so a row landing in tier NaN
-    // prices wrong and everything downstream inherits it.
-    if (!isFinite(tier) || tier <= 0) {
-      problems.push({ row: r, name, reason: `unusable tier: "${tierRaw}"` })
-      continue
+    let tier: number
+    if (mode === 'markers') {
+      if (isBreakMarker(tierRaw)) {
+        // A marker on the very first row is redundant -- there is no tier
+        // above it to end -- so it opens tier 1 rather than tier 2.
+        if (namedRows > 0) markerTier++
+        tier = markerTier
+      } else if (tierRaw.length === 0) {
+        tier = markerTier
+      } else {
+        namedRows++
+        problems.push({ row: r, name, reason: `unusable tier marker: "${tierRaw}"` })
+        continue
+      }
+      namedRows++
+    } else {
+      tier = parseInt(tierRaw, 10)
+      // The whole value curve is built on tiers, so a row landing in tier NaN
+      // prices wrong and everything downstream inherits it.
+      if (!isFinite(tier) || tier <= 0) {
+        problems.push({ row: r, name, reason: `unusable tier: "${tierRaw}"` })
+        continue
+      }
     }
 
     const posRaw = cell(rows, r, posAt)

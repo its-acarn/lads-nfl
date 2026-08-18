@@ -3,14 +3,14 @@
 // so review the wording here, not there. Formatting targets a phone screen —
 // short lines, front-loaded verbs, no tables.
 //
-// EVERY MESSAGE RECOMMENDS AT MOST ONE PLAYER, and the public rendering
-// reveals nothing about the board beyond that name. These get shared in a
-// league channel, where a shortlist tells the other eleven managers what
-// Andrew is thinking — as does a rationale line like "2 left in RB T2; 0%
-// survives to pick 20", and as does a bare survival percentage on its own.
-// So `fallbacks` and `shortlist` are never rendered here even when a caller
-// populates them, the rationale never leaves the process, and the survival
-// forecast appears only in the 'private' rendering (see Audience below).
+// EVERY MESSAGE NAMES AT MOST ONE PLAYER, and nothing beyond that name. The
+// reader is someone drafting the name they are handed and doing no analysis,
+// and these get pasted into a league channel — so a shortlist, a rationale
+// line like "2 left in RB T2; 0% survives to pick 20", and a bare survival
+// percentage are all excluded, for the same two reasons each time: the reader
+// cannot act on them, and the other eleven managers can. `fallbacks` is never
+// rendered even when a caller populates it, and the rationale never leaves the
+// process.
 //
 // `pick_mismatch` names two players; both are already public by the time it
 // is sent. That is the one documented exception, explained at its case.
@@ -20,52 +20,42 @@
 // re-issues a fresh single-name instruction when the player it named is taken
 // while the pick is still open (see bot.ts). The message is therefore public-
 // safe AND strictly more useful — it always names someone actually available.
+//
+// There is no `heads_up`. The bot used to warn when a pick came within three,
+// and the warning only ever paid for itself for a reader who would do
+// something with it. This one acts on the instruction; a message naming nobody
+// is one they must read and discard.
 
 import * as fs from 'fs'
 import * as path from 'path'
 import { DraftMessage, Notifier, Scored } from './types'
 
-// Two audiences, and they must not get the same string.
+// ONE rendering, for one reader.
 //
-// 'public' is what may be pasted into the league channel, and what Phase 4
-// channels send verbatim. It carries the player's name and nothing that
-// reveals the engine's read of the board.
-//
-// 'private' is Andrew's own console. The survival forecast belongs here and
-// only here: "97% survives" is the single most decision-useful number the
-// engine produces — it is what says *skip this one, he will still be there* —
-// and it is also precisely what a rival manager most wants to know. Suppressing
-// the rationale array while leaving this rendered everywhere was a hole in the
-// one-name rule, not an exception to it.
-export type Audience = 'public' | 'private'
-
-function renderLine(s: Scored, audience: Audience): string {
-  // (off-board) stays in both: it says the player is not on Andrew's board,
-  // which tells a rival nothing they could act on.
+// There used to be two — a 'public' string safe for the league channel and a
+// 'private' one for Andrew's console carrying "97% survives", on the reasoning
+// that the forecast is the number telling him whether to skip a pick. That
+// reasoning assumed the console was read by someone doing analysis. It is not:
+// its text is relayed verbatim to a friend who drafts the name and nothing
+// else. For that reader a percentage is noise beside the single instruction
+// that matters, and it is the same read of the board that the shortlist and
+// rationale are suppressed to protect. So it is rendered to nobody, and there
+// is no second audience for it to hide in.
+function renderLine(s: Scored): string {
+  // (off-board) stays: it says the player is not on Andrew's board, which tells
+  // a rival nothing they could act on and tells the relay nothing to weigh.
   const offBoard = s.offBoard ? ' (off-board)' : ''
-  const survival =
-    audience === 'private' && !s.offBoard && s.survivalToNextPct !== null
-      ? ` (${s.survivalToNextPct}% survives)`
-      : ''
-  return `${s.pos} ${s.name}${offBoard}${survival}`
+  return `${s.pos} ${s.name}${offBoard}`
 }
 
-// Defaults to 'public'. A caller that forgets the argument leaks nothing, which
-// is the safe direction for the one property in this file that gets shared.
-export function formatDraftMessage(msg: DraftMessage, audience: Audience = 'public'): string {
-  const line = (s: Scored): string => renderLine(s, audience)
+export function formatDraftMessage(msg: DraftMessage): string {
+  const line = (s: Scored): string => renderLine(s)
   switch (msg.kind) {
     case 'loaded':
       return (
         `READY — ${msg.teams} teams, ${msg.rounds} rounds, you are slot ${msg.slot}.\n` +
         `Your picks: ${msg.pickNos.join(', ')}`
       )
-    case 'heads_up': {
-      // A get-ready signal that names the one player currently at the top, and
-      // nothing about the rest of the board.
-      const head = `HEADS UP — pick ${msg.myPickNo} is ${msg.picksAway} away.`
-      return msg.shortlist.length > 0 ? `${head}\nLikely: ${line(msg.shortlist[0])}` : head
-    }
     case 'on_clock':
       return `ON THE CLOCK — pick ${msg.pickNo}\nTAKE: ${line(msg.instruction)}`
     case 'escalation':
@@ -103,11 +93,10 @@ export class ConsoleNotifier implements Notifier {
 
   send(msg: DraftMessage): Promise<void> {
     const stamp = this.clock()
-    // Andrew's own screen: the survival forecast belongs here, because it is
-    // what tells him whether a recommendation is urgent or safe to skip. What
-    // he chooses to paste into the channel is the public rendering, which is
-    // formatDraftMessage's default.
-    const body = formatDraftMessage(msg, 'private')
+    // The same string everyone else gets. This console is not a private screen
+    // — it is the text that gets relayed on, so anything it adds is something
+    // the relay has to strip.
+    const body = formatDraftMessage(msg)
       .split('\n')
       .map((l, i) => (i === 0 ? `[${stamp}] ${l}` : `           ${l}`))
       .join('\n')

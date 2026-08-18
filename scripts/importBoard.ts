@@ -41,7 +41,12 @@ import { BoardInput, BoardPlayerInput, PlayerMap, Position, TrimmedPlayer } from
 const ROOT = path.join(__dirname, '..')
 const BOARD_FILE = path.join(ROOT, 'config', 'board.json')
 const PLAYERS_FILE = path.join(ROOT, 'fixtures', 'players.trim.json')
-const DEFAULT_TAB = 'LLL Tiers'
+// The 2026 board tab. Was "LLL Tiers", which is the 2025 sheet's name and does
+// not exist in the 2026 document -- and because gviz answers a request for a
+// missing tab by serving the first one, every import silently read the ADP
+// export instead. fetchTab now refuses a tab the sheet does not have, so a
+// wrong default fails loudly rather than drafting the market's board.
+const DEFAULT_TAB = 'My Board'
 
 // A board this short is not a board. Andrew's 2025 sheet held 157 tiered
 // players; a partial parse -- a renamed column, a changed row bound, a tab
@@ -361,6 +366,11 @@ async function main(): Promise<void> {
     )
   }
   const tab = arg('tab') || DEFAULT_TAB
+  // The gid out of the sheet URL, for the day Google changes the page the tab
+  // list is read from. Named tabs are the readable form and stay the default;
+  // this is the escape hatch, and it must exist on a board that has to import
+  // on draft day.
+  const gid = arg('gid') || undefined
   const docId = docIdFrom(sheetArg)
 
   if (!fs.existsSync(PLAYERS_FILE)) {
@@ -369,8 +379,8 @@ async function main(): Promise<void> {
   const playerMap = JSON.parse(fs.readFileSync(PLAYERS_FILE, 'utf8')) as PlayerMap
 
   // eslint-disable-next-line no-console
-  console.log(`reading tab "${tab}" from spreadsheet ${docId}`)
-  const rows = await fetchTab(docId, tab)
+  console.log(`reading tab "${tab}"${gid ? ` (gid ${gid})` : ''} from spreadsheet ${docId}`)
+  const rows = await fetchTab(docId, tab, gid)
 
   // A position the board caps at zero is one Andrew has decided never to
   // draft, so carrying it would only give the engine something it must then

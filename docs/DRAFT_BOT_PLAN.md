@@ -105,7 +105,6 @@ recommend(state: BoardState, opts: SimOpts): Recommendation // { primary, fallba
 
 ```ts
 type DraftMessage =
-  | { kind: 'heads_up';   picksAway: number; myPickNo: number; shortlist: Scored[] }
   | { kind: 'on_clock';   pickNo: number; instruction: Scored; fallbacks: Scored[] }
   | { kind: 'escalation'; pickNo: number; secondsElapsed: number; instruction: Scored; fallbacks: Scored[] }
   | { kind: 'pick_confirmed'; pickNo: number; player: Scored }
