@@ -240,7 +240,8 @@ describe('the instruction audit', () => {
     const p = base.picks[0]
     const audit = buildAudit(base.picks, [
       { kind: 'loaded', draftId: fx.draft.draft_id, slot: 2, pickNos: [p.pickNo], rounds: 14, teams: 12 },
-      { kind: 'heads_up', picksAway: 2, myPickNo: p.pickNo, shortlist: [scored('x', 'X', 'RB')] },
+      { kind: 'draft_paused' },
+      { kind: 'draft_resumed' },
       { kind: 'on_clock', pickNo: p.pickNo, instruction: scored(p.player_id, p.name, p.pos), fallbacks: [] },
       { kind: 'draft_complete', rosterSummary: '' },
     ])
