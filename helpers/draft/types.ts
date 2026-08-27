@@ -158,6 +158,24 @@ export interface BoardRules {
   // an empty candidate set, it is given up first, and announced.
   maxPerNflTeamByPos?: Partial<Record<Position, number>>
 
+  // At least `count` players at this position by the END of `byRound` -- that
+  // round is included. The inverse of a round floor: a floor is a prohibition,
+  // which can always be satisfied by taking somebody else, while this is an
+  // obligation that eventually has to be paid.
+  //
+  // Binds JUST IN TIME. While enough of my picks remain inside the window to
+  // settle the debt later, the engine follows the board exactly as it would
+  // without the rule; only when the players still owed equal the picks left in
+  // the window does the candidate set narrow to that position. `RB: 3 by round
+  // 6` on a slot-5 board therefore does nothing until pick 44, and nothing at
+  // all if a back is taken early.
+  //
+  // If the debt can no longer be paid -- more owed than picks left, which a bot
+  // attached mid-draft can inherit -- the quota stands down and says so rather
+  // than refusing to recommend anything. Unlike a floor it is a claim about
+  // picks already spent, and blocking the draft does not get them back.
+  minCountByRound?: Partial<Record<Position, { count: number; byRound: number }>>
+
   stashRound: number
   offBoardDiscount: number
   needWeights?: NeedWeightRules
