@@ -7,10 +7,10 @@
   "players": [
     { "name": "Jahmyr Gibbs", "pos": "RB", "team": "DET", "tier": 1, "rank": 1 },
     { "name": "Bijan Robinson", "pos": "RB", "team": "ATL", "tier": 1, "rank": 2 },
-    { "name": "Puka Nacua", "pos": "WR", "team": "LAR", "tier": 1, "rank": 3 },
-    { "name": "Jonathan Taylor", "pos": "RB", "team": "IND", "tier": 1, "rank": 4 },
-    { "name": "Christian McCaffrey", "pos": "RB", "team": "SF", "tier": 1, "rank": 5 },
-    { "name": "Ja'Marr Chase", "pos": "WR", "team": "CIN", "tier": 1, "rank": 6 },
+    { "name": "Ja'Marr Chase", "pos": "WR", "team": "CIN", "tier": 1, "rank": 3 },
+    { "name": "Puka Nacua", "pos": "WR", "team": "LAR", "tier": 1, "rank": 4 },
+    { "name": "Jonathan Taylor", "pos": "RB", "team": "IND", "tier": 1, "rank": 5 },
+    { "name": "Christian McCaffrey", "pos": "RB", "team": "SF", "tier": 1, "rank": 6 },
     { "name": "Jaxon Smith-Njigba", "pos": "WR", "team": "SEA", "tier": 1, "rank": 7 },
     { "name": "Amon-Ra St. Brown", "pos": "WR", "team": "DET", "tier": 1, "rank": 8 },
     { "name": "Ashton Jeanty", "pos": "RB", "team": "LV", "tier": 2, "rank": 9 },
@@ -260,16 +260,16 @@
     { "name": "Devin Neal", "pos": "RB", "team": "NO", "tier": 5, "rank": 253 },
     { "name": "Devin Singletary", "pos": "RB", "team": "NYG", "tier": 5, "rank": 254 },
     { "name": "Theo Johnson", "pos": "TE", "team": "NYG", "tier": 5, "rank": 255 },
-    { "name": "Adam Randall", "pos": "RB", "team": "BAL", "tier": 5, "rank": 256 },
-    { "name": "Brashard Smith", "pos": "RB", "team": "KC", "tier": 5, "rank": 257 },
-    { "name": "Kaleb Johnson", "pos": "RB", "team": "PIT", "tier": 5, "rank": 258 },
-    { "name": "Seth McGowan", "pos": "RB", "team": "IND", "tier": 5, "rank": 259 },
-    { "name": "Kendre Miller", "pos": "RB", "team": "NO", "tier": 5, "rank": 260 },
-    { "name": "Jerome Ford", "pos": "RB", "team": "WAS", "tier": 5, "rank": 261 },
-    { "name": "Kyle Williams", "pos": "WR", "team": "NE", "tier": 5, "rank": 262 },
-    { "name": "Marquise Brown", "pos": "WR", "team": "PHI", "tier": 5, "rank": 263 },
-    { "name": "Caleb Douglas", "pos": "WR", "team": "MIA", "tier": 5, "rank": 264 },
-    { "name": "Mack Hollins", "pos": "WR", "team": "NE", "tier": 5, "rank": 265 }
+    { "name": "Keenan Allen", "pos": "WR", "team": "LAC", "tier": 5, "rank": 256 },
+    { "name": "Adam Randall", "pos": "RB", "team": "BAL", "tier": 5, "rank": 257 },
+    { "name": "Brashard Smith", "pos": "RB", "team": "KC", "tier": 5, "rank": 258 },
+    { "name": "Kaleb Johnson", "pos": "RB", "team": "PIT", "tier": 5, "rank": 259 },
+    { "name": "Seth McGowan", "pos": "RB", "team": "IND", "tier": 5, "rank": 260 },
+    { "name": "Kendre Miller", "pos": "RB", "team": "NO", "tier": 5, "rank": 261 },
+    { "name": "Jerome Ford", "pos": "RB", "team": "WAS", "tier": 5, "rank": 262 },
+    { "name": "Kyle Williams", "pos": "WR", "team": "NE", "tier": 5, "rank": 263 },
+    { "name": "Marquise Brown", "pos": "WR", "team": "PHI", "tier": 5, "rank": 264 },
+    { "name": "Caleb Douglas", "pos": "WR", "team": "MIA", "tier": 5, "rank": 265 }
   ],
   "doNotDraft": [],
   "pins": [],
@@ -280,9 +280,7 @@
   },
 
   "//notInLeague": "Names on the sheet that Sleeper's player map does not contain at all -- unsigned, retired, or otherwise not on an NFL roster. Dropped at import and reported on every run, so the list stays honest rather than quietly growing. If one of these signs, delete them from here and re-import.",
-  "notInLeague": [
-    "Keenan Allen"
-  ],
+  "notInLeague": [],
 
   "rules": {
     "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB/WR left permissive so the board drives them rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",

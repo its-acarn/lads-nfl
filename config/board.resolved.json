@@ -21,11 +21,19 @@
    "player_id": "9509"
   },
   {
+   "name": "Ja'Marr Chase",
+   "pos": "WR",
+   "team": "CIN",
+   "tier": 1,
+   "rank": 3,
+   "player_id": "7564"
+  },
+  {
    "name": "Puka Nacua",
    "pos": "WR",
    "team": "LAR",
    "tier": 1,
-   "rank": 3,
+   "rank": 4,
    "player_id": "9493"
   },
   {
@@ -33,7 +41,7 @@
    "pos": "RB",
    "team": "IND",
    "tier": 1,
-   "rank": 4,
+   "rank": 5,
    "player_id": "6813"
   },
   {
@@ -41,16 +49,8 @@
    "pos": "RB",
    "team": "SF",
    "tier": 1,
-   "rank": 5,
-   "player_id": "4034"
-  },
-  {
-   "name": "Ja'Marr Chase",
-   "pos": "WR",
-   "team": "CIN",
-   "tier": 1,
    "rank": 6,
-   "player_id": "7564"
+   "player_id": "4034"
   },
   {
    "name": "Jaxon Smith-Njigba",
@@ -2045,11 +2045,19 @@
    "player_id": "11597"
   },
   {
+   "name": "Keenan Allen",
+   "pos": "WR",
+   "team": "LAC",
+   "tier": 5,
+   "rank": 256,
+   "player_id": "1479"
+  },
+  {
    "name": "Adam Randall",
    "pos": "RB",
    "team": "BAL",
    "tier": 5,
-   "rank": 256,
+   "rank": 257,
    "player_id": "13302"
   },
   {
@@ -2057,7 +2065,7 @@
    "pos": "RB",
    "team": "KC",
    "tier": 5,
-   "rank": 257,
+   "rank": 258,
    "player_id": "12455"
   },
   {
@@ -2065,7 +2073,7 @@
    "pos": "RB",
    "team": "PIT",
    "tier": 5,
-   "rank": 258,
+   "rank": 259,
    "player_id": "12504"
   },
   {
@@ -2073,7 +2081,7 @@
    "pos": "RB",
    "team": "IND",
    "tier": 5,
-   "rank": 259,
+   "rank": 260,
    "player_id": "13424"
   },
   {
@@ -2081,7 +2089,7 @@
    "pos": "RB",
    "team": "NO",
    "tier": 5,
-   "rank": 260,
+   "rank": 261,
    "player_id": "9757"
   },
   {
@@ -2089,7 +2097,7 @@
    "pos": "RB",
    "team": "WAS",
    "tier": 5,
-   "rank": 261,
+   "rank": 262,
    "player_id": "8143"
   },
   {
@@ -2097,7 +2105,7 @@
    "pos": "WR",
    "team": "NE",
    "tier": 5,
-   "rank": 262,
+   "rank": 263,
    "player_id": "12547"
   },
   {
@@ -2105,7 +2113,7 @@
    "pos": "WR",
    "team": "PHI",
    "tier": 5,
-   "rank": 263,
+   "rank": 264,
    "player_id": "5848"
   },
   {
@@ -2113,16 +2121,8 @@
    "pos": "WR",
    "team": "MIA",
    "tier": 5,
-   "rank": 264,
-   "player_id": "13296"
-  },
-  {
-   "name": "Mack Hollins",
-   "pos": "WR",
-   "team": "NE",
-   "tier": 5,
    "rank": 265,
-   "player_id": "4177"
+   "player_id": "13296"
   }
  ],
  "doNotDraftIds": [],
