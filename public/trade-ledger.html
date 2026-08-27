@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="All 64 LadsLadsLads trades from 2020-2025, scored on what the players did afterwards.">
+  <title>The Trade Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <style>
+:root{
+  --ground:#EDF0EC; --surface:#FFFFFF; --surface-2:#E4E9E4; --surface-3:#F6F8F5;
+  --ink:#0E1B16; --ink-2:#3A4A42; --muted:#56675E;
+  --rule:#D0D8D1; --rule-2:#B4C0B6;
+  --gain:#B5620A; --loss:#2C6FB0;
+  --gain-soft:#F2E3CE; --loss-soft:#D9E5F3;
+  --ramp-0:#EDF0EC; --ramp-1:#F0DFC6; --ramp-2:#E5BE87; --ramp-3:#D49A47; --ramp-4:#B5620A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1512; --surface:#131F1A; --surface-2:#1A2721; --surface-3:#101A16;
+    --ink:#E4EBE5; --ink-2:#BCCAC0; --muted:#8FA396;
+    --rule:#22322B; --rule-2:#33463C;
+    --gain:#C4831F; --loss:#4E92CF;
+    --gain-soft:#33260F; --loss-soft:#12283A;
+    --ramp-0:#16221C; --ramp-1:#3A2B12; --ramp-2:#6B4A15; --ramp-3:#96681A; --ramp-4:#C4831F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1512; --surface:#131F1A; --surface-2:#1A2721; --surface-3:#101A16;
+  --ink:#E4EBE5; --ink-2:#BCCAC0; --muted:#8FA396;
+  --rule:#22322B; --rule-2:#33463C;
+  --gain:#C4831F; --loss:#4E92CF;
+  --gain-soft:#33260F; --loss-soft:#12283A;
+  --ramp-0:#16221C; --ramp-1:#3A2B12; --ramp-2:#6B4A15; --ramp-3:#96681A; --ramp-4:#C4831F;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px; margin:0 auto; padding:0 24px 88px}
+h1,h2,h3,.disp{font-family:"Archivo","Helvetica Neue",Arial,sans-serif; text-wrap:balance}
+.mono,.num{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted)}
+section{padding:48px 0 0}
+h2.sec{font-size:clamp(24px,3.1vw,32px); font-weight:700; letter-spacing:-.02em; margin:9px 0 6px}
+.sub{color:var(--ink-2); max-width:66ch; margin:0 0 22px}
+/* masthead */
+header.mast{padding:54px 0 0}
+header.mast h1{font-size:clamp(42px,8vw,80px); font-weight:800; line-height:.92; letter-spacing:-.028em;
+  text-transform:uppercase; margin:14px 0 0}
+header.mast h1 em{font-style:normal; color:var(--gain)}
+.standfirst{max-width:62ch; margin:20px 0 0; color:var(--ink-2); font-size:19px}
+.keyfigs{display:grid; grid-template-columns:repeat(auto-fit,minmax(122px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:32px 0 0}
+.keyfig{background:var(--surface); padding:15px 16px 16px}
+.keyfig b{display:block; font-family:"Archivo",sans-serif; font-size:29px; font-weight:800; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; line-height:1.05}
+.keyfig span{display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted); margin-top:6px; line-height:1.35}
+/* ledger */
+.ledger{border:1px solid var(--rule); background:var(--surface); overflow-x:auto}
+.lrow{display:grid; grid-template-columns:150px 46px 1fr 78px 62px; gap:12px; align-items:center;
+  padding:9px 16px; border-bottom:1px solid var(--rule); min-width:640px}
+.lrow:last-child{border-bottom:0}
+.lrow.head{background:var(--surface-2); font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); padding-top:11px; padding-bottom:11px}
+.lrow .who{font-family:"Archivo",sans-serif; font-weight:700; font-size:15px; letter-spacing:-.01em;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.lrow .who i{font-style:normal; color:var(--gain); font-size:11px; margin-left:5px; vertical-align:1px}
+.axis{position:relative; height:15px}
+.axis .zero{position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--rule-2); left:50%}
+.axis b{position:absolute; top:2px; height:11px; border-radius:2px; display:block}
+.axis b.g{background:var(--gain); left:50%}
+.axis b.l{background:var(--loss)}
+.lrow .n{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-variant-numeric:tabular-nums; text-align:right}
+.lrow .n.g{color:var(--gain)} .lrow .n.l{color:var(--loss)}
+.legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 14px; font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.sw{width:11px; height:11px; border-radius:2px; display:inline-block}
+.sw.g{background:var(--gain)} .sw.l{background:var(--loss)}
+figcaption{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); margin-top:13px; line-height:1.5}
+figure{margin:0}
+/* case study */
+.case{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:40px; align-items:start;
+  border:1px solid var(--rule); background:var(--surface); padding:26px}
+.case h3{font-size:22px; font-weight:700; letter-spacing:-.02em; margin:8px 0 12px; line-height:1.15}
+.case p{margin:0 0 13px; color:var(--ink-2)}
+.case p:last-child{margin:0}
+.tag{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; padding:4px 9px; border-radius:2px;
+  background:var(--gain-soft); color:var(--gain); border:1px solid color-mix(in srgb,var(--gain) 35%,transparent)}
+.tag.l{background:var(--loss-soft); color:var(--loss); border-color:color-mix(in srgb,var(--loss) 35%,transparent)}
+.wkchart{display:flex; align-items:flex-end; gap:3px; height:132px; margin-top:6px}
+.wkchart div{flex:1; display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:5px}
+.wkchart i{display:block; border-radius:3px 3px 0 0}
+.wkchart .lab{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--muted); text-align:center}
+/* histograms */
+.hist{display:flex; align-items:flex-end; gap:5px; height:150px}
+.hist > div{flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:6px; height:100%}
+.hist i{display:block; background:var(--gain); border-radius:3px 3px 0 0; opacity:.45}
+.hist .peak i{opacity:1}
+.hist .lab{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); text-align:center}
+.hist .val{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-2); text-align:center}
+/* matrix */
+.matrixwrap{overflow-x:auto; border:1px solid var(--rule); background:var(--surface)}
+table.mx{border-collapse:collapse; font-family:"IBM Plex Mono",monospace; font-size:11px; min-width:640px}
+table.mx th{font-weight:500; color:var(--muted); padding:6px 4px; text-align:center; white-space:nowrap}
+table.mx th.rowh{text-align:right; padding-right:10px; color:var(--ink-2); font-weight:600}
+table.mx td{width:34px; height:30px; text-align:center; border:1px solid var(--surface); color:var(--ink)}
+table.mx th.vert{writing-mode:vertical-rl; transform:rotate(180deg); height:74px; padding:6px 2px}
+/* players */
+.plist{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--rule);
+  border:1px solid var(--rule)}
+.pcard{background:var(--surface); padding:17px 18px}
+.pcard h4{font-family:"Archivo",sans-serif; font-size:15.5px; font-weight:700; margin:0 0 9px; letter-spacing:-.01em}
+.pcard ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px}
+.pcard li{display:grid; grid-template-columns:58px 1fr auto; gap:8px; font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.pcard li em{font-style:normal; color:var(--muted)}
+/* big table */
+.controls{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 16px; align-items:center}
+select,button.srt{font-family:"IBM Plex Mono",monospace; font-size:12px; padding:7px 10px; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule-2); border-radius:2px; cursor:pointer}
+button.srt[aria-pressed="true"]{background:var(--gain); border-color:var(--gain); color:#fff}
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); background:var(--surface)}
+table.big{border-collapse:collapse; width:100%; min-width:860px; font-size:14px}
+table.big th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--muted); font-weight:600; background:var(--surface-2); text-align:left; padding:10px 13px;
+  position:sticky; top:0; z-index:1}
+table.big td{padding:11px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+table.big tr:last-child td{border-bottom:0}
+table.big tr:nth-child(even) td{background:var(--surface-3)}
+td.season{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); white-space:nowrap}
+td.side{width:37%}
+td.side b{font-family:"Archivo",sans-serif; font-weight:700; font-size:13.5px; display:block; margin-bottom:3px}
+td.side b em{font-style:normal; font-size:10.5px; color:var(--gain); margin-left:5px}
+td.side span{display:block; font-size:13.5px; color:var(--ink-2)}
+td.side span i{font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); margin-right:5px}
+td.side .pts{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted)}
+td.net{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+td.net .g{color:var(--gain)} td.net .l{color:var(--loss)}
+.count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); margin-top:11px}
+.method{border-top:1px solid var(--rule); margin-top:52px; padding-top:22px; color:var(--muted); font-size:14px}
+.method p{margin:0 0 10px; max-width:78ch}
+.method b{color:var(--ink-2)}
+:focus-visible{outline:2px solid var(--gain); outline-offset:2px}
+@media (max-width:800px){ .case{grid-template-columns:1fr; gap:24px} .twocol{grid-template-columns:1fr!important; gap:34px!important} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  </style>
+  <style>
+    html{-webkit-text-size-adjust:100%}
+    img,svg{max-width:100%}
+    a{color:var(--gain)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <span class="eyebrow">LadsLadsLads · every trade, 2020–2025</span>
+  <h1>The trade<br><em>ledger</em></h1>
+  <p class="standfirst">Sixty-four trades in six seasons, scored on what the players actually did afterwards. Who won, who paid, and the one deal that beats everything else in the book.</p>
+  <div class="keyfigs" id="keyfigs"></div>
+</header>
+
+<section>
+  <span class="eyebrow">The book of accounts</span>
+  <h2 class="sec">Every manager's running balance</h2>
+  <p class="sub">Net points is what a manager's acquisitions scored in their starting lineup after the trade, minus what the players they gave away scored for the other side. It is zero-sum: the league's balance is exactly nil, so this is purely who took points off whom.</p>
+  <div class="legend"><span><i class="sw g"></i>Up on the deal</span><span><i class="sw l"></i>Down on the deal</span></div>
+  <div class="ledger" id="ledger"></div>
+  <figcaption id="ledgercap"></figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">Number one in the book</span>
+  <h2 class="sec">Josh Jacobs for an ACL and a redshirt</h2>
+  <p class="sub">Week 4, 2024. andymci sends Brandon Aiyuk and rookie Jonathon Brooks to YerMan, with 10 FAAB, for Josh Jacobs and Christian Watson.</p>
+  <div class="case">
+    <div>
+      <span class="tag">+243.8 net · 5 games swung</span>
+      <h3>The biggest margin in league history, by 44 points</h3>
+      <p>Jacobs started all fifteen remaining weeks for andymci and scored 243.3 of his points in the lineup. Aiyuk gave YerMan three starts and 32.5 points before tearing his ACL in week 7. Brooks never played a meaningful down and finished on −0.3.</p>
+      <p>andymci went 8–6 and made the playoffs. Five of those wins came by a margin smaller than what Jacobs and Watson contributed that week, including the week-15 quarter-final. YerMan finished 6–8 and missed out.</p>
+      <p>Judged on the day, it was defensible: a round-two RB for a round-three WR. It became the best trade ever because the other side's assets stopped existing.</p>
+    </div>
+    <figure>
+      <div class="legend"><span><i class="sw g"></i>Jacobs, for andymci</span><span><i class="sw l"></i>Aiyuk, for YerMan</span></div>
+      <div class="wkchart" id="casechart"></div>
+      <figcaption>Weekly fantasy points from the trade in week 4 to the end of the season. Aiyuk's last game was week 7.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Leverage, not volume</span>
+  <h2 class="sec">The trade that swung six games was worth 41 points</h2>
+  <p class="sub">Points won are not the same as games won. A "swing" is a week where a team won by less than the trade was worth to them that week — remove the trade and the result flips. On that measure the biggest deal in the book is not the biggest haul.</p>
+  <div class="plist" id="swings"></div>
+  <figcaption>Both sides of a trade can appear here: the same deal can swing games in opposite directions in different weeks.</figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">Timing</span>
+  <h2 class="sec">Everything happens at the deadline</h2>
+  <div style="display:grid; grid-template-columns:1.55fr 1fr; gap:26px; align-items:start" class="twocol">
+    <figure>
+      <p class="eyebrow" style="margin-bottom:12px">Trades by week of the season</p>
+      <div class="hist" id="weekhist"></div>
+      <figcaption>The league's trade deadline is week 12, and week 12 is the busiest week of the year. Nothing has ever been traded after it.</figcaption>
+    </figure>
+    <figure>
+      <p class="eyebrow" style="margin-bottom:12px">Trades by season</p>
+      <div class="hist" id="seasonhist"></div>
+      <figcaption>2022 was the high-water mark. The last two seasons are the two quietest.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Counterparties</span>
+  <h2 class="sec">Who deals with whom</h2>
+  <p class="sub">The same twelve managers have played every season since 2020, and trades need a willing partner — so the same names keep finding each other. YerMan has been on one end of 25 of the 64, more than a third of every trade in league history. Teviejay is the most frequent counterparty of all, with five deals between them.</p>
+  <div class="matrixwrap" id="matrix"></div>
+  <figcaption>Darker cells are more trades between that pair. One pair has traded five times and five more have traded four; of the 66 possible pairings, 37 have never made a deal.</figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">Frequent flyers</span>
+  <h2 class="sec">Players who kept changing hands</h2>
+  <p class="sub">Eight players have been traded three times. Nico Collins has been moved in three consecutive seasons and scored more for each new owner than the last.</p>
+  <div class="plist" id="players"></div>
+</section>
+
+<section>
+  <span class="eyebrow">The full book</span>
+  <h2 class="sec">All 64 trades</h2>
+  <p class="sub">Points beside each player are what they scored in their new team's starting lineup from the trade to the end of that season. Sort and filter as you like.</p>
+  <div class="controls">
+    <label class="eyebrow" for="fm">Manager</label>
+    <select id="fm"></select>
+    <label class="eyebrow" for="fs">Season</label>
+    <select id="fs"></select>
+    <button class="srt" id="s-date" aria-pressed="true">Sort: date</button>
+    <button class="srt" id="s-net" aria-pressed="false">Sort: margin</button>
+  </div>
+  <div class="tablewrap">
+    <table class="big"><thead><tr>
+      <th>When</th><th>One side gets</th><th>The other gets</th><th style="text-align:right">Margin</th><th style="text-align:right">Swung</th>
+    </tr></thead><tbody id="tbody"></tbody></table>
+  </div>
+  <p class="count" id="count"></p>
+</section>
+
+<div class="method">
+  <p><b>Method.</b> Pulled from the Sleeper API for all six completed seasons: every completed transaction of type <span class="mono">trade</span>, matched against weekly matchup data so each traded player is credited only for points scored in a starting lineup. A trade's margin to one side is the points its acquisitions started for from the trade week onward, minus the points its departures started for at their new home over the same span. Playoff weeks are included.</p>
+  <p><b>Caveat.</b> The counterfactual is generous: it assumes nothing replaces a departed player. In reality a bench body covers some of the loss, so every margin here is an upper bound. The ordering is sound; the sizes are not exact.</p>
+  <p><b>One name change.</b> phillyson and YerMan are the same manager and the same Sleeper account (<span class="mono">343060966679908352</span>), renamed after the 2020 season. Both are counted here as YerMan, which is why the ledger shows 25 deals against that name. Nobody else in the league has changed handle, and the same twelve managers have played all six seasons.</p>
+  <p><b>Two oddities.</b> Two recorded trades transferred no players, picks or FAAB at all and score zero. Seven were a single player for cash. No trade in league history has ever included a draft pick.</p>
+</div>
+</div>
+
+<script>
+const D = {"rows":[{"y":2020,"w":5,"a":"kerrzo","ag":[["Michael Gallup","WR",0.0],["Darrell Henderson","RB",32.2]],"af":0,"an":-71.5,"asw":0,"aswp":0,"ach":true,"apo":true,"b":"YerMan","bg":[["Terry McLaurin","WR",117.2]],"bf":0,"bsw":3,"bswp":1,"bch":false,"bpo":false},{"y":2020,"w":5,"a":"Teviejay","ag":[["1099","?",3.0]],"af":0,"an":-41.6,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Idler","bg":[["Malcolm Brown","RB",0.0],["Chase Edmonds","RB",44.6]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2020,"w":5,"a":"Teviejay","ag":[["1387","?",0.0],["Malcolm Brown","RB",0.0]],"af":0,"an":-9.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["Evan Engram","TE",9.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":5,"a":"kerrzo","ag":[["Julian Edelman","WR",3.3]],"af":0,"an":-135.6,"asw":0,"aswp":0,"ach":true,"apo":true,"b":"StranraerCarny","bg":[["Diontae Johnson","WR",150.0]],"bf":0,"bsw":3,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":6,"a":"timscoular","ag":[["J.D. McKissic","RB",79.3]],"af":0,"an":79.3,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"TheFrenchman08","bg":[["Mike Gesicki","TE",0.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":11,"a":"Teviejay","ag":[["Ezekiel Elliott","RB",33.4],["Taysom Hill","TE",39.5],["Devin Singletary","RB",6.2]],"af":0,"an":-65.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Derrick Henry","RB",144.1]],"bf":0,"bsw":1,"bswp":1,"bch":false,"bpo":false},{"y":2020,"w":12,"a":"ritascoleslaw","ag":[["Zach Ertz","TE",0.0]],"af":0,"an":0.0,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"StewMill","bg":[],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":12,"a":"StranraerCarny","ag":[["Corey Davis","WR",27.3]],"af":0,"an":13.8,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Idler","bg":[["Nyheim Hines","RB",13.5]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2020,"w":12,"a":"ritascoleslaw","ag":[["Zach Ertz","TE",0.0]],"af":0,"an":0.0,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"StewMill","bg":[["Malcolm Brown","RB",0.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":12,"a":"ritascoleslaw","ag":[["Joe Mixon","RB",0.0]],"af":0,"an":-11.7,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"timscoular","bg":[["CeeDee Lamb","WR",18.8]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2020,"w":12,"a":"TheFrenchman08","ag":[["Le'Veon Bell","RB",10.7]],"af":0,"an":-31.9,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"yaks","bg":[["Noah Fant","TE",42.6]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2021,"w":1,"a":"ritascoleslaw","ag":[["Courtland Sutton","WR",94.2]],"af":0,"an":-20.4,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"YerMan","bg":[["Noah Fant","TE",125.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":2,"a":"andymci","ag":[["Mark Ingram","RB",0.0]],"af":-10,"an":0.0,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"Idler","bg":[],"bf":10,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":6,"a":"timscoular","ag":[["Robert Woods","WR",45.1],["Khalil Herbert","RB",9.1]],"af":-10,"an":-19.7,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["DJ Moore","WR",91.8]],"bf":10,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":6,"a":"dingledingle","ag":[["Rashod Bateman","WR",18.7]],"af":-5,"an":18.7,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[],"bf":5,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":7,"a":"Teviejay","ag":[["Melvin Gordon","RB",104.3]],"af":0,"an":47.2,"asw":2,"aswp":0,"ach":false,"apo":false,"b":"timscoular","bg":[["Christian Kirk","WR",70.6]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":8,"a":"kerrzo","ag":[["Tyler Lockett","WR",108.5],["J.D. McKissic","RB",5.9]],"af":0,"an":62.6,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["Myles Gaskin","RB",16.7]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":8,"a":"kerrzo","ag":[["Myles Gaskin","RB",0.0]],"af":-16,"an":-143.8,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Joe Burrow","QB",178.6]],"bf":16,"bsw":2,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":10,"a":"andymci","ag":[["Carson Wentz","QB",11.1]],"af":0,"an":-19.2,"asw":1,"aswp":0,"ach":false,"apo":true,"b":"YerMan","bg":[["DeVonta Smith","WR",42.8]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":10,"a":"dingledingle","ag":[["CAR","DEF",11.0]],"af":0,"an":-2.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"timscoular","bg":[["Pittsburgh Steelers","DEF",13.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2021,"w":10,"a":"YerMan","ag":[["Carson Wentz","QB",7.1]],"af":0,"an":-13.5,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"andymci","bg":[["DeVonta Smith","WR",20.6]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2021,"w":11,"a":"YerMan","ag":[["3327","?",0.0]],"af":0,"an":-28.3,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"TheFrenchman08","bg":[["Pat Freiermuth","TE",34.0]],"bf":0,"bsw":1,"bswp":0,"bch":false,"bpo":true},{"y":2021,"w":11,"a":"TheFrenchman08","ag":[["3327","?",3.6]],"af":0,"an":-5.5,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"YerMan","bg":[["Pat Freiermuth","TE",9.1]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2022,"w":1,"a":"timscoular","ag":[["Michael Gallup","WR",0.0]],"af":0,"an":-101.5,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Pat Freiermuth","TE",106.6]],"bf":0,"bsw":3,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":3,"a":"Idler","ag":[["Tyreek Hill","WR",232.9],["Dawson Knox","TE",72.8]],"af":0,"an":40.8,"asw":6,"aswp":1,"ach":false,"apo":true,"b":"StranraerCarny","bg":[["Justin Jefferson","WR",259.1]],"bf":0,"bsw":0,"bswp":0,"bch":true,"bpo":true},{"y":2022,"w":3,"a":"Teviejay","ag":[["Christian Kirk","WR",63.7]],"af":0,"an":-24.4,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["David Montgomery","RB",88.1]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":4,"a":"TheFrenchman08","ag":[["Cordarrelle Patterson","RB",96.2],["Mike Williams","WR",91.1],["Chase Edmonds","RB",5.9]],"af":0,"an":-124.4,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Davante Adams","WR",239.5],["Breece Hall","RB",73.8]],"bf":0,"bsw":3,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":4,"a":"dingledingle","ag":[["Adam Thielen","WR",72.4],["Kareem Hunt","RB",47.5]],"af":-15,"an":86.5,"asw":2,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Curtis Samuel","WR",32.3]],"bf":15,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2022,"w":6,"a":"andymci","ag":[["4197","?",1.9]],"af":0,"an":-5.1,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["Hunter Renfrow","WR",7.0]],"bf":0,"bsw":0,"bswp":0,"bch":true,"bpo":true},{"y":2022,"w":8,"a":"ritascoleslaw","ag":[["Deebo Samuel","WR",51.5]],"af":-15,"an":-110.4,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Tony Pollard","RB",163.8]],"bf":15,"bsw":3,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":8,"a":"Teviejay","ag":[["Aaron Jones","RB",119.3],["Chris Olave","WR",83.7]],"af":35,"an":73.1,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"Idler","bg":[["Nick Chubb","RB",133.7]],"bf":-35,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":9,"a":"andymci","ag":[["Leonard Fournette","RB",22.4],["George Pickens","WR",87.6]],"af":0,"an":-27.2,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Amon-Ra St. Brown","WR",130.4]],"bf":0,"bsw":1,"bswp":0,"bch":false,"bpo":true},{"y":2022,"w":9,"a":"YerMan","ag":[["Leonard Fournette","RB",8.5]],"af":0,"an":7.5,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"kerrzo","bg":[["Devin Duvernay","WR",1.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2022,"w":10,"a":"StranraerCarny","ag":[["Diontae Johnson","WR",4.2]],"af":0,"an":-26.1,"asw":0,"aswp":0,"ach":true,"apo":true,"b":"kerrzo","bg":[["Drake London","WR",45.3]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2022,"w":10,"a":"StranraerCarny","ag":[["Jeff Wilson","RB",34.6]],"af":-10,"an":10.0,"asw":1,"aswp":0,"ach":true,"apo":true,"b":"Idler","bg":[["Brian Robinson","RB",24.6]],"bf":10,"bsw":3,"bswp":1,"bch":false,"bpo":true},{"y":2022,"w":12,"a":"yaks","ag":[["Christian Kirk","WR",58.7]],"af":-4,"an":26.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Gus Edwards","RB",8.4]],"bf":4,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2022,"w":12,"a":"YerMan","ag":[["DeAndre Hopkins","WR",8.4]],"af":-7,"an":-39.7,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"yaks","bg":[["Garrett Wilson","WR",61.5]],"bf":7,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":1,"a":"StranraerCarny","ag":[],"af":0,"an":0.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"TheFrenchman08","bg":[],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2023,"w":4,"a":"ritascoleslaw","ag":[["Matt Breida","RB",10.3]],"af":-25,"an":10.3,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"yaks","bg":[],"bf":25,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2023,"w":5,"a":"Teviejay","ag":[["Calvin Ridley","WR",37.0],["Khalil Herbert","RB",17.5]],"af":0,"an":-199.7,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["CeeDee Lamb","WR",283.2]],"bf":0,"bsw":1,"bswp":1,"bch":false,"bpo":false},{"y":2023,"w":7,"a":"YerMan","ag":[["Diontae Johnson","WR",0.0]],"af":0,"an":-42.2,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Romeo Doubs","WR",42.2],["8221","?",0.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":7,"a":"StranraerCarny","ag":[["Aaron Jones","RB",37.3]],"af":0,"an":-14.7,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Hollywood Brown","WR",28.6],["Zack Moss","RB",23.4]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":9,"a":"ritascoleslaw","ag":[["Kareem Hunt","RB",5.3],["Nico Collins","WR",104.3]],"af":0,"an":-23.4,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Brandon Aiyuk","WR",119.2]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":10,"a":"kerrzo","ag":[["Calvin Ridley","WR",114.3],["Kyle Pitts","TE",10.3]],"af":-30,"an":50.6,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Gus Edwards","RB",50.8]],"bf":30,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":11,"a":"StewMill","ag":[["DK Metcalf","WR",89.8]],"af":-10,"an":22.7,"asw":2,"aswp":1,"ach":false,"apo":true,"b":"ritascoleslaw","bg":[["James Cook","RB",72.3]],"bf":10,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":11,"a":"yaks","ag":[["Stefon Diggs","WR",50.3]],"af":0,"an":-19.2,"asw":1,"aswp":0,"ach":false,"apo":true,"b":"Idler","bg":[["Darren Waller","TE",0.0],["Jahan Dotson","WR",3.3],["Zay Flowers","WR",54.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":11,"a":"kerrzo","ag":[["D'Onta Foreman","RB",7.4]],"af":-5,"an":7.4,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[],"bf":5,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2023,"w":11,"a":"StranraerCarny","ag":[["Amon-Ra St. Brown","WR",133.5]],"af":0,"an":12.1,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"timscoular","bg":[["Chris Olave","WR",76.1],["Brian Robinson","RB",15.7]],"bf":0,"bsw":1,"bswp":0,"bch":true,"bpo":true},{"y":2024,"w":2,"a":"kerrzo","ag":[["J.K. Dobbins","RB",111.0]],"af":20,"an":0.6,"asw":2,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["Nico Collins","WR",122.7]],"bf":-20,"bsw":2,"bswp":0,"bch":true,"bpo":true},{"y":2024,"w":3,"a":"timscoular","ag":[["Calvin Ridley","WR",0.0],["Javonte Williams","RB",61.6]],"af":0,"an":-77.7,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"StranraerCarny","bg":[["Kenneth Walker","RB",139.3]],"bf":0,"bsw":1,"bswp":0,"bch":true,"bpo":true},{"y":2024,"w":4,"a":"YerMan","ag":[["Jonathon Brooks","RB",-0.3],["Brandon Aiyuk","WR",29.2]],"af":-10,"an":-233.9,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"andymci","bg":[["Josh Jacobs","RB",243.3],["Christian Watson","WR",40.5]],"bf":10,"bsw":5,"bswp":1,"bch":false,"bpo":true},{"y":2024,"w":4,"a":"yaks","ag":[["Jaleel McLaughlin","RB",0.0]],"af":1,"an":0.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"ritascoleslaw","bg":[],"bf":-1,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2024,"w":11,"a":"timscoular","ag":[["Audric Estime","RB",1.5],["DeVonta Smith","WR",46.8]],"af":0,"an":-46.0,"asw":0,"aswp":0,"ach":false,"apo":false,"b":"YerMan","bg":[["Jonathan Taylor","RB",118.8]],"bf":0,"bsw":1,"bswp":0,"bch":false,"bpo":true},{"y":2024,"w":12,"a":"StranraerCarny","ag":[["Ameer Abdullah","RB",15.0]],"af":0,"an":-11.0,"asw":0,"aswp":0,"ach":true,"apo":true,"b":"YerMan","bg":[["Tampa Bay Buccaneers","DEF",26.0]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2024,"w":12,"a":"YerMan","ag":[["Cedric Tillman","WR",0.0],["Kareem Hunt","RB",12.7]],"af":0,"an":-8.9,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"kerrzo","bg":[["Tank Dell","WR",21.6]],"bf":0,"bsw":1,"bswp":1,"bch":false,"bpo":false},{"y":2024,"w":12,"a":"YerMan","ag":[["Marvin Harrison","WR",60.9]],"af":0,"an":-39.8,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"timscoular","bg":[["James Cook","RB",93.4]],"bf":0,"bsw":1,"bswp":1,"bch":false,"bpo":false},{"y":2025,"w":1,"a":"TheFrenchman08","ag":[["Jaylen Waddle","WR",97.4],["Javonte Williams","RB",203.9]],"af":0,"an":122.5,"asw":2,"aswp":0,"ach":false,"apo":false,"b":"yaks","bg":[["Nico Collins","WR",185.7]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2025,"w":2,"a":"StranraerCarny","ag":[],"af":0,"an":0.0,"asw":0,"aswp":0,"ach":true,"apo":true,"b":"Idler","bg":[],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2025,"w":6,"a":"timscoular","ag":[["Tee Higgins","WR",66.7]],"af":0,"an":38.2,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"kerrzo","bg":[["Jordan Mason","RB",12.8]],"bf":0,"bsw":0,"bswp":0,"bch":false,"bpo":true},{"y":2025,"w":6,"a":"Teviejay","ag":[["Theo Johnson","TE",5.1],["Michael Pittman","WR",84.1],["Ja'Marr Chase","WR",180.8]],"af":0,"an":61.7,"asw":3,"aswp":1,"ach":false,"apo":true,"b":"YerMan","bg":[["Darren Waller","TE",8.2],["Puka Nacua","WR",201.5]],"bf":0,"bsw":2,"bswp":1,"bch":false,"bpo":true},{"y":2025,"w":7,"a":"yaks","ag":[["RJ Harvey","RB",97.5],["Tyler Warren","TE",67.5]],"af":0,"an":-10.9,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"Idler","bg":[["Chase Brown","RB",188.7]],"bf":0,"bsw":1,"bswp":0,"bch":false,"bpo":false},{"y":2025,"w":8,"a":"TheFrenchman08","ag":[["Daniel Jones","QB",29.4]],"af":-10,"an":29.4,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"yaks","bg":[],"bf":10,"bsw":0,"bswp":0,"bch":false,"bpo":false},{"y":2025,"w":8,"a":"Idler","ag":[["Travis Kelce","TE",89.2],["Sterling Shepard","WR",1.3]],"af":0,"an":53.9,"asw":1,"aswp":0,"ach":false,"apo":false,"b":"Teviejay","bg":[["Tony Pollard","RB",34.9]],"bf":0,"bsw":1,"bswp":1,"bch":false,"bpo":true},{"y":2025,"w":9,"a":"YerMan","ag":[["Brian Thomas","WR",33.3]],"af":0,"an":-75.3,"asw":0,"aswp":0,"ach":false,"apo":true,"b":"TheFrenchman08","bg":[["Jameson Williams","WR",99.3],["Quentin Johnston","WR",13.3]],"bf":0,"bsw":1,"bswp":0,"bch":false,"bpo":false}],"mgr":{"kerrzo":{"n":11,"net":-232.5,"got":473.6,"gave":728.1,"swing":4,"swing_po":1,"partners":{"YerMan":4,"StranraerCarny":4,"Teviejay":2,"timscoular":1},"best":{"year":2021,"week":8,"net":62.6,"got":["Tyler Lockett","J.D. McKissic"],"gave":["Myles Gaskin"],"vs":["StranraerCarny"],"faab":0},"worst":{"year":2021,"week":8,"net":-143.8,"got":["Myles Gaskin"],"gave":["Joe Burrow"],"vs":["Teviejay"],"faab":-16},"seasons":6},"YerMan":{"n":25,"net":313.7,"got":2157.1,"gave":1814.1,"swing":18,"swing_po":4,"partners":{"kerrzo":4,"Teviejay":5,"ritascoleslaw":3,"andymci":4,"TheFrenchman08":4,"timscoular":3,"yaks":1,"StranraerCarny":1},"best":{"year":2023,"week":5,"net":199.7,"got":["CeeDee Lamb"],"gave":["Calvin Ridley","Khalil Herbert"],"vs":["Teviejay"],"faab":0},"worst":{"year":2024,"week":4,"net":-233.9,"got":["Jonathon Brooks","Brandon Aiyuk"],"gave":["Josh Jacobs","Christian Watson"],"vs":["andymci"],"faab":-10},"seasons":6},"Teviejay":{"n":15,"net":-230.3,"got":1176.8,"gave":1414.0,"swing":9,"swing_po":2,"partners":{"Idler":3,"StranraerCarny":2,"YerMan":5,"timscoular":1,"kerrzo":2,"dingledingle":1,"yaks":1},"best":{"year":2021,"week":8,"net":92.9,"got":["Joe Burrow"],"gave":["Myles Gaskin"],"vs":["kerrzo"],"faab":16},"worst":{"year":2023,"week":5,"net":-199.7,"got":["Calvin Ridley","Khalil Herbert"],"gave":["CeeDee Lamb"],"vs":["YerMan"],"faab":0},"seasons":5},"Idler":{"n":10,"net":75.4,"got":858.6,"gave":777.2,"swing":11,"swing_po":2,"partners":{"Teviejay":3,"StranraerCarny":4,"andymci":1,"yaks":2},"best":{"year":2025,"week":8,"net":53.9,"got":["Travis Kelce","Sterling Shepard"],"gave":["Tony Pollard"],"vs":["Teviejay"],"faab":0},"worst":{"year":2022,"week":8,"net":-73.2,"got":["Nick Chubb"],"gave":["Aaron Jones","Chris Olave"],"vs":["Teviejay"],"faab":-35},"seasons":5},"StranraerCarny":{"n":17,"net":122.9,"got":1047.5,"gave":924.0,"swing":7,"swing_po":0,"partners":{"Teviejay":2,"kerrzo":4,"Idler":4,"timscoular":3,"dingledingle":1,"andymci":1,"TheFrenchman08":1,"YerMan":1},"best":{"year":2020,"week":5,"net":146.7,"got":["Diontae Johnson"],"gave":["Julian Edelman"],"vs":["kerrzo"],"faab":0},"worst":{"year":2021,"week":8,"net":-62.6,"got":["Myles Gaskin"],"gave":["Tyler Lockett","J.D. McKissic"],"vs":["kerrzo"],"faab":0},"seasons":6},"timscoular":{"n":11,"net":-125.1,"got":597.7,"gave":779.0,"swing":3,"swing_po":1,"partners":{"TheFrenchman08":1,"ritascoleslaw":1,"StranraerCarny":3,"Teviejay":1,"dingledingle":1,"YerMan":3,"kerrzo":1},"best":{"year":2020,"week":6,"net":79.3,"got":["J.D. McKissic"],"gave":["Mike Gesicki"],"vs":["TheFrenchman08"],"faab":0},"worst":{"year":2022,"week":1,"net":-101.5,"got":["Michael Gallup"],"gave":["Pat Freiermuth"],"vs":["YerMan"],"faab":0},"seasons":6},"TheFrenchman08":{"n":9,"net":-2.8,"got":684.8,"gave":663.3,"swing":5,"swing_po":0,"partners":{"timscoular":1,"yaks":3,"YerMan":4,"StranraerCarny":1},"best":{"year":2025,"week":1,"net":122.5,"got":["Jaylen Waddle","Javonte Williams"],"gave":["Nico Collins"],"vs":["yaks"],"faab":0},"worst":{"year":2022,"week":4,"net":-124.4,"got":["Cordarrelle Patterson","Mike Williams","Chase Edmonds"],"gave":["Davante Adams","Breece Hall"],"vs":["YerMan"],"faab":0},"seasons":5},"ritascoleslaw":{"n":9,"net":-159.5,"got":337.9,"gave":516.6,"swing":0,"swing_po":0,"partners":{"StewMill":3,"timscoular":1,"YerMan":3,"yaks":2},"best":{"year":2023,"week":4,"net":10.3,"got":["Matt Breida"],"gave":[],"vs":["yaks"],"faab":-25},"worst":{"year":2022,"week":8,"net":-110.4,"got":["Deebo Samuel"],"gave":["Tony Pollard"],"vs":["YerMan"],"faab":-15},"seasons":5},"StewMill":{"n":3,"net":22.7,"got":89.8,"gave":72.3,"swing":2,"swing_po":1,"partners":{"ritascoleslaw":3},"best":{"year":2023,"week":11,"net":22.7,"got":["DK Metcalf"],"gave":["James Cook"],"vs":["ritascoleslaw"],"faab":-10},"worst":{"year":2020,"week":12,"net":0.0,"got":[],"gave":["Zach Ertz"],"vs":["ritascoleslaw"],"faab":0},"seasons":2},"yaks":{"n":9,"net":-106.8,"got":563.8,"gave":614.5,"swing":2,"swing_po":0,"partners":{"TheFrenchman08":3,"Teviejay":1,"YerMan":1,"ritascoleslaw":2,"Idler":2},"best":{"year":2022,"week":12,"net":34.4,"got":["Garrett Wilson"],"gave":["DeAndre Hopkins"],"vs":["YerMan"],"faab":7},"worst":{"year":2025,"week":1,"net":-122.5,"got":["Nico Collins"],"gave":["Jaylen Waddle","Javonte Williams"],"vs":["TheFrenchman08"],"faab":0},"seasons":5},"andymci":{"n":6,"net":205.8,"got":427.4,"gave":216.2,"swing":6,"swing_po":1,"partners":{"Idler":1,"YerMan":4,"StranraerCarny":1},"best":{"year":2024,"week":4,"net":243.8,"got":["Josh Jacobs","Christian Watson"],"gave":["Jonathon Brooks","Brandon Aiyuk"],"vs":["YerMan"],"faab":10},"worst":{"year":2022,"week":9,"net":-27.2,"got":["Leonard Fournette","George Pickens"],"gave":["Amon-Ra St. Brown"],"vs":["YerMan"],"faab":0},"seasons":3},"dingledingle":{"n":3,"net":103.2,"got":149.6,"gave":45.3,"swing":3,"swing_po":0,"partners":{"StranraerCarny":1,"timscoular":1,"Teviejay":1},"best":{"year":2022,"week":4,"net":86.5,"got":["Adam Thielen","Kareem Hunt"],"gave":["Curtis Samuel"],"vs":["Teviejay"],"faab":-15},"worst":{"year":2021,"week":10,"net":-2.0,"got":["CAR"],"gave":["Pittsburgh Steelers"],"vs":["timscoular"],"faab":0},"seasons":2}},"pairs":{"YerMan|kerrzo":4,"Idler|Teviejay":3,"StranraerCarny|Teviejay":2,"StranraerCarny|kerrzo":4,"TheFrenchman08|timscoular":1,"Teviejay|YerMan":5,"StewMill|ritascoleslaw":3,"Idler|StranraerCarny":4,"ritascoleslaw|timscoular":1,"TheFrenchman08|yaks":3,"YerMan|ritascoleslaw":3,"Idler|andymci":1,"StranraerCarny|timscoular":3,"StranraerCarny|dingledingle":1,"Teviejay|timscoular":1,"Teviejay|kerrzo":2,"YerMan|andymci":4,"dingledingle|timscoular":1,"TheFrenchman08|YerMan":4,"YerMan|timscoular":3,"Teviejay|dingledingle":1,"StranraerCarny|andymci":1,"Teviejay|yaks":1,"YerMan|yaks":1,"StranraerCarny|TheFrenchman08":1,"ritascoleslaw|yaks":2,"Idler|yaks":2,"StranraerCarny|YerMan":1,"kerrzo|timscoular":1},"weeks":{"5":5,"6":6,"11":8,"12":10,"1":4,"2":3,"7":4,"8":6,"10":6,"3":3,"4":5,"9":4},"seasons":{"2020":11,"2021":12,"2022":14,"2023":11,"2024":8,"2025":8},"multi":[["Malcolm Brown",3,[[2020,5,"Idler",0.0],[2020,5,"Teviejay",0.0],[2020,12,"StewMill",0.0]]],["Diontae Johnson",3,[[2020,5,"StranraerCarny",150.0],[2022,10,"StranraerCarny",4.2],[2023,7,"YerMan",0.0]]],["Christian Kirk",3,[[2021,7,"timscoular",70.6],[2022,3,"Teviejay",63.7],[2022,12,"yaks",58.7]]],["DeVonta Smith",3,[[2021,10,"YerMan",42.8],[2021,10,"andymci",20.6],[2024,11,"timscoular",46.8]]],["Pat Freiermuth",3,[[2021,11,"TheFrenchman08",34.0],[2021,11,"YerMan",9.1],[2022,1,"YerMan",106.6]]],["Kareem Hunt",3,[[2022,4,"dingledingle",47.5],[2023,9,"ritascoleslaw",5.3],[2024,12,"YerMan",12.7]]],["Calvin Ridley",3,[[2023,5,"Teviejay",37.0],[2023,10,"kerrzo",114.3],[2024,3,"timscoular",0.0]]],["Nico Collins",3,[[2023,9,"ritascoleslaw",104.3],[2024,2,"StranraerCarny",122.7],[2025,1,"yaks",185.7]]]],"jacobs":[[4,9.8],[5,15.9],[6,10.5],[7,17.7],[8,25.0],[9,11.8],[10,0.0],[11,21.4],[12,28.6],[13,19.7],[14,24.6],[15,18.6],[16,18.7],[17,9.9]],"aiyuk":[[4,5.8],[5,18.7],[6,4.7],[7,3.3]]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const one = n => (n>0?'+':'') + n.toFixed(1);
+
+/* key figures */
+const sides = D.rows.length*2;
+const faabDeals = D.rows.filter(r=>r.af||r.bf).length;
+const cash = D.rows.filter(r=>r.ag.length+r.bg.length===1).length;
+const biggest = Math.max(...D.rows.map(r=>Math.abs(r.an)));
+$('#keyfigs').innerHTML = [
+  [D.rows.length,'trades, 2020–2025'],
+  ['1.8','per team per season'],
+  [Object.keys(D.mgr).length,'managers, unchanged since 2020'],
+  [faabDeals,'with FAAB attached'],
+  ['0','with a draft pick'],
+  [one(biggest).replace('+',''),'biggest margin (points)'],
+].map(([b,s])=>`<div class="keyfig"><b>${b}</b><span>${s}</span></div>`).join('');
+
+/* ledger */
+const mgrs = Object.entries(D.mgr).sort((a,b)=>b[1].net-a[1].net);
+const maxAbs = Math.max(...mgrs.map(([,m])=>Math.abs(m.net)));
+$('#ledger').innerHTML =
+  `<div class="lrow head"><span>Manager</span><span>Deals</span><span>Net points won or lost</span><span style="text-align:right">Net</span><span style="text-align:right">Swung</span></div>` +
+  mgrs.map(([n,m])=>{
+    const w = Math.abs(m.net)/maxAbs*50;
+    const bar = m.net>=0 ? `<b class="g" style="width:${w}%"></b>` : `<b class="l" style="width:${w}%; left:${50-w}%"></b>`;
+    return `<div class="lrow"><span class="who">${esc(n)}</span><span class="n">${m.n}</span>` +
+      `<span class="axis"><span class="zero"></span>${bar}</span>` +
+      `<span class="n ${m.net>=0?'g':'l'}">${one(m.net)}</span><span class="n">${m.swing}</span></div>`;
+  }).join('');
+$('#ledgercap').textContent =
+  `Bars run to ±${Math.round(maxAbs)} points. "Swung" counts wins where the margin was smaller than what the trade was worth that week. ` +
+  `ritascoleslaw has made nine trades and never swung a game with one.`;
+
+/* case study chart */
+const cmax = Math.max(...D.jacobs.map(d=>d[1]), ...D.aiyuk.map(d=>d[1]));
+const aiy = Object.fromEntries(D.aiyuk);
+$('#casechart').innerHTML = D.jacobs.map(([w,p])=>{
+  const a = aiy[w];
+  return `<div title="Week ${w}: Jacobs ${p}${a!==undefined?', Aiyuk '+a:''}">` +
+    (a!==undefined?`<i style="height:${a/cmax*46}%; background:var(--loss)"></i>`:'') +
+    `<i style="height:${p/cmax*46}%; background:var(--gain)"></i>` +
+    `<span class="lab">${w}</span></div>`;
+}).join('');
+
+/* swing leaders */
+const swing = [];
+D.rows.forEach(r=>{
+  if(r.asw) swing.push({n:r.a,sw:r.asw,po:r.aswp,net:r.an,y:r.y,w:r.w,got:r.ag.map(g=>g[0]),vs:r.b,gave:r.bg.map(g=>g[0])});
+  if(r.bsw) swing.push({n:r.b,sw:r.bsw,po:r.bswp,net:-r.an,y:r.y,w:r.w,got:r.bg.map(g=>g[0]),vs:r.a,gave:r.ag.map(g=>g[0])});
+});
+swing.sort((a,b)=> b.sw-a.sw || b.po-a.po || b.net-a.net);
+$('#swings').innerHTML = swing.slice(0,6).map(s=>
+  `<div class="pcard"><span class="tag ${s.net<0?'l':''}">${s.sw} game${s.sw>1?'s':''} swung${s.po?' · '+s.po+' in the playoffs':''}</span>
+   <h4 style="margin-top:11px">${esc(s.n)}, ${s.y} week ${s.w}</h4>
+   <ul><li><em>in</em><span>${esc(s.got.join(', ')||'—')}</span><span></span></li>
+   <li><em>out</em><span>${esc(s.gave.join(', ')||'—')}</span><span></span></li>
+   <li><em>margin</em><span>${one(s.net)} pts vs ${esc(s.vs)}</span><span></span></li></ul></div>`
+).join('');
+
+/* histograms */
+function hist(el, entries, peakKey){
+  const max = Math.max(...entries.map(e=>e[1]));
+  el.innerHTML = entries.map(([k,v])=>
+    `<div class="${String(k)===String(peakKey)?'peak':''}" title="${k}: ${v} trades">
+      <span class="val">${v}</span><i style="height:${v/max*100}%"></i><span class="lab">${k}</span></div>`).join('');
+}
+hist($('#weekhist'), Array.from({length:12},(_,i)=>[i+1, D.weeks[i+1]||0]), 12);
+hist($('#seasonhist'), Object.entries(D.seasons).sort(), 2022);
+
+/* matrix */
+const names = mgrs.map(([n])=>n).sort((a,b)=> D.mgr[b].n-D.mgr[a].n);
+const pc = {};
+Object.entries(D.pairs).forEach(([k,v])=>{ const [x,y]=k.split('|'); pc[x+'|'+y]=v; pc[y+'|'+x]=v; });
+const pmax = Math.max(...Object.values(D.pairs));
+const ramp = n => n===0 ? 'var(--ramp-0)' : `var(--ramp-${Math.min(4, Math.ceil(n/pmax*4))})`;
+$('#matrix').innerHTML = '<table class="mx"><thead><tr><th></th>' +
+  names.map(n=>`<th class="vert">${esc(n)}</th>`).join('') + '</tr></thead><tbody>' +
+  names.map(r=>`<tr><th class="rowh">${esc(r)}</th>` + names.map(c=>{
+    if(r===c) return `<td style="background:var(--surface-2)"></td>`;
+    const v = pc[r+'|'+c]||0;
+    return `<td style="background:${ramp(v)}" title="${esc(r)} × ${esc(c)}: ${v} trade${v===1?'':'s'}">${v||''}</td>`;
+  }).join('') + '</tr>').join('') + '</tbody></table>';
+
+/* frequent flyers */
+$('#players').innerHTML = D.multi.map(([p,c,rows])=>
+  `<div class="pcard"><h4>${esc(p)} <span class="mono" style="color:var(--muted); font-size:11.5px">${c}×</span></h4>
+   <ul>${rows.map(([y,w,to,pts])=>
+     `<li><em>${y} wk${w}</em><span>to ${esc(to)}</span><span>${pts.toFixed(1)}</span></li>`).join('')}</ul></div>`
+).join('');
+
+/* big table */
+let sortBy='date', fMgr='All', fSeason='All';
+const allMgrs = names.slice().sort();
+$('#fm').innerHTML = ['All',...allMgrs].map(n=>`<option>${esc(n)}</option>`).join('');
+$('#fs').innerHTML = ['All',...Object.keys(D.seasons).sort()].map(n=>`<option>${n}</option>`).join('');
+function sideCell(name, got, faab, champ, po){
+  const list = got.length
+    ? got.map(g=>`<span><i>${esc(g[1])}</i>${esc(g[0])} <span class="pts">${g[2].toFixed(1)}</span></span>`).join('')
+    : `<span style="color:var(--muted)">nothing recorded</span>`;
+  const cash = faab>0 ? `<span class="pts">+${faab} FAAB</span>` : '';
+  const mark = champ ? '<em>champion</em>' : (po ? '<em style="color:var(--muted)">playoffs</em>' : '');
+  return `<td class="side"><b>${esc(name)}${mark}</b>${list}${cash}</td>`;
+}
+function render(){
+  let rows = D.rows.filter(r =>
+    (fMgr==='All' || r.a===fMgr || r.b===fMgr) &&
+    (fSeason==='All' || String(r.y)===fSeason));
+  rows = rows.slice().sort(sortBy==='date'
+    ? (x,y)=> x.y-y.y || x.w-y.w
+    : (x,y)=> Math.abs(y.an)-Math.abs(x.an));
+  $('#tbody').innerHTML = rows.map(r=>{
+    const winner = r.an>=0 ? r.a : r.b;
+    return `<tr><td class="season">${r.y}<br>week ${r.w}</td>` +
+      sideCell(r.a, r.ag, r.af, r.ach, r.apo) +
+      sideCell(r.b, r.bg, r.bf, r.bch, r.bpo) +
+      `<td class="net"><span class="${r.an>=0?'g':'l'}">${one(Math.abs(r.an))}</span><br>` +
+      `<span class="pts" style="font-size:10.5px; color:var(--muted)">${esc(winner)}</span></td>` +
+      `<td class="net">${(r.asw+r.bsw)||'—'}</td></tr>`;
+  }).join('');
+  $('#count').textContent = `Showing ${rows.length} of ${D.rows.length} trades.`;
+}
+$('#fm').onchange = e => { fMgr = e.target.value; render(); };
+$('#fs').onchange = e => { fSeason = e.target.value; render(); };
+$('#s-date').onclick = () => { sortBy='date'; $('#s-date').setAttribute('aria-pressed','true'); $('#s-net').setAttribute('aria-pressed','false'); render(); };
+$('#s-net').onclick = () => { sortBy='net'; $('#s-net').setAttribute('aria-pressed','true'); $('#s-date').setAttribute('aria-pressed','false'); render(); };
+render();
+</script>
+</body>
+</html>
