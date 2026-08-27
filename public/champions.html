@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What the six LadsLadsLads champions from 2020-2025 did differently, pulled from the full Sleeper history.">
+  <title>Six Rings, One Formula</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <style>
+:root{
+  --ground:#EDF0EC; --surface:#FFFFFF; --surface-2:#E4E9E4;
+  --ink:#0E1B16; --ink-2:#3A4A42; --muted:#56675E;
+  --rule:#D0D8D1; --rule-strong:#B4C0B6;
+  --champ:#B5620A; --field:#2C6FB0;
+  --champ-soft:#F0E0CB; --field-soft:#D8E4F2;
+  --pitch:#1F6B4A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1512; --surface:#131F1A; --surface-2:#1A2721;
+    --ink:#E4EBE5; --ink-2:#BCCAC0; --muted:#8FA396;
+    --rule:#22322B; --rule-strong:#33463C;
+    --champ:#C4831F; --field:#4E92CF;
+    --champ-soft:#33260F; --field-soft:#12283A;
+    --pitch:#4BC28E;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1512; --surface:#131F1A; --surface-2:#1A2721;
+  --ink:#E4EBE5; --ink-2:#BCCAC0; --muted:#8FA396;
+  --rule:#22322B; --rule-strong:#33463C;
+  --champ:#C4831F; --field:#4E92CF;
+  --champ-soft:#33260F; --field-soft:#12283A;
+  --pitch:#4BC28E;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px; margin:0 auto; padding:0 24px 96px}
+h1,h2,h3,.disp{font-family:"Archivo","Helvetica Neue",Arial,sans-serif; text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+}
+/* ---------- masthead ---------- */
+header.mast{padding:56px 0 28px; border-bottom:2px solid var(--ink)}
+header.mast h1{
+  font-size:clamp(44px,8.5vw,86px); font-weight:800; line-height:.92;
+  letter-spacing:-.025em; text-transform:uppercase; margin:14px 0 0;
+}
+header.mast h1 em{font-style:normal; color:var(--champ)}
+.standfirst{max-width:60ch; margin:20px 0 0; color:var(--ink-2); font-size:19px}
+.sourceline{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:26px}
+/* ---------- roll of honour ---------- */
+.honour{display:grid; grid-template-columns:repeat(6,1fr); border-bottom:1px solid var(--rule)}
+.honour div{
+  padding:18px 14px 20px; border-right:1px solid var(--rule);
+  display:flex; flex-direction:column; gap:3px;
+}
+.honour div:last-child{border-right:0}
+.honour .yr{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); letter-spacing:.08em}
+.honour .who{font-family:"Archivo",sans-serif; font-weight:700; font-size:16px; letter-spacing:-.01em}
+.honour .rec{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.honour .three{color:var(--champ)}
+/* ---------- findings ---------- */
+.finding{
+  padding:46px 0; border-bottom:1px solid var(--rule);
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:44px; align-items:start;
+}
+.finding > .lede h2{
+  font-size:clamp(25px,3.2vw,34px); font-weight:700; letter-spacing:-.02em; line-height:1.08; margin:10px 0 12px;
+}
+.finding p{margin:0 0 14px; color:var(--ink-2); max-width:60ch}
+.finding p:last-child{margin-bottom:0}
+.chip{
+  display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; padding:4px 9px; border-radius:2px;
+  background:var(--champ-soft); color:var(--champ); border:1px solid color-mix(in srgb,var(--champ) 35%,transparent);
+}
+.chip.cool{background:var(--field-soft); color:var(--field); border-color:color-mix(in srgb,var(--field) 35%,transparent)}
+/* ---------- charts ---------- */
+figure{margin:0; background:var(--surface); border:1px solid var(--rule); padding:20px 20px 18px}
+figcaption{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); margin-top:14px; line-height:1.5}
+.fig-title{font-family:"Archivo",sans-serif; font-weight:700; font-size:14px; letter-spacing:.005em; margin:0 0 16px}
+.legend{display:flex; gap:16px; margin:0 0 16px; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.swatch{width:11px; height:11px; border-radius:2px; display:inline-block}
+.sw-champ{background:var(--champ)} .sw-field{background:var(--field)}
+.rows{display:flex; flex-direction:column; gap:15px}
+.row{display:grid; grid-template-columns:118px minmax(0,1fr); gap:12px; align-items:center}
+.row .lab{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-2); line-height:1.25}
+.bars{display:flex; flex-direction:column; gap:4px}
+.bar{display:flex; align-items:center; gap:8px}
+.bar .track{flex:1; min-width:0}
+.bar i{
+  display:block; height:11px; border-radius:0 3px 3px 0;
+  transition:filter .15s ease;
+}
+.bar .val{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; font-variant-numeric:tabular-nums;
+  color:var(--ink); min-width:52px; text-align:right;
+}
+.bar.champ i{background:var(--champ)} .bar.field i{background:var(--field)}
+.row:hover .bar i{filter:saturate(1.25) brightness(1.06)}
+/* slot chart */
+.slots{display:grid; grid-template-columns:repeat(12,1fr); gap:2px; align-items:end; height:150px}
+.slot{display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:5px; position:relative}
+.slot b{display:block; background:var(--field); border-radius:3px 3px 0 0; opacity:.55}
+.slot.won b{background:var(--champ); opacity:1}
+.slot .n{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); text-align:center}
+.slot .cup{font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--champ); text-align:center; font-weight:600}
+/* ---------- table ---------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:720px; font-size:14px}
+th,td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--rule); white-space:nowrap}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); font-weight:600; background:var(--surface-2);
+}
+tbody td:first-child{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:var(--muted)}
+tbody td.who{font-family:"Archivo",sans-serif; font-weight:700}
+tbody tr:last-child td{border-bottom:0}
+td .pos{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); margin-right:6px}
+/* ---------- playbook ---------- */
+.playbook{padding:52px 0 0}
+.plays{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:24px}
+.play{background:var(--surface); padding:22px}
+.play h3{font-size:16px; font-weight:700; margin:0 0 8px; letter-spacing:-.01em}
+.play p{margin:0; font-size:15.5px; color:var(--ink-2)}
+.play .tag{display:block; margin-bottom:10px}
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--rule); color:var(--muted); font-size:13.5px}
+@media (max-width:760px){
+  .finding{grid-template-columns:1fr; gap:26px}
+  .honour{grid-template-columns:repeat(3,1fr)}
+  .honour div:nth-child(3n){border-right:0}
+  .honour div{border-bottom:1px solid var(--rule)}
+}
+</style>
+  <style>
+    html{-webkit-text-size-adjust:100%}
+    img,svg{max-width:100%}
+    a{color:var(--champ)}
+    :focus-visible{outline:2px solid var(--champ); outline-offset:2px}
+    @media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <span class="eyebrow">LadsLadsLads · 12 teams · half PPR · 2020–2025</span>
+  <h1>Six rings,<br>one <em>formula</em></h1>
+  <p class="standfirst">Every completed season in the league, pulled from Sleeper and taken apart: six champions, 1,008 draft picks, 4,072 transactions and every weekly lineup. The title winners keep doing the same handful of things.</p>
+  <div class="sourceline">
+    <span class="eyebrow">72 team-seasons</span>
+    <span class="eyebrow">6 champions</span>
+    <span class="eyebrow">Champion vs. the other 11</span>
+  </div>
+</header>
+
+<section class="honour" aria-label="Roll of honour">
+  <div><span class="yr">2020</span><span class="who">kerrzo</span><span class="rec">7–7 · 1562 PF</span></div>
+  <div><span class="yr">2021</span><span class="who">StewMill</span><span class="rec">9–5 · 1558 PF</span></div>
+  <div><span class="yr">2022</span><span class="who three">StranraerCarny</span><span class="rec">10–5 · 1788 PF</span></div>
+  <div><span class="yr">2023</span><span class="who">timscoular</span><span class="rec">9–6 · 1623 PF</span></div>
+  <div><span class="yr">2024</span><span class="who three">StranraerCarny</span><span class="rec">9–5 · 1553 PF</span></div>
+  <div><span class="yr">2025</span><span class="who three">StranraerCarny</span><span class="rec">11–3 · 1630 PF</span></div>
+</section>
+
+<!-- 1 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip">6 of 6 seasons</span>
+    <h2>Every champion opened with a running back</h2>
+    <p>Not one title winner used their first pick on anything else. The rest of the league splits it: 38 opening picks on RB, 27 on WR, one on a tight end.</p>
+    <p>The gap shows up in the scoring. Champions got 474 regular-season starter points from running backs against 415 for everyone else, and their round-one pick alone returned 219 points against a field average of 162.</p>
+  </div>
+  <figure>
+    <p class="fig-title">Regular-season starter points by position</p>
+    <div class="legend"><span><i class="swatch sw-champ"></i>Champion</span><span><i class="swatch sw-field"></i>Field average</span></div>
+    <div class="rows">
+      <div class="row"><span class="lab">RB</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:100%"></i></span><span class="val">474</span></div>
+        <div class="bar field"><span class="track"><i style="width:87.6%"></i></span><span class="val">415</span></div></div></div>
+      <div class="row"><span class="lab">WR</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:97.3%"></i></span><span class="val">461</span></div>
+        <div class="bar field"><span class="track"><i style="width:91.2%"></i></span><span class="val">432</span></div></div></div>
+      <div class="row"><span class="lab">QB</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:58.0%"></i></span><span class="val">275</span></div>
+        <div class="bar field"><span class="track"><i style="width:57.0%"></i></span><span class="val">270</span></div></div></div>
+      <div class="row"><span class="lab">TE</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:31.8%"></i></span><span class="val">151</span></div>
+        <div class="bar field"><span class="track"><i style="width:26.7%"></i></span><span class="val">126</span></div></div></div>
+    </div>
+    <figcaption>Points scored by players in the starting lineup, weeks 1–14, averaged across seasons.</figcaption>
+  </figure>
+</section>
+
+<!-- 2 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip">Slots 2–6 only</span>
+    <h2>The trophy has never left the front half of round one</h2>
+    <p>Champion draft slots: 4, 2, 3, 6, 3, 2. Nobody picking seventh or later has won it. Teams from the top six slots make the playoffs 53% of the time; the bottom six manage 25%.</p>
+    <p>You cannot choose your slot, but you can read it. From slot 8 or later the draft is not where the season gets won, and the waiver wire has to carry more of the load.</p>
+  </div>
+  <figure>
+    <p class="fig-title">Playoff rate by round-one draft slot</p>
+    <div class="legend"><span><i class="swatch sw-champ"></i>Produced a champion</span><span><i class="swatch sw-field"></i>No title</span></div>
+    <div class="slots">
+      <div class="slot"><b style="height:50%"></b><span class="cup">&nbsp;</span><span class="n">1</span></div>
+      <div class="slot won"><b style="height:50%"></b><span class="cup">××</span><span class="n">2</span></div>
+      <div class="slot won"><b style="height:50%"></b><span class="cup">××</span><span class="n">3</span></div>
+      <div class="slot won"><b style="height:67%"></b><span class="cup">×</span><span class="n">4</span></div>
+      <div class="slot"><b style="height:33%"></b><span class="cup">&nbsp;</span><span class="n">5</span></div>
+      <div class="slot won"><b style="height:67%"></b><span class="cup">×</span><span class="n">6</span></div>
+      <div class="slot"><b style="height:17%"></b><span class="cup">&nbsp;</span><span class="n">7</span></div>
+      <div class="slot"><b style="height:33%"></b><span class="cup">&nbsp;</span><span class="n">8</span></div>
+      <div class="slot"><b style="height:17%"></b><span class="cup">&nbsp;</span><span class="n">9</span></div>
+      <div class="slot"><b style="height:33%"></b><span class="cup">&nbsp;</span><span class="n">10</span></div>
+      <div class="slot"><b style="height:2%"></b><span class="cup">&nbsp;</span><span class="n">11</span></div>
+      <div class="slot"><b style="height:50%"></b><span class="cup">&nbsp;</span><span class="n">12</span></div>
+    </div>
+    <figcaption>Bar height is the share of that slot's six team-seasons that reached the playoffs. × marks a title won from that slot. Slot 11 has never made the playoffs.</figcaption>
+  </figure>
+</section>
+
+<!-- 3 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip">+11 moves a season</span>
+    <h2>Champions work the wire harder than anyone</h2>
+    <p>The average title team made 45 in-season additions against 34 for the rest of the league, and spent 79 of its 100 FAAB against 73.</p>
+    <p>The volume converts. Players added after the draft supplied 490 regular-season starter points for champions, against 364 for the other playoff teams and 412 across the field. Losing teams also churn, but they are replacing failed picks rather than adding to a strong core.</p>
+  </div>
+  <figure>
+    <p class="fig-title">In-season activity and what it returned</p>
+    <div class="legend"><span><i class="swatch sw-champ"></i>Champion</span><span><i class="swatch sw-field"></i>Field average</span></div>
+    <div class="rows">
+      <div class="row"><span class="lab">Waiver claims</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:79.2%"></i></span><span class="val">19.8</span></div>
+        <div class="bar field"><span class="track"><i style="width:62.8%"></i></span><span class="val">15.7</span></div></div></div>
+      <div class="row"><span class="lab">Free-agent adds</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:100%"></i></span><span class="val">25.0</span></div>
+        <div class="bar field"><span class="track"><i style="width:72.8%"></i></span><span class="val">18.2</span></div></div></div>
+      <div class="row"><span class="lab">FAAB spent</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:79.3%"></i></span><span class="val">79%</span></div>
+        <div class="bar field"><span class="track"><i style="width:72.9%"></i></span><span class="val">73%</span></div></div></div>
+      <div class="row"><span class="lab">Points from adds</span><div class="bars">
+        <div class="bar champ"><span class="track"><i style="width:73.5%"></i></span><span class="val">490</span></div>
+        <div class="bar field"><span class="track"><i style="width:61.8%"></i></span><span class="val">412</span></div></div></div>
+    </div>
+    <figcaption>Counts are per season. "Points from adds" is starter scoring, weeks 1–14, from players acquired by waiver or free agency after the draft. The first three rows share a 0–25 scale; the last is scaled to 667.</figcaption>
+  </figure>
+</section>
+
+<!-- 4 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip cool">Two of the last two</span>
+    <h2>Nobody spends a good pick on a quarterback any more</h2>
+    <p>Champions average 275 QB points a season. The field averages 270. The position is a wash, and the winners pay nothing for it: only the 2020 team used a top-four pick on one (Lamar Jackson, round three). The 2024 and 2025 champions drafted no quarterback at all.</p>
+    <p>Drake Maye, picked up off waivers, gave the 2025 team 198 points. The best waiver seasons in league history are almost all quarterbacks: Herbert 274, Prescott 260, Cousins 236.</p>
+  </div>
+  <figure>
+    <p class="fig-title">Round of the champion's first quarterback</p>
+    <div class="rows">
+      <div class="row"><span class="lab">2020 kerrzo</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:21.4%"></i></span><span class="val">Rd 3</span></div></div></div>
+      <div class="row"><span class="lab">2021 StewMill</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:57.1%"></i></span><span class="val">Rd 8</span></div></div></div>
+      <div class="row"><span class="lab">2022 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:50.0%"></i></span><span class="val">Rd 7</span></div></div></div>
+      <div class="row"><span class="lab">2023 timscoular</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:35.7%"></i></span><span class="val">Rd 5</span></div></div></div>
+      <div class="row"><span class="lab">2024 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:100%"></i></span><span class="val">None</span></div></div></div>
+      <div class="row"><span class="lab">2025 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:100%"></i></span><span class="val">None</span></div></div></div>
+    </div>
+    <figcaption>Bar length is the draft round of the first QB taken, out of 14. Full-length bars are teams that never drafted one. League average across all teams: round 5.3.</figcaption>
+  </figure>
+</section>
+
+<!-- 5 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip">91.4% vs 89.8%</span>
+    <h2>They also start the right players</h2>
+    <p>Lineup efficiency is the share of a roster's possible points that actually made it into the starting lineup. Champions run at 91.4%. Everyone else, playoff teams included, sits near 89.8%.</p>
+    <p>Over a 14-week season that gap is about 28 points, roughly two close matchups. The two most recent titles came with the second-best efficiency in the league both years.</p>
+  </div>
+  <figure>
+    <p class="fig-title">Champion lineup efficiency, and its rank in that season</p>
+    <div class="rows">
+      <div class="row"><span class="lab">2020 kerrzo</span><div class="bars"><div class="bar field"><span class="track"><i style="width:87.6%"></i></span><span class="val">87.6%</span></div></div></div>
+      <div class="row"><span class="lab">2021 StewMill</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:90.5%"></i></span><span class="val">90.5%</span></div></div></div>
+      <div class="row"><span class="lab">2022 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:93.5%"></i></span><span class="val">93.5%</span></div></div></div>
+      <div class="row"><span class="lab">2023 timscoular</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:91.6%"></i></span><span class="val">91.6%</span></div></div></div>
+      <div class="row"><span class="lab">2024 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:91.8%"></i></span><span class="val">91.8%</span></div></div></div>
+      <div class="row"><span class="lab">2025 Carny</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:93.6%"></i></span><span class="val">93.6%</span></div></div></div>
+    </div>
+    <figcaption>Ranks in season: 12th, 5th, 2nd, 4th, 3rd, 2nd. The 2020 team is the exception and won from 7–7 — the only title that looks like luck.</figcaption>
+  </figure>
+</section>
+
+<!-- 6 -->
+<section class="finding">
+  <div class="lede">
+    <span class="chip cool">r = 0.70</span>
+    <h2>Points for is the only stat that really predicts wins</h2>
+    <p>Across 72 team-seasons, total points scored correlates with wins at 0.70. Nothing else comes close: draft-pick production 0.36, lineup efficiency 0.15, waiver claims 0.13, trades 0.06.</p>
+    <p>Champions finished 1st, 2nd, 3rd, 4th, 4th and 6th in scoring. No team has ever won this league from the bottom half of the scoring table. Trades are the flat line here — the league averages under two a season and they change almost nothing.</p>
+  </div>
+  <figure>
+    <p class="fig-title">Correlation with regular-season wins</p>
+    <div class="rows">
+      <div class="row"><span class="lab">Points for</span><div class="bars"><div class="bar champ"><span class="track"><i style="width:100%"></i></span><span class="val">0.70</span></div></div></div>
+      <div class="row"><span class="lab">Points from picks</span><div class="bars"><div class="bar field"><span class="track"><i style="width:51.4%"></i></span><span class="val">0.36</span></div></div></div>
+      <div class="row"><span class="lab">Lineup efficiency</span><div class="bars"><div class="bar field"><span class="track"><i style="width:21.4%"></i></span><span class="val">0.15</span></div></div></div>
+      <div class="row"><span class="lab">Waiver claims</span><div class="bars"><div class="bar field"><span class="track"><i style="width:18.6%"></i></span><span class="val">0.13</span></div></div></div>
+      <div class="row"><span class="lab">FAAB spent</span><div class="bars"><div class="bar field"><span class="track"><i style="width:8.6%"></i></span><span class="val">0.06</span></div></div></div>
+      <div class="row"><span class="lab">Trades made</span><div class="bars"><div class="bar field"><span class="track"><i style="width:8.6%"></i></span><span class="val">0.06</span></div></div></div>
+    </div>
+    <figcaption>Pearson correlation across all 72 team-seasons, 2020–2025. Activity counts are weak on their own; what matters is whether the additions score.</figcaption>
+  </figure>
+</section>
+
+<section style="padding:46px 0 0">
+  <span class="eyebrow">The evidence</span>
+  <h2 style="font-size:28px; font-weight:700; letter-spacing:-.02em; margin:10px 0 18px">Every champion's first five picks</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Season</th><th>Champion</th><th>Slot</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th><th>Round 5</th></tr></thead>
+      <tbody>
+        <tr><td>2020</td><td class="who">kerrzo</td><td>4</td><td><span class="pos">RB</span>Dalvin Cook</td><td><span class="pos">TE</span>Travis Kelce</td><td><span class="pos">QB</span>Lamar Jackson</td><td><span class="pos">WR</span>Robert Woods</td><td><span class="pos">WR</span>Terry McLaurin</td></tr>
+        <tr><td>2021</td><td class="who">StewMill</td><td>2</td><td><span class="pos">RB</span>Dalvin Cook</td><td><span class="pos">WR</span>Justin Jefferson</td><td><span class="pos">TE</span>Darren Waller</td><td><span class="pos">RB</span>Kareem Hunt</td><td><span class="pos">WR</span>Adam Thielen</td></tr>
+        <tr><td>2022</td><td class="who">StranraerCarny</td><td>3</td><td><span class="pos">RB</span>Austin Ekeler</td><td><span class="pos">RB</span>Javonte Williams</td><td><span class="pos">WR</span>Tyreek Hill</td><td><span class="pos">WR</span>Allen Robinson</td><td><span class="pos">WR</span>Chris Godwin</td></tr>
+        <tr><td>2023</td><td class="who">timscoular</td><td>6</td><td><span class="pos">RB</span>Bijan Robinson</td><td><span class="pos">WR</span>Amon-Ra St. Brown</td><td><span class="pos">RB</span>Joe Mixon</td><td><span class="pos">TE</span>T.J. Hockenson</td><td><span class="pos">QB</span>Joe Burrow</td></tr>
+        <tr><td>2024</td><td class="who">StranraerCarny</td><td>3</td><td><span class="pos">RB</span>Bijan Robinson</td><td><span class="pos">WR</span>Chris Olave</td><td><span class="pos">WR</span>Cooper Kupp</td><td><span class="pos">WR</span>Tee Higgins</td><td><span class="pos">TE</span>Trey McBride</td></tr>
+        <tr><td>2025</td><td class="who">StranraerCarny</td><td>2</td><td><span class="pos">RB</span>Bijan Robinson</td><td><span class="pos">RB</span>Bucky Irving</td><td><span class="pos">WR</span>Jaxon Smith-Njigba</td><td><span class="pos">RB</span>TreVeyon Henderson</td><td><span class="pos">WR</span>Tetairoa McMillan</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="color:var(--muted); font-size:13.5px; margin-top:12px">Bijan Robinson has been on the champion's roster in each of the last three seasons. StranraerCarny has drafted him twice and won both times.</p>
+</section>
+
+<section class="playbook">
+  <span class="eyebrow">What it adds up to</span>
+  <h2 style="font-size:28px; font-weight:700; letter-spacing:-.02em; margin:10px 0 0">Five things the winners did</h2>
+  <div class="plays">
+    <div class="play"><span class="chip tag">Round 1</span><h3>Take the running back</h3><p>Six for six. In a two-RB, one-FLEX league the position is thin enough that the top of the draft is the only reliable place to get it.</p></div>
+    <div class="play"><span class="chip tag">Rounds 2–5</span><h3>Keep buying volume, not need</h3><p>Champions filled rounds two to five with RB and WR starters and let QB, TE and defence wait. Their round-three picks outscored the field's by 36 points a season.</p></div>
+    <div class="play"><span class="chip cool tag">Every Wednesday</span><h3>Claim early, claim often</h3><p>45 additions a season. The 2023 title was effectively bought in week one for 83 FAAB: Kyren Williams and Puka Nacua, 394 points between them.</p></div>
+    <div class="play"><span class="chip cool tag">Quarterback</span><h3>Stream it and spend the pick elsewhere</h3><p>QB scoring is identical for winners and losers. The last two champions drafted none and still got their 275 points.</p></div>
+    <div class="play"><span class="chip tag">Every Sunday</span><h3>Set the lineup</h3><p>Two points a week of lineup efficiency separates the champion from the field. It is the cheapest edge on this page.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>Built from the Sleeper API: leagues 2020–2025 (<span class="mono">607175439160524800</span> onward), all rosters, weekly matchups, transactions and draft picks. Regular season is weeks 1–14; playoffs start week 15 with six teams. "Field" means the other 11 teams in a champion's season unless stated.</p>
+</footer>
+</div>
+</body>
+</html>
