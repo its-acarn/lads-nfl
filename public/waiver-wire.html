@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Six seasons of LadsLadsLads waiver claims and free-agent adds, scored on what each pickup started.">
+<title>Bargains and Busts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,750&family=Public+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F1EEE7; --surface:#FFFFFF; --surface-2:#E7E3D8; --surface-3:#F9F7F2;
+  --ink:#1C1810; --ink-2:#4A4436; --muted:#6E6754;
+  --rule:#D9D4C6; --rule-2:#BEB7A4;
+  --gain:#B5620A; --waste:#2C6FB0;
+  --gain-soft:#F2E2CB; --waste-soft:#D9E5F3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#151209; --surface:#1E1A10; --surface-2:#282315; --surface-3:#19150C;
+    --ink:#ECE7DA; --ink-2:#C8C1AE; --muted:#968E77;
+    --rule:#332D1D; --rule-2:#4A422C;
+    --gain:#C4831F; --waste:#4E92CF;
+    --gain-soft:#33260F; --waste-soft:#12283A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#151209; --surface:#1E1A10; --surface-2:#282315; --surface-3:#19150C;
+  --ink:#ECE7DA; --ink-2:#C8C1AE; --muted:#968E77;
+  --rule:#332D1D; --rule-2:#4A422C;
+  --gain:#C4831F; --waste:#4E92CF;
+  --gain-soft:#33260F; --waste-soft:#12283A;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px; margin:0 auto; padding:0 24px 90px}
+h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif; text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--muted)}
+section{padding:50px 0 0}
+h2.sec{font-size:clamp(26px,3.4vw,36px); font-weight:750; letter-spacing:-.015em; margin:9px 0 8px; line-height:1.08}
+.sub{color:var(--ink-2); max-width:64ch; margin:0 0 22px; font-size:16.5px}
+header.mast{padding:56px 0 0}
+header.mast h1{font-size:clamp(42px,8vw,84px); font-weight:750; line-height:.96; letter-spacing:-.02em; margin:14px 0 0}
+header.mast h1 em{font-style:italic; color:var(--gain)}
+.standfirst{max-width:60ch; margin:20px 0 0; color:var(--ink-2); font-size:18.5px}
+.keyfigs{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:32px 0 0}
+.keyfig{background:var(--surface); padding:15px 16px 17px}
+.keyfig b{display:block; font-family:"Fraunces",serif; font-size:31px; font-weight:750; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; line-height:1.02}
+.keyfig span{display:block; font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); margin-top:7px; line-height:1.4}
+.legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 14px; font-family:"IBM Plex Mono",monospace;
+  font-size:11px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.sw{width:11px; height:11px; border-radius:2px; display:inline-block}
+.sw.g{background:var(--gain)} .sw.w{background:var(--waste)}
+figure{margin:0}
+figcaption{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); margin-top:13px; line-height:1.55}
+/* manager table */
+.ledger{border:1px solid var(--rule); background:var(--surface); overflow-x:auto}
+.lrow{display:grid; grid-template-columns:140px 52px 56px minmax(140px,1fr) 66px minmax(110px,.7fr) 52px; gap:12px;
+  align-items:center; padding:10px 16px; border-bottom:1px solid var(--rule); min-width:740px}
+.lrow:last-child{border-bottom:0}
+.lrow.head{background:var(--surface-2); font-family:"IBM Plex Mono",monospace; font-size:10px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.lrow .who{font-weight:700; font-size:14.5px; letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.n{font-family:"IBM Plex Mono",monospace; font-size:12px; font-variant-numeric:tabular-nums; text-align:right}
+.track{height:11px; background:var(--surface-2); border-radius:2px; overflow:hidden}
+.track i{display:block; height:100%; border-radius:0 3px 3px 0}
+.track i.g{background:var(--gain)} .track i.w{background:var(--waste)}
+/* cards */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(275px,1fr)); gap:1px; background:var(--rule);
+  border:1px solid var(--rule)}
+.card{background:var(--surface); padding:19px}
+.card h4{font-size:17px; font-weight:750; margin:0 0 4px; letter-spacing:-.01em}
+.card .meta{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); margin-bottom:12px; letter-spacing:.04em}
+.card ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px}
+.card li{display:grid; grid-template-columns:auto 1fr auto; gap:9px; align-items:baseline; font-size:14px; color:var(--ink-2)}
+.card li em{font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--muted); min-width:58px}
+.card li b{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
+.card li .g{color:var(--gain)} .card li .w{color:var(--waste)}
+.tagline{font-size:14px; color:var(--muted); margin-top:12px; line-height:1.5}
+/* receipt case */
+.case{border:1px solid var(--rule); background:var(--surface); padding:26px;
+  display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:38px; align-items:start}
+.case h3{font-size:24px; font-weight:750; letter-spacing:-.015em; margin:9px 0 13px; line-height:1.12}
+.case p{margin:0 0 13px; color:var(--ink-2)} .case p:last-child{margin:0}
+.tag{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; padding:5px 9px; border-radius:2px;
+  background:var(--gain-soft); color:var(--gain); border:1px solid color-mix(in srgb,var(--gain) 34%,transparent)}
+.receipt{border:1px dashed var(--rule-2); background:var(--surface-3); padding:20px 22px;
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-2)}
+.receipt h5{margin:0 0 12px; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500}
+.receipt .line{display:flex; justify-content:space-between; gap:12px; padding:5px 0; border-bottom:1px dotted var(--rule)}
+.receipt .line:last-of-type{border-bottom:0}
+.receipt .total{display:flex; justify-content:space-between; margin-top:12px; padding-top:11px;
+  border-top:1px solid var(--rule-2); color:var(--ink); font-weight:600}
+.hist > div{flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:5px; height:100%}
+.hist i{display:block; background:var(--gain); border-radius:3px 3px 0 0; opacity:.45}
+.hist .peak i{opacity:1}
+.hist .lab,.hist .val{font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--muted); text-align:center}
+.hist .val{color:var(--ink-2)}
+.method{border-top:1px solid var(--rule); margin-top:54px; padding-top:22px; color:var(--muted); font-size:14px}
+.method p{margin:0 0 11px; max-width:80ch}
+.method b{color:var(--ink-2)}
+:focus-visible{outline:2px solid var(--gain); outline-offset:2px}
+@media (max-width:820px){ .case{grid-template-columns:1fr; gap:26px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+  <style>
+    html{-webkit-text-size-adjust:100%}
+    img,svg{max-width:100%}
+    a{color:var(--gain)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <span class="eyebrow">LadsLadsLads · every waiver claim and free-agent add, 2020–2025</span>
+  <h1>Bargains<br>and <em>busts</em></h1>
+  <p class="standfirst">2,260 pickups in six seasons, 5,281 FAAB spent. A third of everything claimed scored nothing at all. This is who shops well, who churns, and the handful of adds that decided titles.</p>
+  <div class="keyfigs" id="keyfigs"></div>
+</header>
+
+<section>
+  <span class="eyebrow">The shoppers</span>
+  <h2 class="sec">Bang for buck, manager by manager</h2>
+  <p class="sub">Two ways to measure it. Points per move rewards judgement, and punishes churn. Points per FAAB dollar rewards paying the right price when it matters. kerrzo tops both. YerMan has made the most moves in the league and got the least back per move, half of kerrzo's rate.</p>
+  <div class="legend"><span><i class="sw g"></i>Points per move</span><span><i class="sw w"></i>Points per FAAB dollar</span></div>
+  <div class="ledger" id="ledger"></div>
+  <figcaption>Points are what a pickup scored in that manager's starting lineup before being dropped. "50+ hits" counts pickups that returned at least 50 points. "Zeros" never started a single game.</figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">The one everyone remembers</span>
+  <h2 class="sec">Week one, 2023: an 83-dollar title</h2>
+  <div class="case">
+    <div>
+      <span class="tag">Puka Nacua + Kyren Williams · 394 points · champion</span>
+      <h3>timscoular spent most of a season's budget in one morning</h3>
+      <p>Two claims went in after week 1 of 2023. Kyren Williams cost 65 of a 100 FAAB budget, an enormous bid for a committee back nobody trusted. Puka Nacua cost 18, off one big game against Seattle.</p>
+      <p>Williams returned 193.6 starter points, Nacua 200.8. Nobody else's whole season of pickups beat those two claims, and timscoular won the league. It is the best single week of shopping in the league's history.</p>
+      <p>The 65 on Kyren is also the largest winning bid ever placed. The second-largest, 32 on Tevin Coleman in 2021, returned nothing.</p>
+    </div>
+    <figure>
+      <div class="receipt">
+        <h5>Waiver receipt · 2023 week 1 · timscoular</h5>
+        <div class="line"><span>Kyren Williams, RB</span><span>$65</span></div>
+        <div class="line"><span>Puka Nacua, WR</span><span>$18</span></div>
+        <div class="line"><span>Van Jefferson, WR</span><span>$0</span></div>
+        <div class="total"><span>Returned</span><span>394.4 pts + a title</span></div>
+      </div>
+      <figcaption>Starter points for timscoular across the 2023 season. Van Jefferson never started, which feels right for a receipt this good. There is always one dud in the bag.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">The market</span>
+  <h2 class="sec">The best pickups are quarterbacks, and they cost nothing</h2>
+  <p class="sub">Eleven of the twenty most valuable pickups ever made are QBs, and most went for zero or single-digit bids. The league pays its big FAAB for running backs, then gets its actual value from streamed quarterbacks nobody bid against. Free adds have returned 23,410 points all time against 13,999 from paid claims.</p>
+  <div class="cards" id="market"></div>
+</section>
+
+
+<section>
+  <span class="eyebrow">Does paying up work?</span>
+  <h2 class="sec">Big bids hit more often, and the league barely uses them</h2>
+  <p class="sub">Group every pickup by what it cost and the pattern is clean. A $31+ bid returns 50 points about one time in four and almost never comes back empty. A free add hits 8% of the time. The catch is volume: only 21 bids of $31 or more have ever been placed, against 1,580 free adds.</p>
+  <div class="ledger" id="bands"></div>
+  <figcaption>Hit = returned 50+ starter points. Zero = never started. 2020 had no FAAB at all, so every 2020 claim sits in the $0 band.</figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">Where the money goes</span>
+  <h2 class="sec">The league pays for running backs and gets paid by everyone else</h2>
+  <p class="sub">41% of all FAAB ever spent went on running backs, who returned 14% of the points. Kickers and defences cost almost nothing and produced 41% of all pickup value between them. Streamed QBs sit in the middle: 9% of the spend, 21% of the points.</p>
+  <div class="legend"><span><i class="sw w"></i>Share of FAAB spent</span><span><i class="sw g"></i>Share of points returned</span></div>
+  <div class="ledger" id="posecon"></div>
+  <figcaption>Points per dollar treats each position's total starter points against total FAAB paid for that position. RB: 2.5 points per dollar. K: 55.</figcaption>
+</section>
+
+<section>
+  <span class="eyebrow">When to shop</span>
+  <h2 class="sec">The good stuff is gone by October</h2>
+  <p class="sub">The average week 1 or 2 pickup returns about 23 points. By the trade deadline weeks it is under 12. Half the league's all-time top ten pickups were claimed in the first two weeks of a season, when a full year of starts is still on the table and everyone else is still trusting their draft.</p>
+  <figure>
+    <div class="hist" id="wkhist" style="display:flex; align-items:flex-end; gap:4px; height:140px"></div>
+    <figcaption>Average starter points returned per pickup, by the week of the claim. Weeks 1 and 2 are the peak. The week 12 to 14 shopper is buying two or three starts at most.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <span class="eyebrow">The other side of the ledger</span>
+  <h2 class="sec">Money burned and players regretted</h2>
+  <p class="sub">Every bid of 15 or more that returned nothing, and the drops that scored the most for somebody else afterwards. Idler appears on the drop list three times, each time a quarterback who went on to a 180-point season in another lineup.</p>
+  <div class="cards" id="pain"></div>
+</section>
+
+
+<section>
+  <span class="eyebrow">Position by position</span>
+  <h2 class="sec">Where the pain lives</h2>
+  <p class="sub">The five most expensive bids that never produced a start, and the five most painful drops, position by position. "Burned" is FAAB paid for players who never started a game, as a share of everything spent on that position. Running back is the bonfire: 39 cents of every RB dollar bought nothing. Tight end, defence and kicker money almost never burns, because nobody bids enough to get hurt.</p>
+  <figure>
+    <div class="cards" id="bypos"></div>
+    <figcaption>Drops count what the player scored in other teams' lineups for the rest of that season. Jason Myers appears twice because two managers dropped him in the same season, and he punished both.</figcaption>
+  </figure>
+</section>
+
+<div class="method">
+  <p><b>Method.</b> Every completed waiver claim and free-agent add in the six Sleeper seasons, joined to weekly lineups. A pickup is credited with the points the player scored in that manager's starting lineup from the claim until that manager dropped him. Bench weeks count for nothing, which is deliberate. A pickup you never start did not help you.</p>
+  <p><b>On drops.</b> "Cost" of a drop is what the player scored in other teams' starting lineups for the rest of that season. Some regret is unavoidable, since every pickup requires someone to have dropped or ignored the player first.</p>
+  <p><b>FAAB arrived in 2021.</b> The 2020 season ran without a budget, so its 463 pickups were all free. Per-dollar figures cover 2021 onward.</p>
+  <p><b>One name.</b> phillyson and YerMan are the same manager, counted as YerMan throughout.</p>
+</div>
+</div>
+
+<script>
+const D = {"mgr":{"dingledingle":{"n":285,"faab":441,"pts":3870,"ppm":13.6,"ppd":2.9,"hits":17,"zero":113},"kerrzo":{"n":168,"faab":422,"pts":3691,"ppm":22.0,"ppd":3.4,"hits":22,"zero":51},"yaks":{"n":190,"faab":492,"pts":2736,"ppm":14.4,"ppd":2.8,"hits":14,"zero":70},"Idler":{"n":174,"faab":441,"pts":3199,"ppm":18.4,"ppd":2.3,"hits":19,"zero":70},"StranraerCarny":{"n":277,"faab":439,"pts":3975,"ppm":14.4,"ppd":3.4,"hits":19,"zero":108},"andymci":{"n":176,"faab":417,"pts":3457,"ppm":19.6,"ppd":2.5,"hits":19,"zero":49},"StewMill":{"n":196,"faab":490,"pts":3521,"ppm":18.0,"ppd":3.2,"hits":16,"zero":67},"YerMan":{"n":262,"faab":496,"pts":2936,"ppm":11.2,"ppd":2.6,"hits":13,"zero":112},"ritascoleslaw":{"n":92,"faab":369,"pts":1957,"ppm":21.3,"ppd":1.2,"hits":14,"zero":32},"Teviejay":{"n":164,"faab":532,"pts":2565,"ppm":15.6,"ppd":2.0,"hits":17,"zero":64},"TheFrenchman08":{"n":131,"faab":259,"pts":2510,"ppm":19.2,"ppd":3.0,"hits":16,"zero":33},"timscoular":{"n":145,"faab":483,"pts":2993,"ppm":20.6,"ppd":2.5,"hits":21,"zero":32}},"top":[{"y":"2020","w":4,"mgr":"StewMill","name":"Justin Herbert","pos":"QB","bid":0,"pts":273.9,"champ":false},{"y":"2023","w":7,"mgr":"dingledingle","name":"Dak Prescott","pos":"QB","bid":0,"pts":260.0,"champ":false},{"y":"2022","w":6,"mgr":"Idler","name":"Dak Prescott","pos":"QB","bid":0,"pts":204.1,"champ":false},{"y":"2023","w":1,"mgr":"timscoular","name":"Puka Nacua","pos":"WR","bid":18,"pts":200.8,"champ":true},{"y":"2025","w":1,"mgr":"YerMan","name":"Justin Herbert","pos":"QB","bid":6,"pts":199.1,"champ":false},{"y":"2025","w":3,"mgr":"StranraerCarny","name":"Drake Maye","pos":"QB","bid":1,"pts":197.8,"champ":true},{"y":"2020","w":1,"mgr":"Idler","name":"James Robinson","pos":"RB","bid":0,"pts":193.9,"champ":false},{"y":"2023","w":1,"mgr":"timscoular","name":"Kyren Williams","pos":"RB","bid":65,"pts":193.6,"champ":true},{"y":"2020","w":2,"mgr":"ritascoleslaw","name":"Justin Jefferson","pos":"WR","bid":0,"pts":192.7,"champ":false},{"y":"2021","w":7,"mgr":"StranraerCarny","name":"Dak Prescott","pos":"QB","bid":15,"pts":189.0,"champ":false},{"y":"2022","w":5,"mgr":"andymci","name":"Geno Smith","pos":"QB","bid":10,"pts":188.7,"champ":false},{"y":"2024","w":1,"mgr":"Teviejay","name":"Baker Mayfield","pos":"QB","bid":0,"pts":184.3,"champ":false}],"value":[{"y":"2025","mgr":"YerMan","name":"Justin Herbert","pos":"QB","bid":6,"pts":199.1},{"y":"2025","mgr":"kerrzo","name":"Jaxson Dart","pos":"QB","bid":6,"pts":153.1},{"y":"2022","mgr":"StewMill","name":"San Francisco 49ers","pos":"DEF","bid":5,"pts":105.0},{"y":"2023","mgr":"Teviejay","name":"Chuba Hubbard","pos":"RB","bid":5,"pts":103.3},{"y":"2023","mgr":"ritascoleslaw","name":"Pittsburgh Steelers","pos":"DEF","bid":5,"pts":97.0},{"y":"2022","mgr":"andymci","name":"Geno Smith","pos":"QB","bid":10,"pts":188.7}],"busts":[{"y":"2025","w":3,"mgr":"Teviejay","name":"Tre Tucker","pos":"WR","bid":47,"pts":0.0},{"y":"2021","w":13,"mgr":"ritascoleslaw","name":"Tevin Coleman","pos":"RB","bid":32,"pts":0.0},{"y":"2024","w":6,"mgr":"timscoular","name":"JuJu Smith-Schuster","pos":"WR","bid":31,"pts":0.0},{"y":"2021","w":6,"mgr":"Idler","name":"Tim Patrick","pos":"WR","bid":30,"pts":0.0},{"y":"2024","w":2,"mgr":"ritascoleslaw","name":"Carson Steele","pos":"RB","bid":30,"pts":0.0},{"y":"2024","w":7,"mgr":"andymci","name":"Ray Davis","pos":"RB","bid":30,"pts":0.0},{"y":"2025","w":1,"mgr":"ritascoleslaw","name":"Dylan Sampson","pos":"RB","bid":30,"pts":0.0},{"y":"2022","w":1,"mgr":"Teviejay","name":"Dontrell Hilliard","pos":"RB","bid":29,"pts":0.0}],"regret":[{"y":"2023","w":4,"mgr":"Idler","name":"Dak Prescott","pos":"QB","elsewhere":260.0},{"y":"2022","w":3,"mgr":"Idler","name":"Kirk Cousins","pos":"QB","elsewhere":236.4},{"y":"2025","w":6,"mgr":"YerMan","name":"Matthew Stafford","pos":"QB","elsewhere":219.9},{"y":"2021","w":6,"mgr":"StranraerCarny","name":"Joe Burrow","pos":"QB","elsewhere":206.2},{"y":"2025","w":2,"mgr":"YerMan","name":"Drake Maye","pos":"QB","elsewhere":197.8},{"y":"2025","w":9,"mgr":"StewMill","name":"Matthew Stafford","pos":"QB","elsewhere":193.1},{"y":"2021","w":7,"mgr":"Teviejay","name":"Dak Prescott","pos":"QB","elsewhere":189.0},{"y":"2022","w":5,"mgr":"Idler","name":"Geno Smith","pos":"QB","elsewhere":188.7}],"free":[{"y":"2020","mgr":"StewMill","name":"Justin Herbert","pos":"QB","pts":273.9},{"y":"2023","mgr":"dingledingle","name":"Dak Prescott","pos":"QB","pts":260.0},{"y":"2022","mgr":"Idler","name":"Dak Prescott","pos":"QB","pts":204.1},{"y":"2020","mgr":"Idler","name":"James Robinson","pos":"RB","pts":193.9},{"y":"2020","mgr":"ritascoleslaw","name":"Justin Jefferson","pos":"WR","pts":192.7},{"y":"2024","mgr":"Teviejay","name":"Baker Mayfield","pos":"QB","pts":184.3}],"totals":{"adds":2260,"faab":5281,"hits":207,"zeros":801},"bands":[{"band":"$0","n":1580,"mean":14.8,"med":5.3,"hit":8,"zero":36},{"band":"$1-5","n":388,"mean":17.7,"med":7.5,"hit":10,"zero":32},{"band":"$6-15","n":205,"mean":22.0,"med":6.7,"hit":13,"zero":37},{"band":"$16-30","n":66,"mean":27.8,"med":6.2,"hit":20,"zero":33},{"band":"$31+","n":21,"mean":38.0,"med":23.1,"hit":24,"zero":14}],"posecon":[{"pos":"QB","n":259,"faab":462,"spend_sh":9,"pts":7866,"pts_sh":21,"ppd":17.0},{"pos":"RB","n":511,"faab":2190,"spend_sh":41,"pts":5381,"pts_sh":14,"ppd":2.5},{"pos":"WR","n":416,"faab":1491,"spend_sh":28,"pts":4976,"pts_sh":13,"ppd":3.3},{"pos":"TE","n":268,"faab":561,"spend_sh":11,"pts":3693,"pts_sh":10,"ppd":6.6},{"pos":"DEF","n":469,"faab":452,"spend_sh":9,"pts":8596,"pts_sh":23,"ppd":19.0},{"pos":"K","n":337,"faab":125,"spend_sh":2,"pts":6898,"pts_sh":18,"ppd":55.2}],"weekly":[{"w":1,"n":186,"avg":22.7},{"w":2,"n":143,"avg":23.2},{"w":3,"n":124,"avg":15.5},{"w":4,"n":156,"avg":16.2},{"w":5,"n":143,"avg":18.7},{"w":6,"n":137,"avg":16.8},{"w":7,"n":187,"avg":17.2},{"w":8,"n":149,"avg":20.0},{"w":9,"n":141,"avg":14.9},{"w":10,"n":151,"avg":19.2},{"w":11,"n":123,"avg":18.5},{"w":12,"n":124,"avg":11.9},{"w":13,"n":117,"avg":13.2},{"w":14,"n":118,"avg":11.8}],"recycled":[{"name":"Green Bay Packers","adds":25,"pts":330},{"name":"New Orleans Saints","adds":24,"pts":307},{"name":"Jared Goff","adds":23,"pts":484},{"name":"New England Patriots","adds":23,"pts":562},{"name":"Los Angeles Chargers","adds":21,"pts":241},{"name":"Kansas City Chiefs","adds":21,"pts":445},{"name":"Cleveland Browns","adds":21,"pts":351},{"name":"Tampa Bay Buccaneers","adds":20,"pts":433}],"seasons":[{"y":"2020","n":463,"faab":0,"pts":7080},{"y":"2021","n":404,"faab":1149,"pts":6015},{"y":"2022","n":351,"faab":1023,"pts":5182},{"y":"2023","n":294,"faab":1066,"pts":6079},{"y":"2024","n":372,"faab":991,"pts":6429},{"y":"2025","n":376,"faab":1052,"pts":6624}],"bypos":{"QB":{"burned":147,"burncount":27,"spent":462,"burnrate":32,"worstburn":[{"y":"2022","w":3,"mgr":"ritascoleslaw","name":"Aaron Rodgers","bid":20},{"y":"2021","w":8,"mgr":"TheFrenchman08","name":"Derek Carr","bid":17},{"y":"2024","w":13,"mgr":"TheFrenchman08","name":"Sam Darnold","bid":13},{"y":"2021","w":9,"mgr":"andymci","name":"Carson Wentz","bid":10},{"y":"2022","w":9,"mgr":"andymci","name":"Jared Goff","bid":10}],"haunts":[{"y":"2023","w":4,"mgr":"Idler","name":"Dak Prescott","elsewhere":260.0},{"y":"2022","w":3,"mgr":"Idler","name":"Kirk Cousins","elsewhere":236.4},{"y":"2025","w":6,"mgr":"YerMan","name":"Matthew Stafford","elsewhere":219.9},{"y":"2021","w":6,"mgr":"StranraerCarny","name":"Joe Burrow","elsewhere":206.2},{"y":"2025","w":2,"mgr":"YerMan","name":"Drake Maye","elsewhere":197.8}]},"RB":{"burned":844,"burncount":93,"spent":2190,"burnrate":39,"worstburn":[{"y":"2021","w":13,"mgr":"ritascoleslaw","name":"Tevin Coleman","bid":32},{"y":"2024","w":2,"mgr":"ritascoleslaw","name":"Carson Steele","bid":30},{"y":"2024","w":7,"mgr":"andymci","name":"Ray Davis","bid":30},{"y":"2025","w":1,"mgr":"ritascoleslaw","name":"Dylan Sampson","bid":30},{"y":"2022","w":1,"mgr":"Teviejay","name":"Dontrell Hilliard","bid":29}],"haunts":[{"y":"2024","w":1,"mgr":"StewMill","name":"Chuba Hubbard","elsewhere":179.7},{"y":"2022","w":1,"mgr":"YerMan","name":"Jamaal Williams","elsewhere":153.5},{"y":"2025","w":1,"mgr":"ritascoleslaw","name":"Rico Dowdle","elsewhere":134.6},{"y":"2021","w":2,"mgr":"dingledingle","name":"Darrel Williams","elsewhere":121.9},{"y":"2025","w":7,"mgr":"YerMan","name":"Kyle Monangai","elsewhere":104.0}]},"WR":{"burned":540,"burncount":75,"spent":1491,"burnrate":36,"worstburn":[{"y":"2025","w":3,"mgr":"Teviejay","name":"Tre Tucker","bid":47},{"y":"2024","w":6,"mgr":"timscoular","name":"JuJu Smith-Schuster","bid":31},{"y":"2021","w":6,"mgr":"Idler","name":"Tim Patrick","bid":30},{"y":"2022","w":2,"mgr":"kerrzo","name":"Noah Brown","bid":22},{"y":"2023","w":1,"mgr":"Idler","name":"Zay Jones","bid":20}],"haunts":[{"y":"2021","w":2,"mgr":"TheFrenchman08","name":"Jaylen Waddle","elsewhere":153.0},{"y":"2021","w":10,"mgr":"Teviejay","name":"Amon-Ra St. Brown","elsewhere":94.5},{"y":"2022","w":1,"mgr":"dingledingle","name":"George Pickens","elsewhere":87.6},{"y":"2020","w":7,"mgr":"timscoular","name":"Marvin Jones","elsewhere":85.3},{"y":"2022","w":5,"mgr":"StewMill","name":"Tyler Boyd","elsewhere":84.7}]},"TE":{"burned":57,"burncount":17,"spent":561,"burnrate":10,"worstburn":[{"y":"2025","w":8,"mgr":"TheFrenchman08","name":"Hunter Henry","bid":10},{"y":"2021","w":6,"mgr":"TheFrenchman08","name":"Evan Engram","bid":5},{"y":"2022","w":2,"mgr":"StranraerCarny","name":"Cole Kmet","bid":5},{"y":"2023","w":10,"mgr":"Teviejay","name":"Luke Musgrave","bid":5},{"y":"2025","w":3,"mgr":"yaks","name":"Brenton Strange","bid":5}],"haunts":[{"y":"2024","w":10,"mgr":"StranraerCarny","name":"Jonnu Smith","elsewhere":103.9},{"y":"2024","w":6,"mgr":"dingledingle","name":"Mark Andrews","elsewhere":102.2},{"y":"2020","w":3,"mgr":"ritascoleslaw","name":"Rob Gronkowski","elsewhere":99.6},{"y":"2020","w":6,"mgr":"dingledingle","name":"Rob Gronkowski","elsewhere":89.5},{"y":"2022","w":1,"mgr":"dingledingle","name":"David Njoku","elsewhere":75.3}]},"DEF":{"burned":29,"burncount":10,"spent":452,"burnrate":6,"worstburn":[{"y":"2024","w":11,"mgr":"StranraerCarny","name":"Tampa Bay Buccaneers","bid":9},{"y":"2023","w":7,"mgr":"TheFrenchman08","name":"Los Angeles Rams","bid":6},{"y":"2022","w":15,"mgr":"StranraerCarny","name":"Jacksonville Jaguars","bid":3},{"y":"2024","w":7,"mgr":"YerMan","name":"Green Bay Packers","bid":3},{"y":"2021","w":10,"mgr":"StewMill","name":"Tennessee Titans","bid":2}],"haunts":[{"y":"2022","w":1,"mgr":"kerrzo","name":"Dallas Cowboys","elsewhere":179.0},{"y":"2021","w":2,"mgr":"Idler","name":"New England Patriots","elsewhere":158.0},{"y":"2023","w":1,"mgr":"YerMan","name":"Baltimore Ravens","elsewhere":155.0},{"y":"2022","w":2,"mgr":"Idler","name":"New England Patriots","elsewhere":145.0},{"y":"2025","w":1,"mgr":"Idler","name":"Seattle Seahawks","elsewhere":128.0}]},"K":{"burned":18,"burncount":4,"spent":125,"burnrate":14,"worstburn":[{"y":"2021","w":9,"mgr":"Teviejay","name":"Graham Gano","bid":7},{"y":"2024","w":12,"mgr":"Idler","name":"Tyler Bass","bid":7},{"y":"2025","w":5,"mgr":"yaks","name":"Brandon McManus","bid":2},{"y":"2025","w":9,"mgr":"Teviejay","name":"Ka'imi Fairbairn","bid":2}],"haunts":[{"y":"2025","w":7,"mgr":"StranraerCarny","name":"Jason Myers","elsewhere":117.0},{"y":"2025","w":8,"mgr":"Teviejay","name":"Jason Myers","elsewhere":117.0},{"y":"2021","w":2,"mgr":"StranraerCarny","name":"Matt Gay","elsewhere":116.0},{"y":"2023","w":6,"mgr":"yaks","name":"Brandon Aubrey","elsewhere":112.0},{"y":"2020","w":4,"mgr":"TheFrenchman08","name":"Younghoe Koo","elsewhere":107.0}]}}};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+$('#keyfigs').innerHTML = [
+  [D.totals.adds.toLocaleString(),'pickups, 2020–2025'],
+  ['$'+D.totals.faab.toLocaleString(),'FAAB spent'],
+  [D.totals.hits,'returned 50+ points'],
+  [Math.round(D.totals.zeros/D.totals.adds*100)+'%','never started a game'],
+  ['$65','biggest winning bid (Kyren)'],
+  ['274','best pickup ever (Herbert, $0)'],
+].map(([b,s])=>`<div class="keyfig"><b>${b}</b><span>${s}</span></div>`).join('');
+
+const rows = Object.entries(D.mgr).sort((a,b)=>b[1].ppm-a[1].ppm);
+const maxPpm = Math.max(...rows.map(([,m])=>m.ppm));
+const maxPpd = Math.max(...rows.map(([,m])=>m.ppd));
+$('#ledger').innerHTML =
+  `<div class="lrow head"><span>Manager</span><span style="text-align:right">Moves</span><span style="text-align:right">FAAB</span><span>Points per move</span><span></span><span>Points per $</span><span style="text-align:right">50+ / 0</span></div>` +
+  rows.map(([n,m])=>
+    `<div class="lrow"><span class="who">${esc(n)}</span><span class="n">${m.n}</span><span class="n">$${m.faab}</span>` +
+    `<span class="track"><i class="g" style="width:${m.ppm/maxPpm*100}%"></i></span><span class="n">${m.ppm.toFixed(1)}</span>` +
+    `<span class="track"><i class="w" style="width:${m.ppd/maxPpd*100}%"></i></span><span class="n">${m.ppd.toFixed(1)} · ${m.hits}/${m.zero}</span></div>`
+  ).join('');
+
+const li = (em,body,val,cls) =>
+  `<li><em>${em}</em><span>${body}</span><b class="${cls||''}">${val}</b></li>`;
+
+$('#market').innerHTML = [
+  `<div class="card"><h4>Biggest hauls</h4><p class="meta">Starter points from one pickup</p><ul>` +
+    D.top.slice(0,6).map(a=>li(`${a.y} $${a.bid}`, `${esc(a.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">${esc(a.mgr)}${a.champ?' · champ':''}</span>`, a.pts.toFixed(0),'g')).join('') + `</ul>
+    <p class="tagline">Herbert, Prescott twice, Maye: four of the top six are quarterbacks claimed for six dollars or less.</p></div>`,
+  `<div class="card"><h4>Best price paid</h4><p class="meta">Points per FAAB dollar, bids of $5+</p><ul>` +
+    D.value.map(a=>li(`${a.y} $${a.bid}`, `${esc(a.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">${esc(a.mgr)}</span>`, (a.pts/a.bid).toFixed(1)+'/$','g')).join('') + `</ul>
+    <p class="tagline">YerMan's six dollars on Justin Herbert in 2025 is the best price ever paid for anything on this wire.</p></div>`,
+  `<div class="card"><h4>Free money</h4><p class="meta">$0 pickups, straight off the street</p><ul>` +
+    D.free.map(a=>li(`${a.y} $0`, `${esc(a.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">${esc(a.mgr)}</span>`, a.pts.toFixed(0),'g')).join('') + `</ul>
+    <p class="tagline">Justin Jefferson went undrafted and unclaimed until week 2 of 2020, when ritascoleslaw took him for nothing.</p></div>`,
+].join('');
+
+$('#pain').innerHTML = [
+  `<div class="card"><h4>Burned budgets</h4><p class="meta">Bids of $15+ that returned zero starts</p><ul>` +
+    D.busts.map(a=>li(`${a.y} wk${a.w}`, `${esc(a.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">${esc(a.mgr)}</span>`, '$'+a.bid,'w')).join('') + `</ul>
+    <p class="tagline">$618 of FAAB has gone on 27 bids of $15 or more that never produced a start. Eight of them, $178 worth, came in 2021 alone. A panicked mid-season running back bid is the most reliable way this league has found to waste money.</p></div>`,
+  `<div class="card"><h4>The drops that haunted</h4><p class="meta">Points scored for other teams after the drop</p><ul>` +
+    D.regret.map(d=>li(`${d.y} wk${d.w}`, `${esc(d.mgr)} dropped ${esc(d.name)}`, d.elsewhere.toFixed(0),'w')).join('') + `</ul>
+    <p class="tagline">YerMan cut Drake Maye in week 2 of 2025. StranraerCarny claimed him for a dollar the next week and won the title with him.</p></div>`,
+].join('');
+
+$('#bands').innerHTML =
+  `<div class="lrow head" style="grid-template-columns:90px 70px minmax(120px,1fr) 60px minmax(120px,1fr) 60px 70px"><span>Bid</span><span style="text-align:right">Claims</span><span>Hit rate (50+ pts)</span><span></span><span>Came back with zero</span><span></span><span style="text-align:right">Avg pts</span></div>` +
+  D.bands.map(b=>
+    `<div class="lrow" style="grid-template-columns:90px 70px minmax(120px,1fr) 60px minmax(120px,1fr) 60px 70px">` +
+    `<span class="who mono" style="font-size:12.5px">${b.band}</span><span class="n">${b.n.toLocaleString()}</span>` +
+    `<span class="track"><i class="g" style="width:${b.hit/24*100}%"></i></span><span class="n">${b.hit}%</span>` +
+    `<span class="track"><i class="w" style="width:${b.zero/37*100}%"></i></span><span class="n">${b.zero}%</span>` +
+    `<span class="n">${b.mean.toFixed(1)}</span></div>`).join('');
+
+$('#posecon').innerHTML =
+  `<div class="lrow head" style="grid-template-columns:60px 80px minmax(160px,1fr) 110px 80px"><span>Pos</span><span style="text-align:right">FAAB</span><span>Spend share vs points share</span><span style="text-align:right">Shares</span><span style="text-align:right">Pts/$</span></div>` +
+  D.posecon.map(p=>
+    `<div class="lrow" style="grid-template-columns:60px 80px minmax(160px,1fr) 110px 80px">` +
+    `<span class="who mono" style="font-size:12.5px">${p.pos}</span><span class="n">$${p.faab.toLocaleString()}</span>` +
+    `<span><span class="track" style="margin-bottom:4px"><i class="w" style="width:${p.spend_sh/41*100}%"></i></span>` +
+    `<span class="track"><i class="g" style="width:${p.pts_sh/41*100}%"></i></span></span>` +
+    `<span class="n">${p.spend_sh}% / ${p.pts_sh}%</span><span class="n">${p.ppd==null?'—':p.ppd.toFixed(1)}</span></div>`).join('');
+
+const wmax = Math.max(...D.weekly.map(w=>w.avg));
+$('#wkhist').innerHTML = D.weekly.map(w=>
+  `<div class="${w.avg>=22?'peak':''}" title="Week ${w.w}: ${w.n} pickups, avg ${w.avg}">` +
+  `<span class="val">${w.avg.toFixed(0)}</span><i style="height:${w.avg/wmax*100}%"></i><span class="lab">${w.w}</span></div>`).join('');
+
+const burnMax = Math.max(...Object.values(D.bypos).map(p=>p.burnrate));
+$('#bypos').innerHTML = ['QB','RB','WR','TE','DEF','K'].map(pos=>{
+  const p = D.bypos[pos];
+  return `<div class="card"><h4>${pos}</h4>
+    <p class="meta">$${p.burned} of $${p.spent} burned · ${p.burncount} dead bids</p>
+    <span class="track" style="display:block; width:100%; margin:2px 0 13px"><i class="w" style="width:${p.burnrate/burnMax*100}%"></i></span>
+    <p class="meta" style="margin-bottom:8px">Budget burned for zero starts</p>
+    <ul>` +
+    p.worstburn.map(a=>li(`${a.y} wk${a.w}`, `${esc(a.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">${esc(a.mgr)}</span>`, '$'+a.bid,'w')).join('') +
+    `</ul>
+    <p class="meta" style="margin:14px 0 8px">Points for other teams after the drop</p>
+    <ul>` +
+    p.haunts.map(d=>li(`${d.y} wk${d.w}`, `${esc(d.name)} <span class="mono" style="font-size:10.5px;color:var(--muted)">cut by ${esc(d.mgr)}</span>`, d.elsewhere.toFixed(0)+' pts','g')).join('') +
+    `</ul><p class="tagline">${p.burnrate}% of ${pos} money returned zero starts.</p></div>`;
+}).join('');
+</script>
+</body>
+</html>
