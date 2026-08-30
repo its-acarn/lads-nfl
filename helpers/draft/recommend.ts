@@ -129,9 +129,58 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   // then the forced collapse, then finally position caps — but never a floor.
   interface Relaxation {
     stash: boolean
+    quota: boolean
     collapse: boolean
+    stacks: boolean
     caps: boolean
   }
+
+  // ---- positional quotas -------------------------------------------------
+  // "Three running backs by the end of round six." Binds just in time: while
+  // enough picks remain inside the window to settle the debt later, this adds
+  // nothing and the board decides. See BoardRules.minCountByRound.
+  const minCountByRound = rules.minCountByRound || {}
+  const quotaSet: Position[] = []
+  const quotaPositions = Object.keys(minCountByRound) as Position[]
+  for (let i = 0; i < quotaPositions.length; i++) {
+    const pos = quotaPositions[i]
+    const quota = minCountByRound[pos]
+    if (quota === undefined) continue
+    const owed = quota.count - (state.myPosCounts[pos] || 0)
+    if (owed <= 0) continue
+    // `byRound` is inclusive, so a pick IN that round still counts toward
+    // paying the debt.
+    let picksLeftInWindow = 0
+    for (let n = 0; n < state.myRemainingPickNos.length; n++) {
+      if (roundOf(state.cfg.draft, state.myRemainingPickNos[n]) <= quota.byRound) picksLeftInWindow++
+    }
+    // The window has closed. The rule stops applying, the same way a round
+    // floor stops mattering once its round arrives -- and saying so on every
+    // one of the remaining picks would be noise, not information.
+    if (picksLeftInWindow === 0) continue
+    // More owed than picks left to pay with: a bot attached mid-draft, or a run
+    // of overrides. Stand down and put it on the record. Unlike a floor this is
+    // a claim about picks already spent, and refusing to recommend anything
+    // does not get them back.
+    if (owed > picksLeftInWindow) {
+      globalRationale.push(
+        `quota: ${quota.count} ${pos} by end of round ${quota.byRound} can no longer be met — ` +
+          `${owed} owed with ${picksLeftInWindow} pick(s) left in the window`
+      )
+      continue
+    }
+    // Equality, given the branch above. Written as >= so that reordering these
+    // guards cannot silently turn a missed deadline into a free pass.
+    if (owed >= picksLeftInWindow) {
+      quotaSet.push(pos)
+      globalRationale.push(
+        `quota: ${owed} more ${pos} owed by end of round ${quota.byRound}, ` +
+          `${picksLeftInWindow} pick(s) left in that window`
+      )
+    }
+  }
+
+  const maxPerNflTeamByPos = rules.maxPerNflTeamByPos || {}
 
   const filterPool = (relax: Relaxation): PoolPlayer[] => {
     const out: PoolPlayer[] = []
@@ -139,12 +188,20 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
       const p = state.pool[i]
       if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
       if (!relax.caps && (state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
+      // One per NFL team at this position. A null team is a free agent and
+      // shares a backfield with nobody, so it constrains nothing.
+      if (!relax.stacks && p.team) {
+        const perTeam = maxPerNflTeamByPos[p.pos]
+        const held = (state.myTeamCountsByPos[p.pos] || {})[p.team] || 0
+        if (perTeam !== undefined && held >= perTeam) continue
+      }
       // Applied unconditionally, and BEFORE the forced-set test. It used to sit
       // in an `else if` on that test, so whenever forced mode was active the
       // floor was not consulted at all — a second, quieter breach path than the
       // scarcity override, and the one that actually fired in the rehearsal.
       const floor = minRoundByPos[p.pos]
       if (floor !== undefined && round < floor) continue
+      if (!relax.quota && quotaSet.length > 0 && quotaSet.indexOf(p.pos) === -1) continue
       if (forced && !relax.collapse && forcedSet.indexOf(p.pos) === -1) continue
       if (!relax.stash && round < rules.stashRound && isStashOnly(p)) continue
       out.push(p)
@@ -153,10 +210,28 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
   }
 
   const levels: { relax: Relaxation; gaveUp: string | null }[] = [
-    { relax: { stash: false, collapse: false, caps: false }, gaveUp: null },
-    { relax: { stash: true, collapse: false, caps: false }, gaveUp: 'the stash rule' },
-    { relax: { stash: true, collapse: true, caps: false }, gaveUp: 'the stash rule and the forced collapse' },
-    { relax: { stash: true, collapse: true, caps: true }, gaveUp: 'the stash rule, the forced collapse and your position caps' },
+    { relax: { stash: false, quota: false, collapse: false, stacks: false, caps: false }, gaveUp: null },
+    { relax: { stash: true, quota: false, collapse: false, stacks: false, caps: false }, gaveUp: 'the stash rule' },
+    { relax: { stash: true, quota: false, collapse: true, stacks: false, caps: false }, gaveUp: 'the stash rule and the forced collapse' },
+    // One per NFL team goes before position caps: it is a correlation
+    // preference, where a cap is a decision about roster shape.
+    {
+      relax: { stash: true, quota: false, collapse: true, stacks: true, caps: false },
+      gaveUp: 'the stash rule, the forced collapse and one per NFL team',
+    },
+    {
+      relax: { stash: true, quota: false, collapse: true, stacks: true, caps: true },
+      gaveUp: 'the stash rule, the forced collapse, one per NFL team and your position caps',
+    },
+    // The quota is the last thing given up -- it is the only rule here Andrew
+    // stated as a "must". By this rung the forced collapse has already been
+    // released two levels earlier, so the one conflict that could empty the
+    // candidate set (a quota and a forced starter demanding disjoint
+    // positions) resolves without the quota ever yielding.
+    {
+      relax: { stash: true, quota: true, collapse: true, stacks: true, caps: true },
+      gaveUp: 'every rule including your position quota',
+    },
   ]
 
   let candidates: PoolPlayer[] = []

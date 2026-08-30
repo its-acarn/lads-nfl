@@ -114,7 +114,19 @@ the Discord webhook are both live.
       provider. **Still open: real-credentials smoke once Andrew's Vonage
       account exists.**
 
-Suite: 319 tests green (was 307). Branch: `draft-night-delivery`.
+- [x] (2026-08-30) M6 — Merge with main's mock workstream (PR #4), which had
+      REMOVED the private/public rendering split while this branch was built
+      on it: main's rehearsal showed the console text is relayed verbatim, so
+      the survival forecast now appears in no message of any kind. Andrew
+      chose main's one-rendering design at merge time. Audience machinery
+      deleted from the remote notifiers and `draftbot.ts`
+      (`--console-audience` gone); recipients collapse to one comma-separated
+      `VONAGE_WHATSAPP_TO` / `TWILIO_WHATSAPP_TO`; workflow secrets and the
+      runbook follow. Kept our newer (Aug 30) player map over main's Aug 27
+      one; took main's version of the Keenan Allen provenance spec.
+
+Suite: 346 tests green (307 before this plan; main's merge brought its own).
+Branch: `draft-night-delivery`, PR #9.
 
 ## Surprises & Discoveries
 
@@ -144,12 +156,13 @@ Suite: 319 tests green (was 307). Branch: `draft-night-delivery`.
 | Twilio Sandbox over Meta Cloud API | Working in minutes, no business verification; the 72-hour re-join is an acceptable draft-morning checklist item. Same platform underneath, so no capability lost | 2026-08-30 |
 | Discord for the group audience | WhatsApp Business Platform cannot post to group chats at all; Discord webhooks are free, instant, and need no bot account | 2026-08-30 |
 | Raw `fetch`, no Twilio/Discord SDKs | Both APIs are one POST each; repo convention keeps the dependency tree flat (see the no-schema-lib decision in `docs/DRAFT_BOT_PLAN.md`) | 2026-08-30 |
-| Two WhatsApp env vars, `_PRIVATE` and `_PUBLIC` | Andrew's own DM should carry the survival forecast (the console used to be where he saw it; on a runner there is no console he watches). The relay's DM and the Discord channel get the public rendering. Reuses the existing `Audience` mechanism instead of inventing a per-recipient config format | 2026-08-30 |
-| Runner console renders `'public'` | The repo is public, so Actions logs are world-readable; the private rendering (survival %) must not appear there. Locally the console stays `'private'` | 2026-08-30 |
+| ~~Two WhatsApp env vars, `_PRIVATE` and `_PUBLIC`~~ SUPERSEDED by M6 | Andrew's own DM should carry the survival forecast (the console used to be where he saw it; on a runner there is no console he watches). The relay's DM and the Discord channel get the public rendering. Reuses the existing `Audience` mechanism instead of inventing a per-recipient config format | 2026-08-30 |
+| ~~Runner console renders `'public'`~~ SUPERSEDED by M6 (there is only one rendering now) | The repo is public, so Actions logs are world-readable; the private rendering (survival %) must not appear there. Locally the console stays `'private'` | 2026-08-30 |
 | The existing `loaded` message is the smoke message | It already flows through every notifier at startup, before the draft begins — no new `DraftMessage` kind needed | 2026-08-30 |
 | Cron guard is a date check inside the job, not just the cron expression | GitHub cron has no year field; `15 18 5 9 *` would refire 2027-09-05. A step exits the job unless `date -u +%F` equals `2026-09-05` (dispatch runs are never guarded) | 2026-08-30 |
 | `concurrency: draft-bot`, no cancel-in-progress | Manual + cron double-start must not run two pollers at once (each would send its own copy of new messages — separate sent-logs on separate runners). The duplicate queues, then exits quickly because the draft is complete or the other run holds the group | 2026-08-30 |
 | Notifier failures stay inside `MultiNotifier` | Already built and tested (rehearsal plan M2): first failure per channel is reported once to stderr; the draft never stops for a delivery fault | 2026-08-30 |
+| One rendering everywhere (M6) | Adopt main's decision: no survival forecast on any channel, no audience machinery, one recipient list per provider | Main removed the split deliberately after the mock (relayed console text made "private" a fiction); keeping a DM-only forecast would re-grow machinery main just deleted, against the maintainer's fresh call. Andrew confirmed at merge | 2026-08-30 |
 | WhatsApp provider: Vonage sandbox, Twilio kept as the paid-account alternative | Twilio trial forbids freeform (see Surprises); Vonage's sandbox allows it in-session for free. Telegram rejected by Andrew — nobody in the league has it. Meta Cloud API rejected for setup friction (permanent-token ritual). Both WhatsApp providers sit behind the same env-var shape, armed by whichever set is present | 2026-08-30 |
 
 ## Outcomes & Retrospective

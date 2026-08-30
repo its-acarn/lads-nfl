@@ -5,8 +5,10 @@ import {
   isRankedLayout,
   parseCsv,
   parseRankedTab,
+  parseTabList,
   parseTiersTab,
   positionFromToken,
+  resolveTabGid,
   positionOfEntry,
   TIER_BLOCK_LAST_ROW,
   TierEntry,
@@ -257,5 +259,104 @@ describe('parseRankedTab', () => {
 
   it('refuses a header with no usable rows under it', () => {
     expect(() => parseRankedTab([RANKED_HEADER])).toThrow(/no usable player rows/)
+  })
+})
+
+// A board the drafter maintains by DRAGGING rows cannot also carry hand-typed
+// tier numbers: every drag across a boundary would need a second edit, and
+// forgetting it fails the import. So the sheet marks the FIRST player of each
+// tier with an "x" and the tier number is derived from position.
+const markedRows = (): string[][] => [
+  ['RK', 'TIERS', 'PLAYER NAME', 'TEAM', 'POS'],
+  ['1', 'x', 'Jahmyr Gibbs', 'DET', 'RB1'],
+  ['2', '', 'Bijan Robinson', 'ATL', 'RB2'],
+  ['3', 'x', 'Ashton Jeanty', 'LV', 'RB6'],
+  ['4', '', 'CeeDee Lamb', 'DAL', 'WR5'],
+  ['5', '', 'James Cook III', 'BUF', 'RB5'],
+]
+
+describe('parseRankedTab with break markers', () => {
+  it('derives a tier number from the running count of markers', () => {
+    expect(parseRankedTab(markedRows()).entries.map((e) => e.tier)).toEqual([1, 1, 2, 2, 2])
+  })
+
+  it('reports no problems for the blank cells between markers', () => {
+    expect(parseRankedTab(markedRows()).problems).toEqual([])
+  })
+
+  it('treats rows above the first marker as tier 1', () => {
+    const rows = markedRows()
+    rows[1][1] = ''
+    expect(parseRankedTab(rows).entries.map((e) => e.tier)).toEqual([1, 1, 2, 2, 2])
+  })
+
+  it('is case-insensitive about the marker', () => {
+    const rows = markedRows()
+    rows[3][1] = 'X'
+    expect(parseRankedTab(rows).entries.map((e) => e.tier)).toEqual([1, 1, 2, 2, 2])
+  })
+
+  // Marker mode is entered only when NOTHING in the column parses as a tier
+  // number. A half-converted sheet must stay in numeric mode and complain
+  // loudly rather than silently re-tiering a board off two stray marks.
+  it('stays in numeric mode when the column mixes numbers and markers', () => {
+    const rows = rankedRows()
+    rows[3][1] = 'x'
+    const out = parseRankedTab(rows)
+    expect(out.entries.map((e) => e.tier)).toEqual([1, 1, 2, 3, 3])
+    expect(out.problems.length).toBe(1)
+    expect(out.problems[0].name).toBe('Brock Bowers')
+  })
+
+  it('reports a cell that is neither blank nor a marker', () => {
+    const rows = markedRows()
+    rows[2][1] = 'maybe'
+    const out = parseRankedTab(rows)
+    expect(out.problems.length).toBe(1)
+    expect(out.problems[0].name).toBe('Bijan Robinson')
+    expect(out.entries.map((e) => e.name)).not.toContain('Bijan Robinson')
+  })
+})
+
+// gviz answers a request for a tab that does not exist by serving the FIRST
+// tab, with a 200 and no warning of any kind -- so an import can read entirely
+// the wrong data and look completely healthy. It did: a board imported with
+// the default tab name silently read a rankings export instead. The only
+// defence is to learn the sheet's real tab list before fetching anything.
+const HTMLVIEW = `
+  var items = [];
+  items.push({name: "ADP", pageUrl: "https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/DOC\\/htmlview\\/sheet?headers\\x3dtrue&gid=0", gid: "0",initialSheet: ("0" == gid)});
+  items.push({name: "My Board", pageUrl: "https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/DOC\\/htmlview\\/sheet?headers\\x3dtrue&gid=692269649", gid: "692269649",initialSheet: ("692269649" == gid)});
+`
+
+describe('parseTabList', () => {
+  it('reads every tab name and gid out of the sheet page', () => {
+    expect(parseTabList(HTMLVIEW)).toEqual([
+      { name: 'ADP', gid: '0' },
+      { name: 'My Board', gid: '692269649' },
+    ])
+  })
+
+  it('returns nothing when the page is not the shape it expects', () => {
+    expect(parseTabList('<html><body>signed out</body></html>')).toEqual([])
+  })
+})
+
+describe('resolveTabGid', () => {
+  const tabs = parseTabList(HTMLVIEW)
+
+  it('finds a tab by name', () => {
+    expect(resolveTabGid(tabs, 'My Board')).toBe('692269649')
+  })
+
+  it('ignores case and surrounding space, which a pasted name carries', () => {
+    expect(resolveTabGid(tabs, '  my board ')).toBe('692269649')
+  })
+
+  // The whole point: the name the caller asked for is not in the sheet, and
+  // that must stop the import rather than quietly become tab one.
+  it('refuses a name the sheet does not have, and says which names it does', () => {
+    expect(() => resolveTabGid(tabs, 'LLL Tiers')).toThrow(/no tab named "LLL Tiers"/)
+    expect(() => resolveTabGid(tabs, 'LLL Tiers')).toThrow(/ADP, My Board/)
   })
 })

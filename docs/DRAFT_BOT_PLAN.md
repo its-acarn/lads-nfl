@@ -105,7 +105,6 @@ recommend(state: BoardState, opts: SimOpts): Recommendation // { primary, fallba
 
 ```ts
 type DraftMessage =
-  | { kind: 'heads_up';   picksAway: number; myPickNo: number; shortlist: Scored[] }
   | { kind: 'on_clock';   pickNo: number; instruction: Scored; fallbacks: Scored[] }
   | { kind: 'escalation'; pickNo: number; secondsElapsed: number; instruction: Scored; fallbacks: Scored[] }
   | { kind: 'pick_confirmed'; pickNo: number; player: Scored }
@@ -264,7 +263,7 @@ Discord was added for the group audience.
 |---|---|---|
 | WhatsApp transport | Twilio Sandbox for WhatsApp, raw `fetch`, no SDK | Working in minutes with no business verification; same WhatsApp platform underneath. The 72-hour join lapse is a draft-morning checklist item |
 | Group audience | Discord webhook, not a WhatsApp group | The WhatsApp Business Platform cannot post into group chats at all; a webhook is free and needs no bot account |
-| Per-channel audiences | `TO_PRIVATE` gets the private rendering; relay DM, Discord and the runner console get public | The survival forecast is the number a rival most wants; the Actions log on a public repo is world-readable, so the runner console renders public via `--console-audience` |
+| One rendering on every channel | Phones, Discord and the runner console all send `formatDraftMessage`'s single public-safe string | Superseded the branch's per-channel audience design when it collided with the one-rendering decision merged from the mock workstream: the console text gets relayed verbatim, so a "private" rendering was never private, and a forecast the relay cannot act on is noise. Confirmed by Andrew at merge time (Aug 2026) |
 | Channel configuration | Environment variables, all-or-nothing per channel | No env vars = today's console-only behaviour; a half-set channel fails loudly at startup, where a restart is cheap, not at pick 1 |
 | Startup smoke | The existing `loaded` READY message, plus `npm run notify:test` | READY already flows through every notifier before pick 1; the smoke script proves channels with no draft at all |
 | Remote runner | `draft-bot.yml`: manual `workflow_dispatch` + cron 18:15 UTC Sep 5, year-guarded to 2026 in a step (GitHub cron has no year field), `concurrency: draft-bot`, player map refreshed on the runner, JSONL log uploaded as an artifact | The guard fails visibly rather than soft-skipping; delete the schedule block after draft day and the guard makes forgetting harmless |

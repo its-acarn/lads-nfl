@@ -73,20 +73,18 @@ jobs:
           VONAGE_API_KEY: ${{ secrets.VONAGE_API_KEY }}
           VONAGE_API_SECRET: ${{ secrets.VONAGE_API_SECRET }}
           VONAGE_WHATSAPP_FROM: ${{ secrets.VONAGE_WHATSAPP_FROM }}
-          VONAGE_WHATSAPP_TO_PRIVATE: ${{ secrets.VONAGE_WHATSAPP_TO_PRIVATE }}
-          VONAGE_WHATSAPP_TO_PUBLIC: ${{ secrets.VONAGE_WHATSAPP_TO_PUBLIC }}
+          VONAGE_WHATSAPP_TO: ${{ secrets.VONAGE_WHATSAPP_TO }}
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
-          TWILIO_WHATSAPP_TO_PRIVATE: ${{ secrets.TWILIO_WHATSAPP_TO_PRIVATE }}
-          TWILIO_WHATSAPP_TO_PUBLIC: ${{ secrets.TWILIO_WHATSAPP_TO_PUBLIC }}
+          TWILIO_WHATSAPP_TO: ${{ secrets.TWILIO_WHATSAPP_TO }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        # --console-audience public: this log is world-readable (public repo),
-        # so it must carry the public rendering — no survival forecasts. The
-        # private rendering goes only to TWILIO_WHATSAPP_TO_PRIVATE.
+        # This log is world-readable (public repo), which is fine: every
+        # message carries the one public-safe rendering — a name and nothing
+        # about the board.
         run: |
           MOCK="${{ inputs.mock_draft_id }}"
-          npm run bot -- ${MOCK:+--mock "$MOCK"} --console-audience public --log logs/run.jsonl
+          npm run bot -- ${MOCK:+--mock "$MOCK"} --log logs/run.jsonl
 
       # The JSONL message log is the faithful record of what was said and
       # when; `npm run team -- --draft <id> --log <file>` reads it back.

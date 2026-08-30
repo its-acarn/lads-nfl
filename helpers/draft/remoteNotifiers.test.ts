@@ -49,7 +49,7 @@ describe('TwilioWhatsAppNotifier', () => {
 
   it('POSTs the rendered message to the account Messages endpoint with Basic auth', async () => {
     const { calls, fn } = fakeFetch()
-    const n = new TwilioWhatsAppNotifier({ ...opts, audience: 'public', fetchFn: fn })
+    const n = new TwilioWhatsAppNotifier({ ...opts, fetchFn: fn })
     await n.send(onClock)
 
     expect(calls).toHaveLength(1)
@@ -66,25 +66,21 @@ describe('TwilioWhatsAppNotifier', () => {
     expect(params.get('Body')).toContain("TAKE: WR Ja'Marr Chase")
   })
 
-  it('renders for the audience it was built with', async () => {
-    const priv = fakeFetch()
-    await new TwilioWhatsAppNotifier({ ...opts, audience: 'private', fetchFn: priv.fn }).send(onClock)
-    expect(new URLSearchParams(String(priv.calls[0].init.body)).get('Body')).toContain('34% survives')
-
-    const pub = fakeFetch()
-    await new TwilioWhatsAppNotifier({ ...opts, audience: 'public', fetchFn: pub.fn }).send(onClock)
-    expect(new URLSearchParams(String(pub.calls[0].init.body)).get('Body')).not.toContain('survives')
+  it('sends the one public-safe rendering — no survival forecast on any channel', async () => {
+    const { calls, fn } = fakeFetch()
+    await new TwilioWhatsAppNotifier({ ...opts, fetchFn: fn }).send(onClock)
+    expect(new URLSearchParams(String(calls[0].init.body)).get('Body')).not.toContain('survives')
   })
 
   it('throws on a non-2xx response, naming the status and Twilio message', async () => {
     const { fn } = fakeFetch(401, JSON.stringify({ message: 'Authenticate' }))
-    const n = new TwilioWhatsAppNotifier({ ...opts, audience: 'public', fetchFn: fn })
+    const n = new TwilioWhatsAppNotifier({ ...opts, fetchFn: fn })
     await expect(n.send(onClock)).rejects.toThrow(/401.*Authenticate/)
   })
 
   it('sends with an abort signal so a hung request cannot stall the poll loop', async () => {
     const { calls, fn } = fakeFetch()
-    await new TwilioWhatsAppNotifier({ ...opts, audience: 'public', fetchFn: fn }).send(onClock)
+    await new TwilioWhatsAppNotifier({ ...opts, fetchFn: fn }).send(onClock)
     expect(calls[0].init.signal).toBeInstanceOf(AbortSignal)
   })
 })
@@ -95,7 +91,6 @@ describe('VonageWhatsAppNotifier', () => {
     apiSecret: 'sec1',
     from: '+14157386102',
     to: '+447700900001',
-    audience: 'public' as const,
   }
 
   it('POSTs JSON to the sandbox endpoint with Basic auth, numbers without a leading +', async () => {
@@ -114,16 +109,7 @@ describe('VonageWhatsAppNotifier', () => {
     expect(body.from).toBe('14157386102')
     expect(body.to).toBe('447700900001')
     expect(body.text).toContain("TAKE: WR Ja'Marr Chase")
-  })
-
-  it('renders for the audience it was built with', async () => {
-    const priv = fakeFetch(202, '{}')
-    await new VonageWhatsAppNotifier({ ...opts, audience: 'private', fetchFn: priv.fn }).send(onClock)
-    expect((JSON.parse(String(priv.calls[0].init.body)) as { text: string }).text).toContain('34% survives')
-
-    const pub = fakeFetch(202, '{}')
-    await new VonageWhatsAppNotifier({ ...opts, fetchFn: pub.fn }).send(onClock)
-    expect((JSON.parse(String(pub.calls[0].init.body)) as { text: string }).text).not.toContain('survives')
+    expect(body.text).not.toContain('survives')
   })
 
   it('retries once, after a pause, when the sandbox rate limit answers 429', async () => {
@@ -161,7 +147,7 @@ describe('DiscordNotifier', () => {
 
   it('POSTs the rendered message as JSON content to the webhook', async () => {
     const { calls, fn } = fakeFetch(204, '')
-    const n = new DiscordNotifier({ webhookUrl, audience: 'public', fetchFn: fn })
+    const n = new DiscordNotifier({ webhookUrl, fetchFn: fn })
     await n.send(onClock)
 
     expect(calls).toHaveLength(1)
@@ -176,7 +162,7 @@ describe('DiscordNotifier', () => {
 
   it('truncates content below the 2000-character Discord cap', async () => {
     const { calls, fn } = fakeFetch(204, '')
-    const n = new DiscordNotifier({ webhookUrl, audience: 'public', fetchFn: fn })
+    const n = new DiscordNotifier({ webhookUrl, fetchFn: fn })
     await n.send({ kind: 'draft_complete', rosterSummary: 'X'.repeat(3000) })
     const body = JSON.parse(String(calls[0].init.body)) as { content: string }
     expect(body.content.length).toBeLessThanOrEqual(1900)
@@ -185,83 +171,63 @@ describe('DiscordNotifier', () => {
 
   it('throws on a non-2xx response, naming the status', async () => {
     const { fn } = fakeFetch(404, '{"message": "Unknown Webhook"}')
-    const n = new DiscordNotifier({ webhookUrl, audience: 'public', fetchFn: fn })
+    const n = new DiscordNotifier({ webhookUrl, fetchFn: fn })
     await expect(n.send(onClock)).rejects.toThrow(/404/)
   })
 })
 
 describe('remoteNotifiersFromEnv', () => {
-  const fullEnv = {
-    TWILIO_ACCOUNT_SID: 'ACxxx',
-    TWILIO_AUTH_TOKEN: 'tok',
-    TWILIO_WHATSAPP_FROM: '+14155238886',
-    TWILIO_WHATSAPP_TO_PRIVATE: '+447700900001',
-    TWILIO_WHATSAPP_TO_PUBLIC: '+447700900002',
-    DISCORD_WEBHOOK_URL: 'https://discord.com/api/webhooks/123/abc',
-  }
-
   it('builds nothing when no channel variables are set', () => {
     const { notifiers, described } = remoteNotifiersFromEnv({})
     expect(notifiers).toHaveLength(0)
     expect(described).toHaveLength(0)
   })
 
-  it('builds one notifier per WhatsApp recipient plus Discord, each on its own audience', async () => {
-    const { calls, fn } = fakeFetch()
-    const { notifiers, described } = remoteNotifiersFromEnv(fullEnv, fn)
-    expect(described).toEqual(['whatsapp(private)', 'whatsapp(public)', 'discord'])
-
-    for (let i = 0; i < notifiers.length; i++) await notifiers[i].send(onClock)
-    expect(calls).toHaveLength(3)
-    // Andrew's DM carries the forecast; the relay's and the channel do not.
-    const privBody = new URLSearchParams(String(calls[0].init.body)).get('Body') || ''
-    const pubBody = new URLSearchParams(String(calls[1].init.body)).get('Body') || ''
-    const discord = (JSON.parse(String(calls[2].init.body)) as { content: string }).content
-    expect(privBody).toContain('34% survives')
-    expect(pubBody).not.toContain('survives')
-    expect(discord).not.toContain('survives')
-    expect(new URLSearchParams(String(calls[0].init.body)).get('To')).toBe('whatsapp:+447700900001')
-    expect(new URLSearchParams(String(calls[1].init.body)).get('To')).toBe('whatsapp:+447700900002')
-  })
-
-  it('either WhatsApp recipient may be omitted', () => {
-    const env = { ...fullEnv, TWILIO_WHATSAPP_TO_PUBLIC: undefined }
-    const { described } = remoteNotifiersFromEnv(env)
-    expect(described).toEqual(['whatsapp(private)', 'discord'])
-  })
-
-  it('Discord alone is a valid configuration', () => {
-    const { described } = remoteNotifiersFromEnv({ DISCORD_WEBHOOK_URL: fullEnv.DISCORD_WEBHOOK_URL })
-    expect(described).toEqual(['discord'])
-  })
-
-  it('builds Vonage WhatsApp notifiers from VONAGE_* variables, per-recipient audiences', async () => {
+  it('builds one Vonage notifier per comma-separated recipient, plus Discord', async () => {
     const { calls, fn } = fakeFetch(202, '{}')
     const { notifiers, described } = remoteNotifiersFromEnv(
       {
         VONAGE_API_KEY: 'key1',
         VONAGE_API_SECRET: 'sec1',
         VONAGE_WHATSAPP_FROM: '14157386102',
-        VONAGE_WHATSAPP_TO_PRIVATE: '+447700900001',
-        VONAGE_WHATSAPP_TO_PUBLIC: '+447700900002',
+        VONAGE_WHATSAPP_TO: '+447700900001, +447700900002',
+        DISCORD_WEBHOOK_URL: 'https://discord.com/api/webhooks/123/abc',
       },
       fn
     )
-    expect(described).toEqual(['vonage-whatsapp(private)', 'vonage-whatsapp(public)'])
+    expect(described).toEqual(['vonage-whatsapp(2)', 'discord'])
     for (let i = 0; i < notifiers.length; i++) await notifiers[i].send(onClock)
-    const first = JSON.parse(String(calls[0].init.body)) as { to: string; text: string }
-    const second = JSON.parse(String(calls[1].init.body)) as { to: string; text: string }
-    expect(first.to).toBe('447700900001')
-    expect(first.text).toContain('34% survives')
-    expect(second.to).toBe('447700900002')
-    expect(second.text).not.toContain('survives')
+    expect(calls).toHaveLength(3)
+    expect((JSON.parse(String(calls[0].init.body)) as { to: string }).to).toBe('447700900001')
+    expect((JSON.parse(String(calls[1].init.body)) as { to: string }).to).toBe('447700900002')
+  })
+
+  it('builds Twilio notifiers from TWILIO_* variables', async () => {
+    const { calls, fn } = fakeFetch()
+    const { described, notifiers } = remoteNotifiersFromEnv(
+      {
+        TWILIO_ACCOUNT_SID: 'ACxxx',
+        TWILIO_AUTH_TOKEN: 'tok',
+        TWILIO_WHATSAPP_FROM: '+14155238886',
+        TWILIO_WHATSAPP_TO: '+447700900001',
+      },
+      fn
+    )
+    expect(described).toEqual(['twilio-whatsapp(1)'])
+    await notifiers[0].send(onClock)
+    expect(new URLSearchParams(String(calls[0].init.body)).get('To')).toBe('whatsapp:+447700900001')
+  })
+
+  it('Discord alone is a valid configuration', () => {
+    const { described } = remoteNotifiersFromEnv({ DISCORD_WEBHOOK_URL: 'https://discord.com/api/webhooks/1/a' })
+    expect(described).toEqual(['discord'])
   })
 
   it('a half-configured Vonage channel fails at startup, naming what is missing', () => {
     expect(() => remoteNotifiersFromEnv({ VONAGE_API_KEY: 'key1' })).toThrow(/VONAGE_API_SECRET/)
     expect(() =>
       remoteNotifiersFromEnv({ VONAGE_API_KEY: 'k', VONAGE_API_SECRET: 's', VONAGE_WHATSAPP_FROM: '1' })
-    ).toThrow(/VONAGE_WHATSAPP_TO_PRIVATE|recipient/)
+    ).toThrow(/VONAGE_WHATSAPP_TO/)
   })
 
   it('a half-configured Twilio channel fails at startup, naming what is missing', () => {
@@ -272,7 +238,7 @@ describe('remoteNotifiersFromEnv', () => {
         TWILIO_AUTH_TOKEN: 'tok',
         TWILIO_WHATSAPP_FROM: '+14155238886',
       })
-    ).toThrow(/TWILIO_WHATSAPP_TO_PRIVATE|recipient/)
+    ).toThrow(/TWILIO_WHATSAPP_TO/)
   })
 })
 
@@ -283,7 +249,6 @@ describe('remote channels under MultiNotifier', () => {
       authToken: 't',
       from: '+1',
       to: '+2',
-      audience: 'public',
       fetchFn: fakeFetch(500, '{}').fn,
     })
     const delivered: DraftMessage[] = []
