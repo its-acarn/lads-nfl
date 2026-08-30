@@ -363,6 +363,89 @@ where Sleeper populates the field.
 
 ---
 
+## Draft night, remotely
+
+The bot can run on a GitHub Actions runner and deliver every message to two
+WhatsApp numbers and a Discord channel, so nobody needs a terminal open. Every
+channel carries the same string — the one public-safe rendering: a name, and
+nothing about the board.
+
+### Channels
+
+Channels arm themselves from environment variables. With none set, the bot is
+console-only, exactly as above. A half-configured channel (a Twilio SID
+without its token, credentials without a recipient) refuses to start and names
+the missing variable — better a restart at startup than a silent phone at
+pick 1.
+
+WhatsApp has two interchangeable providers — configure whichever account
+works. **Vonage is the live one**: Twilio's trial tier turned out to allow
+only its own canned templates over the API (`ContentSid Required`, Aug 2026),
+and lifting that costs a £20 top-up. The Twilio notifier is kept for an
+upgraded account.
+
+| Variable | What it is |
+| :-- | :-- |
+| `VONAGE_API_KEY` / `VONAGE_API_SECRET` | Vonage dashboard, API settings |
+| `VONAGE_WHATSAPP_FROM` | The Messages API sandbox WhatsApp number |
+| `VONAGE_WHATSAPP_TO` | Recipients, comma-separated (Andrew, the relay) |
+| `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` / `TWILIO_WHATSAPP_FROM` / `TWILIO_WHATSAPP_TO` | Twilio equivalent (needs a paid account) |
+| `DISCORD_WEBHOOK_URL` | Channel → Settings → Integrations → Webhooks |
+
+**Whitelisting phones.** Each recipient joins the Vonage sandbox by sending
+its passphrase from WhatsApp (QR/instructions on the dashboard's Messages API
+sandbox page). Sending any message to the sandbox number also opens the
+24-hour window WhatsApp requires for freeform messages — have both phones do
+that on draft morning. (Twilio's equivalent is `join <two-words>`, lapsing
+every ~72 hours.)
+
+**Vonage fair use is 100 messages/month.** A full draft to two phones is
+roughly all of it, so rehearsals should run on Discord alone — leave the
+`VONAGE_*` variables unset for mocks.
+
+Prove the channels any time with:
+
+    npm run notify:test
+
+which sends one "smoke test — ignore" message through everything configured
+and exits non-zero on any failure.
+
+### Starting it remotely
+
+`.github/workflows/draft-bot.yml`, two triggers:
+
+- **Manual:** repo → Actions → draft-bot → Run workflow (works in the GitHub
+  mobile app). Fill in `mock_draft_id` to rehearse against a mock; leave it
+  empty for the live draft.
+- **Automatic:** a cron fires at 18:15 UTC on 5 September — 45 minutes early,
+  which is free, because the bot polls through `pre_draft`. GitHub cron has no
+  year field, so a guard step refuses (a visible red run) on any date other
+  than **2026-09-05**. Delete the `schedule:` block after draft day; the
+  guard makes forgetting harmless.
+
+The six variables above live as repo Actions secrets (Settings → Secrets and
+variables → Actions, or `gh secret set <NAME>`). The runner refreshes the
+player map itself (`npm run fixtures`), so the 48-hour freshness gate always
+passes; the live board gates (`draftReady`, real ids) still apply unchanged.
+When the run ends — however it ends — the JSONL message log is uploaded as a
+run artifact named `draft-log-<run id>`, which `npm run team` can read back.
+
+Two runs can never poll at once (`concurrency: draft-bot`): a second start
+queues, then finds the draft complete and exits. A runner that dies mid-draft
+is recovered by dispatching again — the fresh bot rebuilds state from the
+picks feed; the only duplication possible is a repeat of the current
+on-clock instruction, which is harmless.
+
+### Draft-morning checklist
+
+1. Both phones re-text `join <code>` to the Twilio sandbox number.
+2. `npm run notify:test` locally (or dispatch the workflow with a mock id) —
+   every channel delivers.
+3. Board re-tiered, `npm run resolve-board` re-run, `draftReady: true` set.
+4. Nothing else: the cron does the rest, and manual dispatch is the backup.
+
+---
+
 ## Reference
 
 | Command | What it does |
@@ -373,6 +456,7 @@ where Sleeper populates the field.
 | `npm run bot -- --mock <id> [--log <path>]` | Run against a live mock |
 | `npm run bot -- --dry-run --fixtures <dir> --slot N --speed 200` | Replay a fixture through the real loop |
 | `npm run team -- --draft <id> [--log <path>]` | Report a completed draft |
+| `npm run notify:test` | One smoke message through every configured channel |
 | `npm test` | The suite |
 
 Runtime state lives in `.draftbot/sent-log.<draftId>.json` (gitignored). Delete

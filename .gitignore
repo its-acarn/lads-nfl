@@ -43,3 +43,6 @@ next-env.d.ts
 # draft bot message logs (--log). Working material: committing one would put a
 # mock draft's noise into the repository permanently.
 logs/
+
+# Claude Code personal settings (machine-specific; never publish)
+.claude/settings.local.json
