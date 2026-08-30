@@ -43,7 +43,6 @@ export interface BotOptions {
   myUserId: string
   pollMs: number // base poll interval (default 3000)
   draftEveryNPolls: number // draft status refresh cadence (default 5)
-  headsUpAt: number // heads-up when my pick is <= this many away
   timeScale: number // draft-seconds per wall-second (dry-run acceleration)
   reachReference: number // reference displacement for reach calibration
   simOpts: SimOpts
@@ -80,7 +79,6 @@ export const JITTER_FRACTION = 0.15
 export const DEFAULT_BOT_OPTIONS: Omit<BotOptions, 'myUserId'> = {
   pollMs: 3000,
   draftEveryNPolls: 5,
-  headsUpAt: 3,
   timeScale: 1,
   reachReference: 6,
   simOpts: DEFAULT_SIM_OPTS,
@@ -320,18 +318,6 @@ export async function runBot(
         const simOpts: SimOpts = {
           ...optsIn.simOpts,
           reachScale: computeReachScale(picks, players, optsIn.reachReference),
-        }
-
-        if (picksAway > 0 && picksAway <= optsIn.headsUpAt && !deps.log.has(`heads_up:${myNext}`)) {
-          const rec: Recommendation = recommend(state, simOpts)
-          // One name. A shortlist in a channel Andrew shares tells the other
-          // eleven managers what he is thinking.
-          await sendOnce(`heads_up:${myNext}`, {
-            kind: 'heads_up',
-            picksAway,
-            myPickNo: myNext,
-            shortlist: [rec.primary],
-          })
         }
 
         if (picksAway === 0) {

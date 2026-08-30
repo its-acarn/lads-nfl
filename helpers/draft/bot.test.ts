@@ -127,12 +127,14 @@ describe('runBot end-to-end over lads/2024', () => {
     const myPickNos = sorted.filter((p) => p.draft_slot === SLOT).map((p) => p.pick_no)
     const byKind = (k: string) => notifier.messages.filter((m) => m.kind === k)
 
-    // Heads-up exactly once per pick that HAS an approach window: pick 1
-    // starts on the clock, and the second pick of a back-to-back snake turn
-    // (25 after 24) goes straight to on-clock the moment the first lands.
-    const headsUp = byKind('heads_up') as Extract<DraftMessage, { kind: 'heads_up' }>[]
-    const withWindow = myPickNos.filter((n) => n !== 1 && myPickNos.indexOf(n - 1) === -1)
-    expect(headsUp.map((m) => m.myPickNo)).toEqual(withWindow)
+    // No heads-up, ever. The bot used to send one when a pick came within
+    // three, and the message earned its keep only for a reader who would do
+    // something with the warning. The relay does not: they act on the one
+    // instruction that names a player, and a message that names nobody is a
+    // notification they must read and discard. Removing it also removes a
+    // full `recommend()` -- a survival simulation -- run purely to populate a
+    // shortlist that was never rendered.
+    expect(notifier.messages.filter((m) => m.kind === 'heads_up')).toEqual([])
 
     // On-clock exactly once per my pick, in order.
     const onClock = byKind('on_clock') as Extract<DraftMessage, { kind: 'on_clock' }>[]

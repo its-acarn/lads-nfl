@@ -143,6 +143,39 @@ export interface BoardRules {
   // simulation expects it extinct by the next pick, the engine takes one
   // anyway rather than finish with the slot empty.
   minRoundByPos?: Partial<Record<Position, number>>
+
+  // How many players from the SAME NFL team may be held at a position. Absent
+  // means no limit, and a position not named is unconstrained.
+  //
+  // `RB: 1` is the one that earned this: two backs out of one backfield split
+  // the touches that make either worth owning, and the injury that would hand
+  // the job to one is the same injury that removes the other. The board cannot
+  // express that, because it ranks players and this is a fact about a roster.
+  // Deliberately not applied to every position by default — two receivers on
+  // one offence are a different and much weaker correlation.
+  //
+  // Softer than a position cap: if it is the only thing between the engine and
+  // an empty candidate set, it is given up first, and announced.
+  maxPerNflTeamByPos?: Partial<Record<Position, number>>
+
+  // At least `count` players at this position by the END of `byRound` -- that
+  // round is included. The inverse of a round floor: a floor is a prohibition,
+  // which can always be satisfied by taking somebody else, while this is an
+  // obligation that eventually has to be paid.
+  //
+  // Binds JUST IN TIME. While enough of my picks remain inside the window to
+  // settle the debt later, the engine follows the board exactly as it would
+  // without the rule; only when the players still owed equal the picks left in
+  // the window does the candidate set narrow to that position. `RB: 3 by round
+  // 6` on a slot-5 board therefore does nothing until pick 44, and nothing at
+  // all if a back is taken early.
+  //
+  // If the debt can no longer be paid -- more owed than picks left, which a bot
+  // attached mid-draft can inherit -- the quota stands down and says so rather
+  // than refusing to recommend anything. Unlike a floor it is a claim about
+  // picks already spent, and blocking the draft does not get them back.
+  minCountByRound?: Partial<Record<Position, { count: number; byRound: number }>>
+
   stashRound: number
   offBoardDiscount: number
   needWeights?: NeedWeightRules
@@ -258,6 +291,12 @@ export interface BoardState {
   myRemainingPickNos: number[] // >= currentPickNo
   myRosterIds: string[] // player_ids I hold
   myPosCounts: Record<Position, number>
+  // What I hold, by position and then by NFL team: myTeamCountsByPos.RB['TB']
+  // is how many Tampa Bay running backs are already on my roster. Counted here
+  // rather than derived in the engine because the pool holds only AVAILABLE
+  // players — the ones already drafted have left it, so their teams cannot be
+  // recovered downstream.
+  myTeamCountsByPos: Record<Position, Record<string, number>>
   posCountsByRoster: Record<number, Record<Position, number>>
   pool: PoolPlayer[] // available players, sorted by value desc
 }
@@ -318,7 +357,6 @@ export type DraftMessage =
   // produces a confident, wrong audit — instructions are keyed on pick number
   // alone, and pick numbers collide across drafts.
   | { kind: 'loaded'; draftId: string; slot: number; pickNos: number[]; rounds: number; teams: number }
-  | { kind: 'heads_up'; picksAway: number; myPickNo: number; shortlist: Scored[] }
   | { kind: 'on_clock'; pickNo: number; instruction: Scored; fallbacks: Scored[] }
   | {
       kind: 'escalation'
