@@ -14,6 +14,7 @@
     "board:import": "tsx scripts/importBoard.ts",
     "replay": "tsx scripts/replay.ts",
     "bot": "tsx scripts/draftbot.ts",
+    "notify:test": "tsx scripts/notifySmoke.ts",
     "team": "tsx scripts/team.ts",
     "backtest:data": "tsx scripts/fetchBacktestData.ts",
     "backtest:board": "tsx scripts/importSheet.ts",

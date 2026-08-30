@@ -96,18 +96,20 @@ export function formatDraftMessage(msg: DraftMessage, audience: Audience = 'publ
 
 export class ConsoleNotifier implements Notifier {
   private clock: () => string
+  private audience: Audience
 
-  constructor(clock?: () => string) {
+  // Defaults to 'private': Andrew's own terminal is where the survival
+  // forecast belongs, because it is what tells him whether a recommendation is
+  // urgent or safe to skip. Pass 'public' when the console itself is public —
+  // a GitHub Actions log on a public repository is world-readable.
+  constructor(clock?: () => string, audience: Audience = 'private') {
     this.clock = clock || (() => new Date().toISOString().slice(11, 19))
+    this.audience = audience
   }
 
   send(msg: DraftMessage): Promise<void> {
     const stamp = this.clock()
-    // Andrew's own screen: the survival forecast belongs here, because it is
-    // what tells him whether a recommendation is urgent or safe to skip. What
-    // he chooses to paste into the channel is the public rendering, which is
-    // formatDraftMessage's default.
-    const body = formatDraftMessage(msg, 'private')
+    const body = formatDraftMessage(msg, this.audience)
       .split('\n')
       .map((l, i) => (i === 0 ? `[${stamp}] ${l}` : `           ${l}`))
       .join('\n')

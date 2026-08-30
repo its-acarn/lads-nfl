@@ -176,6 +176,30 @@ describe('the private rendering', () => {
     expect(written.join('\n')).toContain('(12% survives)')
   })
 
+  it('ConsoleNotifier can be told to render public, for a console that is itself public', async () => {
+    // A GitHub Actions log on a public repo is world-readable: the forecast
+    // must not appear there.
+    const written: string[] = []
+    const original = console.log
+    // eslint-disable-next-line no-console
+    console.log = (s?: unknown) => {
+      written.push(String(s))
+    }
+    try {
+      await new ConsoleNotifier(() => '12:00:00', 'public').send({
+        kind: 'on_clock',
+        pickNo: 24,
+        instruction: bijan,
+        fallbacks: [],
+      })
+    } finally {
+      // eslint-disable-next-line no-console
+      console.log = original
+    }
+    expect(written.join('\n')).toContain('TAKE: RB Bijan Robinson')
+    expect(written.join('\n')).not.toContain('survives')
+  })
+
   it('names at most one player per message', () => {
     // Every message carrying a player is handed three; only the first may show.
     const withPlayers = everyKind.filter((m) => m.kind === 'heads_up' || m.kind === 'on_clock' || m.kind === 'escalation')

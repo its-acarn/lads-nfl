@@ -13,7 +13,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { runBot, BotOptions, DEFAULT_BOT_OPTIONS, Feed, SentLog } from '../helpers/draft/bot'
-import { ConsoleNotifier, JsonlNotifier, MultiNotifier } from '../helpers/draft/notifier'
+import { Audience, ConsoleNotifier, JsonlNotifier, MultiNotifier } from '../helpers/draft/notifier'
+import { remoteNotifiersFromEnv } from '../helpers/draft/remoteNotifiers'
 import { buildMarketFixture, marketConfig, userForSlot } from '../helpers/draft/marketBoard'
 import { lineupFromDraftSettings } from '../helpers/draft/needs'
 import { DEFAULT_SIM_OPTS } from '../helpers/draft/survival'
@@ -282,7 +283,25 @@ async function main(): Promise<void> {
   const jsonl = logPath
     ? new JsonlNotifier(path.isAbsolute(logPath) ? logPath : path.join(process.cwd(), logPath))
     : null
-  const notifier = jsonl ? new MultiNotifier([new ConsoleNotifier(), jsonl]) : new ConsoleNotifier()
+
+  // --console-audience public keeps the survival forecast out of a console
+  // that is itself public — a GitHub Actions log on a public repo. Locally the
+  // default stays 'private', which is the whole point of having a console.
+  const consoleAudience: Audience = arg('console-audience') === 'public' ? 'public' : 'private'
+  const console_ = new ConsoleNotifier(undefined, consoleAudience)
+
+  // WhatsApp/Discord channels arm themselves from the environment; with no
+  // channel variables set this adds nothing. A half-configured channel throws
+  // HERE, at startup, where a restart is cheap.
+  const remote = remoteNotifiersFromEnv(process.env)
+  const stack = [console_, ...(jsonl ? [jsonl] : []), ...remote.notifiers]
+  const notifier = stack.length > 1 ? new MultiNotifier(stack) : console_
+  // eslint-disable-next-line no-console
+  console.log(
+    `channels: console(${consoleAudience})` +
+      (jsonl ? ` + jsonl` : '') +
+      (remote.described.length > 0 ? ` + ${remote.described.join(' + ')}` : '')
+  )
   if (logPath) {
     // eslint-disable-next-line no-console
     console.log(`logging every message to ${logPath}`)

@@ -253,3 +253,19 @@ backtest and the review that followed it, and they are what will actually run.
 | Players Sleeper does not rank | ADP interpolated from the board's own rank→ADP curve | All 32 defenses have `search_rank: null`. Sharing one sentinel gave every one survival 1.0, so E[best DEF] equalled the best defense's own value and its edge was exactly zero — a defense could never be chosen on score, only by forced mode |
 | Replay coverage | `npm run replay -- --rules live` overlays `config/board.json` | The whole replay corpus, golden snapshot included, exercised `marketRules`, which sets none of the rules above. It described a configuration that will never run |
 | Live-mode gates | Explicit `draftReady`, plus a 48-hour limit on the player map | The ids were filled in weeks before the board was, so "the ids look real" was never evidence the board was ready. The draftable pool is exactly the player map's keys and the stash rule reads its injury designations |
+
+### Phase 4 (delivery + runner) — as built
+
+Designed and executed under `docs/plans/draft-night-delivery/`. WhatsApp is
+Twilio's sandbox rather than Meta's Cloud API, Telegram was dropped, and
+Discord was added for the group audience.
+
+| Decision | Choice | Why |
+|---|---|---|
+| WhatsApp transport | Twilio Sandbox for WhatsApp, raw `fetch`, no SDK | Working in minutes with no business verification; same WhatsApp platform underneath. The 72-hour join lapse is a draft-morning checklist item |
+| Group audience | Discord webhook, not a WhatsApp group | The WhatsApp Business Platform cannot post into group chats at all; a webhook is free and needs no bot account |
+| Per-channel audiences | `TO_PRIVATE` gets the private rendering; relay DM, Discord and the runner console get public | The survival forecast is the number a rival most wants; the Actions log on a public repo is world-readable, so the runner console renders public via `--console-audience` |
+| Channel configuration | Environment variables, all-or-nothing per channel | No env vars = today's console-only behaviour; a half-set channel fails loudly at startup, where a restart is cheap, not at pick 1 |
+| Startup smoke | The existing `loaded` READY message, plus `npm run notify:test` | READY already flows through every notifier before pick 1; the smoke script proves channels with no draft at all |
+| Remote runner | `draft-bot.yml`: manual `workflow_dispatch` + cron 18:15 UTC Sep 5, year-guarded to 2026 in a step (GitHub cron has no year field), `concurrency: draft-bot`, player map refreshed on the runner, JSONL log uploaded as an artifact | The guard fails visibly rather than soft-skipping; delete the schedule block after draft day and the guard makes forgetting harmless |
+| WhatsApp provider, revised | Vonage Messages API sandbox; the Twilio notifier kept for a paid account | Twilio's trial tier ("Try out WhatsApp") rejects freeform `Body` outright — `ContentSid Required`, canned templates only, session window irrelevant — and lifting it needs a £20 top-up. Vonage's sandbox allows freeform in-session for free (fair use 100 msgs/month: one draft night to two phones, so rehearsals stay on Discord). Telegram ruled out: nobody in the league has it |

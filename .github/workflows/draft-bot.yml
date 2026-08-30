@@ -1,0 +1,99 @@
+# Runs the draft bot on a GitHub-hosted runner, so it can babysit the draft
+# without Andrew's laptop being open. Two ways to start it:
+#
+#   - Manually: repo -> Actions -> draft-bot -> Run workflow (also in the
+#     GitHub mobile app). Optionally give a mock draft id to rehearse.
+#   - Automatically: the cron below fires at 18:15 UTC on 5 September, 45
+#     minutes before the 2026 draft (19:00 UTC). The bot polls happily through
+#     pre_draft, so early is free.
+#
+# GitHub cron has no year field, so `15 18 5 9 *` would fire again in 2027.
+# The first step refuses (exit 1, a visible red run) on any date other than
+# 2026-09-05 — and the schedule block should simply be DELETED after draft
+# day; the guard makes forgetting harmless.
+#
+# Secrets (Settings -> Secrets and variables -> Actions): the VONAGE_* set
+# and/or the TWILIO_* set for WhatsApp (two providers, one shape — configure
+# whichever account works), plus DISCORD_WEBHOOK_URL. Any unset channel is
+# simply not armed; a half-set one fails at startup by design.
+
+name: draft-bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      mock_draft_id:
+        description: 'Sleeper mock draft id — set to rehearse against a mock instead of the live draft'
+        required: false
+  schedule:
+    - cron: '15 18 5 9 *'
+
+# Never two pollers at once: each would send its own copy of every new
+# message. A second start queues behind the first and, when it finally runs,
+# finds the draft complete and exits.
+concurrency:
+  group: draft-bot
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    # A 14-round draft with a 120 s clock and human relaying runs well under
+    # this; the ceiling exists so a wedged run cannot burn a runner for 6 h+.
+    timeout-minutes: 350
+
+    steps:
+      - name: Auto-start only on draft day 2026
+        if: github.event_name == 'schedule'
+        run: |
+          today="$(date -u +%F)"
+          if [ "$today" != "2026-09-05" ]; then
+            echo "Today is $today, not 2026-09-05 — refusing to auto-start."
+            echo "(Manual dispatch is never guarded. Delete the schedule block after draft day.)"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The live-mode gate refuses a player map older than 48 hours (it
+      # defines the draftable pool and carries the injury designations the
+      # stash rule reads), so refresh it on the runner. Nothing is committed.
+      - name: Refresh the Sleeper player map
+        run: npm run fixtures
+
+      - name: Run the bot
+        env:
+          VONAGE_API_KEY: ${{ secrets.VONAGE_API_KEY }}
+          VONAGE_API_SECRET: ${{ secrets.VONAGE_API_SECRET }}
+          VONAGE_WHATSAPP_FROM: ${{ secrets.VONAGE_WHATSAPP_FROM }}
+          VONAGE_WHATSAPP_TO_PRIVATE: ${{ secrets.VONAGE_WHATSAPP_TO_PRIVATE }}
+          VONAGE_WHATSAPP_TO_PUBLIC: ${{ secrets.VONAGE_WHATSAPP_TO_PUBLIC }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
+          TWILIO_WHATSAPP_TO_PRIVATE: ${{ secrets.TWILIO_WHATSAPP_TO_PRIVATE }}
+          TWILIO_WHATSAPP_TO_PUBLIC: ${{ secrets.TWILIO_WHATSAPP_TO_PUBLIC }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        # --console-audience public: this log is world-readable (public repo),
+        # so it must carry the public rendering — no survival forecasts. The
+        # private rendering goes only to TWILIO_WHATSAPP_TO_PRIVATE.
+        run: |
+          MOCK="${{ inputs.mock_draft_id }}"
+          npm run bot -- ${MOCK:+--mock "$MOCK"} --console-audience public --log logs/run.jsonl
+
+      # The JSONL message log is the faithful record of what was said and
+      # when; `npm run team -- --draft <id> --log <file>` reads it back.
+      - name: Upload message log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: draft-log-${{ github.run_id }}
+          path: logs/run.jsonl
+          if-no-files-found: ignore
