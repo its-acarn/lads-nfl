@@ -73,10 +73,13 @@ describe('the 2025 universe', () => {
 })
 
 describe('provenance — the reason this module exists', () => {
-  // These three were central to 2025 and have since dropped out of Sleeper's
-  // 2026 player map because they are no longer on an NFL roster. Resolving
-  // 2025 names against that map alone would lose them; carrying their
-  // attributes from it would be impossible.
+  // These three were central to 2025 and had dropped out of Sleeper's 2026
+  // player map when this suite was written. The universe must carry their
+  // 2025 attributes from draft-day pick metadata regardless of what today's
+  // map says — which changes: this spec originally asserted Keenan Allen was
+  // ABSENT from the 2026 map, and a routine `npm run fixtures` refresh broke
+  // it the day he signed with the Colts (Aug 2026). Assert nothing about the
+  // live map here; the map-absent case is proven dynamically below.
   const gone = [
     { name: 'Tyreek Hill', pos: 'WR', team2025: 'MIA' },
     { name: 'Austin Ekeler', pos: 'RB', team2025: 'WAS' },
@@ -85,14 +88,11 @@ describe('provenance — the reason this module exists', () => {
 
   for (let i = 0; i < gone.length; i++) {
     const g = gone[i]
-    it(`keeps ${g.name}, whom the 2026 map has dropped, with his 2025 team`, () => {
+    it(`keeps ${g.name}'s 2025 team from pick metadata, wherever today's map has moved on`, () => {
       const ids = findByName(g.name)
       expect(ids.length, `${g.name} should appear exactly once`).toBe(1)
       const p = universe.players[ids[0]]
       expect(p.position).toBe(g.pos)
-      // The decisive assertion: he is absent from the 2026 map, so this team
-      // can only have come from draft-day pick metadata.
-      expect(trim2026[ids[0]], `${g.name} should be absent from the 2026 map`).toBeUndefined()
       expect(p.team).toBe(g.team2025)
     })
   }
