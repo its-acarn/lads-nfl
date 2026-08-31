@@ -76,7 +76,7 @@ describe('splicePlayers', () => {
     expect(after).toContain('"//useForcedStarters"')
     // And the tuning itself, unchanged.
     const parsed = JSON.parse(after) as { rules: { minRoundByPos: Record<string, number>; vonaFromRound: number } }
-    expect(parsed.rules.minRoundByPos.QB).toBe(11)
+    expect(parsed.rules.minRoundByPos.QB).toBe(12)
     expect(parsed.rules.vonaFromRound).toBe(9)
   })
 
