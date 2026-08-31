@@ -190,13 +190,15 @@ export class DiscordNotifier implements Notifier {
 // unable to send freeform messages, Aug 2026).
 //
 // `described` names each armed channel WITHOUT its secrets, for the startup
-// line.
+// line; `labels` gives one name PER NOTIFIER (recipients numbered), aligned
+// with `notifiers`, for per-send reporting.
 export function remoteNotifiersFromEnv(
   env: Record<string, string | undefined>,
   fetchFn?: typeof fetch
-): { notifiers: Notifier[]; described: string[] } {
+): { notifiers: Notifier[]; described: string[]; labels: string[] } {
   const notifiers: Notifier[] = []
   const described: string[] = []
+  const labels: string[] = []
 
   const recipients = (raw: string, envVar: string): string[] => {
     const out = raw
@@ -225,6 +227,7 @@ export function remoteNotifiersFromEnv(
           fetchFn,
         })
       )
+      labels.push(to.length > 1 ? `vonage-whatsapp #${i + 1}` : 'vonage-whatsapp')
     }
     described.push(`vonage-whatsapp(${to.length})`)
   }
@@ -246,6 +249,7 @@ export function remoteNotifiersFromEnv(
           fetchFn,
         })
       )
+      labels.push(to.length > 1 ? `twilio-whatsapp #${i + 1}` : 'twilio-whatsapp')
     }
     described.push(`twilio-whatsapp(${to.length})`)
   }
@@ -253,7 +257,8 @@ export function remoteNotifiersFromEnv(
   if (env.DISCORD_WEBHOOK_URL) {
     notifiers.push(new DiscordNotifier({ webhookUrl: env.DISCORD_WEBHOOK_URL, fetchFn }))
     described.push('discord')
+    labels.push('discord')
   }
 
-  return { notifiers, described }
+  return { notifiers, described, labels }
 }
