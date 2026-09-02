@@ -258,12 +258,13 @@ describe('mock 1394452945935794176 replayed at all fourteen of Andrew\'s picks',
   })
 
   // The rehearsal's override fired first at pick 101 with an edge of +5.6, and
-  // repeated at 116, 125, 140 and 149. 101 and 116 are rounds 9 and 10, both
-  // below the QB floor of 11.
-  it('offers no quarterback at picks 101 or 116, where the override used to fire', () => {
+  // repeated at 116, 125, 140 and 149. 101, 116 and 125 are rounds 9-11, all
+  // below the QB floor — raised from 11 to 12 by Andrew on 2026-08-31, which
+  // put pick 125 below it too.
+  it('offers no quarterback at picks 101, 116 or 125, where the override used to fire', () => {
     const qbFloor = (board.rules.minRoundByPos || {}).QB
-    expect(qbFloor).toBe(11)
-    const belowFloor = [101, 116]
+    expect(qbFloor).toBe(12)
+    const belowFloor = [101, 116, 125]
     for (let i = 0; i < belowFloor.length; i++) {
       const n = belowFloor[i]
       expect(roundOf(draft, n)).toBeLessThan(qbFloor!)
