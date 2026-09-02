@@ -62,7 +62,7 @@ jobs:
 
       - run: npm ci
 
-      # The live-mode gate refuses a player map older than 48 hours (it
+      # The live-mode gate refuses a player map older than 72 hours (it
       # defines the draftable pool and carries the injury designations the
       # stash rule reads), so refresh it on the runner. Nothing is committed.
       - name: Refresh the Sleeper player map
