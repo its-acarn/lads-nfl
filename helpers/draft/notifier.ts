@@ -52,10 +52,10 @@ export function formatDraftMessage(msg: DraftMessage): string {
   const line = (s: Scored): string => renderLine(s)
   switch (msg.kind) {
     case 'loaded':
-      return (
-        `READY — ${msg.teams} teams, ${msg.rounds} rounds, you are slot ${msg.slot}.\n` +
-        `Your picks: ${msg.pickNos.join(', ')}`
-      )
+      // A name, not a dashboard (Andrew, 2026-09-02). The slot and pick numbers
+      // used to be here as a pre-flight check; they still travel in the JSONL
+      // log's `loaded` record, and a wrong slot fails loudly at LOAD anyway.
+      return 'Big Winner Carny Draft Bot READY'
     case 'on_clock':
       return `ON THE CLOCK — pick ${msg.pickNo}\nTAKE: ${line(msg.instruction)}`
     case 'escalation':

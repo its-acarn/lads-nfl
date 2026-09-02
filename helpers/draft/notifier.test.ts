@@ -191,19 +191,23 @@ describe('the survival forecast', () => {
 })
 
 describe('the LOAD confirmation', () => {
-  it('states the slot and every pick number before the draft starts', () => {
-    // A wrong slot or user id is far cheaper to spot here than at pick one.
-    const out = formatDraftMessage({
+  it('carries the slot and pick numbers as data for the log, not as copy', () => {
+    // The rendered READY is a name only (see "the READY message" below). The
+    // pre-flight facts still ride in the message object, which JsonlNotifier
+    // writes verbatim -- so the log's first line answers "which slot?".
+    const msg: DraftMessage = {
       kind: 'loaded',
       draftId: '1394795000339914752',
       slot: 5,
       pickNos: [5, 20, 29, 44],
       rounds: 14,
       teams: 12,
-    })
-    expect(out).toContain('12 teams, 14 rounds')
-    expect(out).toContain('slot 5')
-    expect(out).toContain('5, 20, 29, 44')
+    }
+    const out = formatDraftMessage(msg)
+    expect(out).not.toContain('slot 5')
+    expect(out).not.toContain('5, 20, 29, 44')
+    expect(JSON.stringify(msg)).toContain('"slot":5')
+    expect(JSON.stringify(msg)).toContain('"pickNos":[5,20,29,44]')
   })
 })
 
@@ -360,5 +364,15 @@ describe('MultiNotifier', () => {
     for (let i = 0; i < SEQUENCE.length; i++) await multi.send(SEQUENCE[i])
     expect(reported.length).toBe(1)
     expect(reported[0]).toContain('disk full')
+  })
+})
+
+// The first thing every channel receives. Andrew asked for a name, not a
+// dashboard: the slot and pick numbers were a pre-flight check, and the
+// pre-flight now happens in the Actions log and the console startup line.
+describe('the READY message', () => {
+  it('announces the bot by name and nothing else', () => {
+    const s = formatDraftMessage({ kind: 'loaded', draftId: 'd', slot: 5, pickNos: [5, 20], rounds: 14, teams: 12 })
+    expect(s).toBe('Big Winner Carny Draft Bot READY')
   })
 })
