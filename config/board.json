@@ -1,6 +1,7 @@
 {
-  "//": "League IDs are live (lads 2026, draft 2026-09-05 19:00 UTC, snake, 12 teams, 14 rounds). The players list is imported from the 2026 sheet by `npm run board:import` -- edit the sheet, not this array, then re-run it followed by `npm run resolve-board`. NOT yet marked draftReady: as imported the sheet is an unedited rankings export, so this board is the market's consensus rather than a statement of preference. Re-tier it before setting draftReady, or the engine will draft ADP while calling it your board.",
+  "//": "League IDs are live (lads 2026, draft 2026-09-05 19:00 UTC, snake, 12 teams, 14 rounds). The players list is imported from the 2026 sheet by `npm run board:import` -- edit the sheet, not this array, then re-run it followed by `npm run resolve-board`. draftReady was set on 2026-09-02 against the re-tiered My Board tab (239 players, nine tiers) -- the live-mode gate is open. If the sheet changes again: re-import, re-resolve, and only then trust it.",
   "season": 2026,
+  "draftReady": true,
   "leagueId": "1325817907900354560",
   "draftId": "1325817907912904704",
   "myUserId": "82919512949014528",
