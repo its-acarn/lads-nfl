@@ -37,7 +37,7 @@ npm run fixtures
 
 Only needed if `fixtures/players.trim.json` is more than a couple of days old.
 
-Live mode **refuses** a map older than 48 hours; mock mode warns and proceeds.
+Live mode **refuses** a map older than 72 hours; mock mode warns and proceeds.
 The map defines the draftable pool and carries the injury designations the stash
 rule reads, so a stale one hides players signed since it was taken and treats a
 since-injured player as healthy.
@@ -193,16 +193,18 @@ the transition on its own.
 What it prints at startup:
 
 ```
-player map age: 0h (limit 48h) — OK
+player map age: 0h (limit 72h) — OK
 MOCK DRAFT 1394452945935794176 — board has 157 players
 mock of league 1325817907900354560 — using its real lineup
 logging every message to logs/2026-08-16.jsonl
-[11:47:24] READY — 12 teams, 14 rounds, you are slot 5.
-           Your picks: 5, 20, 29, 44, 53, 68, 77, 92, 101, 116, 125, 140, 149, 164
+[11:47:24] Big Winner Carny Draft Bot READY
 ```
 
-Check the slot and the pick numbers against the app **now**. A wrong `myUserId`
-is far cheaper to spot here than at pick one.
+The slot and your fourteen pick numbers are recorded in the `--log` file's
+first line (the `loaded` record: `slot`, `pickNos`). Check them against the app
+**now** if anything about the room has changed — a wrong `myUserId` fails
+loudly at startup, but a wrong slot in the app is cheaper to spot here than at
+pick one.
 
 `--log` is optional but recommended: it writes one JSON object per message,
 which is what a second reader (a relaying assistant, or `npm run team` later)
@@ -425,7 +427,7 @@ and exits non-zero on any failure.
 
 The six variables above live as repo Actions secrets (Settings → Secrets and
 variables → Actions, or `gh secret set <NAME>`). The runner refreshes the
-player map itself (`npm run fixtures`), so the 48-hour freshness gate always
+player map itself (`npm run fixtures`), so the 72-hour freshness gate always
 passes; the live board gates (`draftReady`, real ids) still apply unchanged.
 When the run ends — however it ends — the JSONL message log is uploaded as a
 run artifact named `draft-log-<run id>`, which `npm run team` can read back.

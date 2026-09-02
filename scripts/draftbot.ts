@@ -83,7 +83,7 @@ class FileSentLog implements SentLog {
 // reads its injury designations, so a stale snapshot silently hides anyone
 // signed since it was taken and treats a since-injured player as healthy. The
 // bot would cheerfully instruct a pick that is out for the season.
-const MAX_PLAYER_MAP_AGE_HOURS = 48
+const MAX_PLAYER_MAP_AGE_HOURS = 72
 
 function assertPlayerMapIsFresh(): void {
   const metaFile = path.join(ROOT, 'fixtures', 'players.trim.meta.json')

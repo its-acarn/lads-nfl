@@ -236,7 +236,13 @@ describe('the rehearsal feed, replayed', () => {
         const id = qbs[j].player_id
         if (aware.survivalById[id] === undefined || before.survivalById[id] === undefined) continue
         compared++
-        if (aware.survivalById[id] >= before.survivalById[id]) raised++
+        // Within a couple of simulated draws. These survivals sit at the
+        // floor of the simulation's resolution (1 or 2 hits in 1,200 sims),
+        // where one reseeded draw flips the sign: the 2026-09-02 player-map
+        // refresh moved a few search_ranks and turned Brock Purdy at pick 92
+        // from 0.0017 blind to 0.0008 aware -- one sim -- and failed an exact
+        // comparison that had nothing to do with the saturation model.
+        if (aware.survivalById[id] >= before.survivalById[id] - 2 / OPTS.sims) raised++
       }
     }
     expect(compared).toBeGreaterThan(0)

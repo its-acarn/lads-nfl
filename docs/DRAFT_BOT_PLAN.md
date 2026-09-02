@@ -251,7 +251,7 @@ backtest and the review that followed it, and they are what will actually run.
 | Guardrail relaxation | Graded: floors, then stash, then the forced collapse, then caps — each named in the rationale | Dropping all of them at once and reporting only "guardrails relaxed" made a breached position cap indistinguishable from a healthy pick. The live-rules replay produced seven such breaches with nothing explaining them |
 | Players Sleeper does not rank | ADP interpolated from the board's own rank→ADP curve | All 32 defenses have `search_rank: null`. Sharing one sentinel gave every one survival 1.0, so E[best DEF] equalled the best defense's own value and its edge was exactly zero — a defense could never be chosen on score, only by forced mode |
 | Replay coverage | `npm run replay -- --rules live` overlays `config/board.json` | The whole replay corpus, golden snapshot included, exercised `marketRules`, which sets none of the rules above. It described a configuration that will never run |
-| Live-mode gates | Explicit `draftReady`, plus a 48-hour limit on the player map | The ids were filled in weeks before the board was, so "the ids look real" was never evidence the board was ready. The draftable pool is exactly the player map's keys and the stash rule reads its injury designations |
+| Live-mode gates | Explicit `draftReady`, plus a 72-hour limit on the player map (48 until 2026-09-02) | The ids were filled in weeks before the board was, so "the ids look real" was never evidence the board was ready. The draftable pool is exactly the player map's keys and the stash rule reads its injury designations |
 
 ### Phase 4 (delivery + runner) — as built
 
