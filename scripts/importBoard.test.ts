@@ -350,10 +350,14 @@ describe('the committed 2026 board', () => {
     }
   })
 
-  it('carries the aliased name, not the sheet\'s nickname', () => {
+  it('carries no name the alias table would have rewritten', () => {
+    // The committed board must never hold a sheet nickname: every alias key
+    // present on the sheet is rewritten to Sleeper's name at import. (This
+    // used to pin Marquise Brown specifically; he dropped off the 2026 sheet
+    // on 2026-08-31, which is a fact about the sheet, not about the importer.)
     const names = board.players.map((p) => p.name)
-    expect(names).toContain('Marquise Brown')
-    expect(names).not.toContain('Hollywood Brown')
+    const nicknames = Object.keys(board.nameAliases || {})
+    for (let i = 0; i < nicknames.length; i++) expect(names).not.toContain(nicknames[i])
   })
 
   it('does not carry a name listed as not in the league', () => {
