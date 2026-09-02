@@ -19,7 +19,7 @@ import { DraftMessage, Notifier } from '../helpers/draft/types'
 // failed. Exported for its spec.
 export async function smokeAll(
   notifiers: Notifier[],
-  described: string[],
+  labels: string[], // one per notifier, aligned — NOT the per-channel-group `described`
   msg: DraftMessage,
   report: (line: string) => void
 ): Promise<number> {
@@ -27,10 +27,10 @@ export async function smokeAll(
   for (let i = 0; i < notifiers.length; i++) {
     try {
       await notifiers[i].send(msg)
-      report(`${described[i]} — sent`)
+      report(`${labels[i]} — sent`)
     } catch (err) {
       failures++
-      report(`${described[i]} — FAILED: ${err instanceof Error ? err.message : String(err)}`)
+      report(`${labels[i]} — FAILED: ${err instanceof Error ? err.message : String(err)}`)
     }
   }
   return failures
