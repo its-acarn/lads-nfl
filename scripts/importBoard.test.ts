@@ -77,7 +77,7 @@ describe('splicePlayers', () => {
     // And the tuning itself, unchanged.
     const parsed = JSON.parse(after) as { rules: { minRoundByPos: Record<string, number>; vonaFromRound: number } }
     expect(parsed.rules.minRoundByPos.QB).toBe(12)
-    expect(parsed.rules.vonaFromRound).toBe(9)
+    expect(parsed.rules.vonaFromRound).toBe(8)
   })
 
   it('writes the new players and nothing of the old ones', () => {
