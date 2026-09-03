@@ -2033,6 +2033,13 @@
     "byRound": 10
    }
   },
+  "//maxCountByRound": "At most `count` players at this position through the END of `byRound` (inclusive). The mirror of minCountByRound and, unlike it, a prohibition: it only removes candidates, so it can always be met by taking somebody else and can never fight a quota over the same picks. RB 3 through round 6 beside RB 3 by round 5 pins the first six rounds at exactly three backs -- and since nothing but RB/WR/TE is draftable that early (QB floor 12, K/DEF capped at 0), three receivers or tight ends as well (Andrew, 2026-09-03). Relaxed together with maxByPos, and only when nothing else is legal.",
+  "maxCountByRound": {
+   "RB": {
+    "count": 3,
+    "byRound": 6
+   }
+  },
   "//minRoundByPos": "Earliest round each position may be drafted. Omit a position for no floor. ABSOLUTE: nothing overrides a floor -- not scarcity, not forced mode, not the relaxation ladder. QB 12 encodes streaming quarterbacks, which is a strategy and not a workaround, so the only way past a floor is to change it here. If a floor ever leaves no legal pick the bot says so loudly rather than breaching it.",
   "minRoundByPos": {
    "QB": 12,

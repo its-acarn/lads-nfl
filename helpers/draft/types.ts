@@ -175,6 +175,10 @@ export interface BoardRules {
   // than refusing to recommend anything. Unlike a floor it is a claim about
   // picks already spent, and blocking the draft does not get them back.
   minCountByRound?: Partial<Record<Position, { count: number; byRound: number }>>
+  // At most `count` players at this position through the END of `byRound`
+  // (inclusive). A prohibition, like a cap or a floor: always satisfiable by
+  // taking someone else, so it can never fight a quota over the same picks.
+  maxCountByRound?: Partial<Record<Position, { count: number; byRound: number }>>
 
   stashRound: number
   offBoardDiscount: number

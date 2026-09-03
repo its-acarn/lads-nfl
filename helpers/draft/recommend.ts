@@ -182,12 +182,32 @@ export function recommend(state: BoardState, opts: SimOpts): Recommendation {
 
   const maxPerNflTeamByPos = rules.maxPerNflTeamByPos || {}
 
+  // ---- positional ceilings -------------------------------------------------
+  // "At most three running backs through round six." The mirror of the quota
+  // and, unlike it, a prohibition: it only ever removes candidates, so taking
+  // someone else always satisfies it and it cannot starve another rule. Beside
+  // RB 3 by round 5 the pair pins the first six rounds at exactly three backs.
+  // Relaxed with the position caps -- it is one.
+  const maxCountByRound = rules.maxCountByRound || {}
+  const ceilingHit = (pos: Position): boolean => {
+    const c = maxCountByRound[pos]
+    return c !== undefined && round <= c.byRound && (state.myPosCounts[pos] || 0) >= c.count
+  }
+  const ceilingPositions = Object.keys(maxCountByRound) as Position[]
+  for (let i = 0; i < ceilingPositions.length; i++) {
+    const c = maxCountByRound[ceilingPositions[i]]
+    if (c !== undefined && ceilingHit(ceilingPositions[i])) {
+      globalRationale.push(`ceiling: at most ${c.count} ${ceilingPositions[i]} through round ${c.byRound}, already held`)
+    }
+  }
+
   const filterPool = (relax: Relaxation): PoolPlayer[] => {
     const out: PoolPlayer[] = []
     for (let i = 0; i < state.pool.length; i++) {
       const p = state.pool[i]
       if (state.board.doNotDraftIds.indexOf(p.player_id) !== -1) continue
       if (!relax.caps && (state.myPosCounts[p.pos] || 0) >= rules.maxByPos[p.pos]) continue
+      if (!relax.caps && ceilingHit(p.pos)) continue
       // One per NFL team at this position. A null team is a free agent and
       // shares a backfield with nobody, so it constrains nothing.
       if (!relax.stacks && p.team) {
