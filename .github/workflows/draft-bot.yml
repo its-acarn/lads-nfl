@@ -3,11 +3,11 @@
 #
 #   - Manually: repo -> Actions -> draft-bot -> Run workflow (also in the
 #     GitHub mobile app). Optionally give a mock draft id to rehearse.
-#   - Automatically: the cron below fires at 18:15 UTC on 5 September, 45
+#   - Automatically: the cron below fires at 18:40 UTC (19:40 BST) on 5 September, 20
 #     minutes before the 2026 draft (19:00 UTC). The bot polls happily through
 #     pre_draft, so early is free.
 #
-# GitHub cron has no year field, so `15 18 5 9 *` would fire again in 2027.
+# GitHub cron has no year field, so `40 18 5 9 *` would fire again in 2027.
 # The first step refuses (exit 1, a visible red run) on any date other than
 # 2026-09-05 — and the schedule block should simply be DELETED after draft
 # day; the guard makes forgetting harmless.
@@ -26,7 +26,7 @@ on:
         description: 'Sleeper mock draft id — set to rehearse against a mock instead of the live draft'
         required: false
   schedule:
-    - cron: '15 18 5 9 *'
+    - cron: '40 18 5 9 *'
 
 # Never two pollers at once: each would send its own copy of every new
 # message. A second start queues behind the first and, when it finally runs,

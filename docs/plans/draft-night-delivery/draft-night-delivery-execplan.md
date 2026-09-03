@@ -21,7 +21,7 @@ This plan closes that gap, in two halves:
 2. **Remote start.** A GitHub Actions workflow runs the bot on a runner with
    open egress. Andrew can start it from the GitHub mobile app
    (`workflow_dispatch`), and a scheduled cron starts it automatically at
-   18:15 UTC on draft day as a safety net — **guarded so it only ever
+   18:40 UTC on draft day as a safety net — **guarded so it only ever
    auto-starts on 2026-09-05**, because GitHub cron has no year field and
    would otherwise refire every September.
 
@@ -284,7 +284,7 @@ channel throwing does not stop the others.
             description: 'Optional Sleeper mock draft id (runs --mock instead of live)'
             required: false
       schedule:
-        - cron: '15 18 5 9 *'     # 18:15 UTC every Sep 5 — year-guarded below
+        - cron: '40 18 5 9 *'     # 18:40 UTC every Sep 5 — year-guarded below
     concurrency:
       group: draft-bot            # never two pollers at once
     jobs:

@@ -419,7 +419,7 @@ and exits non-zero on any failure.
 - **Manual:** repo → Actions → draft-bot → Run workflow (works in the GitHub
   mobile app). Fill in `mock_draft_id` to rehearse against a mock; leave it
   empty for the live draft.
-- **Automatic:** a cron fires at 18:15 UTC on 5 September — 45 minutes early,
+- **Automatic:** a cron fires at 18:40 UTC (19:40 BST) on 5 September — 20 minutes early,
   which is free, because the bot polls through `pre_draft`. GitHub cron has no
   year field, so a guard step refuses (a visible red run) on any date other
   than **2026-09-05**. Delete the `schedule:` block after draft day; the
