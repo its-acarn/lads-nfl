@@ -74,10 +74,17 @@ function pool(): PoolPlayer[] {
     poolPlayer('rb2', 'Second Back', 'RB', 98, 191, 'IND'),
     poolPlayer('wr1', 'Best Receiver', 'WR', 90, 192, 'CIN'),
     poolPlayer('te1', 'A Tight End', 'TE', 84, 193, 'LV'),
+    // Last on the board, so only a rule -- never board order -- takes him.
+    poolPlayer('qb1', 'A Quarterback', 'QB', 60, 194, 'DET'),
   ]
 }
 
-function stateAt(pickNo: number, rbsHeld: number, rules: BoardRules = RULES): BoardState {
+function stateAt(
+  pickNo: number,
+  rbsHeld: number,
+  rules: BoardRules = RULES,
+  posCounts?: Partial<Record<Position, number>>
+): BoardState {
   const draft = draftFor()
   const cfg: DraftConfig = {
     draft,
@@ -105,7 +112,7 @@ function stateAt(pickNo: number, rbsHeld: number, rules: BoardRules = RULES): Bo
     myPickNos: MY_PICKS,
     myRemainingPickNos: MY_PICKS.filter((n) => n >= pickNo),
     myRosterIds: [],
-    myPosCounts: { QB: 0, RB: rbsHeld, WR: 0, TE: 0, K: 0, DEF: 0 },
+    myPosCounts: { QB: 0, RB: rbsHeld, WR: 0, TE: 0, K: 0, DEF: 0, ...(posCounts || {}) },
     myTeamCountsByPos: { QB: {}, RB: {}, WR: {}, TE: {}, K: {}, DEF: {} },
     posCountsByRoster: {},
     pool: pool(),
@@ -157,5 +164,35 @@ describe('beside the RB quota', () => {
   it('at pick 53 with two held, the quota forces the third back and the ceiling does not object', () => {
     const rec = recommend(stateAt(53, 2, both), OPTS)
     expect(rec.primary.pos).toBe('RB')
+  })
+})
+
+// "Definitely a quarterback in round 12": the floor (no QB before 12) and a
+// quota (one QB by the end of 12) meet at exactly one pick. Every earlier
+// pick is blocked by the floor; at the round-12 pick the debt equals the
+// picks left in the window and the quota binds. No new machinery.
+describe('a quarterback in round 12, by floor plus quota', () => {
+  const rules: BoardRules = { ...RULES, minCountByRound: { QB: { count: 1, byRound: 12 } } }
+  const lineupOtherwiseFull = { RB: 3, WR: 5, TE: 1 }
+
+  it('pick 125 is round 11 and pick 140 is round 12', () => {
+    expect(roundOf(draftFor(), 125)).toBe(11)
+    expect(roundOf(draftFor(), 140)).toBe(12)
+  })
+
+  it('does not take a quarterback at pick 125 -- the floor still holds and the quota has two picks left', () => {
+    const rec = recommend(stateAt(125, 3, rules, lineupOtherwiseFull), OPTS)
+    expect(rec.primary.pos).not.toBe('QB')
+  })
+
+  it('takes the quarterback at pick 140 even though he is last on the board', () => {
+    const rec = recommend(stateAt(140, 3, rules, lineupOtherwiseFull), OPTS)
+    expect(rec.primary.pos).toBe('QB')
+    expect(rec.rationale.join(' ')).toMatch(/quota: 1 more QB/)
+  })
+
+  it('the SAME state without the quota takes the board leader instead', () => {
+    const rec = recommend(stateAt(140, 3, { ...RULES, minCountByRound: undefined }, lineupOtherwiseFull), OPTS)
+    expect(rec.primary.pos).not.toBe('QB')
   })
 })
