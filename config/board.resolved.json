@@ -2019,10 +2019,10 @@
  ],
  "pins": [],
  "rules": {
-  "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB/WR left permissive so the board drives them rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",
+  "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB capped at 6 (Andrew, 2026-09-03); WR left permissive so the board drives it rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",
   "maxByPos": {
    "QB": 1,
-   "RB": 8,
+   "RB": 6,
    "WR": 8,
    "TE": 1,
    "K": 0,
