@@ -196,3 +196,29 @@ describe('a quarterback in round 12, by floor plus quota', () => {
     expect(rec.primary.pos).not.toBe('QB')
   })
 })
+
+// The full early-round shape: 3 RB by round 5, at most 3 RB through round 6,
+// no TE before round 7. With only RB/WR/TE draftable that early, rounds 1-6
+// are exactly three backs and three receivers.
+describe('three backs and three receivers in six rounds', () => {
+  const rules: BoardRules = {
+    ...RULES,
+    minRoundByPos: { QB: 12, TE: 7 },
+    minCountByRound: { RB: { count: 3, byRound: 5 }, TE: { count: 1, byRound: 10 } },
+  }
+
+  it('pick 68 with three backs held is a receiver: not a fourth back, not a tight end', () => {
+    const rec = recommend(stateAt(68, 3, rules, { WR: 2 }), OPTS)
+    expect(rec.primary.pos).toBe('WR')
+  })
+
+  it('pick 77, round 7, may finally be the tight end', () => {
+    // Backs and receivers are capped out here so the tight end is the only
+    // legal candidate: the point is that the floor has lifted. The same
+    // state one round earlier is blocked by it.
+    const rec = recommend(stateAt(77, 8, rules, { WR: 8 }), OPTS)
+    expect(rec.primary.pos).toBe('TE')
+    const earlier = recommend(stateAt(68, 8, rules, { WR: 8 }), OPTS)
+    expect(earlier.primary.pos).not.toBe('TE')
+  })
+})

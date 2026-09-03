@@ -2019,10 +2019,10 @@
  ],
  "pins": [],
  "rules": {
-  "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB/WR left permissive so the board drives them rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",
+  "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB capped at 6 (Andrew, 2026-09-03); WR left permissive so the board drives it rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",
   "maxByPos": {
    "QB": 1,
-   "RB": 8,
+   "RB": 6,
    "WR": 8,
    "TE": 1,
    "K": 0,
@@ -2054,9 +2054,10 @@
     "byRound": 6
    }
   },
-  "//minRoundByPos": "Earliest round each position may be drafted. Omit a position for no floor. ABSOLUTE: nothing overrides a floor -- not scarcity, not forced mode, not the relaxation ladder. QB 12 encodes streaming quarterbacks, which is a strategy and not a workaround, so the only way past a floor is to change it here. If a floor ever leaves no legal pick the bot says so loudly rather than breaching it.",
+  "//minRoundByPos": "Earliest round each position may be drafted. Omit a position for no floor. ABSOLUTE: nothing overrides a floor -- not scarcity, not forced mode, not the relaxation ladder. QB 12 encodes streaming quarterbacks, which is a strategy and not a workaround, so the only way past a floor is to change it here. TE 7 (Andrew, 2026-09-03) keeps tight ends out of the first six rounds: with RB 3 by round 5 and at most 3 RB through round 6, and only RB/WR/TE draftable that early, rounds 1-6 are then exactly three backs and three receivers; the TE quota (1 by round 10) places the tight end in rounds 7-10. If a floor ever leaves no legal pick the bot says so loudly rather than breaching it.",
   "minRoundByPos": {
    "QB": 12,
+   "TE": 7,
    "K": 13,
    "DEF": 12
   },
