@@ -350,19 +350,11 @@
    "player_id": "12526"
   },
   {
-   "name": "Quinshon Judkins",
-   "pos": "RB",
-   "team": "CLE",
-   "tier": 5,
-   "rank": 44,
-   "player_id": "12512"
-  },
-  {
    "name": "DJ Moore",
    "pos": "WR",
    "team": "BUF",
    "tier": 5,
-   "rank": 45,
+   "rank": 44,
    "player_id": "4983"
   },
   {
@@ -370,7 +362,7 @@
    "pos": "WR",
    "team": "TB",
    "tier": 5,
-   "rank": 46,
+   "rank": 45,
    "player_id": "12514"
   },
   {
@@ -378,8 +370,16 @@
    "pos": "RB",
    "team": "JAX",
    "tier": 5,
-   "rank": 47,
+   "rank": 46,
    "player_id": "12490"
+  },
+  {
+   "name": "Quinshon Judkins",
+   "pos": "RB",
+   "team": "CLE",
+   "tier": 5,
+   "rank": 47,
+   "player_id": "12512"
   },
   {
    "name": "Cam Skattebo",
