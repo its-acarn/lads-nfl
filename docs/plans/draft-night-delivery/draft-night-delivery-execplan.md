@@ -290,7 +290,7 @@ channel throwing does not stop the others.
     jobs:
       bot:
         runs-on: ubuntu-latest
-        timeout-minutes: 350
+        timeout-minutes: 360
         steps:
           - name: Auto-start only on draft day 2026
             if: github.event_name == 'schedule'

@@ -39,8 +39,11 @@ jobs:
   bot:
     runs-on: ubuntu-latest
     # A 14-round draft with a 120 s clock and human relaying runs well under
-    # this; the ceiling exists so a wedged run cannot burn a runner for 6 h+.
-    timeout-minutes: 350
+    # this on any realistic night. 360 is GitHub's hard maximum per job, and
+    # covers even every one of 168 picks running out the full clock (5 h 36 m)
+    # plus the 20-minute lobby. A run that does die is re-dispatched from the
+    # app and rebuilds from the picks feed.
+    timeout-minutes: 360
 
     steps:
       - name: Auto-start only on draft day 2026
