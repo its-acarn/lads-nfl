@@ -2006,7 +2006,16 @@
    "player_id": "6130"
   }
  ],
- "doNotDraftIds": [],
+ "doNotDraftIds": [
+  "5967",
+  "5927",
+  "11628",
+  "5846",
+  "6806",
+  "10232",
+  "10219",
+  "11575"
+ ],
  "pins": [],
  "rules": {
   "//maxByPos": "Hard cap per position. One QB, one TE, no kicker, no defense (Andrew, Aug 2026). RB/WR left permissive so the board drives them rather than the cap. A position capped at 0 also loses its starter slot in the lineup, so forced mode can never demand one.",

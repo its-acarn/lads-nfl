@@ -257,7 +257,7 @@
     { "name": "Will Shipley", "pos": "RB", "team": "PHI", "tier": 9, "rank": 249 },
     { "name": "Devin Singletary", "pos": "RB", "team": "NYG", "tier": 9, "rank": 250 }
   ],
-  "doNotDraft": [],
+  "doNotDraft": ["Tony Pollard", "Terry McLaurin", "Marvin Harrison", "DK Metcalf", "J.K. Dobbins", "Michael Wilson", "Chris Rodriguez", "Ray Davis"],
   "pins": [],
 
   "//nameAliases": "Sheet name -> Sleeper's name, applied at import. For players a ranking site lists under a nickname or an older name. This lives here rather than in the spreadsheet so it survives re-downloading the export.",
