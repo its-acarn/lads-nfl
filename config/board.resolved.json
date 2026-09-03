@@ -1038,11 +1038,19 @@
    "player_id": "8131"
   },
   {
+   "name": "Jordyn Tyson",
+   "pos": "WR",
+   "team": "NO",
+   "tier": 9,
+   "rank": 130,
+   "player_id": "13281"
+  },
+  {
    "name": "Keaton Mitchell",
    "pos": "RB",
    "team": "LAC",
    "tier": 9,
-   "rank": 130,
+   "rank": 131,
    "player_id": "9511"
   },
   {
@@ -1050,7 +1058,7 @@
    "pos": "TE",
    "team": "BUF",
    "tier": 9,
-   "rank": 131,
+   "rank": 132,
    "player_id": "10236"
   },
   {
@@ -1058,7 +1066,7 @@
    "pos": "TE",
    "team": "PHI",
    "tier": 9,
-   "rank": 132,
+   "rank": 133,
    "player_id": "5022"
   },
   {
@@ -1066,7 +1074,7 @@
    "pos": "TE",
    "team": "KC",
    "tier": 9,
-   "rank": 133,
+   "rank": 134,
    "player_id": "1466"
   },
   {
@@ -1074,7 +1082,7 @@
    "pos": "TE",
    "team": "NO",
    "tier": 9,
-   "rank": 134,
+   "rank": 135,
    "player_id": "7002"
   },
   {
@@ -1082,7 +1090,7 @@
    "pos": "TE",
    "team": "LAR",
    "tier": 9,
-   "rank": 135,
+   "rank": 136,
    "player_id": "12487"
   },
   {
@@ -1090,7 +1098,7 @@
    "pos": "TE",
    "team": "NE",
    "tier": 9,
-   "rank": 136,
+   "rank": 137,
    "player_id": "3214"
   },
   {
@@ -1098,7 +1106,7 @@
    "pos": "RB",
    "team": "ARI",
    "tier": 9,
-   "rank": 137,
+   "rank": 138,
    "player_id": "8132"
   },
   {
@@ -1106,7 +1114,7 @@
    "pos": "RB",
    "team": "TEN",
    "tier": 9,
-   "rank": 138,
+   "rank": 139,
    "player_id": "9508"
   },
   {
@@ -1114,7 +1122,7 @@
    "pos": "RB",
    "team": "JAX",
    "tier": 9,
-   "rank": 139,
+   "rank": 140,
    "player_id": "10219"
   },
   {
@@ -1122,7 +1130,7 @@
    "pos": "RB",
    "team": "MIN",
    "tier": 9,
-   "rank": 140,
+   "rank": 141,
    "player_id": "4199"
   },
   {
@@ -1130,7 +1138,7 @@
    "pos": "RB",
    "team": "DEN",
    "tier": 9,
-   "rank": 141,
+   "rank": 142,
    "player_id": "13345"
   },
   {
@@ -1138,7 +1146,7 @@
    "pos": "RB",
    "team": "HOU",
    "tier": 9,
-   "rank": 142,
+   "rank": 143,
    "player_id": "12474"
   },
   {
@@ -1146,7 +1154,7 @@
    "pos": "RB",
    "team": "BUF",
    "tier": 9,
-   "rank": 143,
+   "rank": 144,
    "player_id": "11575"
   },
   {
@@ -1154,7 +1162,7 @@
    "pos": "WR",
    "team": "CLE",
    "tier": 9,
-   "rank": 144,
+   "rank": 145,
    "player_id": "13346"
   },
   {
@@ -1162,7 +1170,7 @@
    "pos": "RB",
    "team": "NYJ",
    "tier": 9,
-   "rank": 145,
+   "rank": 146,
    "player_id": "11576"
   },
   {
@@ -1170,7 +1178,7 @@
    "pos": "WR",
    "team": "SF",
    "tier": 9,
-   "rank": 146,
+   "rank": 147,
    "player_id": "5872"
   },
   {
@@ -1178,7 +1186,7 @@
    "pos": "WR",
    "team": "JAX",
    "tier": 9,
-   "rank": 147,
+   "rank": 148,
    "player_id": "5947"
   },
   {
@@ -1186,7 +1194,7 @@
    "pos": "RB",
    "team": "JAX",
    "tier": 9,
-   "rank": 148,
+   "rank": 149,
    "player_id": "9225"
   },
   {
@@ -1194,7 +1202,7 @@
    "pos": "RB",
    "team": "DAL",
    "tier": 9,
-   "rank": 149,
+   "rank": 150,
    "player_id": "8800"
   },
   {
@@ -1202,7 +1210,7 @@
    "pos": "WR",
    "team": "PHI",
    "tier": 9,
-   "rank": 150,
+   "rank": 151,
    "player_id": "9486"
   },
   {
@@ -1210,7 +1218,7 @@
    "pos": "WR",
    "team": "MIA",
    "tier": 9,
-   "rank": 151,
+   "rank": 152,
    "player_id": "13296"
   },
   {
@@ -1218,7 +1226,7 @@
    "pos": "TE",
    "team": "DAL",
    "tier": 9,
-   "rank": 152,
+   "rank": 153,
    "player_id": "8110"
   },
   {
@@ -1226,7 +1234,7 @@
    "pos": "TE",
    "team": "HOU",
    "tier": 9,
-   "rank": 153,
+   "rank": 154,
    "player_id": "5001"
   },
   {
@@ -1234,7 +1242,7 @@
    "pos": "RB",
    "team": "ATL",
    "tier": 9,
-   "rank": 154,
+   "rank": 155,
    "player_id": "8154"
   },
   {
@@ -1242,7 +1250,7 @@
    "pos": "WR",
    "team": "HOU",
    "tier": 9,
-   "rank": 155,
+   "rank": 156,
    "player_id": "9504"
   },
   {
@@ -1250,7 +1258,7 @@
    "pos": "WR",
    "team": "IND",
    "tier": 9,
-   "rank": 156,
+   "rank": 157,
    "player_id": "1479"
   },
   {
@@ -1258,7 +1266,7 @@
    "pos": "WR",
    "team": "NO",
    "tier": 9,
-   "rank": 157,
+   "rank": 158,
    "player_id": "11834"
   },
   {
@@ -1266,7 +1274,7 @@
    "pos": "RB",
    "team": "CLE",
    "tier": 9,
-   "rank": 158,
+   "rank": 159,
    "player_id": "12469"
   },
   {
@@ -1274,7 +1282,7 @@
    "pos": "WR",
    "team": "LV",
    "tier": 9,
-   "rank": 159,
+   "rank": 160,
    "player_id": "10213"
   },
   {
@@ -1282,7 +1290,7 @@
    "pos": "RB",
    "team": "SF",
    "tier": 9,
-   "rank": 160,
+   "rank": 161,
    "player_id": "13414"
   },
   {
@@ -1290,7 +1298,7 @@
    "pos": "WR",
    "team": "NYG",
    "tier": 9,
-   "rank": 161,
+   "rank": 162,
    "player_id": "13285"
   },
   {
@@ -1298,7 +1306,7 @@
    "pos": "RB",
    "team": "NO",
    "tier": 9,
-   "rank": 162,
+   "rank": 163,
    "player_id": "4035"
   },
   {
@@ -1306,7 +1314,7 @@
    "pos": "WR",
    "team": "BAL",
    "tier": 9,
-   "rank": 163,
+   "rank": 164,
    "player_id": "13293"
   },
   {
@@ -1314,7 +1322,7 @@
    "pos": "RB",
    "team": "NYG",
    "tier": 9,
-   "rank": 164,
+   "rank": 165,
    "player_id": "11655"
   },
   {
@@ -1322,16 +1330,8 @@
    "pos": "RB",
    "team": "CIN",
    "tier": 9,
-   "rank": 165,
-   "player_id": "4147"
-  },
-  {
-   "name": "Jordyn Tyson",
-   "pos": "WR",
-   "team": "NO",
-   "tier": 9,
    "rank": 166,
-   "player_id": "13281"
+   "player_id": "4147"
   },
   {
    "name": "Jerry Jeudy",
