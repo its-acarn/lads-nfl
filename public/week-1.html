@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Whether a week 1 result predicts the playoffs or the title in LadsLadsLads, tested across six Sleeper seasons and 72 team-seasons.">
+<title>Does Week 1 Matter?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<style>
+html{color-scheme:light dark}
+img{max-width:100%}
+[hidden]{display:none!important}
+:root{
+  --paper:#E9EDEE; --card:#FDFEFE; --card2:#F3F6F7; --rule:#C8D2D5; --rule-soft:#DCE3E5;
+  --ink:#101A1D; --ink-2:#33474D; --muted:#5E7278;
+  --won:#D4600F; --lost:#1C7FD6; --won-soft:#F3DFCE; --lost-soft:#D6E6F7;
+  --gold:#8A6A12;
+  --shadow:0 1px 0 rgba(16,26,29,.06), 0 6px 20px -12px rgba(16,26,29,.30);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1517; --card:#151F22; --card2:#1B282B; --rule:#2C3C41; --rule-soft:#233135;
+    --ink:#E9EEEF; --ink-2:#B9C8CC; --muted:#8B9DA2;
+    --won:#DE7020; --lost:#3A90E0; --won-soft:#3A2716; --lost-soft:#16283A;
+    --gold:#D8B356;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1517; --card:#151F22; --card2:#1B282B; --rule:#2C3C41; --rule-soft:#233135;
+  --ink:#E9EEEF; --ink-2:#B9C8CC; --muted:#8B9DA2;
+  --won:#DE7020; --lost:#3A90E0; --won-soft:#3A2716; --lost-soft:#16283A;
+  --gold:#D8B356;
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:18px; line-height:1.62; margin:0;
+  padding-block:0 72px; padding-inline:20px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:840px;margin:0 auto}
+.spine{max-width:63ch}
+
+h1,h2,h3,.disp,.num,.eyebrow,.mono,table,.tile b{font-family:"Archivo","Helvetica Neue",Arial,sans-serif}
+.mono,.eyebrow,td.n,th,.tag,.wkval,.wklab{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+.eyebrow{
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;margin:0
+}
+
+/* ---------- masthead ---------- */
+header.mast{padding-block:56px 0}
+.rulebar{height:6px;background:var(--ink);margin-bottom:22px}
+h1{
+  font-variation-settings:"wdth" 118,"wght" 880;
+  font-size:clamp(44px,10.5vw,104px); line-height:.92; letter-spacing:-.025em;
+  margin:0 0 6px; text-wrap:balance;
+}
+h1 .q{color:var(--muted)}
+.subhead{
+  font-family:"Newsreader",Georgia,serif; font-size:clamp(19px,2.6vw,25px);
+  line-height:1.4; color:var(--ink-2); margin:18px 0 0; max-width:36ch; font-weight:300;
+}
+.verdict{
+  display:inline-flex;align-items:baseline;gap:14px;margin-top:30px;
+  border:2px solid var(--ink); padding:10px 18px 12px;
+}
+.verdict .no{font-variation-settings:"wdth" 112,"wght" 900;font-size:34px;line-height:1}
+.verdict .sm{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.03em;color:var(--ink-2);max-width:34ch;line-height:1.5}
+
+/* ---------- tiles ---------- */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:46px 0 0}
+.tile{background:var(--card);border:1px solid var(--rule-soft);padding:20px 18px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.tile .fig{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 108,"wght" 800;font-size:clamp(34px,5.4vw,48px);line-height:.95;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile .cap{font-size:15.5px;line-height:1.42;color:var(--ink-2)}
+.tile.w .fig{color:var(--won)} .tile.l .fig{color:var(--lost)}
+
+/* ---------- sections ---------- */
+section{margin-top:64px}
+h2{
+  font-variation-settings:"wdth" 112,"wght" 800;
+  font-size:clamp(25px,4vw,35px);line-height:1.08;letter-spacing:-.018em;
+  margin:0 0 4px;text-wrap:balance
+}
+.sec-head{border-top:2px solid var(--ink);padding-top:14px;margin-bottom:26px}
+.sec-head .eyebrow{margin-bottom:9px}
+.dek{color:var(--muted);font-size:17px;margin:6px 0 0;max-width:56ch}
+p{margin:0 0 1.05em;max-width:63ch}
+p.lede{font-size:20.5px;line-height:1.55}
+strong{font-weight:600}
+.hl{background:linear-gradient(transparent 62%,var(--won-soft) 62%);padding-bottom:1px}
+
+/* ---------- split panel ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pane{background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow)}
+.pane .ph{padding:14px 18px;border-bottom:1px solid var(--rule-soft);display:flex;align-items:center;gap:10px}
+.swatch{width:13px;height:13px;flex:0 0 auto;border-radius:2px}
+.pane.w .swatch{background:var(--won)} .pane.l .swatch{background:var(--lost)}
+.pane .ph b{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.pane dl{margin:0;padding:6px 18px 16px}
+.pane .r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dotted var(--rule-soft)}
+.pane .r:last-child{border-bottom:0}
+.pane dt{font-size:14.5px;color:var(--muted);line-height:1.3}
+.pane dd{margin:0;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght" 700;font-size:21px;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- charts ---------- */
+figure{margin:0}
+.chart{background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow);padding:22px 20px 16px;margin-top:8px}
+.ctitle{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106,"wght" 750;font-size:17px;letter-spacing:-.005em;margin:0 0 3px}
+.csub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.02em;margin:0 0 18px;line-height:1.5}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 16px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.key{width:15px;height:9px;border-radius:2px;flex:0 0 auto}
+.key.dash{height:0;border-top:2px dashed var(--muted);border-radius:0}
+
+.plot{position:relative}
+.wkrow{display:grid;grid-template-columns:46px 1fr 52px;align-items:center;gap:10px;height:24px;position:relative}
+.wkrow+.wkrow{margin-top:3px}
+.wkrow.focus .wklab,.wkrow.focus .wkval{color:var(--ink);font-weight:600}
+.wkrow.focus::before{content:"";position:absolute;inset:-3px -8px;background:var(--card2);border-radius:3px;z-index:0}
+.wklab,.wkval{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;position:relative;z-index:2}
+.wkval{text-align:right}
+.wktrack{position:relative;height:24px;z-index:2}
+.bar{position:absolute;top:5px;height:14px;border-radius:3px}
+.bar.pos{background:var(--won)} .bar.neg{background:var(--lost)}
+.zero{position:absolute;top:0;bottom:0;width:1px;background:var(--rule);z-index:1}
+.expline{position:absolute;top:0;bottom:0;border-left:2px dashed var(--muted);z-index:3;pointer-events:none;opacity:.8}
+.hitrow{position:absolute;left:0;right:0;height:24px;cursor:default;z-index:4}
+.axis{display:grid;grid-template-columns:46px 1fr 52px;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid var(--rule-soft)}
+.axis .ticks{position:relative;height:14px}
+.axis .tk{position:absolute;transform:translateX(-50%);font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);white-space:nowrap}
+.annot{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);margin-top:14px;line-height:1.55;border-top:1px dotted var(--rule-soft);padding-top:12px}
+
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+thead th{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;text-align:left;padding:13px 12px;border-bottom:1.5px solid var(--rule);white-space:nowrap
+}
+tbody td{padding:10px 12px;border-bottom:1px solid var(--rule-soft);vertical-align:baseline}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.name{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 650;font-size:14px;white-space:nowrap}
+.tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;padding:2px 7px;border-radius:100px;white-space:nowrap}
+.tag.w{background:var(--won-soft);color:var(--won)}
+.tag.l{background:var(--lost-soft);color:var(--lost)}
+.tag.t{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+tbody tr.champrow td{background:var(--card2)}
+
+/* ---------- facts ---------- */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.fact{border-top:1px solid var(--rule-soft);padding:16px 0}
+.fact p{margin:0;font-size:16.5px;line-height:1.48}
+.fact .k{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght" 750}
+
+/* ---------- slates ---------- */
+.slates{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.slate{background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow);padding:14px 15px 12px}
+.slate h3{margin:0 0 2px;font-variation-settings:"wdth" 112,"wght" 800;font-size:22px;letter-spacing:-.01em}
+.slate .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);margin:0 0 11px;letter-spacing:.02em}
+.g{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:12.5px;padding:5px 0;border-top:1px dotted var(--rule-soft);font-variant-numeric:tabular-nums}
+.g .t{font-family:"IBM Plex Mono",monospace;font-size:11.5px}
+.g .t.win{color:var(--won);font-weight:600}
+.g .t.lose{color:var(--muted)}
+.g .s{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.g .s.win{color:var(--ink);font-weight:600}
+
+/* ---------- tooltip ---------- */
+#tip{
+  position:fixed;z-index:50;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--ink);color:var(--paper);padding:9px 11px;border-radius:5px;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.55;max-width:260px;
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.5)
+}
+#tip b{font-weight:600}
+#tip .tl{display:flex;justify-content:space-between;gap:14px}
+
+footer{margin-top:66px;border-top:2px solid var(--ink);padding-top:16px}
+footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);line-height:1.7;max-width:70ch}
+:focus-visible{outline:2px solid var(--won);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@media (max-width:760px){
+  body{font-size:17px;padding-inline:16px}
+  .tiles{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .slates{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .wkrow{grid-template-columns:38px 1fr 46px;gap:7px}
+  .verdict{display:block}
+  .verdict .sm{margin-top:8px;max-width:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="rulebar"></div>
+  <p class="eyebrow">LadsLadsLads &middot; Sleeper &middot; 2020&ndash;2025 &middot; 72 team-seasons</p>
+  <h1>Does week&nbsp;1 matter<span class="q">?</span></h1>
+  <p class="subhead">Six seasons, twelve managers, seventy-two openers. We checked whether any of them told you a single thing.</p>
+  <div class="verdict">
+    <span class="no">No.</span>
+    <span class="sm">Teams that <b>lost</b> their opener went on to win more of the rest of the season than teams that won it.</span>
+  </div>
+</header>
+
+<div class="tiles">
+  <div class="tile l">
+    <div class="fig">3 of 6</div>
+    <div class="cap">Champions who <strong>lost</strong> their opener &mdash; including each of the last three.</div>
+  </div>
+  <div class="tile l">
+    <div class="fig">53.5%</div>
+    <div class="cap">Games won <em>after</em> week 1 by teams that started 0&ndash;1. Week-1 winners managed 46.5%.</div>
+  </div>
+  <div class="tile w">
+    <div class="fig">3 &ndash; 3</div>
+    <div class="cap">How the six titles have split between week-1 winners and week-1 losers. Dead even.</div>
+  </div>
+</div>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">01 &mdash; The raw split</p>
+    <h2>What a 1&ndash;0 start has actually been worth</h2>
+    <p class="dek">Every regular-season week 1 from 2020 through 2025. Thirty-six teams started 1&ndash;0, thirty-six started 0&ndash;1. There has never been a week-1 tie.</p>
+  </div>
+
+  <div class="split">
+    <div class="pane w">
+      <div class="ph"><span class="swatch"></span><b>Won week 1 &nbsp;&middot;&nbsp; n=36</b></div>
+      <dl>
+        <div class="r"><dt>Made the playoffs</dt><dd>16 &middot; 44.4%</dd></div>
+        <div class="r"><dt>Reached the final</dt><dd>5</dd></div>
+        <div class="r"><dt>Won the title</dt><dd>3</dd></div>
+        <div class="r"><dt>Win rate, weeks 2&ndash;end</dt><dd>46.5%</dd></div>
+        <div class="r"><dt>Average final seed</dt><dd>6.19</dd></div>
+      </dl>
+    </div>
+    <div class="pane l">
+      <div class="ph"><span class="swatch"></span><b>Lost week 1 &nbsp;&middot;&nbsp; n=36</b></div>
+      <dl>
+        <div class="r"><dt>Made the playoffs</dt><dd>12 &middot; 33.3%</dd></div>
+        <div class="r"><dt>Reached the final</dt><dd>7</dd></div>
+        <div class="r"><dt>Won the title</dt><dd>3</dd></div>
+        <div class="r"><dt>Win rate, weeks 2&ndash;end</dt><dd>53.5%</dd></div>
+        <div class="r"><dt>Average final seed</dt><dd>6.81</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="spine" style="margin-top:30px">
+    <p class="lede">An 11-point playoff gap looks like something. It isn't. Strip out the win itself and the picture inverts: <span class="hl">teams that lost their opener went on to win <strong>more</strong> of their remaining games</span> &mdash; 257&ndash;223 against 223&ndash;257 &mdash; and reached more finals, 7 to 5.</p>
+    <p>The titles split exactly down the middle, three each. On a Fisher exact test the playoff difference comes out at <strong>p&nbsp;=&nbsp;0.47</strong>: nowhere near a real effect. The 95% interval around that +11.1pp runs roughly from &minus;11 to +34.</p>
+    <p>One sanity check settles it. Simulate a league where every manager is identical and every game is a coin flip, and a 1&ndash;0 start is <em>still</em> worth <strong>+19.3pp</strong> of playoff probability &mdash; purely from banking one win. The real league has managed +11.1. Week 1 has been worth less than the win itself.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">02 &mdash; Week by week</p>
+    <h2>Only one week all season predicted less than week 1</h2>
+    <p class="dek">Run the same test on every week of the regular season: how much more often did that week's winners make the playoffs than its losers?</p>
+  </div>
+
+  <figure class="chart">
+    <p class="ctitle">Playoff-rate gap between that week's winners and losers</p>
+    <p class="csub">Percentage points &middot; all six seasons pooled &middot; hover or tap a bar for the detail</p>
+    <div class="legend">
+      <span><i class="key" style="background:var(--won)"></i> Winning that week helped</span>
+      <span><i class="key" style="background:var(--lost)"></i> Winning that week hurt</span>
+      <span><i class="key dash"></i> Chance baseline (+19.3pp)</span>
+    </div>
+    <div class="plot" id="plot"></div>
+    <div class="axis"><div></div><div class="ticks" id="ticks"></div><div></div></div>
+    <p class="annot">Week 1 sits 8 points under the baseline. Weeks 10, 11 and 13 sit 20 points over it, which is where real quality shows up &mdash; by November the good teams are simply winning and the standings are nearly settled. Week 15 covers only 2022 and 2023, the two fifteen-week seasons (n=24).</p>
+  </figure>
+
+  <div class="spine" style="margin-top:30px">
+    <p>Week 9 is the fun one: its winners made the playoffs <em>less</em> often than its losers. That is noise, and so, on this evidence, is week 1. With 72 team-seasons nothing on this chart is individually significant &mdash; which is rather the point. If week 1 carried real information, six years of it should have started to show.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">03 &mdash; The trophy</p>
+    <h2>Every champion, and how they opened</h2>
+    <p class="dek">The first three titles went to week-1 winners. The last three went to week-1 losers.</p>
+  </div>
+  <div class="tablewrap"><table id="champs">
+    <thead><tr><th>Season</th><th>Champion</th><th>Week 1</th><th class="n">Score</th><th>Opening four</th><th class="n">Record</th><th class="n">Seed</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="spine" style="margin-top:26px">
+    <p><strong>2024 is the case for the defence of slow starters.</strong> StranraerCarny opened 0&ndash;3 &mdash; beaten 118.2 to 89.1 in week 1 &mdash; then went 9&ndash;2 the rest of the way, finished as the <strong>No.&nbsp;1 seed</strong>, and won it. Four of the last five No.&nbsp;1 seeds lost their opener.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">04 &mdash; Starts</p>
+    <h2>0&ndash;2 is a real hole. 0&ndash;1 isn't.</h2>
+    <p class="dek">One game tells you nothing. Two starts to.</p>
+  </div>
+  <div class="tablewrap"><table id="starts">
+    <thead><tr><th>Start</th><th class="n">Teams</th><th class="n">Playoffs</th><th class="n">Rate</th><th class="n">Titles</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="spine" style="margin-top:26px">
+    <p>A 1&ndash;1 start is worth about the same whichever order it arrives in &mdash; 32% after WL, 47% after LW &mdash; which is another way of saying the sequence doesn't matter, only the total. And even 0&ndash;2 isn't fatal: 2021's champion started 1&ndash;4 through five weeks, 2024's started 0&ndash;3.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">05 &mdash; The managers</p>
+    <h2>Being good at week 1 is not a skill worth having</h2>
+    <p class="dek">All-time week-1 records against what actually followed. Same twelve managers, all six seasons.</p>
+  </div>
+  <div class="tablewrap"><table id="mgrs">
+    <thead><tr><th>Manager</th><th class="n">Wk 1</th><th class="n">Overall</th><th class="n">Avg wk&nbsp;1 pts</th><th class="n">Playoffs</th><th class="n">Finals</th><th class="n">Titles</th><th class="n">All-time pts</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="spine" style="margin-top:26px">
+    <p>The league's best opener is <strong>ritascoleslaw</strong> at 5&ndash;1, with two playoff trips, no finals and no titles. The worst is <strong>dingledingle</strong> at 1&ndash;5, who has never made the bracket in six attempts despite scoring the second-most points in league history. And the three-time champion, <strong>StranraerCarny</strong>, is a perfectly ordinary 3&ndash;3.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">06 &mdash; Tidbits</p>
+    <h2>Things week 1 has been good for</h2>
+    <p class="dek">Not prediction. But there's a decent amount of history in there.</p>
+  </div>
+  <div class="facts" id="facts"></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">07 &mdash; The record</p>
+    <h2>Every opener, 2020&ndash;2025</h2>
+    <p class="dek">All thirty-six week-1 games, highest score first. Winners in orange.</p>
+  </div>
+  <div class="slates" id="slates"></div>
+</section>
+
+<footer>
+  <p><b>METHOD.</b> Source: the Sleeper API for league IDs 607175439160524800 (2020) through 1181351037804883968 (2025) &mdash; rosters, users, weekly matchups and the winners bracket. Regular season runs to the season's playoff_week_start: weeks 1&ndash;14 in 2020, 2021, 2024 and 2025; weeks 1&ndash;15 in 2022 and 2023. Bracket size was four teams through 2023 and six from 2024. Standings were rebuilt from head-to-head results and tie-broken on points for; the reconstruction reproduced the actual playoff field in all six seasons. Managers are keyed on Sleeper user_id, so phillyson (2020) and YerMan (2021&ndash;25) are counted as one manager. The chance baseline comes from 200,000 simulated seasons per league format: twelve identical teams, random weekly pairings, every game a 50/50.</p>
+</footer>
+
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>window.__LADS__={"byWeek":[{"week":1,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.2,"delta":-8.1},{"week":2,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":3,"lt":3,"exp":19.3,"delta":8.5},{"week":3,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":1,"lt":5,"exp":19.3,"delta":-8.2},{"week":4,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.3,"delta":-8.2},{"week":5,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":2,"lt":4,"exp":19.3,"delta":-8.2},{"week":6,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":4,"lt":2,"exp":19.2,"delta":-2.5},{"week":7,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":5,"lt":1,"exp":19.2,"delta":-2.5},{"week":8,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":5,"lt":1,"exp":19.2,"delta":3.0},{"week":9,"n":72,"wp":36.1,"lp":41.7,"gap":-5.6,"wt":2,"lt":4,"exp":19.3,"delta":-24.9},{"week":10,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.2,"delta":19.7},{"week":11,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":4,"lt":2,"exp":19.3,"delta":19.6},{"week":12,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":3,"lt":3,"exp":19.3,"delta":2.9},{"week":13,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.3,"delta":19.6},{"week":14,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":6,"lt":0,"exp":19.3,"delta":8.5},{"week":15,"n":24,"wp":41.7,"lp":25.0,"gap":16.7,"wt":2,"lt":0,"exp":18.2,"delta":-1.5}],"managers":[{"mgr":"Idler","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9165.6,"w1avg":92.7},{"mgr":"kerrzo","w1w":4,"w1l":2,"W":35,"L":51,"po":2,"fin":1,"ti":1,"pf":8914.7,"w1avg":98.8},{"mgr":"TheFrenchman08","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9062.7,"w1avg":93.3},{"mgr":"yaks","w1w":3,"w1l":3,"W":41,"L":45,"po":2,"fin":0,"ti":0,"pf":9032.9,"w1avg":100.7},{"mgr":"dingledingle","w1w":1,"w1l":5,"W":42,"L":44,"po":0,"fin":0,"ti":0,"pf":9245.1,"w1avg":98.8},{"mgr":"StranraerCarny","w1w":3,"w1l":3,"W":50,"L":36,"po":3,"fin":3,"ti":3,"pf":9539.0,"w1avg":112.8},{"mgr":"StewMill","w1w":3,"w1l":3,"W":45,"L":41,"po":3,"fin":3,"ti":1,"pf":9118.7,"w1avg":113.5},{"mgr":"ritascoleslaw","w1w":5,"w1l":1,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8809.4,"w1avg":110.0},{"mgr":"andymci","w1w":2,"w1l":4,"W":43,"L":43,"po":3,"fin":1,"ti":0,"pf":8699.0,"w1avg":84.1},{"mgr":"YerMan","w1w":4,"w1l":2,"W":48,"L":38,"po":3,"fin":1,"ti":0,"pf":9130.3,"w1avg":103.3},{"mgr":"timscoular","w1w":3,"w1l":3,"W":42,"L":44,"po":2,"fin":1,"ti":1,"pf":9240.1,"w1avg":102.2},{"mgr":"Teviejay","w1w":4,"w1l":2,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8804.0,"w1avg":116.0}],"seasons":[{"year":2020,"playoffTeams":4,"regWeeks":14,"champ":"kerrzo","champW1":"W","champW1pts":[119.2,111.08],"champRec":[7,7],"champSeed":4,"champStart":"WLLWLWLWLWLLWW","runner":"Idler","runnerW1":"L","games":[["StranraerCarny",149.06,"dingledingle",110.1],["ritascoleslaw",130.22,"StewMill",106.7],["timscoular",124.84,"Teviejay",123.3],["kerrzo",119.2,"Idler",111.08],["YerMan",98.98,"andymci",74.84],["yaks",85.6,"TheFrenchman08",78.8]],"avg":109.4},{"year":2021,"playoffTeams":4,"regWeeks":14,"champ":"StewMill","champW1":"W","champW1pts":[132.28,109.46],"champRec":[9,5],"champSeed":3,"champStart":"WLLLLWWWWWWLWW","runner":"andymci","runnerW1":"L","games":[["Teviejay",146.92,"yaks",102.68],["StewMill",132.28,"TheFrenchman08",109.46],["StranraerCarny",125.88,"timscoular",90.66],["kerrzo",117.9,"andymci",73.12],["YerMan",116.96,"dingledingle",79.4],["ritascoleslaw",113.56,"Idler",79.58]],"avg":107.4},{"year":2022,"playoffTeams":4,"regWeeks":15,"champ":"StranraerCarny","champW1":"W","champW1pts":[109.9,72.2],"champRec":[10,5],"champSeed":3,"champStart":"WWLLWWWLLWLWWWW","runner":"StewMill","runnerW1":"L","games":[["dingledingle",140.28,"StewMill",119.72],["TheFrenchman08",121.52,"Teviejay",82.38],["ritascoleslaw",120.4,"timscoular",104.72],["YerMan",110.76,"Idler",89.16],["StranraerCarny",109.9,"andymci",72.2],["yaks",105.96,"kerrzo",87.42]],"avg":105.4},{"year":2023,"playoffTeams":4,"regWeeks":15,"champ":"timscoular","champW1":"L","champW1pts":[89.98,97.84],"champRec":[9,6],"champSeed":4,"champStart":"LWLWLLWWLWWLWWW","runner":"StewMill","runnerW1":"W","games":[["StewMill",124.16,"dingledingle",75.16],["Teviejay",123.46,"StranraerCarny",107.52],["andymci",97.84,"timscoular",89.98],["Idler",97.82,"YerMan",94.34],["ritascoleslaw",88.54,"yaks",86.34],["kerrzo",83.02,"TheFrenchman08",66.2]],"avg":94.5},{"year":2024,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[89.12,118.18],"champRec":[9,5],"champSeed":1,"champStart":"LLLWWLWWLWWWWW","runner":"TheFrenchman08","runnerW1":"W","games":[["TheFrenchman08",119.54,"kerrzo",96.28],["yaks",118.18,"StranraerCarny",89.12],["YerMan",117.3,"dingledingle",93.08],["Teviejay",113.86,"ritascoleslaw",97.42],["timscoular",109.96,"andymci",83.42],["Idler",94.04,"StewMill",87.16]],"avg":101.6},{"year":2025,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[95.52,110.04],"champRec":[11,3],"champSeed":1,"champStart":"LWWLLWWWWWWWWW","runner":"YerMan","runnerW1":"L","games":[["StewMill",110.68,"dingledingle",94.96],["ritascoleslaw",110.04,"StranraerCarny",95.52],["Teviejay",106.32,"yaks",105.56],["andymci",103.28,"TheFrenchman08",64.52],["timscoular",93.02,"YerMan",81.58],["kerrzo",89.22,"Idler",84.62]],"avg":94.9}],"starts2":[{"pat":"WW","n":17,"po":10,"ti":1},{"pat":"WL","n":19,"po":6,"ti":2},{"pat":"LW","n":19,"po":9,"ti":2},{"pat":"LL","n":17,"po":3,"ti":1}],"starts3":[{"pat":"LLL","n":8,"po":1,"ti":1},{"pat":"LLW","n":9,"po":2,"ti":0},{"pat":"LWL","n":9,"po":4,"ti":1},{"pat":"LWW","n":10,"po":5,"ti":1},{"pat":"WLL","n":9,"po":2,"ti":2},{"pat":"WLW","n":10,"po":4,"ti":0},{"pat":"WWL","n":10,"po":5,"ti":1},{"pat":"WWW","n":7,"po":5,"ti":0}],"head":{"n":72,"W":{"n":36,"po":16,"ti":3,"fin":5,"rest":{"w":223,"l":257,"pct":46.5},"avgSeed":6.19},"L":{"n":36,"po":12,"ti":3,"fin":7,"rest":{"w":257,"l":223,"pct":53.5},"avgSeed":6.81},"sim":{"W":48.5,"L":29.2,"gap":19.3},"fisher":0.469}};</script>
+<script>
+(function(){
+"use strict";
+var D = window.__LADS__;
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+/* ---- week-by-week diverging bars ---- */
+var LO = -9, HI = 43, SPAN = HI - LO;
+var pct = function(v){ return ((v - LO) / SPAN * 100); };
+var plot = document.getElementById("plot");
+var ph = "";
+D.byWeek.forEach(function(w){
+  var a = Math.min(0, w.gap), b = Math.max(0, w.gap);
+  var left = pct(a), width = pct(b) - pct(a);
+  var cls = w.gap < 0 ? "neg" : "pos";
+  var sign = (w.gap > 0 ? "+" : "") + w.gap.toFixed(1);
+  ph += '<div class="wkrow' + (w.week === 1 ? " focus" : "") + '" data-w="' + w.week + '">' +
+          '<div class="wklab">Wk&nbsp;' + w.week + '</div>' +
+          '<div class="wktrack">' +
+            '<span class="zero" style="left:' + pct(0).toFixed(2) + '%"></span>' +
+            '<i class="bar ' + cls + '" style="left:' + left.toFixed(2) + '%;width:' + Math.max(width, 0.6).toFixed(2) + '%"></i>' +
+            '<span class="expline" style="left:' + pct(19.3).toFixed(2) + '%"></span>' +
+            '<span class="hitrow" tabindex="0" role="button" aria-label="Week ' + w.week + ', gap ' + sign + ' points"></span>' +
+          '</div>' +
+          '<div class="wkval">' + sign + '</div>' +
+        '</div>';
+});
+plot.innerHTML = ph;
+
+var tk = "";
+[-5, 0, 10, 19.3, 30, 40].forEach(function(v){
+  var lbl = v === 19.3 ? "+19.3" : (v > 0 ? "+" + v : String(v));
+  tk += '<span class="tk" style="left:' + pct(v).toFixed(2) + '%">' + lbl + '</span>';
+});
+document.getElementById("ticks").innerHTML = tk;
+
+/* ---- tooltip ---- */
+var tip = document.getElementById("tip");
+function showTip(html, x, y){
+  tip.innerHTML = html;
+  tip.style.opacity = "1";
+  var r = tip.getBoundingClientRect();
+  var nx = Math.min(Math.max(8, x + 14), window.innerWidth - r.width - 8);
+  var ny = Math.max(8, y - r.height - 12);
+  tip.style.left = nx + "px";
+  tip.style.top = ny + "px";
+}
+function hideTip(){ tip.style.opacity = "0"; }
+
+function weekTip(w){
+  return '<b>Week ' + w.week + '</b> &middot; ' + w.n + ' team-seasons' +
+    '<div class="tl"><span>Winners reached playoffs</span><b>' + w.wp.toFixed(1) + '%</b></div>' +
+    '<div class="tl"><span>Losers reached playoffs</span><b>' + w.lp.toFixed(1) + '%</b></div>' +
+    '<div class="tl"><span>Gap</span><b>' + (w.gap > 0 ? "+" : "") + w.gap.toFixed(1) + 'pp</b></div>' +
+    '<div class="tl"><span>vs coin flip</span><b>' + (w.delta > 0 ? "+" : "") + w.delta.toFixed(1) + 'pp</b></div>' +
+    '<div class="tl"><span>Titles won by winners</span><b>' + w.wt + ' of 6</b></div>';
+}
+var byWeek = {};
+D.byWeek.forEach(function(w){ byWeek[w.week] = w; });
+
+plot.addEventListener("pointermove", function(e){
+  var row = e.target.closest(".wkrow");
+  if(!row){ hideTip(); return; }
+  showTip(weekTip(byWeek[row.dataset.w]), e.clientX, e.clientY);
+});
+plot.addEventListener("pointerleave", hideTip);
+plot.addEventListener("focusin", function(e){
+  var row = e.target.closest(".wkrow");
+  if(!row) return;
+  var r = row.getBoundingClientRect();
+  showTip(weekTip(byWeek[row.dataset.w]), r.left + r.width / 2, r.top);
+});
+plot.addEventListener("focusout", hideTip);
+window.addEventListener("scroll", hideTip, {passive:true});
+
+/* ---- champions table ---- */
+var ch = "";
+D.seasons.forEach(function(s){
+  var w = s.champW1 === "W";
+  ch += '<tr class="champrow"><td class="n">' + s.year + '</td>' +
+    '<td class="name">' + esc(s.champ) + '</td>' +
+    '<td><span class="tag ' + (w ? "w" : "l") + '">' + (w ? "WON" : "LOST") + '</span></td>' +
+    '<td class="n">' + s.champW1pts[0].toFixed(1) + '&ndash;' + s.champW1pts[1].toFixed(1) + '</td>' +
+    '<td class="mono" style="font-size:12px;letter-spacing:.14em">' + s.champStart.slice(0,4) + '</td>' +
+    '<td class="n">' + s.champRec[0] + '&ndash;' + s.champRec[1] + '</td>' +
+    '<td class="n">' + s.champSeed + '</td></tr>';
+});
+document.querySelector("#champs tbody").innerHTML = ch;
+
+/* ---- starts table ---- */
+var st = "";
+var LBL = {WW:"1&ndash;0 then 2&ndash;0", WL:"1&ndash;0 then 1&ndash;1", LW:"0&ndash;1 then 1&ndash;1", LL:"0&ndash;1 then 0&ndash;2"};
+D.starts2.forEach(function(s){
+  var rate = s.n ? (100 * s.po / s.n) : 0;
+  st += '<tr><td class="name">' + s.pat.split("").map(function(c){
+      return '<span class="tag ' + (c === "W" ? "w" : "l") + '" style="margin-right:3px">' + c + '</span>';
+    }).join("") + ' <span style="font-family:\'IBM Plex Mono\',monospace;font-size:11.5px;color:var(--muted);font-weight:400">' + LBL[s.pat] + '</span></td>' +
+    '<td class="n">' + s.n + '</td><td class="n">' + s.po + '</td><td class="n">' + rate.toFixed(0) + '%</td>' +
+    '<td class="n">' + s.ti + '</td></tr>';
+});
+document.querySelector("#starts tbody").innerHTML = st;
+
+/* ---- managers table ---- */
+var mg = D.managers.slice().sort(function(a, b){
+  return (b.w1w - a.w1w) || (b.ti - a.ti) || (b.po - a.po);
+});
+var mh = "";
+mg.forEach(function(m){
+  mh += '<tr><td class="name">' + esc(m.mgr) + '</td>' +
+    '<td class="n"><b>' + m.w1w + '&ndash;' + m.w1l + '</b></td>' +
+    '<td class="n">' + m.W + '&ndash;' + m.L + '</td>' +
+    '<td class="n">' + m.w1avg.toFixed(1) + '</td>' +
+    '<td class="n">' + m.po + '</td><td class="n">' + m.fin + '</td>' +
+    '<td class="n">' + (m.ti ? '<span class="tag t">' + m.ti + '</span>' : '<span style="color:var(--muted)">&mdash;</span>') + '</td>' +
+    '<td class="n">' + Math.round(m.pf).toLocaleString("en-GB") + '</td></tr>';
+});
+document.querySelector("#mgrs tbody").innerHTML = mh;
+
+/* ---- facts ---- */
+var FACTS = [
+  'The highest week-1 score in league history &mdash; <span class="k">StranraerCarny, 149.1 in 2020</span> &mdash; was followed by a 6&ndash;8 season and no playoffs.',
+  'The season’s top week-1 scorer has made the playoffs <span class="k">twice in six tries</span>. Three of the six finished under .500.',
+  'Biggest opening-day hiding: <span class="k">StewMill 124.2&ndash;75.2 dingledingle</span>, 2023. Tightest: <span class="k">Teviejay 106.3&ndash;105.6 yaks</span>, 2025 &mdash; seven tenths of a point.',
+  'In 2021 <span class="k">andymci</span> was beaten 117.9&ndash;73.1 in week 1, the second-heaviest defeat on record, then finished <span class="k">10&ndash;4 as the No. 1 seed</span>.',
+  'Winning big in week 1 has been worse than winning narrowly: victories by 25+ produced a 33% playoff rate (n=12), victories by under 10 produced <span class="k">56%</span> (n=9).',
+  'Seven of the twelve managers to reach a final had <span class="k">lost their opener</span>.',
+  '<span class="k">StewMill v dingledingle</span> has opened the season three times &mdash; 2022, 2023 and 2025. StewMill leads it 2&ndash;1.',
+  'Week-1 scoring is falling: the league averaged <span class="k">109.4</span> points per team in 2020 and <span class="k">94.9</span> in 2025.',
+  '2020’s champion, <span class="k">kerrzo</span>, went 7&ndash;7 &mdash; the only title winner with a .500 regular season &mdash; and started the year 1&ndash;0.',
+  'There has never been a tie in LadsLadsLads. Not in week 1, not in 516 regular-season matchups.'
+];
+document.getElementById("facts").innerHTML = FACTS.map(function(f, i){
+  return '<div class="fact"><p>' + f + '</p></div>';
+}).join("");
+
+/* ---- slates ---- */
+var sl = "";
+D.seasons.forEach(function(s){
+  var g = s.games.map(function(x){
+    return '<div class="g"><span class="t win">' + esc(x[0]) + '</span><span class="s win">' + x[1].toFixed(1) + '</span>' +
+           '<span class="t lose">' + esc(x[2]) + '</span><span class="s">' + x[3].toFixed(1) + '</span></div>';
+  }).join("");
+  sl += '<div class="slate"><h3>' + s.year + '</h3>' +
+        '<p class="meta">avg ' + s.avg.toFixed(1) + ' &middot; ' + s.regWeeks + ' wks &middot; top ' + s.playoffTeams + ' &middot; won by ' + esc(s.champ) + '</p>' +
+        g + '</div>';
+});
+document.getElementById("slates").innerHTML = sl;
+})();
+</script>
+</body>
+</html>
