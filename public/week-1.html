@@ -132,12 +132,32 @@ figure{margin:0}
 .bar.pos{background:var(--won)} .bar.neg{background:var(--lost)}
 .zero{position:absolute;top:0;bottom:0;width:1px;background:var(--rule);z-index:1}
 .expline{position:absolute;top:0;bottom:0;border-left:2px dashed var(--muted);z-index:3;pointer-events:none;opacity:.8}
-.hitrow{position:absolute;left:0;right:0;height:24px;cursor:default;z-index:4}
+.hitrow{position:absolute;left:0;right:0;top:0;bottom:0;cursor:default;z-index:4}
 .axis{display:grid;grid-template-columns:46px 1fr 52px;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid var(--rule-soft)}
 .axis .ticks{position:relative;height:14px}
 .axis .tk{position:absolute;transform:translateX(-50%);font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);white-space:nowrap}
 .annot{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);margin-top:14px;line-height:1.55;border-top:1px dotted var(--rule-soft);padding-top:12px}
 
+
+/* ---------- correlation chart ---------- */
+.corrrow{display:grid;grid-template-columns:136px 1fr 50px;align-items:center;gap:10px;height:30px;position:relative}
+.corrrow+.corrrow{margin-top:3px}
+.corrrow.pairend{margin-bottom:13px}
+.clab{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-2);line-height:1.3;white-space:nowrap;overflow:hidden}
+.clab .sub{color:var(--muted);font-size:10px}
+.cval{font-family:"IBM Plex Mono",monospace;font-size:11.5px;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.corrrow.fwd .cval{color:var(--ink);font-weight:600}
+.ctrack{position:relative;height:30px}
+.ctrack .bar{top:8px}
+.nullband{position:absolute;top:0;bottom:0;background:var(--card2);z-index:0;border-radius:2px}
+.axis.corr{grid-template-columns:136px 1fr 50px}
+.nulllab{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);text-align:center;margin-top:9px;letter-spacing:.04em}
+
+/* ---------- grouped table blocks ---------- */
+tbody tr.grouphead td{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;background:var(--card2);padding:9px 12px
+}
 
 /* ---------- tables ---------- */
 .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow)}
@@ -196,6 +216,9 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
   .slates{grid-template-columns:1fr}
   .facts{grid-template-columns:1fr}
   .wkrow{grid-template-columns:38px 1fr 46px;gap:7px}
+  .corrrow,.axis.corr{grid-template-columns:112px 1fr 44px;gap:6px}
+  .clab{font-size:10px}
+  .clab .sub{font-size:9.5px}
   .verdict{display:block}
   .verdict .sm{margin-top:8px;max-width:none}
 }
@@ -294,7 +317,52 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">03 &mdash; The trophy</p>
+    <p class="eyebrow">03 &mdash; Points, not wins</p>
+    <h2>Scoring big early doesn&rsquo;t help either</h2>
+    <p class="dek">The fair objection to all of the above: a win-loss record is noisy because of who you happened to draw. Points scored is supposed to be the honest measure of a team. Over three weeks it still isn&rsquo;t one.</p>
+  </div>
+
+  <div class="tablewrap"><table id="scoretiers">
+    <thead><tr><th>Scoring tier</th><th class="n">Teams</th><th class="n">Playoffs</th><th class="n">Rate</th><th class="n">Finals</th><th class="n">Titles</th><th class="n">Win&nbsp;% after</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <div class="spine" style="margin-top:30px">
+    <p><strong>Week 1 points are worse than useless.</strong> The four highest scorers in any given opener went on to make the playoffs 33% of the time &mdash; the <em>lowest</em> of the three tiers &mdash; while the four lowest scorers made it 38% of the time and won 55.9% of everything after. Five of the six champions ranked fifth or worse in week-1 scoring.</p>
+    <p>Stretch it to three weeks and something that looks like a signal appears: the top scoring tier reaches the playoffs 50% of the time against 29% for the bottom. That gradient is real. It is also <span class="hl">almost entirely an accounting artefact</span> &mdash; weeks 1 to 3 are part of the season total you are correlating them against.</p>
+  </div>
+
+  <figure class="chart" style="margin-top:26px">
+    <p class="ctitle">Early signals, measured backwards and forwards</p>
+    <p class="csub">Pearson correlation with final record &middot; 72 team-seasons &middot; hover or tap a bar</p>
+    <div class="legend">
+      <span><i class="key" style="background:var(--won)"></i> Positive</span>
+      <span><i class="key" style="background:var(--lost)"></i> Negative</span>
+      <span><i class="key" style="background:var(--card2);border:1px solid var(--rule)"></i> No useful relationship (&plusmn;0.1)</span>
+    </div>
+    <div class="plot" id="corrplot"></div>
+    <div class="axis corr"><div></div><div class="ticks" id="corrticks"></div><div></div></div>
+    <p class="annot">The top bar of each pair counts the early games themselves, so it is partly correlating a number with itself. The bottom bar &mdash; the one that matters &mdash; asks only what happened <b>after</b> week 3. All three collapse into the band.</p>
+  </figure>
+
+  <div class="spine" style="margin-top:30px">
+    <p>That is the whole finding in one chart. Three weeks of scoring correlates <strong>+0.22</strong> with a team&rsquo;s final record and <strong>+0.02</strong> with the record it goes on to post. Three weeks of <em>results</em> does slightly better on the first measure, +0.32, and slightly worse on the second, &minus;0.09. Neither one knows anything the schedule hasn&rsquo;t already told you.</p>
+    <p>There is one sliver of support for the points-not-wins argument. Teams that scored in the top four but sat at 0&ndash;3 or 1&ndash;2 after three weeks &mdash; the genuinely unlucky &mdash; recovered to make the playoffs 43% of the time. Teams with the same bad record and bottom-four scoring managed 25%. The direction is right and the sample is <strong>seven teams</strong>, so treat it as a hunch rather than a finding.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-top:8px"><table id="w3rec">
+    <thead><tr><th>Record after 3 weeks</th><th class="n">Teams</th><th class="n">Playoffs</th><th class="n">Rate</th><th class="n">Titles</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <div class="spine" style="margin-top:26px">
+    <p>Three weeks of results do carve out the one genuinely bad place to be: <strong>0&ndash;3</strong>, from which one team in eight has recovered. That team was StranraerCarny in 2024, who also ranked tenth of twelve in three-week scoring, and who won the title.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">04 &mdash; The trophy</p>
     <h2>Every champion, and how they opened</h2>
     <p class="dek">The first three titles went to week-1 winners. The last three went to week-1 losers.</p>
   </div>
@@ -309,9 +377,9 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">04 &mdash; Starts</p>
+    <p class="eyebrow">05 &mdash; Starts</p>
     <h2>0&ndash;2 is a real hole. 0&ndash;1 isn't.</h2>
-    <p class="dek">One game tells you nothing. Two starts to.</p>
+    <p class="dek">One game tells you nothing. Two starts to, and the effect is all in the second one.</p>
   </div>
   <div class="tablewrap"><table id="starts">
     <thead><tr><th>Start</th><th class="n">Teams</th><th class="n">Playoffs</th><th class="n">Rate</th><th class="n">Titles</th></tr></thead>
@@ -324,7 +392,7 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">05 &mdash; The managers</p>
+    <p class="eyebrow">06 &mdash; The managers</p>
     <h2>Being good at week 1 is not a skill worth having</h2>
     <p class="dek">All-time week-1 records against what actually followed. Same twelve managers, all six seasons.</p>
   </div>
@@ -339,7 +407,7 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">06 &mdash; Tidbits</p>
+    <p class="eyebrow">07 &mdash; Tidbits</p>
     <h2>Things week 1 has been good for</h2>
     <p class="dek">Not prediction. But there's a decent amount of history in there.</p>
   </div>
@@ -348,7 +416,7 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">07 &mdash; The record</p>
+    <p class="eyebrow">08 &mdash; The record</p>
     <h2>Every opener, 2020&ndash;2025</h2>
     <p class="dek">All thirty-six week-1 games, highest score first. Winners in orange.</p>
   </div>
@@ -356,13 +424,13 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 </section>
 
 <footer>
-  <p><b>METHOD.</b> Source: the Sleeper API for league IDs 607175439160524800 (2020) through 1181351037804883968 (2025) &mdash; rosters, users, weekly matchups and the winners bracket. Regular season runs to the season's playoff_week_start: weeks 1&ndash;14 in 2020, 2021, 2024 and 2025; weeks 1&ndash;15 in 2022 and 2023. Bracket size was four teams through 2023 and six from 2024. Standings were rebuilt from head-to-head results and tie-broken on points for; the reconstruction reproduced the actual playoff field in all six seasons. Managers are keyed on Sleeper user_id, so phillyson (2020) and YerMan (2021&ndash;25) are counted as one manager. The chance baseline comes from 200,000 simulated seasons per league format: twelve identical teams, random weekly pairings, every game a 50/50.</p>
+  <p><b>METHOD.</b> Source: the Sleeper API for league IDs 607175439160524800 (2020) through 1181351037804883968 (2025) &mdash; rosters, users, weekly matchups and the winners bracket. Regular season runs to the season's playoff_week_start: weeks 1&ndash;14 in 2020, 2021, 2024 and 2025; weeks 1&ndash;15 in 2022 and 2023. Bracket size was four teams through 2023 and six from 2024. Standings were rebuilt from head-to-head results and tie-broken on points for; the reconstruction reproduced the actual playoff field in all six seasons. Managers are keyed on Sleeper user_id, so phillyson (2020) and YerMan (2021&ndash;25) are counted as one manager. Scoring tiers rank the twelve teams within their own season, so the drift in scoring levels between 2020 and 2025 cannot move a team between tiers. Correlations are Pearson over all 72 team-seasons. The chance baseline comes from 200,000 simulated seasons per league format: twelve identical teams, random weekly pairings, every game a 50/50.</p>
 </footer>
 
 </div>
 <div id="tip" role="status" aria-live="polite"></div>
 
-<script>window.__LADS__={"byWeek":[{"week":1,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.2,"delta":-8.1},{"week":2,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":3,"lt":3,"exp":19.3,"delta":8.5},{"week":3,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":1,"lt":5,"exp":19.3,"delta":-8.2},{"week":4,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.3,"delta":-8.2},{"week":5,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":2,"lt":4,"exp":19.3,"delta":-8.2},{"week":6,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":4,"lt":2,"exp":19.2,"delta":-2.5},{"week":7,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":5,"lt":1,"exp":19.2,"delta":-2.5},{"week":8,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":5,"lt":1,"exp":19.2,"delta":3.0},{"week":9,"n":72,"wp":36.1,"lp":41.7,"gap":-5.6,"wt":2,"lt":4,"exp":19.3,"delta":-24.9},{"week":10,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.2,"delta":19.7},{"week":11,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":4,"lt":2,"exp":19.3,"delta":19.6},{"week":12,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":3,"lt":3,"exp":19.3,"delta":2.9},{"week":13,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.3,"delta":19.6},{"week":14,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":6,"lt":0,"exp":19.3,"delta":8.5},{"week":15,"n":24,"wp":41.7,"lp":25.0,"gap":16.7,"wt":2,"lt":0,"exp":18.2,"delta":-1.5}],"managers":[{"mgr":"Idler","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9165.6,"w1avg":92.7},{"mgr":"kerrzo","w1w":4,"w1l":2,"W":35,"L":51,"po":2,"fin":1,"ti":1,"pf":8914.7,"w1avg":98.8},{"mgr":"TheFrenchman08","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9062.7,"w1avg":93.3},{"mgr":"yaks","w1w":3,"w1l":3,"W":41,"L":45,"po":2,"fin":0,"ti":0,"pf":9032.9,"w1avg":100.7},{"mgr":"dingledingle","w1w":1,"w1l":5,"W":42,"L":44,"po":0,"fin":0,"ti":0,"pf":9245.1,"w1avg":98.8},{"mgr":"StranraerCarny","w1w":3,"w1l":3,"W":50,"L":36,"po":3,"fin":3,"ti":3,"pf":9539.0,"w1avg":112.8},{"mgr":"StewMill","w1w":3,"w1l":3,"W":45,"L":41,"po":3,"fin":3,"ti":1,"pf":9118.7,"w1avg":113.5},{"mgr":"ritascoleslaw","w1w":5,"w1l":1,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8809.4,"w1avg":110.0},{"mgr":"andymci","w1w":2,"w1l":4,"W":43,"L":43,"po":3,"fin":1,"ti":0,"pf":8699.0,"w1avg":84.1},{"mgr":"YerMan","w1w":4,"w1l":2,"W":48,"L":38,"po":3,"fin":1,"ti":0,"pf":9130.3,"w1avg":103.3},{"mgr":"timscoular","w1w":3,"w1l":3,"W":42,"L":44,"po":2,"fin":1,"ti":1,"pf":9240.1,"w1avg":102.2},{"mgr":"Teviejay","w1w":4,"w1l":2,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8804.0,"w1avg":116.0}],"seasons":[{"year":2020,"playoffTeams":4,"regWeeks":14,"champ":"kerrzo","champW1":"W","champW1pts":[119.2,111.08],"champRec":[7,7],"champSeed":4,"champStart":"WLLWLWLWLWLLWW","runner":"Idler","runnerW1":"L","games":[["StranraerCarny",149.06,"dingledingle",110.1],["ritascoleslaw",130.22,"StewMill",106.7],["timscoular",124.84,"Teviejay",123.3],["kerrzo",119.2,"Idler",111.08],["YerMan",98.98,"andymci",74.84],["yaks",85.6,"TheFrenchman08",78.8]],"avg":109.4},{"year":2021,"playoffTeams":4,"regWeeks":14,"champ":"StewMill","champW1":"W","champW1pts":[132.28,109.46],"champRec":[9,5],"champSeed":3,"champStart":"WLLLLWWWWWWLWW","runner":"andymci","runnerW1":"L","games":[["Teviejay",146.92,"yaks",102.68],["StewMill",132.28,"TheFrenchman08",109.46],["StranraerCarny",125.88,"timscoular",90.66],["kerrzo",117.9,"andymci",73.12],["YerMan",116.96,"dingledingle",79.4],["ritascoleslaw",113.56,"Idler",79.58]],"avg":107.4},{"year":2022,"playoffTeams":4,"regWeeks":15,"champ":"StranraerCarny","champW1":"W","champW1pts":[109.9,72.2],"champRec":[10,5],"champSeed":3,"champStart":"WWLLWWWLLWLWWWW","runner":"StewMill","runnerW1":"L","games":[["dingledingle",140.28,"StewMill",119.72],["TheFrenchman08",121.52,"Teviejay",82.38],["ritascoleslaw",120.4,"timscoular",104.72],["YerMan",110.76,"Idler",89.16],["StranraerCarny",109.9,"andymci",72.2],["yaks",105.96,"kerrzo",87.42]],"avg":105.4},{"year":2023,"playoffTeams":4,"regWeeks":15,"champ":"timscoular","champW1":"L","champW1pts":[89.98,97.84],"champRec":[9,6],"champSeed":4,"champStart":"LWLWLLWWLWWLWWW","runner":"StewMill","runnerW1":"W","games":[["StewMill",124.16,"dingledingle",75.16],["Teviejay",123.46,"StranraerCarny",107.52],["andymci",97.84,"timscoular",89.98],["Idler",97.82,"YerMan",94.34],["ritascoleslaw",88.54,"yaks",86.34],["kerrzo",83.02,"TheFrenchman08",66.2]],"avg":94.5},{"year":2024,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[89.12,118.18],"champRec":[9,5],"champSeed":1,"champStart":"LLLWWLWWLWWWWW","runner":"TheFrenchman08","runnerW1":"W","games":[["TheFrenchman08",119.54,"kerrzo",96.28],["yaks",118.18,"StranraerCarny",89.12],["YerMan",117.3,"dingledingle",93.08],["Teviejay",113.86,"ritascoleslaw",97.42],["timscoular",109.96,"andymci",83.42],["Idler",94.04,"StewMill",87.16]],"avg":101.6},{"year":2025,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[95.52,110.04],"champRec":[11,3],"champSeed":1,"champStart":"LWWLLWWWWWWWWW","runner":"YerMan","runnerW1":"L","games":[["StewMill",110.68,"dingledingle",94.96],["ritascoleslaw",110.04,"StranraerCarny",95.52],["Teviejay",106.32,"yaks",105.56],["andymci",103.28,"TheFrenchman08",64.52],["timscoular",93.02,"YerMan",81.58],["kerrzo",89.22,"Idler",84.62]],"avg":94.9}],"starts2":[{"pat":"WW","n":17,"po":10,"ti":1},{"pat":"WL","n":19,"po":6,"ti":2},{"pat":"LW","n":19,"po":9,"ti":2},{"pat":"LL","n":17,"po":3,"ti":1}],"starts3":[{"pat":"LLL","n":8,"po":1,"ti":1},{"pat":"LLW","n":9,"po":2,"ti":0},{"pat":"LWL","n":9,"po":4,"ti":1},{"pat":"LWW","n":10,"po":5,"ti":1},{"pat":"WLL","n":9,"po":2,"ti":2},{"pat":"WLW","n":10,"po":4,"ti":0},{"pat":"WWL","n":10,"po":5,"ti":1},{"pat":"WWW","n":7,"po":5,"ti":0}],"head":{"n":72,"W":{"n":36,"po":16,"ti":3,"fin":5,"rest":{"w":223,"l":257,"pct":46.5},"avgSeed":6.19},"L":{"n":36,"po":12,"ti":3,"fin":7,"rest":{"w":257,"l":223,"pct":53.5},"avgSeed":6.81},"sim":{"W":48.5,"L":29.2,"gap":19.3},"fisher":0.469}};</script>
+<script>window.__LADS__={"byWeek":[{"week":1,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.2,"delta":-8.1},{"week":2,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":3,"lt":3,"exp":19.3,"delta":8.5},{"week":3,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":1,"lt":5,"exp":19.3,"delta":-8.2},{"week":4,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":3,"lt":3,"exp":19.3,"delta":-8.2},{"week":5,"n":72,"wp":44.4,"lp":33.3,"gap":11.1,"wt":2,"lt":4,"exp":19.3,"delta":-8.2},{"week":6,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":4,"lt":2,"exp":19.2,"delta":-2.5},{"week":7,"n":72,"wp":47.2,"lp":30.6,"gap":16.7,"wt":5,"lt":1,"exp":19.2,"delta":-2.5},{"week":8,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":5,"lt":1,"exp":19.2,"delta":3.0},{"week":9,"n":72,"wp":36.1,"lp":41.7,"gap":-5.6,"wt":2,"lt":4,"exp":19.3,"delta":-24.9},{"week":10,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.2,"delta":19.7},{"week":11,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":4,"lt":2,"exp":19.3,"delta":19.6},{"week":12,"n":72,"wp":50.0,"lp":27.8,"gap":22.2,"wt":3,"lt":3,"exp":19.3,"delta":2.9},{"week":13,"n":72,"wp":58.3,"lp":19.4,"gap":38.9,"wt":6,"lt":0,"exp":19.3,"delta":19.6},{"week":14,"n":72,"wp":52.8,"lp":25.0,"gap":27.8,"wt":6,"lt":0,"exp":19.3,"delta":8.5},{"week":15,"n":24,"wp":41.7,"lp":25.0,"gap":16.7,"wt":2,"lt":0,"exp":18.2,"delta":-1.5}],"managers":[{"mgr":"Idler","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9165.6,"w1avg":92.7},{"mgr":"kerrzo","w1w":4,"w1l":2,"W":35,"L":51,"po":2,"fin":1,"ti":1,"pf":8914.7,"w1avg":98.8},{"mgr":"TheFrenchman08","w1w":2,"w1l":4,"W":45,"L":41,"po":3,"fin":1,"ti":0,"pf":9062.7,"w1avg":93.3},{"mgr":"yaks","w1w":3,"w1l":3,"W":41,"L":45,"po":2,"fin":0,"ti":0,"pf":9032.9,"w1avg":100.7},{"mgr":"dingledingle","w1w":1,"w1l":5,"W":42,"L":44,"po":0,"fin":0,"ti":0,"pf":9245.1,"w1avg":98.8},{"mgr":"StranraerCarny","w1w":3,"w1l":3,"W":50,"L":36,"po":3,"fin":3,"ti":3,"pf":9539.0,"w1avg":112.8},{"mgr":"StewMill","w1w":3,"w1l":3,"W":45,"L":41,"po":3,"fin":3,"ti":1,"pf":9118.7,"w1avg":113.5},{"mgr":"ritascoleslaw","w1w":5,"w1l":1,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8809.4,"w1avg":110.0},{"mgr":"andymci","w1w":2,"w1l":4,"W":43,"L":43,"po":3,"fin":1,"ti":0,"pf":8699.0,"w1avg":84.1},{"mgr":"YerMan","w1w":4,"w1l":2,"W":48,"L":38,"po":3,"fin":1,"ti":0,"pf":9130.3,"w1avg":103.3},{"mgr":"timscoular","w1w":3,"w1l":3,"W":42,"L":44,"po":2,"fin":1,"ti":1,"pf":9240.1,"w1avg":102.2},{"mgr":"Teviejay","w1w":4,"w1l":2,"W":40,"L":46,"po":2,"fin":0,"ti":0,"pf":8804.0,"w1avg":116.0}],"seasons":[{"year":2020,"playoffTeams":4,"regWeeks":14,"champ":"kerrzo","champW1":"W","champW1pts":[119.2,111.08],"champRec":[7,7],"champSeed":4,"champStart":"WLLWLWLWLWLLWW","runner":"Idler","runnerW1":"L","games":[["StranraerCarny",149.06,"dingledingle",110.1],["ritascoleslaw",130.22,"StewMill",106.7],["timscoular",124.84,"Teviejay",123.3],["kerrzo",119.2,"Idler",111.08],["YerMan",98.98,"andymci",74.84],["yaks",85.6,"TheFrenchman08",78.8]],"avg":109.4},{"year":2021,"playoffTeams":4,"regWeeks":14,"champ":"StewMill","champW1":"W","champW1pts":[132.28,109.46],"champRec":[9,5],"champSeed":3,"champStart":"WLLLLWWWWWWLWW","runner":"andymci","runnerW1":"L","games":[["Teviejay",146.92,"yaks",102.68],["StewMill",132.28,"TheFrenchman08",109.46],["StranraerCarny",125.88,"timscoular",90.66],["kerrzo",117.9,"andymci",73.12],["YerMan",116.96,"dingledingle",79.4],["ritascoleslaw",113.56,"Idler",79.58]],"avg":107.4},{"year":2022,"playoffTeams":4,"regWeeks":15,"champ":"StranraerCarny","champW1":"W","champW1pts":[109.9,72.2],"champRec":[10,5],"champSeed":3,"champStart":"WWLLWWWLLWLWWWW","runner":"StewMill","runnerW1":"L","games":[["dingledingle",140.28,"StewMill",119.72],["TheFrenchman08",121.52,"Teviejay",82.38],["ritascoleslaw",120.4,"timscoular",104.72],["YerMan",110.76,"Idler",89.16],["StranraerCarny",109.9,"andymci",72.2],["yaks",105.96,"kerrzo",87.42]],"avg":105.4},{"year":2023,"playoffTeams":4,"regWeeks":15,"champ":"timscoular","champW1":"L","champW1pts":[89.98,97.84],"champRec":[9,6],"champSeed":4,"champStart":"LWLWLLWWLWWLWWW","runner":"StewMill","runnerW1":"W","games":[["StewMill",124.16,"dingledingle",75.16],["Teviejay",123.46,"StranraerCarny",107.52],["andymci",97.84,"timscoular",89.98],["Idler",97.82,"YerMan",94.34],["ritascoleslaw",88.54,"yaks",86.34],["kerrzo",83.02,"TheFrenchman08",66.2]],"avg":94.5},{"year":2024,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[89.12,118.18],"champRec":[9,5],"champSeed":1,"champStart":"LLLWWLWWLWWWWW","runner":"TheFrenchman08","runnerW1":"W","games":[["TheFrenchman08",119.54,"kerrzo",96.28],["yaks",118.18,"StranraerCarny",89.12],["YerMan",117.3,"dingledingle",93.08],["Teviejay",113.86,"ritascoleslaw",97.42],["timscoular",109.96,"andymci",83.42],["Idler",94.04,"StewMill",87.16]],"avg":101.6},{"year":2025,"playoffTeams":6,"regWeeks":14,"champ":"StranraerCarny","champW1":"L","champW1pts":[95.52,110.04],"champRec":[11,3],"champSeed":1,"champStart":"LWWLLWWWWWWWWW","runner":"YerMan","runnerW1":"L","games":[["StewMill",110.68,"dingledingle",94.96],["ritascoleslaw",110.04,"StranraerCarny",95.52],["Teviejay",106.32,"yaks",105.56],["andymci",103.28,"TheFrenchman08",64.52],["timscoular",93.02,"YerMan",81.58],["kerrzo",89.22,"Idler",84.62]],"avg":94.9}],"starts2":[{"pat":"WW","n":17,"po":10,"ti":1},{"pat":"WL","n":19,"po":6,"ti":2},{"pat":"LW","n":19,"po":9,"ti":2},{"pat":"LL","n":17,"po":3,"ti":1}],"starts3":[{"pat":"LLL","n":8,"po":1,"ti":1},{"pat":"LLW","n":9,"po":2,"ti":0},{"pat":"LWL","n":9,"po":4,"ti":1},{"pat":"LWW","n":10,"po":5,"ti":1},{"pat":"WLL","n":9,"po":2,"ti":2},{"pat":"WLW","n":10,"po":4,"ti":0},{"pat":"WWL","n":10,"po":5,"ti":1},{"pat":"WWW","n":7,"po":5,"ti":0}],"head":{"n":72,"W":{"n":36,"po":16,"ti":3,"fin":5,"rest":{"w":223,"l":257,"pct":46.5},"avgSeed":6.19},"L":{"n":36,"po":12,"ti":3,"fin":7,"rest":{"w":257,"l":223,"pct":53.5},"avgSeed":6.81},"sim":{"W":48.5,"L":29.2,"gap":19.3},"fisher":0.469},"scoreTiers":[{"group":"Week 1 points","tier":"Top 4","n":24,"po":8,"rate":33.3,"fin":4,"ti":1,"rest":43.0},{"group":"Week 1 points","tier":"Middle 4","n":24,"po":11,"rate":45.8,"fin":5,"ti":4,"rest":51.1},{"group":"Week 1 points","tier":"Bottom 4","n":24,"po":9,"rate":37.5,"fin":3,"ti":1,"rest":55.9},{"group":"Weeks 1&ndash;3 points","tier":"Top 4","n":24,"po":12,"rate":50.0,"fin":5,"ti":2,"rest":52.9},{"group":"Weeks 1&ndash;3 points","tier":"Middle 4","n":24,"po":9,"rate":37.5,"fin":3,"ti":1,"rest":46.0},{"group":"Weeks 1&ndash;3 points","tier":"Bottom 4","n":24,"po":7,"rate":29.2,"fin":4,"ti":3,"rest":51.1}],"corr":[{"lab":"Week 1 points","full":-0.099,"fwd":-0.262},{"lab":"Weeks 1&ndash;3 points","full":0.223,"fwd":0.028},{"lab":"Weeks 1&ndash;3 record","full":0.32,"fwd":-0.088}],"luck":[{"lab":"Top-4 scoring, 0&ndash;3 or 1&ndash;2","n":7,"po":3,"rate":43,"fin":3,"ti":1},{"lab":"Bottom-4 scoring, 0&ndash;3 or 1&ndash;2","n":20,"po":5,"rate":25,"fin":3,"ti":2}],"champScore":[{"year":2020,"mgr":"kerrzo","r1":5,"r3":9,"w3":1},{"year":2021,"mgr":"StewMill","r1":2,"r3":2,"w3":1},{"year":2022,"mgr":"StranraerCarny","r1":6,"r3":9,"w3":2},{"year":2023,"mgr":"timscoular","r1":7,"r3":7,"w3":1},{"year":2024,"mgr":"StranraerCarny","r1":10,"r3":10,"w3":0},{"year":2025,"mgr":"StranraerCarny","r1":6,"r3":3,"w3":2}],"w3rec":[{"rec":"3&ndash;0","n":7,"po":5,"rate":71,"ti":0},{"rec":"2&ndash;1","n":30,"po":14,"rate":47,"ti":2},{"rec":"1&ndash;2","n":27,"po":8,"rate":30,"ti":3},{"rec":"0&ndash;3","n":8,"po":1,"rate":12,"ti":1}],"finRanks":[1,2,2,2,3,5,6,7,9,9,10,11]};</script>
 <script>
 (function(){
 "use strict";
@@ -438,6 +506,83 @@ plot.addEventListener("focusin", function(e){
 plot.addEventListener("focusout", hideTip);
 window.addEventListener("scroll", hideTip, {passive:true});
 
+/* ---- scoring tiers table ---- */
+var stb = "", lastGroup = null;
+D.scoreTiers.forEach(function(t){
+  if(t.group !== lastGroup){
+    stb += '<tr class="grouphead"><td colspan="7">By ' + t.group + ', ranked within the season</td></tr>';
+    lastGroup = t.group;
+  }
+  stb += '<tr><td class="name">' + t.tier + '</td>' +
+    '<td class="n">' + t.n + '</td><td class="n">' + t.po + '</td>' +
+    '<td class="n"><b>' + t.rate.toFixed(1) + '%</b></td>' +
+    '<td class="n">' + t.fin + '</td>' +
+    '<td class="n">' + (t.ti ? '<span class="tag t">' + t.ti + '</span>' : '<span style="color:var(--muted)">&mdash;</span>') + '</td>' +
+    '<td class="n">' + t.rest.toFixed(1) + '%</td></tr>';
+});
+document.querySelector("#scoretiers tbody").innerHTML = stb;
+
+/* ---- 3-week record table ---- */
+document.querySelector("#w3rec tbody").innerHTML = D.w3rec.map(function(t){
+  return '<tr><td class="name">' + t.rec + '</td><td class="n">' + t.n + '</td>' +
+    '<td class="n">' + t.po + '</td><td class="n"><b>' + t.rate + '%</b></td>' +
+    '<td class="n">' + (t.ti ? '<span class="tag t">' + t.ti + '</span>' : '<span style="color:var(--muted)">&mdash;</span>') + '</td></tr>';
+}).join("");
+
+/* ---- correlation chart ---- */
+var CLO = -0.36, CHI = 0.42, CSPAN = CHI - CLO;
+var cpct = function(v){ return (v - CLO) / CSPAN * 100; };
+var corrRows = [];
+D.corr.forEach(function(c){
+  corrRows.push({lab:c.lab, sub:"vs full season", v:c.full, fwd:false});
+  corrRows.push({lab:"", sub:"vs after week 3", v:c.fwd, fwd:true, end:true});
+});
+var cp = "";
+corrRows.forEach(function(r, i){
+  var a = Math.min(0, r.v), b = Math.max(0, r.v);
+  var sign = (r.v > 0 ? "+" : r.v < 0 ? "\u2212" : "") + Math.abs(r.v).toFixed(2);
+  cp += '<div class="corrrow' + (r.fwd ? " fwd" : "") + (r.end ? " pairend" : "") + '" data-i="' + i + '">' +
+          '<div class="clab">' + (r.lab || "&nbsp;") + '<br><span class="sub">' + r.sub + '</span></div>' +
+          '<div class="ctrack">' +
+            '<span class="nullband" style="left:' + cpct(-0.1).toFixed(2) + '%;width:' + (cpct(0.1) - cpct(-0.1)).toFixed(2) + '%"></span>' +
+            '<span class="zero" style="left:' + cpct(0).toFixed(2) + '%"></span>' +
+            '<i class="bar ' + (r.v < 0 ? "neg" : "pos") + '" style="left:' + cpct(a).toFixed(2) + '%;width:' + Math.max(cpct(b) - cpct(a), 0.6).toFixed(2) + '%"></i>' +
+            '<span class="hitrow" tabindex="0" role="button" aria-label="' + (r.lab || "same signal") + ' ' + r.sub + ', correlation ' + sign + '"></span>' +
+          '</div>' +
+          '<div class="cval">' + sign + '</div>' +
+        '</div>';
+});
+document.getElementById("corrplot").innerHTML = cp;
+
+var ctk = "";
+[-0.3, -0.1, 0, 0.1, 0.3].forEach(function(v){
+  var lbl = v === 0 ? "0" : (v > 0 ? "+" : "\u2212") + Math.abs(v).toFixed(1);
+  ctk += '<span class="tk" style="left:' + cpct(v).toFixed(2) + '%">' + lbl + '</span>';
+});
+document.getElementById("corrticks").innerHTML = ctk;
+
+var corrplot = document.getElementById("corrplot");
+function corrTip(r){
+  var strength = Math.abs(r.v) < 0.1 ? "nothing" : Math.abs(r.v) < 0.3 ? "very weak" : "weak";
+  return '<b>' + (r.lab || "same signal") + '</b>' +
+    '<div class="tl"><span>' + (r.fwd ? "vs record after week 3" : "vs full-season record") + '</span><b>' + (r.v > 0 ? "+" : r.v < 0 ? "\u2212" : "") + Math.abs(r.v).toFixed(3) + '</b></div>' +
+    '<div class="tl"><span>Variance explained</span><b>' + (r.v * r.v * 100).toFixed(1) + '%</b></div>' +
+    '<div class="tl"><span>Reads as</span><b>' + strength + '</b></div>';
+}
+corrplot.addEventListener("pointermove", function(e){
+  var row = e.target.closest(".corrrow");
+  if(!row){ hideTip(); return; }
+  showTip(corrTip(corrRows[+row.dataset.i]), e.clientX, e.clientY);
+});
+corrplot.addEventListener("pointerleave", hideTip);
+corrplot.addEventListener("focusin", function(e){
+  var row = e.target.closest(".corrrow");
+  if(!row) return;
+  var rc = row.getBoundingClientRect();
+  showTip(corrTip(corrRows[+row.dataset.i]), rc.left + rc.width / 2, rc.top);
+});
+corrplot.addEventListener("focusout", hideTip);
+
 /* ---- champions table ---- */
 var ch = "";
 D.seasons.forEach(function(s){
@@ -492,7 +637,9 @@ var FACTS = [
   '<span class="k">StewMill v dingledingle</span> has opened the season three times &mdash; 2022, 2023 and 2025. StewMill leads it 2&ndash;1.',
   'Week-1 scoring is falling: the league averaged <span class="k">109.4</span> points per team in 2020 and <span class="k">94.9</span> in 2025.',
   '2020’s champion, <span class="k">kerrzo</span>, went 7&ndash;7 &mdash; the only title winner with a .500 regular season &mdash; and started the year 1&ndash;0.',
-  'There has never been a tie in LadsLadsLads. Not in week 1, not in 516 regular-season matchups.'
+  'There has never been a tie in LadsLadsLads. Not in week 1, not in 516 regular-season matchups.',
+  'The biggest three-week scoring start on record &mdash; <span class="k">Teviejay, 445.9 in 2020</span> &mdash; produced a 6&ndash;8 season and no playoffs. The lowest, StewMill&rsquo;s 225.8 in 2024, produced 5&ndash;9.',
+  'The twelve managers to reach a final ranked 1st, 2nd, 2nd, 2nd, 3rd, 5th, 6th, 7th, 9th, 9th, 10th and 11th in three-week scoring. <span class="k">Median: 5.5 of 12.</span>'
 ];
 document.getElementById("facts").innerHTML = FACTS.map(function(f, i){
   return '<div class="fact"><p>' + f + '</p></div>';
