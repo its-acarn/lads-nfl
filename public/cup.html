@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Combined regular-season record for dingle, yaks, YerMan and StranraerCarny across the three Sleeper leagues they all play in, plus the seeded playoff that follows it.">
+<title>The Four Lads Cup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<style>
+html{color-scheme:light dark}
+[hidden]{display:none!important}
+:root{
+  --paper:#E9EDEE; --card:#FDFEFE; --card2:#F3F6F7; --rule:#C8D2D5; --rule-soft:#DCE3E5;
+  --ink:#101A1D; --ink-2:#33474D; --muted:#5E7278;
+  --won:#D4600F; --lost:#1C7FD6; --won-soft:#F3DFCE; --lost-soft:#D6E6F7;
+  --gold:#8A6A12;
+  --shadow:0 1px 0 rgba(16,26,29,.06), 0 6px 20px -12px rgba(16,26,29,.30);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1517; --card:#151F22; --card2:#1B282B; --rule:#2C3C41; --rule-soft:#233135;
+    --ink:#E9EEEF; --ink-2:#B9C8CC; --muted:#8B9DA2;
+    --won:#DE7020; --lost:#3A90E0; --won-soft:#3A2716; --lost-soft:#16283A;
+    --gold:#D8B356;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1517; --card:#151F22; --card2:#1B282B; --rule:#2C3C41; --rule-soft:#233135;
+  --ink:#E9EEEF; --ink-2:#B9C8CC; --muted:#8B9DA2;
+  --won:#DE7020; --lost:#3A90E0; --won-soft:#3A2716; --lost-soft:#16283A;
+  --gold:#D8B356;
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 26px -14px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:18px; line-height:1.62; margin:0;
+  padding-block:0 72px; padding-inline:20px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:840px;margin:0 auto}
+
+h1,h2,h3,table,.fig{font-family:"Archivo","Helvetica Neue",Arial,sans-serif}
+.mono,.eyebrow,td.n,th,.tag,.lg,.wk{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0}
+
+/* ---------- masthead ---------- */
+header.mast{padding-block:56px 0}
+.rulebar{height:6px;background:var(--ink);margin-bottom:22px}
+h1{
+  font-variation-settings:"wdth" 118,"wght" 880;
+  font-size:clamp(44px,10.5vw,104px); line-height:.92; letter-spacing:-.025em;
+  margin:0 0 6px; text-wrap:balance;
+}
+h1 .q{color:var(--muted)}
+.subhead{
+  font-size:clamp(19px,2.6vw,25px); line-height:1.4; color:var(--ink-2);
+  margin:18px 0 0; max-width:40ch; font-weight:300;
+}
+.status{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px}
+.wk{font-size:11.5px;letter-spacing:.03em;color:var(--ink-2);border:1px solid var(--rule);padding:5px 10px;border-radius:100px;background:var(--card)}
+.wk b{color:var(--ink);font-weight:600}
+
+/* ---------- sections ---------- */
+section{margin-top:56px}
+h2{
+  font-variation-settings:"wdth" 112,"wght" 800;
+  font-size:clamp(25px,4vw,35px);line-height:1.08;letter-spacing:-.018em;
+  margin:0 0 4px;text-wrap:balance
+}
+.sec-head{border-top:2px solid var(--ink);padding-top:14px;margin-bottom:24px}
+.sec-head .eyebrow{margin-bottom:9px}
+.dek{color:var(--muted);font-size:17px;margin:6px 0 0;max-width:56ch}
+p{margin:0 0 1.05em;max-width:63ch}
+strong{font-weight:600}
+
+/* ---------- standings ---------- */
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+thead th{
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;text-align:left;padding:13px 12px;border-bottom:1.5px solid var(--rule);white-space:nowrap
+}
+tbody td{padding:14px 12px;border-bottom:1px solid var(--rule-soft);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.rk{width:34px;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 108,"wght" 800;font-size:22px;color:var(--muted);font-variant-numeric:tabular-nums}
+tr.lead td.rk{color:var(--won)}
+td.name > b{display:block;font-variation-settings:"wdth" 100,"wght" 700;font-size:16px;font-weight:normal}
+td.rec{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght" 800;font-size:20px;white-space:nowrap}
+.lg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:3px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.lg span b{color:var(--ink-2);font-weight:600}
+.note{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6;max-width:none}
+.loading{padding:28px 18px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
+.error{color:var(--lost)}
+
+/* ---------- rules ---------- */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.fact{border-top:1px solid var(--rule-soft);padding:14px 0}
+.fact p{margin:0;font-size:16.5px;line-height:1.48}
+.fact .k{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght" 750}
+
+/* ---------- proposals ---------- */
+.props{display:grid;gap:14px}
+.prop{background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow);padding:20px 22px 18px}
+.prop .pitch{color:var(--ink-2);font-size:17px;margin:4px 0 14px}
+.sched{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
+.slot{background:var(--card2);border-radius:4px;padding:10px 12px}
+.slot .when{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.slot .what{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 650;font-size:15px;line-height:1.35;margin-top:2px}
+.slot .who{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+
+footer{margin-top:66px;border-top:2px solid var(--ink);padding-top:16px}
+footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);line-height:1.7;max-width:70ch}
+:focus-visible{outline:2px solid var(--won);outline-offset:2px}
+
+@media (max-width:760px){
+  body{font-size:17px;padding-inline:16px}
+  .facts{grid-template-columns:1fr}
+  .prop{padding:18px 16px 16px}
+  table{min-width:0;font-size:13px}
+  thead th,tbody td{padding-inline:7px}
+  .pctcol{display:none}
+  td.rec{font-size:17px}
+  td.rk{font-size:18px;width:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="rulebar"></div>
+  <p class="eyebrow">2026 &middot; Three leagues &middot; Four lads &middot; One table</p>
+  <h1>The Four Lads Cup<span class="q">.</span></h1>
+  <p class="subhead">dingle, yaks, YerMan and StranraerCarny, with every regular-season game from the three leagues they share added into one record.</p>
+  <div class="status" id="status"></div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">01 &mdash; Standings</p>
+    <h2>The combined table</h2>
+    <p class="dek">Pulled live from Sleeper. Only finished weeks count, and each league stops at the end of its own regular season.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>Manager</th><th>Record</th><th class="n pctcol">Pct</th><th class="n">PF</th><th class="n">PA</th><th class="n">GB</th><th class="n">Start</th></tr></thead>
+      <tbody id="standings"><tr><td colspan="8" class="loading">Fetching from Sleeper&hellip;</td></tr></tbody>
+    </table>
+  </div>
+  <p class="note" id="note"></p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">02 &mdash; How it counts</p>
+    <h2>The rules</h2>
+  </div>
+  <div class="facts">
+    <div class="fact"><p><span class="k">Three leagues.</span> LadsLadsLads, I&rsquo;m bringing Flexi back and SuperKhalilFitz. They&rsquo;re the only leagues all four play in with head-to-head games. Chop his LLL off is a guillotine league, so it has no results to add.</p></div>
+    <div class="fact"><p><span class="k">44 games each.</span> LadsLadsLads runs weeks 1&ndash;14 and the other two run weeks 1&ndash;15. Everyone plays the same schedule length in the same leagues, so nobody gets extra games.</p></div>
+    <div class="fact"><p><span class="k">Every game counts.</span> A win in any of the three leagues is a win here. When two of the four meet in a league, one takes the W and the other the L.</p></div>
+    <div class="fact"><p><span class="k">Tiebreak: points for.</span> Two managers level on record are split by total points scored across all three leagues.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">03 &mdash; The playoffs</p>
+    <h2>Semis and a final, with a head start</h2>
+    <p class="dek">All four go in, seeded by the table. It&rsquo;s head-to-head knockout, but the top two seeds start each game with points already on the board.</p>
+  </div>
+
+  <div class="props">
+    <article class="prop">
+      <div class="sched">
+        <div class="slot"><div class="when">After week 15</div><div class="what">Seeds and head starts</div><div class="who">1st +20 &middot; 2nd +10 &middot; 3rd 0 &middot; 4th 0</div></div>
+        <div class="slot"><div class="when">Week 16</div><div class="what">Semi-finals</div><div class="who">1 (+20) v 4 &middot; 2 (+10) v 3</div></div>
+        <div class="slot"><div class="when">Week 17</div><div class="what">Final + third-place game</div><div class="who">Semi winners &middot; semi losers, each seed keeps its head start</div></div>
+      </div>
+      <p class="pitch" style="margin:0">Your score each week is the total from your three teams in LadsLadsLads, Flexi and SuperKhalilFitz, plus your head start. Sleeper scores every roster every week, so it counts even if you&rsquo;re already out of a league&rsquo;s own playoffs. It finishes in week 17 because NFL teams rest their starters in week 18. The <strong>Start</strong> column in the table shows the head start each of you would get if the season ended today.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <p>Data from the Sleeper API, fetched when the page loads. Managers are matched by Sleeper user ID, not display name, so a rename won&rsquo;t split anyone&rsquo;s record. dingle plays as dingledingle on Sleeper. A week counts once Sleeper marks it scored.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var API = 'https://api.sleeper.app/v1/'
+  var LADS = [
+    { id: '343155561086468096', name: 'dingle' },
+    { id: '343030530742226944', name: 'yaks' },
+    { id: '343060966679908352', name: 'YerMan' },
+    { id: '82919512949014528', name: 'StranraerCarny' },
+  ]
+  var LEAGUES = [
+    { id: '1325817907900354560', short: 'Lads' },
+    { id: '1386470320080171008', short: 'Flexi' },
+    { id: '1325540439947747328', short: 'SKF' },
+  ]
+
+  // Playoff head start by regular-season finish: 1st, 2nd, 3rd, 4th
+  var HEAD_START = [20, 10, 0, 0]
+
+  function get(path) {
+    return fetch(API + path).then(function (r) {
+      if (!r.ok) throw new Error(path + ' ' + r.status)
+      return r.json()
+    })
+  }
+  function blank() { return { w: 0, l: 0, t: 0, pf: 0, pa: 0 } }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] }) }
+  function rec(r) { return r.w + '-' + r.l + (r.t ? '-' + r.t : '') }
+  function pts(n) { return n.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ',') }
+
+  function loadLeague(lg) {
+    return Promise.all([get('league/' + lg.id), get('league/' + lg.id + '/rosters')]).then(function (res) {
+      var league = res[0], rosters = res[1], s = league.settings || {}
+      var regEnd = (s.playoff_week_start || 15) - 1
+      var scored = Math.min(s.last_scored_leg || 0, regEnd)
+      var owner = {}
+      rosters.forEach(function (r) {
+        var ids = [r.owner_id].concat(r.co_owners || [])
+        LADS.forEach(function (m) { if (ids.indexOf(m.id) !== -1) owner[r.roster_id] = m.id })
+      })
+      var weeks = []
+      for (var w = 1; w <= scored; w++) weeks.push(get('league/' + lg.id + '/matchups/' + w))
+      return Promise.all(weeks).then(function (all) {
+        return { lg: lg, regEnd: regEnd, scored: scored, owner: owner, weeks: all }
+      })
+    })
+  }
+
+  function tally(data) {
+    var table = {}
+    LADS.forEach(function (m) {
+      table[m.id] = { m: m, tot: blank(), by: {} }
+      LEAGUES.forEach(function (lg) { table[m.id].by[lg.short] = blank() })
+    })
+    data.forEach(function (d) {
+      d.weeks.forEach(function (ms) {
+        var byMatch = {}
+        ms.forEach(function (x) { if (x.matchup_id != null) (byMatch[x.matchup_id] = byMatch[x.matchup_id] || []).push(x) })
+        Object.keys(byMatch).forEach(function (k) {
+          var pair = byMatch[k]
+          if (pair.length !== 2) return
+          ;[[pair[0], pair[1]], [pair[1], pair[0]]].forEach(function (p) {
+            var uid = d.owner[p[0].roster_id]
+            if (!uid) return
+            var a = p[0].points || 0, b = p[1].points || 0
+            ;[table[uid].tot, table[uid].by[d.lg.short]].forEach(function (r) {
+              r.pf += a; r.pa += b
+              if (a > b) r.w++; else if (a < b) r.l++; else r.t++
+            })
+          })
+        })
+      })
+    })
+    var rows = LADS.map(function (m) { return table[m.id] })
+    rows.forEach(function (r) {
+      var g = r.tot.w + r.tot.l + r.tot.t
+      r.pct = g ? (r.tot.w + r.tot.t / 2) / g : 0
+    })
+    rows.sort(function (a, b) { return b.pct - a.pct || b.tot.pf - a.tot.pf })
+    return rows
+  }
+
+  function render(data, rows) {
+    var lead = rows[0].tot
+    document.getElementById('standings').innerHTML = rows.map(function (r, i) {
+      var gb = ((lead.w - r.tot.w) + (r.tot.l - lead.l)) / 2
+      var lgs = LEAGUES.map(function (lg) { return '<span>' + lg.short + ' <b>' + rec(r.by[lg.short]) + '</b></span>' }).join('')
+      return '<tr' + (i === 0 ? ' class="lead"' : '') + '>' +
+        '<td class="rk">' + (i + 1) + '</td>' +
+        '<td class="name"><b>' + esc(r.m.name) + '</b><div class="lg">' + lgs + '</div></td>' +
+        '<td class="rec">' + rec(r.tot) + '</td>' +
+        '<td class="n pctcol">' + r.pct.toFixed(3).replace(/^0/, '') + '</td>' +
+        '<td class="n">' + pts(r.tot.pf) + '</td>' +
+        '<td class="n">' + pts(r.tot.pa) + '</td>' +
+        '<td class="n">' + (gb === 0 ? '&ndash;' : gb) + '</td>' +
+        '<td class="n">' + (HEAD_START[i] ? '+' + HEAD_START[i] : '0') + '</td></tr>'
+    }).join('')
+
+    var played = 0, total = 0
+    document.getElementById('status').innerHTML = data.map(function (d) {
+      played += d.scored; total += d.regEnd
+      return '<span class="wk">' + d.lg.short + ' <b>wk ' + d.scored + '</b> / ' + d.regEnd + '</span>'
+    }).join('')
+    document.getElementById('note').textContent =
+      played + ' of ' + total + ' games played each. ' +
+      (played >= total ? 'Regular season complete.' : (total - played) + ' to go. Ties on record are broken by points for.')
+  }
+
+  Promise.all(LEAGUES.map(loadLeague))
+    .then(function (data) { render(data, tally(data)) })
+    .catch(function (e) {
+      document.getElementById('standings').innerHTML =
+        '<tr><td colspan="8" class="loading error">Couldn&rsquo;t reach Sleeper (' + esc(e.message) + '). Refresh to try again.</td></tr>'
+    })
+})()
+</script>
+</body>
+</html>
