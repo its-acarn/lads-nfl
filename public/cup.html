@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Combined regular-season record for dingle, yaks, YerMan and StranraerCarny across the three Sleeper leagues they all play in, plus three ways the playoffs could work.">
+  <meta name="description" content="Combined regular-season record for dingle, yaks, YerMan and StranraerCarny across the three Sleeper leagues they all play in, plus the Head Start playoff that follows it.">
 <title>The Four Lads Cup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,19 +109,12 @@ td.rec{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght
 /* ---------- proposals ---------- */
 .props{display:grid;gap:14px}
 .prop{background:var(--card);border:1px solid var(--rule-soft);box-shadow:var(--shadow);padding:20px 22px 18px}
-.prop .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-.prop .fig{font-variation-settings:"wdth" 108,"wght" 850;font-size:30px;line-height:1;color:var(--won)}
-.prop h3{margin:0;font-variation-settings:"wdth" 110,"wght" 800;font-size:24px;letter-spacing:-.01em}
 .prop .pitch{color:var(--ink-2);font-size:17px;margin:4px 0 14px}
 .sched{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
 .slot{background:var(--card2);border-radius:4px;padding:10px 12px}
 .slot .when{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .slot .what{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 650;font-size:15px;line-height:1.35;margin-top:2px}
 .slot .who{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-2);margin-top:4px;line-height:1.5}
-.pc{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
-.pc h4{margin:0 0 4px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
-.pc .for h4{color:var(--won)} .pc .against h4{color:var(--lost)}
-.pc ul{margin:0;padding-left:18px;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
 
 footer{margin-top:66px;border-top:2px solid var(--ink);padding-top:16px}
 footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);line-height:1.7;max-width:70ch}
@@ -129,7 +122,7 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 @media (max-width:760px){
   body{font-size:17px;padding-inline:16px}
-  .facts,.pc{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
   .prop{padding:18px 16px 16px}
   table{min-width:0;font-size:13px}
   thead th,tbody td{padding-inline:7px}
@@ -158,8 +151,8 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
   </div>
   <div class="tablewrap">
     <table>
-      <thead><tr><th></th><th>Manager</th><th>Record</th><th class="n pctcol">Pct</th><th class="n">PF</th><th class="n">PA</th><th class="n">GB</th></tr></thead>
-      <tbody id="standings"><tr><td colspan="7" class="loading">Fetching from Sleeper&hellip;</td></tr></tbody>
+      <thead><tr><th></th><th>Manager</th><th>Record</th><th class="n pctcol">Pct</th><th class="n">PF</th><th class="n">PA</th><th class="n">GB</th><th class="n">Start</th></tr></thead>
+      <tbody id="standings"><tr><td colspan="8" class="loading">Fetching from Sleeper&hellip;</td></tr></tbody>
     </table>
   </div>
   <p class="note" id="note"></p>
@@ -180,49 +173,19 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">03 &mdash; For the group chat</p>
-    <h2>Three ways the playoffs could work</h2>
-    <p class="dek">Nothing&rsquo;s decided yet. In all three, a playoff score is the <strong>combined points of all three of your rosters</strong> that week. Sleeper scores every team every week, so it still works if you&rsquo;re out of a league&rsquo;s own playoffs. It all finishes in week 17, because in week 18 NFL teams rest their starters.</p>
+    <p class="eyebrow">03 &mdash; The playoffs</p>
+    <h2>The Head Start</h2>
+    <p class="dek">All four go in. There's no bracket: it's a two-week points race over weeks 16 and 17, and where you finish the regular season decides your head start.</p>
   </div>
 
   <div class="props">
     <article class="prop">
-      <div class="top"><span class="fig">A</span><h3>The Bracket</h3></div>
-      <p class="pitch">All four go in, seeded by the table. Semis, then a final. Lose once and you&rsquo;re out.</p>
       <div class="sched">
-        <div class="slot"><div class="when">Week 16</div><div class="what">Semi-finals</div><div class="who">1 v 4 &middot; 2 v 3</div></div>
-        <div class="slot"><div class="when">Week 17</div><div class="what">Final + third-place game</div><div class="who">Semi winners &middot; semi losers</div></div>
+        <div class="slot"><div class="when">After week 15</div><div class="what">Head start</div><div class="who">1st +20 &middot; 2nd +10 &middot; 3rd 0 &middot; 4th 0</div></div>
+        <div class="slot"><div class="when">Weeks 16&ndash;17</div><div class="what">Two-week points race</div><div class="who">Combined points from all three rosters, both weeks</div></div>
+        <div class="slot"><div class="when">End of week 17</div><div class="what">Highest total wins the Cup</div><div class="who">Head start + week 16 + week 17</div></div>
       </div>
-      <div class="pc">
-        <div class="for"><h4>For</h4><ul><li>Everyone already knows how it works</li><li>Every week is a straight head-to-head</li></ul></div>
-        <div class="against"><h4>Against</h4><ul><li>44 games of regular season only earn you a seed</li><li>A week-16 dud from one of your rosters finishes you</li></ul></div>
-      </div>
-    </article>
-
-    <article class="prop">
-      <div class="top"><span class="fig">B</span><h3>The Head Start</h3></div>
-      <p class="pitch">No bracket. All four race on total points over weeks 16 and 17, and the regular-season finish gives you a head start.</p>
-      <div class="sched">
-        <div class="slot"><div class="when">Before kick-off</div><div class="what">Head start</div><div class="who">1st +30 &middot; 2nd +20 &middot; 3rd +10 &middot; 4th 0</div></div>
-        <div class="slot"><div class="when">Weeks 16&ndash;17</div><div class="what">Two-week points race</div><div class="who">Highest total wins the Cup</div></div>
-      </div>
-      <div class="pc">
-        <div class="for"><h4>For</h4><ul><li>The regular season is worth actual points</li><li>One bad week doesn&rsquo;t knock you out</li><li>All four are still alive in week 17</li></ul></div>
-        <div class="against"><h4>Against</h4><ul><li>No head-to-head drama</li><li>A runaway week 16 can settle it early</li><li>The head-start numbers are a guess until we see real scores</li></ul></div>
-      </div>
-    </article>
-
-    <article class="prop">
-      <div class="top"><span class="fig">C</span><h3>Final &amp; Wooden Spoon</h3></div>
-      <p class="pitch">Only the top two play for the Cup, over a two-week aggregate. The bottom two play off to avoid the Wooden Spoon.</p>
-      <div class="sched">
-        <div class="slot"><div class="when">Weeks 16&ndash;17</div><div class="what">Cup final, two-week aggregate</div><div class="who">1 v 2</div></div>
-        <div class="slot"><div class="when">Weeks 16&ndash;17</div><div class="what">Wooden Spoon, two-week aggregate</div><div class="who">3 v 4 &middot; loser does a forfeit</div></div>
-      </div>
-      <div class="pc">
-        <div class="for"><h4>For</h4><ul><li>Finishing top two actually matters</li><li>Two weeks of aggregate takes some of the luck out</li><li>The bottom two still have something to play for</li></ul></div>
-        <div class="against"><h4>Against</h4><ul><li>3rd and 4th can&rsquo;t win the Cup</li><li>We&rsquo;d need to agree on a forfeit</li></ul></div>
-      </div>
+      <p class="pitch" style="margin:0">Your score each week is the total from your three teams: LadsLadsLads, Flexi and SuperKhalilFitz. Sleeper scores every roster every week, so it counts even if you're already out of a league's own playoffs. It finishes in week 17 because NFL teams rest their starters in week 18. The <strong>Start</strong> column in the table shows the head start each of you would get if the season ended today.</p>
     </article>
   </div>
 </section>
@@ -247,6 +210,9 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
     { id: '1386470320080171008', short: 'Flexi' },
     { id: '1325540439947747328', short: 'SKF' },
   ]
+
+  // Playoff head start by regular-season finish: 1st, 2nd, 3rd, 4th
+  var HEAD_START = [20, 10, 0, 0]
 
   function get(path) {
     return fetch(API + path).then(function (r) {
@@ -323,7 +289,8 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
         '<td class="n pctcol">' + r.pct.toFixed(3).replace(/^0/, '') + '</td>' +
         '<td class="n">' + pts(r.tot.pf) + '</td>' +
         '<td class="n">' + pts(r.tot.pa) + '</td>' +
-        '<td class="n">' + (gb === 0 ? '&ndash;' : gb) + '</td></tr>'
+        '<td class="n">' + (gb === 0 ? '&ndash;' : gb) + '</td>' +
+        '<td class="n">' + (HEAD_START[i] ? '+' + HEAD_START[i] : '0') + '</td></tr>'
     }).join('')
 
     var played = 0, total = 0
@@ -340,7 +307,7 @@ footer p{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute
     .then(function (data) { render(data, tally(data)) })
     .catch(function (e) {
       document.getElementById('standings').innerHTML =
-        '<tr><td colspan="7" class="loading error">Couldn&rsquo;t reach Sleeper (' + esc(e.message) + '). Refresh to try again.</td></tr>'
+        '<tr><td colspan="8" class="loading error">Couldn&rsquo;t reach Sleeper (' + esc(e.message) + '). Refresh to try again.</td></tr>'
     })
 })()
 </script>
