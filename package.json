@@ -18,7 +18,8 @@
     "team": "tsx scripts/team.ts",
     "backtest:data": "tsx scripts/fetchBacktestData.ts",
     "backtest:board": "tsx scripts/importSheet.ts",
-    "backtest": "tsx scripts/backtest.ts"
+    "backtest": "tsx scripts/backtest.ts",
+    "waivers:fixtures": "tsx scripts/fetchWaiverFixtures.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",

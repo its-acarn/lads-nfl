@@ -1,0 +1,8422 @@
+{
+ "19": {
+  "player_id": "19",
+  "full_name": "Joe Flacco",
+  "position": "QB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "96": {
+  "player_id": "96",
+  "full_name": "Aaron Rodgers",
+  "position": "QB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "260": {
+  "player_id": "260",
+  "full_name": "Josh Johnson",
+  "position": "QB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "421": {
+  "player_id": "421",
+  "full_name": "Matthew Stafford",
+  "position": "QB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "650": {
+  "player_id": "650",
+  "full_name": "Nick Folk",
+  "position": "K",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "827": {
+  "player_id": "827",
+  "full_name": "Tyrod Taylor",
+  "position": "QB",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "829": {
+  "player_id": "829",
+  "full_name": "Andy Dalton",
+  "position": "QB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "1166": {
+  "player_id": "1166",
+  "full_name": "Kirk Cousins",
+  "position": "QB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "1339": {
+  "player_id": "1339",
+  "full_name": "Zach Ertz",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "1373": {
+  "player_id": "1373",
+  "full_name": "Geno Smith",
+  "position": "QB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "1466": {
+  "player_id": "1466",
+  "full_name": "Travis Kelce",
+  "position": "TE",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "1479": {
+  "player_id": "1479",
+  "full_name": "Keenan Allen",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 7
+ },
+ "1737": {
+  "player_id": "1737",
+  "full_name": "Case Keenum",
+  "position": "QB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "1945": {
+  "player_id": "1945",
+  "full_name": "Chris Boswell",
+  "position": "K",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "2020": {
+  "player_id": "2020",
+  "full_name": "Cairo Santos",
+  "position": "K",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "2078": {
+  "player_id": "2078",
+  "full_name": "Odell Beckham",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "2133": {
+  "player_id": "2133",
+  "full_name": "Davante Adams",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "2197": {
+  "player_id": "2197",
+  "full_name": "Brandin Cooks",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "2216": {
+  "player_id": "2216",
+  "full_name": "Mike Evans",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "2306": {
+  "player_id": "2306",
+  "full_name": "Jameis Winston",
+  "position": "QB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "2307": {
+  "player_id": "2307",
+  "full_name": "Marcus Mariota",
+  "position": "QB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "2334": {
+  "player_id": "2334",
+  "full_name": "Phillip Dorsett",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "2359": {
+  "player_id": "2359",
+  "full_name": "Ameer Abdullah",
+  "position": "RB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "2449": {
+  "player_id": "2449",
+  "full_name": "Stefon Diggs",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "2505": {
+  "player_id": "2505",
+  "full_name": "Darren Waller",
+  "position": "TE",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "2747": {
+  "player_id": "2747",
+  "full_name": "Jason Myers",
+  "position": "K",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "3048": {
+  "player_id": "3048",
+  "full_name": "Chris Manhertz",
+  "position": "TE",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "3155": {
+  "player_id": "3155",
+  "full_name": "Laquon Treadwell",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "3161": {
+  "player_id": "3161",
+  "full_name": "Carson Wentz",
+  "position": "QB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "3163": {
+  "player_id": "3163",
+  "full_name": "Jared Goff",
+  "position": "QB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "3198": {
+  "player_id": "3198",
+  "full_name": "Derrick Henry",
+  "position": "RB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "3200": {
+  "player_id": "3200",
+  "full_name": "Sterling Shepard",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "3202": {
+  "player_id": "3202",
+  "full_name": "Austin Hooper",
+  "position": "TE",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "3214": {
+  "player_id": "3214",
+  "full_name": "Hunter Henry",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "3257": {
+  "player_id": "3257",
+  "full_name": "Jacoby Brissett",
+  "position": "QB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "3258": {
+  "player_id": "3258",
+  "full_name": "Nick Vannett",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "3269": {
+  "player_id": "3269",
+  "full_name": "Chris Moore",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "3271": {
+  "player_id": "3271",
+  "full_name": "Tyler Higbee",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "3286": {
+  "player_id": "3286",
+  "full_name": "Demarcus Robinson",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 6
+ },
+ "3294": {
+  "player_id": "3294",
+  "full_name": "Dak Prescott",
+  "position": "QB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "3451": {
+  "player_id": "3451",
+  "full_name": "Ka'imi Fairbairn",
+  "position": "K",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "3634": {
+  "player_id": "3634",
+  "full_name": "Kalif Raymond",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "3678": {
+  "player_id": "3678",
+  "full_name": "Wil Lutz",
+  "position": "K",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "3976": {
+  "player_id": "3976",
+  "full_name": "Mitchell Trubisky",
+  "position": "QB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "4017": {
+  "player_id": "4017",
+  "full_name": "Deshaun Watson",
+  "position": "QB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "4033": {
+  "player_id": "4033",
+  "full_name": "David Njoku",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "4034": {
+  "player_id": "4034",
+  "full_name": "Christian McCaffrey",
+  "position": "RB",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "4035": {
+  "player_id": "4035",
+  "full_name": "Alvin Kamara",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "4037": {
+  "player_id": "4037",
+  "full_name": "Chris Godwin",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "4039": {
+  "player_id": "4039",
+  "full_name": "Cooper Kupp",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "4046": {
+  "player_id": "4046",
+  "full_name": "Patrick Mahomes",
+  "position": "QB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "4054": {
+  "player_id": "4054",
+  "full_name": "Mo Alie-Cox",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "4066": {
+  "player_id": "4066",
+  "full_name": "Evan Engram",
+  "position": "TE",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "4137": {
+  "player_id": "4137",
+  "full_name": "James Conner",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "4144": {
+  "player_id": "4144",
+  "full_name": "Jonnu Smith",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "4147": {
+  "player_id": "4147",
+  "full_name": "Samaje Perine",
+  "position": "RB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "4177": {
+  "player_id": "4177",
+  "full_name": "Mack Hollins",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "4179": {
+  "player_id": "4179",
+  "full_name": "Joshua Dobbs",
+  "position": "QB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "4189": {
+  "player_id": "4189",
+  "full_name": "Eric Saubert",
+  "position": "TE",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "4195": {
+  "player_id": "4195",
+  "full_name": "Jake Elliott",
+  "position": "K",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "4199": {
+  "player_id": "4199",
+  "full_name": "Aaron Jones",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "4217": {
+  "player_id": "4217",
+  "full_name": "George Kittle",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "4219": {
+  "player_id": "4219",
+  "full_name": "Jeremy McNichols",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "4227": {
+  "player_id": "4227",
+  "full_name": "Harrison Butker",
+  "position": "K",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "4274": {
+  "player_id": "4274",
+  "full_name": "David Moore",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "4314": {
+  "player_id": "4314",
+  "full_name": "Johnny Mundt",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "4351": {
+  "player_id": "4351",
+  "full_name": "Tim Patrick",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "4443": {
+  "player_id": "4443",
+  "full_name": "Pharaoh Brown",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "4454": {
+  "player_id": "4454",
+  "full_name": "Kendrick Bourne",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "4464": {
+  "player_id": "4464",
+  "full_name": "Nick Mullens",
+  "position": "QB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "4574": {
+  "player_id": "4574",
+  "full_name": "Cooper Rush",
+  "position": "QB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "4602": {
+  "player_id": "4602",
+  "full_name": "Robert Tonyan",
+  "position": "TE",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "4663": {
+  "player_id": "4663",
+  "full_name": "Austin Ekeler",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "4718": {
+  "player_id": "4718",
+  "full_name": "Dare Ogunbowale",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "4866": {
+  "player_id": "4866",
+  "full_name": "Saquon Barkley",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "4881": {
+  "player_id": "4881",
+  "full_name": "Lamar Jackson",
+  "position": "QB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "4892": {
+  "player_id": "4892",
+  "full_name": "Baker Mayfield",
+  "position": "QB",
+  "team": "TB",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "4943": {
+  "player_id": "4943",
+  "full_name": "Sam Darnold",
+  "position": "QB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "4950": {
+  "player_id": "4950",
+  "full_name": "Christian Kirk",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 7
+ },
+ "4972": {
+  "player_id": "4972",
+  "full_name": "Mason Rudolph",
+  "position": "QB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "4981": {
+  "player_id": "4981",
+  "full_name": "Calvin Ridley",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "4983": {
+  "player_id": "4983",
+  "full_name": "DJ Moore",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "4984": {
+  "player_id": "4984",
+  "full_name": "Josh Allen",
+  "position": "QB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "4992": {
+  "player_id": "4992",
+  "full_name": "Dante Pettis",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "4993": {
+  "player_id": "4993",
+  "full_name": "Mike Gesicki",
+  "position": "TE",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "4995": {
+  "player_id": "4995",
+  "full_name": "Ian Thomas",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "5001": {
+  "player_id": "5001",
+  "full_name": "Dalton Schultz",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "5008": {
+  "player_id": "5008",
+  "full_name": "Durham Smythe",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "5012": {
+  "player_id": "5012",
+  "full_name": "Mark Andrews",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "5022": {
+  "player_id": "5022",
+  "full_name": "Dallas Goedert",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "5045": {
+  "player_id": "5045",
+  "full_name": "Courtland Sutton",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "5086": {
+  "player_id": "5086",
+  "full_name": "Marquez Valdes-Scantling",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "5095": {
+  "player_id": "5095",
+  "full_name": "Daniel Carlson",
+  "position": "K",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "5119": {
+  "player_id": "5119",
+  "full_name": "Jason Sanders",
+  "position": "K",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "5121": {
+  "player_id": "5121",
+  "full_name": "Braxton Berrios",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "5127": {
+  "player_id": "5127",
+  "full_name": "Kyle Allen",
+  "position": "QB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "5133": {
+  "player_id": "5133",
+  "full_name": "Tyler Conklin",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "5154": {
+  "player_id": "5154",
+  "full_name": "Trent Sherfield",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "5189": {
+  "player_id": "5189",
+  "full_name": "Eddy Pineiro",
+  "position": "K",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "5409": {
+  "player_id": "5409",
+  "full_name": "Tanner Hudson",
+  "position": "TE",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "5773": {
+  "player_id": "5773",
+  "full_name": "KhaDarel Hodge",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "5781": {
+  "player_id": "5781",
+  "full_name": "Malik Turner",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "5844": {
+  "player_id": "5844",
+  "full_name": "T.J. Hockenson",
+  "position": "TE",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "5846": {
+  "player_id": "5846",
+  "full_name": "DK Metcalf",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "5848": {
+  "player_id": "5848",
+  "full_name": "Marquise Brown",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "5849": {
+  "player_id": "5849",
+  "full_name": "Kyler Murray",
+  "position": "QB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "5850": {
+  "player_id": "5850",
+  "full_name": "Josh Jacobs",
+  "position": "RB",
+  "team": "GB",
+  "active": true,
+  "injury_status": "NA",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "5854": {
+  "player_id": "5854",
+  "full_name": "Drew Lock",
+  "position": "QB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "5857": {
+  "player_id": "5857",
+  "full_name": "Noah Fant",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "5859": {
+  "player_id": "5859",
+  "full_name": "A.J. Brown",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 6
+ },
+ "5870": {
+  "player_id": "5870",
+  "full_name": "Daniel Jones",
+  "position": "QB",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "5872": {
+  "player_id": "5872",
+  "full_name": "Deebo Samuel",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "5892": {
+  "player_id": "5892",
+  "full_name": "David Montgomery",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "5906": {
+  "player_id": "5906",
+  "full_name": "Dawson Knox",
+  "position": "TE",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "5927": {
+  "player_id": "5927",
+  "full_name": "Terry McLaurin",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "5938": {
+  "player_id": "5938",
+  "full_name": "Lil'Jordan Humphrey",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "5947": {
+  "player_id": "5947",
+  "full_name": "Jakobi Meyers",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "5967": {
+  "player_id": "5967",
+  "full_name": "Tony Pollard",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "5970": {
+  "player_id": "5970",
+  "full_name": "Greg Dortch",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "5973": {
+  "player_id": "5973",
+  "full_name": "Josh Oliver",
+  "position": "TE",
+  "team": "MIN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "5985": {
+  "player_id": "5985",
+  "full_name": "Foster Moreau",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "5995": {
+  "player_id": "5995",
+  "full_name": "Justice Hill",
+  "position": "RB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "6001": {
+  "player_id": "6001",
+  "full_name": "Drew Sample",
+  "position": "TE",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "6011": {
+  "player_id": "6011",
+  "full_name": "Gardner Minshew",
+  "position": "QB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "6012": {
+  "player_id": "6012",
+  "full_name": "Travis Homer",
+  "position": "RB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "6037": {
+  "player_id": "6037",
+  "full_name": "Brett Rypien",
+  "position": "QB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6039": {
+  "player_id": "6039",
+  "full_name": "Ty Johnson",
+  "position": "RB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "6045": {
+  "player_id": "6045",
+  "full_name": "Gary Jennings",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6083": {
+  "player_id": "6083",
+  "full_name": "Matt Gay",
+  "position": "K",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "6130": {
+  "player_id": "6130",
+  "full_name": "Devin Singletary",
+  "position": "RB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "6136": {
+  "player_id": "6136",
+  "full_name": "Jarrett Stidham",
+  "position": "QB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "6154": {
+  "player_id": "6154",
+  "full_name": "David Sills",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 6
+ },
+ "6185": {
+  "player_id": "6185",
+  "full_name": "Easton Stick",
+  "position": "QB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "6271": {
+  "player_id": "6271",
+  "full_name": "Olamide Zaccheaus",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "6290": {
+  "player_id": "6290",
+  "full_name": "Scotty Miller",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6323": {
+  "player_id": "6323",
+  "full_name": "Andrew Beck",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "6386": {
+  "player_id": "6386",
+  "full_name": "Alex Bachman",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 7
+ },
+ "6427": {
+  "player_id": "6427",
+  "full_name": "Ashton Dulin",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "6451": {
+  "player_id": "6451",
+  "full_name": "Stephen Carlson",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6453": {
+  "player_id": "6453",
+  "full_name": "D.J. Montgomery",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 8
+ },
+ "6528": {
+  "player_id": "6528",
+  "full_name": "Joey Slye",
+  "position": "K",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "6529": {
+  "player_id": "6529",
+  "full_name": "Chris Myarick",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6588": {
+  "player_id": "6588",
+  "full_name": "Tom Kennedy",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "6650": {
+  "player_id": "6650",
+  "full_name": "Chase McLaughlin",
+  "position": "K",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "6659": {
+  "player_id": "6659",
+  "full_name": "Craig Reynolds",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "6699": {
+  "player_id": "6699",
+  "full_name": "Gunner Olszewski",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 6
+ },
+ "6768": {
+  "player_id": "6768",
+  "full_name": "Tua Tagovailoa",
+  "position": "QB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "6770": {
+  "player_id": "6770",
+  "full_name": "Joe Burrow",
+  "position": "QB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "6783": {
+  "player_id": "6783",
+  "full_name": "Jerry Jeudy",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "6786": {
+  "player_id": "6786",
+  "full_name": "CeeDee Lamb",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "6790": {
+  "player_id": "6790",
+  "full_name": "D'Andre Swift",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "6794": {
+  "player_id": "6794",
+  "full_name": "Justin Jefferson",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "6797": {
+  "player_id": "6797",
+  "full_name": "Justin Herbert",
+  "position": "QB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "6798": {
+  "player_id": "6798",
+  "full_name": "Jalen Reagor",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6801": {
+  "player_id": "6801",
+  "full_name": "Tee Higgins",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "6803": {
+  "player_id": "6803",
+  "full_name": "Brandon Aiyuk",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": "DNR",
+  "depth_chart_position": null,
+  "depth_chart_order": 10
+ },
+ "6804": {
+  "player_id": "6804",
+  "full_name": "Jordan Love",
+  "position": "QB",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "6806": {
+  "player_id": "6806",
+  "full_name": "J.K. Dobbins",
+  "position": "RB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "6813": {
+  "player_id": "6813",
+  "full_name": "Jonathan Taylor",
+  "position": "RB",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "6819": {
+  "player_id": "6819",
+  "full_name": "Michael Pittman",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "6826": {
+  "player_id": "6826",
+  "full_name": "Cole Kmet",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "6828": {
+  "player_id": "6828",
+  "full_name": "AJ Dillon",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "6847": {
+  "player_id": "6847",
+  "full_name": "Devin Duvernay",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "6853": {
+  "player_id": "6853",
+  "full_name": "Van Jefferson",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6865": {
+  "player_id": "6865",
+  "full_name": "Colby Parkinson",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "6869": {
+  "player_id": "6869",
+  "full_name": "Adam Trautman",
+  "position": "TE",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "6904": {
+  "player_id": "6904",
+  "full_name": "Jalen Hurts",
+  "position": "QB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "6918": {
+  "player_id": "6918",
+  "full_name": "Salvon Ahmed",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6920": {
+  "player_id": "6920",
+  "full_name": "Isaiah Hodgins",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "6931": {
+  "player_id": "6931",
+  "full_name": "DeeJay Dallas",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "6960": {
+  "player_id": "6960",
+  "full_name": "Tyler Johnson",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7002": {
+  "player_id": "7002",
+  "full_name": "Juwan Johnson",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "7021": {
+  "player_id": "7021",
+  "full_name": "Rico Dowdle",
+  "position": "RB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "7039": {
+  "player_id": "7039",
+  "full_name": "Cody White",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "7042": {
+  "player_id": "7042",
+  "full_name": "Tyler Bass",
+  "position": "K",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "7049": {
+  "player_id": "7049",
+  "full_name": "Jauan Jennings",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "7050": {
+  "player_id": "7050",
+  "full_name": "Josiah Deguara",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "7066": {
+  "player_id": "7066",
+  "full_name": "K.J. Osborn",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7075": {
+  "player_id": "7075",
+  "full_name": "Charlie Woerner",
+  "position": "TE",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "7083": {
+  "player_id": "7083",
+  "full_name": "Tyler Huntley",
+  "position": "QB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "7087": {
+  "player_id": "7087",
+  "full_name": "Jonathan Ward",
+  "position": "RB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7090": {
+  "player_id": "7090",
+  "full_name": "Darnell Mooney",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "7204": {
+  "player_id": "7204",
+  "full_name": "Reggie Gilliam",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "7496": {
+  "player_id": "7496",
+  "full_name": "Nick Westbrook-Ikhine",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "7521": {
+  "player_id": "7521",
+  "full_name": "Chris Blair",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "7523": {
+  "player_id": "7523",
+  "full_name": "Trevor Lawrence",
+  "position": "QB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "7525": {
+  "player_id": "7525",
+  "full_name": "DeVonta Smith",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 7
+ },
+ "7526": {
+  "player_id": "7526",
+  "full_name": "Jaylen Waddle",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "7527": {
+  "player_id": "7527",
+  "full_name": "Mac Jones",
+  "position": "QB",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "7528": {
+  "player_id": "7528",
+  "full_name": "Najee Harris",
+  "position": "RB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "7531": {
+  "player_id": "7531",
+  "full_name": "Feleipe Franks",
+  "position": "TE",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "7535": {
+  "player_id": "7535",
+  "full_name": "Hunter Long",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "7536": {
+  "player_id": "7536",
+  "full_name": "Quintin Morris",
+  "position": "TE",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "7537": {
+  "player_id": "7537",
+  "full_name": "Jaret Patterson",
+  "position": "RB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7543": {
+  "player_id": "7543",
+  "full_name": "Travis Etienne",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "7547": {
+  "player_id": "7547",
+  "full_name": "Amon-Ra St. Brown",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "7553": {
+  "player_id": "7553",
+  "full_name": "Kyle Pitts",
+  "position": "TE",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "7559": {
+  "player_id": "7559",
+  "full_name": "Ihmir Smith-Marsette",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7562": {
+  "player_id": "7562",
+  "full_name": "Tutu Atwell",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "7564": {
+  "player_id": "7564",
+  "full_name": "Ja'Marr Chase",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "7567": {
+  "player_id": "7567",
+  "full_name": "Kenny Gainwell",
+  "position": "RB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "7568": {
+  "player_id": "7568",
+  "full_name": "Brevin Jordan",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "7569": {
+  "player_id": "7569",
+  "full_name": "Nico Collins",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "7571": {
+  "player_id": "7571",
+  "full_name": "Rashod Bateman",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "7585": {
+  "player_id": "7585",
+  "full_name": "Davis Mills",
+  "position": "QB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "7587": {
+  "player_id": "7587",
+  "full_name": "Dyami Brown",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "7588": {
+  "player_id": "7588",
+  "full_name": "Javonte Williams",
+  "position": "RB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "7591": {
+  "player_id": "7591",
+  "full_name": "Justin Fields",
+  "position": "QB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "7593": {
+  "player_id": "7593",
+  "full_name": "Trey Sermon",
+  "position": "RB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "7594": {
+  "player_id": "7594",
+  "full_name": "Chuba Hubbard",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "7595": {
+  "player_id": "7595",
+  "full_name": "Tylan Wallace",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 6
+ },
+ "7596": {
+  "player_id": "7596",
+  "full_name": "Elijah Moore",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "7600": {
+  "player_id": "7600",
+  "full_name": "Pat Freiermuth",
+  "position": "TE",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "7602": {
+  "player_id": "7602",
+  "full_name": "Kylen Granson",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "7607": {
+  "player_id": "7607",
+  "full_name": "Michael Carter",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "7608": {
+  "player_id": "7608",
+  "full_name": "Khalil Herbert",
+  "position": "RB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7610": {
+  "player_id": "7610",
+  "full_name": "Trey Lance",
+  "position": "QB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "7611": {
+  "player_id": "7611",
+  "full_name": "Rhamondre Stevenson",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "7670": {
+  "player_id": "7670",
+  "full_name": "Joshua Palmer",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "7694": {
+  "player_id": "7694",
+  "full_name": "Tommy Tremble",
+  "position": "TE",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "7716": {
+  "player_id": "7716",
+  "full_name": "John Bates",
+  "position": "TE",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "7720": {
+  "player_id": "7720",
+  "full_name": "Kene Nwangwu",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "7746": {
+  "player_id": "7746",
+  "full_name": "Austin Trammell",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7757": {
+  "player_id": "7757",
+  "full_name": "Ben Skowronek",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "7812": {
+  "player_id": "7812",
+  "full_name": "Simi Fehoko",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 7
+ },
+ "7828": {
+  "player_id": "7828",
+  "full_name": "Noah Gray",
+  "position": "TE",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "7839": {
+  "player_id": "7839",
+  "full_name": "Evan McPherson",
+  "position": "K",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "7842": {
+  "player_id": "7842",
+  "full_name": "Luke Farrell",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "7865": {
+  "player_id": "7865",
+  "full_name": "Brandon Smith",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "7891": {
+  "player_id": "7891",
+  "full_name": "Brock Wright",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "7922": {
+  "player_id": "7922",
+  "full_name": "Riley Patterson",
+  "position": "K",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "7946": {
+  "player_id": "7946",
+  "full_name": "Jack Stoll",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8002": {
+  "player_id": "8002",
+  "full_name": "Shane Buechele",
+  "position": "QB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8013": {
+  "player_id": "8013",
+  "full_name": "Tim Jones",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8041": {
+  "player_id": "8041",
+  "full_name": "Shane Zylstra",
+  "position": "TE",
+  "team": null,
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8076": {
+  "player_id": "8076",
+  "full_name": "Michael Bandy",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8107": {
+  "player_id": "8107",
+  "full_name": "Nikola Kalinic",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "8110": {
+  "player_id": "8110",
+  "full_name": "Jake Ferguson",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8111": {
+  "player_id": "8111",
+  "full_name": "Cade Otton",
+  "position": "TE",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8112": {
+  "player_id": "8112",
+  "full_name": "Drake London",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "8116": {
+  "player_id": "8116",
+  "full_name": "Pierre Strong",
+  "position": "RB",
+  "team": "GB",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8117": {
+  "player_id": "8117",
+  "full_name": "Jalen Tolbert",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "8119": {
+  "player_id": "8119",
+  "full_name": "Jahan Dotson",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "8121": {
+  "player_id": "8121",
+  "full_name": "Romeo Doubs",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "8122": {
+  "player_id": "8122",
+  "full_name": "Zonovan Knight",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "8123": {
+  "player_id": "8123",
+  "full_name": "Hassan Haskins",
+  "position": "RB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8125": {
+  "player_id": "8125",
+  "full_name": "Calvin Austin",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 7
+ },
+ "8126": {
+  "player_id": "8126",
+  "full_name": "Wan'Dale Robinson",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "8127": {
+  "player_id": "8127",
+  "full_name": "Charlie Kolar",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "8129": {
+  "player_id": "8129",
+  "full_name": "Dameon Pierce",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8130": {
+  "player_id": "8130",
+  "full_name": "Trey McBride",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8131": {
+  "player_id": "8131",
+  "full_name": "Isaiah Likely",
+  "position": "TE",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8132": {
+  "player_id": "8132",
+  "full_name": "Tyler Allgeier",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "8134": {
+  "player_id": "8134",
+  "full_name": "Khalil Shakir",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "8135": {
+  "player_id": "8135",
+  "full_name": "Treylon Burks",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "8136": {
+  "player_id": "8136",
+  "full_name": "Rachaad White",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "8137": {
+  "player_id": "8137",
+  "full_name": "George Pickens",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "8138": {
+  "player_id": "8138",
+  "full_name": "James Cook",
+  "position": "RB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "8139": {
+  "player_id": "8139",
+  "full_name": "Zamir White",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8142": {
+  "player_id": "8142",
+  "full_name": "Alec Pierce",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 10
+ },
+ "8143": {
+  "player_id": "8143",
+  "full_name": "Jerome Ford",
+  "position": "RB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8144": {
+  "player_id": "8144",
+  "full_name": "Chris Olave",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "8145": {
+  "player_id": "8145",
+  "full_name": "Jeremy Ruckert",
+  "position": "TE",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "8146": {
+  "player_id": "8146",
+  "full_name": "Garrett Wilson",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "8147": {
+  "player_id": "8147",
+  "full_name": "John Metchie",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "8148": {
+  "player_id": "8148",
+  "full_name": "Jameson Williams",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "8150": {
+  "player_id": "8150",
+  "full_name": "Kyren Williams",
+  "position": "RB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "8151": {
+  "player_id": "8151",
+  "full_name": "Kenneth Walker",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "8154": {
+  "player_id": "8154",
+  "full_name": "Brian Robinson",
+  "position": "RB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "8155": {
+  "player_id": "8155",
+  "full_name": "Breece Hall",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "8157": {
+  "player_id": "8157",
+  "full_name": "Bailey Zappe",
+  "position": "QB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8160": {
+  "player_id": "8160",
+  "full_name": "Kenny Pickett",
+  "position": "QB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "8161": {
+  "player_id": "8161",
+  "full_name": "Malik Willis",
+  "position": "QB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "8162": {
+  "player_id": "8162",
+  "full_name": "Sam Howell",
+  "position": "QB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "8167": {
+  "player_id": "8167",
+  "full_name": "Christian Watson",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "8168": {
+  "player_id": "8168",
+  "full_name": "Skyy Moore",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "8170": {
+  "player_id": "8170",
+  "full_name": "James Mitchell",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8172": {
+  "player_id": "8172",
+  "full_name": "Greg Dulcich",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8176": {
+  "player_id": "8176",
+  "full_name": "Danny Gray",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8177": {
+  "player_id": "8177",
+  "full_name": "Grant Calcaterra",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "8180": {
+  "player_id": "8180",
+  "full_name": "Jalen Nailor",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "8181": {
+  "player_id": "8181",
+  "full_name": "Connor Heyward",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "8183": {
+  "player_id": "8183",
+  "full_name": "Brock Purdy",
+  "position": "QB",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "8188": {
+  "player_id": "8188",
+  "full_name": "Tyquan Thornton",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "8195": {
+  "player_id": "8195",
+  "full_name": "Ronnie Rivers",
+  "position": "RB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "8200": {
+  "player_id": "8200",
+  "full_name": "Kevin Austin",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "8204": {
+  "player_id": "8204",
+  "full_name": "Bo Melton",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 5
+ },
+ "8205": {
+  "player_id": "8205",
+  "full_name": "Isiah Pacheco",
+  "position": "RB",
+  "team": "DET",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "8206": {
+  "player_id": "8206",
+  "full_name": "Skylar Thompson",
+  "position": "QB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "8207": {
+  "player_id": "8207",
+  "full_name": "Tyler Goodson",
+  "position": "RB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "8208": {
+  "player_id": "8208",
+  "full_name": "Tyler Badie",
+  "position": "RB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "8210": {
+  "player_id": "8210",
+  "full_name": "Chig Okonkwo",
+  "position": "TE",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "8214": {
+  "player_id": "8214",
+  "full_name": "Cole Turner",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "8219": {
+  "player_id": "8219",
+  "full_name": "Jelani Woods",
+  "position": "TE",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "8220": {
+  "player_id": "8220",
+  "full_name": "Sincere McCormick",
+  "position": "RB",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8223": {
+  "player_id": "8223",
+  "full_name": "Velus Jones",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "8225": {
+  "player_id": "8225",
+  "full_name": "Daniel Bellinger",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "8227": {
+  "player_id": "8227",
+  "full_name": "Teagan Quitoriano",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8228": {
+  "player_id": "8228",
+  "full_name": "Jaylen Warren",
+  "position": "RB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "8230": {
+  "player_id": "8230",
+  "full_name": "Ty Chandler",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "8249": {
+  "player_id": "8249",
+  "full_name": "Lucas Krull",
+  "position": "TE",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8250": {
+  "player_id": "8250",
+  "full_name": "Tay Martin",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "8253": {
+  "player_id": "8253",
+  "full_name": "Deven Thompkins",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8254": {
+  "player_id": "8254",
+  "full_name": "Julius Chestnut",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "8259": {
+  "player_id": "8259",
+  "full_name": "Cameron Dicker",
+  "position": "K",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "8408": {
+  "player_id": "8408",
+  "full_name": "Jordan Mason",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "8414": {
+  "player_id": "8414",
+  "full_name": "Britain Covey",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "8423": {
+  "player_id": "8423",
+  "full_name": "Brittain Brown",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "8484": {
+  "player_id": "8484",
+  "full_name": "Ko Kieft",
+  "position": "TE",
+  "team": "TB",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "8489": {
+  "player_id": "8489",
+  "full_name": "Drew Ogletree",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "8500": {
+  "player_id": "8500",
+  "full_name": "John FitzPatrick",
+  "position": "TE",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8523": {
+  "player_id": "8523",
+  "full_name": "Nick Muse",
+  "position": "TE",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "8527": {
+  "player_id": "8527",
+  "full_name": "Dareke Young",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "8583": {
+  "player_id": "8583",
+  "full_name": "Stone Smartt",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8676": {
+  "player_id": "8676",
+  "full_name": "Rashid Shaheed",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "8698": {
+  "player_id": "8698",
+  "full_name": "Jake Tonges",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "8755": {
+  "player_id": "8755",
+  "full_name": "Kaden Davis",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8756": {
+  "player_id": "8756",
+  "full_name": "Brandon Johnson",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8799": {
+  "player_id": "8799",
+  "full_name": "Zaire Mitchell-Paden",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8800": {
+  "player_id": "8800",
+  "full_name": "Malik Davis",
+  "position": "RB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "8849": {
+  "player_id": "8849",
+  "full_name": "Tanner Conner",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "8861": {
+  "player_id": "8861",
+  "full_name": "Irv Charles",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "8917": {
+  "player_id": "8917",
+  "full_name": "KaVontae Turpin",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "8924": {
+  "player_id": "8924",
+  "full_name": "Thomas Odukoya",
+  "position": "TE",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9220": {
+  "player_id": "9220",
+  "full_name": "Evan Hull",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9221": {
+  "player_id": "9221",
+  "full_name": "Jahmyr Gibbs",
+  "position": "RB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "9224": {
+  "player_id": "9224",
+  "full_name": "Chase Brown",
+  "position": "RB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "9225": {
+  "player_id": "9225",
+  "full_name": "Tank Bigsby",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "9226": {
+  "player_id": "9226",
+  "full_name": "De'Von Achane",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "9227": {
+  "player_id": "9227",
+  "full_name": "Israel Abanikanda",
+  "position": "RB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9228": {
+  "player_id": "9228",
+  "full_name": "Bryce Young",
+  "position": "QB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "9229": {
+  "player_id": "9229",
+  "full_name": "Anthony Richardson",
+  "position": "QB",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "9230": {
+  "player_id": "9230",
+  "full_name": "Tanner McKee",
+  "position": "QB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "9479": {
+  "player_id": "9479",
+  "full_name": "Darnell Washington",
+  "position": "TE",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "9480": {
+  "player_id": "9480",
+  "full_name": "Brenton Strange",
+  "position": "TE",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "9481": {
+  "player_id": "9481",
+  "full_name": "Luke Musgrave",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "9482": {
+  "player_id": "9482",
+  "full_name": "Michael Mayer",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "9484": {
+  "player_id": "9484",
+  "full_name": "Tucker Kraft",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "9486": {
+  "player_id": "9486",
+  "full_name": "Dontayvion Wicks",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "9487": {
+  "player_id": "9487",
+  "full_name": "Parker Washington",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "9488": {
+  "player_id": "9488",
+  "full_name": "Jaxon Smith-Njigba",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "9489": {
+  "player_id": "9489",
+  "full_name": "Justin Shorter",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9490": {
+  "player_id": "9490",
+  "full_name": "Tyler Scott",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9492": {
+  "player_id": "9492",
+  "full_name": "Trey Palmer",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9493": {
+  "player_id": "9493",
+  "full_name": "Puka Nacua",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "9494": {
+  "player_id": "9494",
+  "full_name": "Marvin Mims",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "9497": {
+  "player_id": "9497",
+  "full_name": "Jalin Hyatt",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9500": {
+  "player_id": "9500",
+  "full_name": "Josh Downs",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "9501": {
+  "player_id": "9501",
+  "full_name": "DeMario Douglas",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "9502": {
+  "player_id": "9502",
+  "full_name": "Tank Dell",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "9504": {
+  "player_id": "9504",
+  "full_name": "Kayshon Boutte",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "9506": {
+  "player_id": "9506",
+  "full_name": "Sean Tucker",
+  "position": "RB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "9508": {
+  "player_id": "9508",
+  "full_name": "Tyjae Spears",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "9509": {
+  "player_id": "9509",
+  "full_name": "Bijan Robinson",
+  "position": "RB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "9510": {
+  "player_id": "9510",
+  "full_name": "Lew Nichols",
+  "position": "RB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9511": {
+  "player_id": "9511",
+  "full_name": "Keaton Mitchell",
+  "position": "RB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "9753": {
+  "player_id": "9753",
+  "full_name": "Zach Charbonnet",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "9754": {
+  "player_id": "9754",
+  "full_name": "Quentin Johnston",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "9756": {
+  "player_id": "9756",
+  "full_name": "Jordan Addison",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "9757": {
+  "player_id": "9757",
+  "full_name": "Kendre Miller",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "9758": {
+  "player_id": "9758",
+  "full_name": "C.J. Stroud",
+  "position": "QB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "9997": {
+  "player_id": "9997",
+  "full_name": "Zay Flowers",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "9998": {
+  "player_id": "9998",
+  "full_name": "Hendon Hooker",
+  "position": "QB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "9999": {
+  "player_id": "9999",
+  "full_name": "Will Levis",
+  "position": "QB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "10210": {
+  "player_id": "10210",
+  "full_name": "Cameron Latu",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "10212": {
+  "player_id": "10212",
+  "full_name": "Josh Whyle",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "10213": {
+  "player_id": "10213",
+  "full_name": "Tre Tucker",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "10214": {
+  "player_id": "10214",
+  "full_name": "Davis Allen",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "10215": {
+  "player_id": "10215",
+  "full_name": "Jake Haener",
+  "position": "QB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "10218": {
+  "player_id": "10218",
+  "full_name": "Xavier Hutchinson",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "10219": {
+  "player_id": "10219",
+  "full_name": "Chris Rodriguez",
+  "position": "RB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "10220": {
+  "player_id": "10220",
+  "full_name": "Will Mallory",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "10221": {
+  "player_id": "10221",
+  "full_name": "Ronnie Bell",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "10222": {
+  "player_id": "10222",
+  "full_name": "Jayden Reed",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 6
+ },
+ "10223": {
+  "player_id": "10223",
+  "full_name": "Eric Gray",
+  "position": "RB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "10224": {
+  "player_id": "10224",
+  "full_name": "Brayden Willis",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "10225": {
+  "player_id": "10225",
+  "full_name": "Jonathan Mingo",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "10226": {
+  "player_id": "10226",
+  "full_name": "Andrei Iosivas",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "10227": {
+  "player_id": "10227",
+  "full_name": "Payne Durham",
+  "position": "TE",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "10228": {
+  "player_id": "10228",
+  "full_name": "Charlie Jones",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 5
+ },
+ "10229": {
+  "player_id": "10229",
+  "full_name": "Rashee Rice",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "10231": {
+  "player_id": "10231",
+  "full_name": "Elijah Higgins",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "10232": {
+  "player_id": "10232",
+  "full_name": "Michael Wilson",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "10234": {
+  "player_id": "10234",
+  "full_name": "Derius Davis",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "10235": {
+  "player_id": "10235",
+  "full_name": "Roschon Johnson",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "10236": {
+  "player_id": "10236",
+  "full_name": "Dalton Kincaid",
+  "position": "TE",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "10444": {
+  "player_id": "10444",
+  "full_name": "Cedric Tillman",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "10857": {
+  "player_id": "10857",
+  "full_name": "Stetson Bennett",
+  "position": "QB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "10859": {
+  "player_id": "10859",
+  "full_name": "Sam LaPorta",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "10867": {
+  "player_id": "10867",
+  "full_name": "Jake Bobo",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 6
+ },
+ "10871": {
+  "player_id": "10871",
+  "full_name": "Luke Schoonmaker",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "10937": {
+  "player_id": "10937",
+  "full_name": "Jake Moody",
+  "position": "K",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "10955": {
+  "player_id": "10955",
+  "full_name": "Chad Ryland",
+  "position": "K",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "10983": {
+  "player_id": "10983",
+  "full_name": "Sean Clifford",
+  "position": "QB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11034": {
+  "player_id": "11034",
+  "full_name": "Jalen Brooks",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "11056": {
+  "player_id": "11056",
+  "full_name": "Jared Wayne",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11058": {
+  "player_id": "11058",
+  "full_name": "Blake Grupe",
+  "position": "K",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11068": {
+  "player_id": "11068",
+  "full_name": "Mitch Tinsley",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "11113": {
+  "player_id": "11113",
+  "full_name": "Joel Wilson",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11157": {
+  "player_id": "11157",
+  "full_name": "Brycen Tremayne",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "11168": {
+  "player_id": "11168",
+  "full_name": "Xavier Smith",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11186": {
+  "player_id": "11186",
+  "full_name": "Carlos Washington",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "11199": {
+  "player_id": "11199",
+  "full_name": "Emari Demercado",
+  "position": "RB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11201": {
+  "player_id": "11201",
+  "full_name": "Blake Whiteheart",
+  "position": "TE",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "11237": {
+  "player_id": "11237",
+  "full_name": "Jacob Saylors",
+  "position": "RB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11256": {
+  "player_id": "11256",
+  "full_name": "Tyson Bagent",
+  "position": "QB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "11257": {
+  "player_id": "11257",
+  "full_name": "Shedrick Jackson",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11261": {
+  "player_id": "11261",
+  "full_name": "Andre Szmyt",
+  "position": "K",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "11273": {
+  "player_id": "11273",
+  "full_name": "Ben VanSumeren",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "11280": {
+  "player_id": "11280",
+  "full_name": "Brady Russell",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "11292": {
+  "player_id": "11292",
+  "full_name": "Tommy DeVito",
+  "position": "QB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "11299": {
+  "player_id": "11299",
+  "full_name": "Zavier Scott",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11304": {
+  "player_id": "11304",
+  "full_name": "E.J. Jenkins",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "11306": {
+  "player_id": "11306",
+  "full_name": "Xavier Gipson",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11320": {
+  "player_id": "11320",
+  "full_name": "Nikko Remigio",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "11370": {
+  "player_id": "11370",
+  "full_name": "Chris Brooks",
+  "position": "RB",
+  "team": "GB",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11371": {
+  "player_id": "11371",
+  "full_name": "Julian Hill",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "11377": {
+  "player_id": "11377",
+  "full_name": "Tyrell Shavers",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 8
+ },
+ "11384": {
+  "player_id": "11384",
+  "full_name": "Owen Wright",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11421": {
+  "player_id": "11421",
+  "full_name": "Ryan Miller",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "11433": {
+  "player_id": "11433",
+  "full_name": "Nate Adkins",
+  "position": "TE",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "11435": {
+  "player_id": "11435",
+  "full_name": "Emanuel Wilson",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "11439": {
+  "player_id": "11439",
+  "full_name": "Jaleel McLaughlin",
+  "position": "RB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11474": {
+  "player_id": "11474",
+  "full_name": "Dylan Drummond",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11506": {
+  "player_id": "11506",
+  "full_name": "Jalen Cropper",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11508": {
+  "player_id": "11508",
+  "full_name": "Princeton Fant",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "11520": {
+  "player_id": "11520",
+  "full_name": "Lucky Jackson",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11533": {
+  "player_id": "11533",
+  "full_name": "Brandon Aubrey",
+  "position": "K",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "11539": {
+  "player_id": "11539",
+  "full_name": "Jake Bates",
+  "position": "K",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "11557": {
+  "player_id": "11557",
+  "full_name": "Joe Milton",
+  "position": "QB",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11558": {
+  "player_id": "11558",
+  "full_name": "Sam Hartman",
+  "position": "QB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11559": {
+  "player_id": "11559",
+  "full_name": "Michael Penix",
+  "position": "QB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "11560": {
+  "player_id": "11560",
+  "full_name": "Caleb Williams",
+  "position": "QB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "11562": {
+  "player_id": "11562",
+  "full_name": "Spencer Rattler",
+  "position": "QB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "11563": {
+  "player_id": "11563",
+  "full_name": "Bo Nix",
+  "position": "QB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "11564": {
+  "player_id": "11564",
+  "full_name": "Drake Maye",
+  "position": "QB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "11565": {
+  "player_id": "11565",
+  "full_name": "J.J. McCarthy",
+  "position": "QB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "11566": {
+  "player_id": "11566",
+  "full_name": "Jayden Daniels",
+  "position": "QB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "11569": {
+  "player_id": "11569",
+  "full_name": "Jarquez Hunter",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11570": {
+  "player_id": "11570",
+  "full_name": "Rasheen Ali",
+  "position": "RB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11571": {
+  "player_id": "11571",
+  "full_name": "Isaiah Davis",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "11573": {
+  "player_id": "11573",
+  "full_name": "Frank Gore",
+  "position": "RB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11574": {
+  "player_id": "11574",
+  "full_name": "Dylan Laube",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "11575": {
+  "player_id": "11575",
+  "full_name": "Ray Davis",
+  "position": "RB",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11576": {
+  "player_id": "11576",
+  "full_name": "Braelon Allen",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "11577": {
+  "player_id": "11577",
+  "full_name": "Will Shipley",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11579": {
+  "player_id": "11579",
+  "full_name": "Audric Estime",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11581": {
+  "player_id": "11581",
+  "full_name": "MarShawn Lloyd",
+  "position": "RB",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "11582": {
+  "player_id": "11582",
+  "full_name": "Carson Steele",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11583": {
+  "player_id": "11583",
+  "full_name": "Jonathon Brooks",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11584": {
+  "player_id": "11584",
+  "full_name": "Bucky Irving",
+  "position": "RB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "11586": {
+  "player_id": "11586",
+  "full_name": "Blake Corum",
+  "position": "RB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "11588": {
+  "player_id": "11588",
+  "full_name": "Jawhar Jordan",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11589": {
+  "player_id": "11589",
+  "full_name": "Trey Benson",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "11592": {
+  "player_id": "11592",
+  "full_name": "Erick All",
+  "position": "TE",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "11593": {
+  "player_id": "11593",
+  "full_name": "Brevyn Spann-Ford",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "11596": {
+  "player_id": "11596",
+  "full_name": "Ben Sinnott",
+  "position": "TE",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "11597": {
+  "player_id": "11597",
+  "full_name": "Theo Johnson",
+  "position": "TE",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "11599": {
+  "player_id": "11599",
+  "full_name": "Cade Stover",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "11603": {
+  "player_id": "11603",
+  "full_name": "AJ Barner",
+  "position": "TE",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "11604": {
+  "player_id": "11604",
+  "full_name": "Brock Bowers",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "11608": {
+  "player_id": "11608",
+  "full_name": "Isaiah Williams",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "11610": {
+  "player_id": "11610",
+  "full_name": "Malik Washington",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "11616": {
+  "player_id": "11616",
+  "full_name": "Jacob Cowing",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "11617": {
+  "player_id": "11617",
+  "full_name": "Malachi Corley",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "11618": {
+  "player_id": "11618",
+  "full_name": "Jalen McMillan",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 7
+ },
+ "11620": {
+  "player_id": "11620",
+  "full_name": "Rome Odunze",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "11623": {
+  "player_id": "11623",
+  "full_name": "Jordan Whittington",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "11624": {
+  "player_id": "11624",
+  "full_name": "Xavier Worthy",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "11625": {
+  "player_id": "11625",
+  "full_name": "Adonai Mitchell",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 7
+ },
+ "11626": {
+  "player_id": "11626",
+  "full_name": "Xavier Legette",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 7
+ },
+ "11627": {
+  "player_id": "11627",
+  "full_name": "Troy Franklin",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "11628": {
+  "player_id": "11628",
+  "full_name": "Marvin Harrison",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "11629": {
+  "player_id": "11629",
+  "full_name": "Devontez Walker",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "11630": {
+  "player_id": "11630",
+  "full_name": "Roman Wilson",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "11631": {
+  "player_id": "11631",
+  "full_name": "Brian Thomas",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "11632": {
+  "player_id": "11632",
+  "full_name": "Malik Nabers",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "11635": {
+  "player_id": "11635",
+  "full_name": "Ladd McConkey",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 1
+ },
+ "11636": {
+  "player_id": "11636",
+  "full_name": "Johnny Wilson",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 8
+ },
+ "11637": {
+  "player_id": "11637",
+  "full_name": "Keon Coleman",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "11638": {
+  "player_id": "11638",
+  "full_name": "Ricky Pearsall",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 11
+ },
+ "11643": {
+  "player_id": "11643",
+  "full_name": "Jaylen Wright",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "11644": {
+  "player_id": "11644",
+  "full_name": "Cody Schrader",
+  "position": "RB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11646": {
+  "player_id": "11646",
+  "full_name": "Jalen Coker",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "11647": {
+  "player_id": "11647",
+  "full_name": "Kimani Vidal",
+  "position": "RB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "11648": {
+  "player_id": "11648",
+  "full_name": "Kedon Slovis",
+  "position": "QB",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11649": {
+  "player_id": "11649",
+  "full_name": "Kendall Milton",
+  "position": "RB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11650": {
+  "player_id": "11650",
+  "full_name": "Luke McCaffrey",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "11651": {
+  "player_id": "11651",
+  "full_name": "Isaac Guerendo",
+  "position": "RB",
+  "team": "SF",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "11653": {
+  "player_id": "11653",
+  "full_name": "Charlie Smyth",
+  "position": "K",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11655": {
+  "player_id": "11655",
+  "full_name": "Tyrone Tracy",
+  "position": "RB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "11716": {
+  "player_id": "11716",
+  "full_name": "Tip Reiman",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "11729": {
+  "player_id": "11729",
+  "full_name": "Sione Vaki",
+  "position": "RB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "11748": {
+  "player_id": "11748",
+  "full_name": "Bub Means",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11762": {
+  "player_id": "11762",
+  "full_name": "Anthony Gould",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "11783": {
+  "player_id": "11783",
+  "full_name": "Ryan Flournoy",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "11786": {
+  "player_id": "11786",
+  "full_name": "Cam Little",
+  "position": "K",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "11792": {
+  "player_id": "11792",
+  "full_name": "Will Reichard",
+  "position": "K",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "11806": {
+  "player_id": "11806",
+  "full_name": "Casey Washington",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11834": {
+  "player_id": "11834",
+  "full_name": "Devaughn Vele",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "11895": {
+  "player_id": "11895",
+  "full_name": "Mason Tipton",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "11911": {
+  "player_id": "11911",
+  "full_name": "Jeshaun Jones",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 6
+ },
+ "11942": {
+  "player_id": "11942",
+  "full_name": "Colson Yankoff",
+  "position": "TE",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "11959": {
+  "player_id": "11959",
+  "full_name": "Bryce Oliver",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "11963": {
+  "player_id": "11963",
+  "full_name": "Chris Collier",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 7
+ },
+ "11994": {
+  "player_id": "11994",
+  "full_name": "Kameron Johnson",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "12001": {
+  "player_id": "12001",
+  "full_name": "Lawrence Keys",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12015": {
+  "player_id": "12015",
+  "full_name": "Harrison Mevis",
+  "position": "K",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "12045": {
+  "player_id": "12045",
+  "full_name": "Jack Westover",
+  "position": "TE",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12048": {
+  "player_id": "12048",
+  "full_name": "George Holani",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12062": {
+  "player_id": "12062",
+  "full_name": "Cam Grandy",
+  "position": "TE",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12079": {
+  "player_id": "12079",
+  "full_name": "Treyton Welch",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "12113": {
+  "player_id": "12113",
+  "full_name": "Thomas Yassmin",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "12151": {
+  "player_id": "12151",
+  "full_name": "Julian Hicks",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12154": {
+  "player_id": "12154",
+  "full_name": "Messiah Swinson",
+  "position": "TE",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12171": {
+  "player_id": "12171",
+  "full_name": "British Brooks",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "12185": {
+  "player_id": "12185",
+  "full_name": "Spencer Shrader",
+  "position": "K",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "12217": {
+  "player_id": "12217",
+  "full_name": "Shawn Bowman",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12267": {
+  "player_id": "12267",
+  "full_name": "Qadir Ismail",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12356": {
+  "player_id": "12356",
+  "full_name": "Jabari Small",
+  "position": "RB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12357": {
+  "player_id": "12357",
+  "full_name": "David Martin-Robinson",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "12374": {
+  "player_id": "12374",
+  "full_name": "Brenden Bates",
+  "position": "TE",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12389": {
+  "player_id": "12389",
+  "full_name": "Hayden Rucci",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "12455": {
+  "player_id": "12455",
+  "full_name": "Brashard Smith",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "12457": {
+  "player_id": "12457",
+  "full_name": "Jaydon Blue",
+  "position": "RB",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12460": {
+  "player_id": "12460",
+  "full_name": "Antwane Wells",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12467": {
+  "player_id": "12467",
+  "full_name": "Jordan James",
+  "position": "RB",
+  "team": "SF",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "12469": {
+  "player_id": "12469",
+  "full_name": "Dylan Sampson",
+  "position": "RB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "12471": {
+  "player_id": "12471",
+  "full_name": "DJ Giddens",
+  "position": "RB",
+  "team": "IND",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "12472": {
+  "player_id": "12472",
+  "full_name": "Raheim Sanders",
+  "position": "RB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12473": {
+  "player_id": "12473",
+  "full_name": "Mitchell Evans",
+  "position": "TE",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "12474": {
+  "player_id": "12474",
+  "full_name": "Woody Marks",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12475": {
+  "player_id": "12475",
+  "full_name": "Ricky White",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12476": {
+  "player_id": "12476",
+  "full_name": "Devin Neal",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12480": {
+  "player_id": "12480",
+  "full_name": "Moliki Matavao",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "12481": {
+  "player_id": "12481",
+  "full_name": "Cam Skattebo",
+  "position": "RB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12482": {
+  "player_id": "12482",
+  "full_name": "Savion Williams",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 9
+ },
+ "12483": {
+  "player_id": "12483",
+  "full_name": "Jack Bech",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 9
+ },
+ "12484": {
+  "player_id": "12484",
+  "full_name": "Jayden Higgins",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 8
+ },
+ "12485": {
+  "player_id": "12485",
+  "full_name": "Tez Johnson",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "12486": {
+  "player_id": "12486",
+  "full_name": "Dillon Gabriel",
+  "position": "QB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 2
+ },
+ "12487": {
+  "player_id": "12487",
+  "full_name": "Terrance Ferguson",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "12489": {
+  "player_id": "12489",
+  "full_name": "RJ Harvey",
+  "position": "RB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12490": {
+  "player_id": "12490",
+  "full_name": "Bhayshul Tuten",
+  "position": "RB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12491": {
+  "player_id": "12491",
+  "full_name": "Corey Kiner",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "12492": {
+  "player_id": "12492",
+  "full_name": "Pat Bryant",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "12493": {
+  "player_id": "12493",
+  "full_name": "Oronde Gadsden",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "12494": {
+  "player_id": "12494",
+  "full_name": "Kyle McCord",
+  "position": "QB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12495": {
+  "player_id": "12495",
+  "full_name": "Ollie Gordon",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12496": {
+  "player_id": "12496",
+  "full_name": "Tai Felton",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "12497": {
+  "player_id": "12497",
+  "full_name": "Tory Horton",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "12498": {
+  "player_id": "12498",
+  "full_name": "Mason Taylor",
+  "position": "TE",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "12499": {
+  "player_id": "12499",
+  "full_name": "Elic Ayomanor",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "12500": {
+  "player_id": "12500",
+  "full_name": "Quinn Ewers",
+  "position": "QB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12501": {
+  "player_id": "12501",
+  "full_name": "Matthew Golden",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "12502": {
+  "player_id": "12502",
+  "full_name": "Gunnar Helm",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "12503": {
+  "player_id": "12503",
+  "full_name": "Isaiah Bond",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "12504": {
+  "player_id": "12504",
+  "full_name": "Kaleb Johnson",
+  "position": "RB",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12505": {
+  "player_id": "12505",
+  "full_name": "Jalen Royals",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "12506": {
+  "player_id": "12506",
+  "full_name": "Harold Fannin",
+  "position": "TE",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "12507": {
+  "player_id": "12507",
+  "full_name": "Omarion Hampton",
+  "position": "RB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12508": {
+  "player_id": "12508",
+  "full_name": "Jaxson Dart",
+  "position": "QB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "12509": {
+  "player_id": "12509",
+  "full_name": "Tre' Harris",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "12510": {
+  "player_id": "12510",
+  "full_name": "Jalen Milroe",
+  "position": "QB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12512": {
+  "player_id": "12512",
+  "full_name": "Quinshon Judkins",
+  "position": "RB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12514": {
+  "player_id": "12514",
+  "full_name": "Emeka Egbuka",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "12516": {
+  "player_id": "12516",
+  "full_name": "Kalel Mullings",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12517": {
+  "player_id": "12517",
+  "full_name": "Colston Loveland",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "12518": {
+  "player_id": "12518",
+  "full_name": "Tyler Warren",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "12519": {
+  "player_id": "12519",
+  "full_name": "Luther Burden",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 1
+ },
+ "12520": {
+  "player_id": "12520",
+  "full_name": "Xavier Restrepo",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12521": {
+  "player_id": "12521",
+  "full_name": "Elijah Arroyo",
+  "position": "TE",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "12522": {
+  "player_id": "12522",
+  "full_name": "Cam Ward",
+  "position": "QB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "12523": {
+  "player_id": "12523",
+  "full_name": "Jimmy Horn",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12524": {
+  "player_id": "12524",
+  "full_name": "Shedeur Sanders",
+  "position": "QB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12526": {
+  "player_id": "12526",
+  "full_name": "Tetairoa McMillan",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "12527": {
+  "player_id": "12527",
+  "full_name": "Ashton Jeanty",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12529": {
+  "player_id": "12529",
+  "full_name": "TreVeyon Henderson",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12531": {
+  "player_id": "12531",
+  "full_name": "Trevor Etienne",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "12533": {
+  "player_id": "12533",
+  "full_name": "Jacory Croskey-Merritt",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "12534": {
+  "player_id": "12534",
+  "full_name": "Kyle Monangai",
+  "position": "RB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "12535": {
+  "player_id": "12535",
+  "full_name": "Isaac TeSlaa",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "12536": {
+  "player_id": "12536",
+  "full_name": "Jaylin Noel",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "12539": {
+  "player_id": "12539",
+  "full_name": "Arian Smith",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 9
+ },
+ "12540": {
+  "player_id": "12540",
+  "full_name": "Chimere Dike",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "12541": {
+  "player_id": "12541",
+  "full_name": "Dont'e Thornton",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 10
+ },
+ "12542": {
+  "player_id": "12542",
+  "full_name": "Efton Chism",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "12543": {
+  "player_id": "12543",
+  "full_name": "Tahj Brooks",
+  "position": "RB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "12544": {
+  "player_id": "12544",
+  "full_name": "LeQuint Allen",
+  "position": "RB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "12545": {
+  "player_id": "12545",
+  "full_name": "Tyler Shough",
+  "position": "QB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "12547": {
+  "player_id": "12547",
+  "full_name": "Kyle Williams",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "12548": {
+  "player_id": "12548",
+  "full_name": "Lenny Krieg",
+  "position": "K",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12634": {
+  "player_id": "12634",
+  "full_name": "Jordan Watkins",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "12641": {
+  "player_id": "12641",
+  "full_name": "Jaylin Lane",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 7
+ },
+ "12656": {
+  "player_id": "12656",
+  "full_name": "Robbie Ouzts",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "12658": {
+  "player_id": "12658",
+  "full_name": "Jackson Hawes",
+  "position": "TE",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "12670": {
+  "player_id": "12670",
+  "full_name": "KeAndre Lambert-Smith",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 8
+ },
+ "12699": {
+  "player_id": "12699",
+  "full_name": "LaJohntay Wester",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "12700": {
+  "player_id": "12700",
+  "full_name": "Gavin Bartholomew",
+  "position": "TE",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "12705": {
+  "player_id": "12705",
+  "full_name": "Graham Mertz",
+  "position": "QB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12711": {
+  "player_id": "12711",
+  "full_name": "Tyler Loop",
+  "position": "K",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "12713": {
+  "player_id": "12713",
+  "full_name": "Andy Borregales",
+  "position": "K",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "12718": {
+  "player_id": "12718",
+  "full_name": "Konata Mumpfield",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "12732": {
+  "player_id": "12732",
+  "full_name": "Dominic Lovett",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12735": {
+  "player_id": "12735",
+  "full_name": "Caleb Lohner",
+  "position": "TE",
+  "team": "DEN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "12738": {
+  "player_id": "12738",
+  "full_name": "Phil Mafah",
+  "position": "RB",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12746": {
+  "player_id": "12746",
+  "full_name": "JP Richardson",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12756": {
+  "player_id": "12756",
+  "full_name": "Stephen Gosnell",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12761": {
+  "player_id": "12761",
+  "full_name": "Jordan Moore",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12765": {
+  "player_id": "12765",
+  "full_name": "Keleki Latu",
+  "position": "TE",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "12773": {
+  "player_id": "12773",
+  "full_name": "DJ Uiagalelei",
+  "position": "QB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12775": {
+  "player_id": "12775",
+  "full_name": "Max Brosmer",
+  "position": "QB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "12787": {
+  "player_id": "12787",
+  "full_name": "Josh Williams",
+  "position": "RB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12788": {
+  "player_id": "12788",
+  "full_name": "Will Sheppard",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12792": {
+  "player_id": "12792",
+  "full_name": "Garrett Greene",
+  "position": "QB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12797": {
+  "player_id": "12797",
+  "full_name": "Ahmani Marshall",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12817": {
+  "player_id": "12817",
+  "full_name": "Jake Briningstool",
+  "position": "TE",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "12829": {
+  "player_id": "12829",
+  "full_name": "Coleman Owen",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12848": {
+  "player_id": "12848",
+  "full_name": "Josh Kelly",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12860": {
+  "player_id": "12860",
+  "full_name": "Theo Wease",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12863": {
+  "player_id": "12863",
+  "full_name": "Andrew Armstrong",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12865": {
+  "player_id": "12865",
+  "full_name": "AJ Henning",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12884": {
+  "player_id": "12884",
+  "full_name": "Quincy Skinner",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12888": {
+  "player_id": "12888",
+  "full_name": "Dalen Cambre",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12889": {
+  "player_id": "12889",
+  "full_name": "Beaux Collins",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 8
+ },
+ "12897": {
+  "player_id": "12897",
+  "full_name": "Nate Carter",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12901": {
+  "player_id": "12901",
+  "full_name": "Patrick Herbert",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "12908": {
+  "player_id": "12908",
+  "full_name": "Chandler Brayboy",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12909": {
+  "player_id": "12909",
+  "full_name": "Eli Pancol",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12925": {
+  "player_id": "12925",
+  "full_name": "Jamaal Pritchett",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 8
+ },
+ "12928": {
+  "player_id": "12928",
+  "full_name": "Amar Johnson",
+  "position": "RB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12938": {
+  "player_id": "12938",
+  "full_name": "Jackson Meeks",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "12939": {
+  "player_id": "12939",
+  "full_name": "Anthony Tyus",
+  "position": "RB",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "12946": {
+  "player_id": "12946",
+  "full_name": "Dontae Fleming",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12961": {
+  "player_id": "12961",
+  "full_name": "Ryan Fitzgerald",
+  "position": "K",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "12969": {
+  "player_id": "12969",
+  "full_name": "Lan Larison",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12971": {
+  "player_id": "12971",
+  "full_name": "Ke'Shawn Williams",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "12984": {
+  "player_id": "12984",
+  "full_name": "CJ Dippre",
+  "position": "TE",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13010": {
+  "player_id": "13010",
+  "full_name": "Jordan Waters",
+  "position": "RB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13011": {
+  "player_id": "13011",
+  "full_name": "Brennan Presley",
+  "position": "WR",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13013": {
+  "player_id": "13013",
+  "full_name": "Mark Redman",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 7
+ },
+ "13042": {
+  "player_id": "13042",
+  "full_name": "Xavier Guillory",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13047": {
+  "player_id": "13047",
+  "full_name": "Jacardia Wright",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13074": {
+  "player_id": "13074",
+  "full_name": "Isaiah Neyor",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13075": {
+  "player_id": "13075",
+  "full_name": "Myles Price",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "13079": {
+  "player_id": "13079",
+  "full_name": "Jahdae Walker",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "13101": {
+  "player_id": "13101",
+  "full_name": "Gage Larvadain",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13116": {
+  "player_id": "13116",
+  "full_name": "Tre Watson",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13121": {
+  "player_id": "13121",
+  "full_name": "Ben Yurosek",
+  "position": "TE",
+  "team": "MIN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "13122": {
+  "player_id": "13122",
+  "full_name": "Carter Runyon",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "13124": {
+  "player_id": "13124",
+  "full_name": "Jeremiah Webb",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 7
+ },
+ "13150": {
+  "player_id": "13150",
+  "full_name": "Darius Cooper",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "13151": {
+  "player_id": "13151",
+  "full_name": "Nick Kallerup",
+  "position": "TE",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "13173": {
+  "player_id": "13173",
+  "full_name": "Jimmy Holiday",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13179": {
+  "player_id": "13179",
+  "full_name": "Ja'seem Reed",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "13199": {
+  "player_id": "13199",
+  "full_name": "Montorie Foster",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 8
+ },
+ "13208": {
+  "player_id": "13208",
+  "full_name": "Kyrese Rowan",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13210": {
+  "player_id": "13210",
+  "full_name": "Drake Dabney",
+  "position": "TE",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13249": {
+  "player_id": "13249",
+  "full_name": "Thomas Gordon",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13264": {
+  "player_id": "13264",
+  "full_name": "Dohnte Meyers",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "13268": {
+  "player_id": "13268",
+  "full_name": "Elijah Sarratt",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 6
+ },
+ "13269": {
+  "player_id": "13269",
+  "full_name": "Fernando Mendoza",
+  "position": "QB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "13272": {
+  "player_id": "13272",
+  "full_name": "Carson Beck",
+  "position": "QB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "13273": {
+  "player_id": "13273",
+  "full_name": "Josh Cuevas",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "13274": {
+  "player_id": "13274",
+  "full_name": "Germie Bernard",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "13275": {
+  "player_id": "13275",
+  "full_name": "Ty Simpson",
+  "position": "QB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "13276": {
+  "player_id": "13276",
+  "full_name": "Omar Cooper",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 10
+ },
+ "13277": {
+  "player_id": "13277",
+  "full_name": "CJ Donaldson",
+  "position": "RB",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13278": {
+  "player_id": "13278",
+  "full_name": "Max Klare",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "13279": {
+  "player_id": "13279",
+  "full_name": "Carnell Tate",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "13281": {
+  "player_id": "13281",
+  "full_name": "Jordyn Tyson",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 11
+ },
+ "13282": {
+  "player_id": "13282",
+  "full_name": "Jack Endries",
+  "position": "TE",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "13285": {
+  "player_id": "13285",
+  "full_name": "Malachi Fields",
+  "position": "WR",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 2
+ },
+ "13286": {
+  "player_id": "13286",
+  "full_name": "Jadarian Price",
+  "position": "RB",
+  "team": "SEA",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 8
+ },
+ "13287": {
+  "player_id": "13287",
+  "full_name": "Jeremiyah Love",
+  "position": "RB",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 1
+ },
+ "13288": {
+  "player_id": "13288",
+  "full_name": "Nicholas Singleton",
+  "position": "RB",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13289": {
+  "player_id": "13289",
+  "full_name": "Drew Allar",
+  "position": "QB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "13292": {
+  "player_id": "13292",
+  "full_name": "Lake McRee",
+  "position": "TE",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13293": {
+  "player_id": "13293",
+  "full_name": "Ja'Kobi Lane",
+  "position": "WR",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "13294": {
+  "player_id": "13294",
+  "full_name": "Makai Lemon",
+  "position": "WR",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "13296": {
+  "player_id": "13296",
+  "full_name": "Caleb Douglas",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "13298": {
+  "player_id": "13298",
+  "full_name": "KC Concepcion",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 2
+ },
+ "13299": {
+  "player_id": "13299",
+  "full_name": "Nate Boerkircher",
+  "position": "TE",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "13301": {
+  "player_id": "13301",
+  "full_name": "Antonio Williams",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "13302": {
+  "player_id": "13302",
+  "full_name": "Adam Randall",
+  "position": "RB",
+  "team": "BAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 5
+ },
+ "13303": {
+  "player_id": "13303",
+  "full_name": "Cade Klubnik",
+  "position": "QB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 3
+ },
+ "13305": {
+  "player_id": "13305",
+  "full_name": "Mike Washington",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "13306": {
+  "player_id": "13306",
+  "full_name": "Taylen Green",
+  "position": "QB",
+  "team": "CLE",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "13307": {
+  "player_id": "13307",
+  "full_name": "Marlin Klein",
+  "position": "TE",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13308": {
+  "player_id": "13308",
+  "full_name": "Bauer Sharp",
+  "position": "TE",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13310": {
+  "player_id": "13310",
+  "full_name": "Miller Moss",
+  "position": "QB",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13311": {
+  "player_id": "13311",
+  "full_name": "Chris Bell",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 2
+ },
+ "13313": {
+  "player_id": "13313",
+  "full_name": "Emmanuel Henderson",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13314": {
+  "player_id": "13314",
+  "full_name": "Luke Altmyer",
+  "position": "QB",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13315": {
+  "player_id": "13315",
+  "full_name": "Dean Connors",
+  "position": "RB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13316": {
+  "player_id": "13316",
+  "full_name": "Eric Rivers",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13317": {
+  "player_id": "13317",
+  "full_name": "Ted Hurst",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 3
+ },
+ "13318": {
+  "player_id": "13318",
+  "full_name": "Noah Thomas",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13319": {
+  "player_id": "13319",
+  "full_name": "Oscar Delp",
+  "position": "TE",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13320": {
+  "player_id": "13320",
+  "full_name": "Zachariah Branch",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "13321": {
+  "player_id": "13321",
+  "full_name": "Dan Villari",
+  "position": "TE",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13322": {
+  "player_id": "13322",
+  "full_name": "Sam Roush",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13324": {
+  "player_id": "13324",
+  "full_name": "Matt Hibner",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "13325": {
+  "player_id": "13325",
+  "full_name": "Jordan Hudson",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13329": {
+  "player_id": "13329",
+  "full_name": "Malik Benson",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "13330": {
+  "player_id": "13330",
+  "full_name": "Kenyon Sadiq",
+  "position": "TE",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 1
+ },
+ "13333": {
+  "player_id": "13333",
+  "full_name": "Deion Burks",
+  "position": "WR",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "13336": {
+  "player_id": "13336",
+  "full_name": "Dane Key",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13337": {
+  "player_id": "13337",
+  "full_name": "Emmett Johnson",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "13338": {
+  "player_id": "13338",
+  "full_name": "Kevin Coleman",
+  "position": "WR",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 3
+ },
+ "13339": {
+  "player_id": "13339",
+  "full_name": "Davon Booth",
+  "position": "RB",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13342": {
+  "player_id": "13342",
+  "full_name": "John Michael Gyllenborg",
+  "position": "TE",
+  "team": "KC",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "13343": {
+  "player_id": "13343",
+  "full_name": "Vinny Anthony",
+  "position": "WR",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13345": {
+  "player_id": "13345",
+  "full_name": "Jonah Coleman",
+  "position": "RB",
+  "team": "DEN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "13346": {
+  "player_id": "13346",
+  "full_name": "Denzel Boston",
+  "position": "WR",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 1
+ },
+ "13347": {
+  "player_id": "13347",
+  "full_name": "Demond Claiborne",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13348": {
+  "player_id": "13348",
+  "full_name": "J'Mari Taylor",
+  "position": "RB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13349": {
+  "player_id": "13349",
+  "full_name": "Eli Stowers",
+  "position": "TE",
+  "team": "PHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 7
+ },
+ "13353": {
+  "player_id": "13353",
+  "full_name": "Chris Brazzell",
+  "position": "WR",
+  "team": "CAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 10
+ },
+ "13355": {
+  "player_id": "13355",
+  "full_name": "DJ Rogers",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "13356": {
+  "player_id": "13356",
+  "full_name": "Trebor Pena",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13380": {
+  "player_id": "13380",
+  "full_name": "Brenen Thompson",
+  "position": "WR",
+  "team": "LAC",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 9
+ },
+ "13392": {
+  "player_id": "13392",
+  "full_name": "Jeff Caldwell",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 8
+ },
+ "13394": {
+  "player_id": "13394",
+  "full_name": "Josh Cameron",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "13400": {
+  "player_id": "13400",
+  "full_name": "Justin Joly",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 4
+ },
+ "13401": {
+  "player_id": "13401",
+  "full_name": "Michael Trigg",
+  "position": "TE",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13402": {
+  "player_id": "13402",
+  "full_name": "Skyler Bell",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "13405": {
+  "player_id": "13405",
+  "full_name": "Kaytron Allen",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13407": {
+  "player_id": "13407",
+  "full_name": "Carson Towt",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "13408": {
+  "player_id": "13408",
+  "full_name": "Tanner Koziol",
+  "position": "TE",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13411": {
+  "player_id": "13411",
+  "full_name": "Zavion Thomas",
+  "position": "WR",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "13412": {
+  "player_id": "13412",
+  "full_name": "Kendrick Law",
+  "position": "WR",
+  "team": "DET",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 9
+ },
+ "13413": {
+  "player_id": "13413",
+  "full_name": "Cyrus Allen",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 5
+ },
+ "13414": {
+  "player_id": "13414",
+  "full_name": "Kaelon Black",
+  "position": "RB",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "13416": {
+  "player_id": "13416",
+  "full_name": "Roman Hemby",
+  "position": "RB",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13417": {
+  "player_id": "13417",
+  "full_name": "De'Zhaun Stribling",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 12
+ },
+ "13418": {
+  "player_id": "13418",
+  "full_name": "Robert Henry",
+  "position": "RB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13419": {
+  "player_id": "13419",
+  "full_name": "Jaydn Ott",
+  "position": "RB",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13420": {
+  "player_id": "13420",
+  "full_name": "Bryce Lance",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 3
+ },
+ "13421": {
+  "player_id": "13421",
+  "full_name": "Eli Raridon",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": "Questionable",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "13422": {
+  "player_id": "13422",
+  "full_name": "Jaren Kanak",
+  "position": "TE",
+  "team": "TEN",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "13423": {
+  "player_id": "13423",
+  "full_name": "Eli Heidenreich",
+  "position": "RB",
+  "team": "PIT",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "13424": {
+  "player_id": "13424",
+  "full_name": "Seth McGowan",
+  "position": "RB",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 2
+ },
+ "13425": {
+  "player_id": "13425",
+  "full_name": "Jalon Daniels",
+  "position": "QB",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 1
+ },
+ "13428": {
+  "player_id": "13428",
+  "full_name": "Joey Aguilar",
+  "position": "QB",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13429": {
+  "player_id": "13429",
+  "full_name": "Seydou Traore",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13431": {
+  "player_id": "13431",
+  "full_name": "Miles Kitselman",
+  "position": "TE",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13432": {
+  "player_id": "13432",
+  "full_name": "Khalil Dinkins",
+  "position": "TE",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13433": {
+  "player_id": "13433",
+  "full_name": "Riley Nowakowski",
+  "position": "TE",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "13434": {
+  "player_id": "13434",
+  "full_name": "Will Kacmarek",
+  "position": "TE",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 2
+ },
+ "13435": {
+  "player_id": "13435",
+  "full_name": "Joe Royer",
+  "position": "TE",
+  "team": "CLE",
+  "active": true,
+  "injury_status": "PUP",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 5
+ },
+ "13436": {
+  "player_id": "13436",
+  "full_name": "Kentrel Bullock",
+  "position": "RB",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13437": {
+  "player_id": "13437",
+  "full_name": "Noah Whittington",
+  "position": "RB",
+  "team": "HOU",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "13438": {
+  "player_id": "13438",
+  "full_name": "DeaMonte Trayanum",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "13477": {
+  "player_id": "13477",
+  "full_name": "Colbie Young",
+  "position": "WR",
+  "team": "CIN",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 6
+ },
+ "13491": {
+  "player_id": "13491",
+  "full_name": "Kaden Wetjen",
+  "position": "WR",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 6
+ },
+ "13516": {
+  "player_id": "13516",
+  "full_name": "Max Bredeson",
+  "position": "RB",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 4
+ },
+ "13533": {
+  "player_id": "13533",
+  "full_name": "Barion Brown",
+  "position": "WR",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "SWR",
+  "depth_chart_order": 4
+ },
+ "13541": {
+  "player_id": "13541",
+  "full_name": "Lewis Bond",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13545": {
+  "player_id": "13545",
+  "full_name": "Trey Smack",
+  "position": "K",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "13554": {
+  "player_id": "13554",
+  "full_name": "CJ Williams",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 9
+ },
+ "13557": {
+  "player_id": "13557",
+  "full_name": "Athan Kaliakmanis",
+  "position": "QB",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "13580": {
+  "player_id": "13580",
+  "full_name": "Carsen Ryan",
+  "position": "TE",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "TE",
+  "depth_chart_order": 3
+ },
+ "13582": {
+  "player_id": "13582",
+  "full_name": "Anthony Smith",
+  "position": "WR",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13595": {
+  "player_id": "13595",
+  "full_name": "Cash Jones",
+  "position": "RB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13597": {
+  "player_id": "13597",
+  "full_name": "Matthew Caldwell",
+  "position": "QB",
+  "team": "LAR",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "13600": {
+  "player_id": "13600",
+  "full_name": "Tyren Montgomery",
+  "position": "WR",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13602": {
+  "player_id": "13602",
+  "full_name": "Jack Strand",
+  "position": "QB",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "QB",
+  "depth_chart_order": 4
+ },
+ "13603": {
+  "player_id": "13603",
+  "full_name": "Gregory Desrosiers",
+  "position": "RB",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13621": {
+  "player_id": "13621",
+  "full_name": "Dillon Bell",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13630": {
+  "player_id": "13630",
+  "full_name": "Evan Svoboda",
+  "position": "TE",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13645": {
+  "player_id": "13645",
+  "full_name": "Michael Wortham",
+  "position": "WR",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13662": {
+  "player_id": "13662",
+  "full_name": "Will Pauling",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13663": {
+  "player_id": "13663",
+  "full_name": "Wesley Grimes",
+  "position": "WR",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13670": {
+  "player_id": "13670",
+  "full_name": "Harrison Wallace",
+  "position": "WR",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13674": {
+  "player_id": "13674",
+  "full_name": "Chris Hilton",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13696": {
+  "player_id": "13696",
+  "full_name": "Ja'Mori Maclin",
+  "position": "WR",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13705": {
+  "player_id": "13705",
+  "full_name": "Ty Pezza",
+  "position": "TE",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13712": {
+  "player_id": "13712",
+  "full_name": "Hayden Large",
+  "position": "TE",
+  "team": "CHI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 7
+ },
+ "13749": {
+  "player_id": "13749",
+  "full_name": "Kole Wilson",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13760": {
+  "player_id": "13760",
+  "full_name": "Jaden Bradley",
+  "position": "WR",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13770": {
+  "player_id": "13770",
+  "full_name": "J. Michael Sturdivant",
+  "position": "WR",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "LWR",
+  "depth_chart_order": 4
+ },
+ "13779": {
+  "player_id": "13779",
+  "full_name": "Al-Jay Henderson",
+  "position": "RB",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13804": {
+  "player_id": "13804",
+  "full_name": "Kansei Matsuzawa",
+  "position": "K",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13805": {
+  "player_id": "13805",
+  "full_name": "E.J. Williams",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13816": {
+  "player_id": "13816",
+  "full_name": "Mark Gronowski",
+  "position": "QB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13825": {
+  "player_id": "13825",
+  "full_name": "Malik McClain",
+  "position": "WR",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RWR",
+  "depth_chart_order": 4
+ },
+ "13827": {
+  "player_id": "13827",
+  "full_name": "Tanner Arkin",
+  "position": "TE",
+  "team": "NE",
+  "active": true,
+  "injury_status": "Out",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 6
+ },
+ "13830": {
+  "player_id": "13830",
+  "full_name": "Kyle Dixon",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13833": {
+  "player_id": "13833",
+  "full_name": "Dominic Zvada",
+  "position": "K",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "13834": {
+  "player_id": "13834",
+  "full_name": "Cody Hardy",
+  "position": "TE",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13846": {
+  "player_id": "13846",
+  "full_name": "Jack Velling",
+  "position": "TE",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13861": {
+  "player_id": "13861",
+  "full_name": "Daniel Sobkowicz",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13862": {
+  "player_id": "13862",
+  "full_name": "Treyvhon Saunders",
+  "position": "WR",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13879": {
+  "player_id": "13879",
+  "full_name": "Jameson Geers",
+  "position": "TE",
+  "team": "ARI",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "TE",
+  "depth_chart_order": 7
+ },
+ "13890": {
+  "player_id": "13890",
+  "full_name": "Michael Briscoe",
+  "position": "WR",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13898": {
+  "player_id": "13898",
+  "full_name": "Corey Rucker",
+  "position": "WR",
+  "team": "LV",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": null,
+  "depth_chart_order": 11
+ },
+ "13905": {
+  "player_id": "13905",
+  "full_name": "Omari Evans",
+  "position": "WR",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13913": {
+  "player_id": "13913",
+  "full_name": "Patrick Gurd",
+  "position": "TE",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13949": {
+  "player_id": "13949",
+  "full_name": "Damon Bankston",
+  "position": "RB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13957": {
+  "player_id": "13957",
+  "full_name": "Kenny Fletcher",
+  "position": "TE",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13962": {
+  "player_id": "13962",
+  "full_name": "Cameron Dorner",
+  "position": "WR",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "13964": {
+  "player_id": "13964",
+  "full_name": "Myles Montgomery",
+  "position": "RB",
+  "team": "NE",
+  "active": true,
+  "injury_status": "IR",
+  "depth_chart_position": "RB",
+  "depth_chart_order": 6
+ },
+ "13968": {
+  "player_id": "13968",
+  "full_name": "Drew Stevens",
+  "position": "K",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "K",
+  "depth_chart_order": 1
+ },
+ "13981": {
+  "player_id": "13981",
+  "full_name": "Kolbe Katsis",
+  "position": "WR",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "14020": {
+  "player_id": "14020",
+  "full_name": "Dean Patterson",
+  "position": "WR",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "14026": {
+  "player_id": "14026",
+  "full_name": "DJ Herman",
+  "position": "RB",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": "RB",
+  "depth_chart_order": 3
+ },
+ "14038": {
+  "player_id": "14038",
+  "full_name": "Trayvon Rudolph",
+  "position": "WR",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "14041": {
+  "player_id": "14041",
+  "full_name": "Anderson Castle",
+  "position": "RB",
+  "team": null,
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "14058": {
+  "player_id": "14058",
+  "full_name": "Malick Meiga",
+  "position": "WR",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "HOU": {
+  "player_id": "HOU",
+  "full_name": null,
+  "position": "DEF",
+  "team": "HOU",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "NE": {
+  "player_id": "NE",
+  "full_name": null,
+  "position": "DEF",
+  "team": "NE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "BAL": {
+  "player_id": "BAL",
+  "full_name": null,
+  "position": "DEF",
+  "team": "BAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "PIT": {
+  "player_id": "PIT",
+  "full_name": null,
+  "position": "DEF",
+  "team": "PIT",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "IND": {
+  "player_id": "IND",
+  "full_name": null,
+  "position": "DEF",
+  "team": "IND",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "ARI": {
+  "player_id": "ARI",
+  "full_name": null,
+  "position": "DEF",
+  "team": "ARI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "SEA": {
+  "player_id": "SEA",
+  "full_name": null,
+  "position": "DEF",
+  "team": "SEA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "LV": {
+  "player_id": "LV",
+  "full_name": null,
+  "position": "DEF",
+  "team": "LV",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "NYJ": {
+  "player_id": "NYJ",
+  "full_name": null,
+  "position": "DEF",
+  "team": "NYJ",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "DAL": {
+  "player_id": "DAL",
+  "full_name": null,
+  "position": "DEF",
+  "team": "DAL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "WAS": {
+  "player_id": "WAS",
+  "full_name": null,
+  "position": "DEF",
+  "team": "WAS",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "LAC": {
+  "player_id": "LAC",
+  "full_name": null,
+  "position": "DEF",
+  "team": "LAC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "TB": {
+  "player_id": "TB",
+  "full_name": null,
+  "position": "DEF",
+  "team": "TB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "CLE": {
+  "player_id": "CLE",
+  "full_name": null,
+  "position": "DEF",
+  "team": "CLE",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "ATL": {
+  "player_id": "ATL",
+  "full_name": null,
+  "position": "DEF",
+  "team": "ATL",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "CAR": {
+  "player_id": "CAR",
+  "full_name": null,
+  "position": "DEF",
+  "team": "CAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "JAX": {
+  "player_id": "JAX",
+  "full_name": null,
+  "position": "DEF",
+  "team": "JAX",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "LAR": {
+  "player_id": "LAR",
+  "full_name": null,
+  "position": "DEF",
+  "team": "LAR",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "NO": {
+  "player_id": "NO",
+  "full_name": null,
+  "position": "DEF",
+  "team": "NO",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "GB": {
+  "player_id": "GB",
+  "full_name": null,
+  "position": "DEF",
+  "team": "GB",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "MIA": {
+  "player_id": "MIA",
+  "full_name": null,
+  "position": "DEF",
+  "team": "MIA",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "DET": {
+  "player_id": "DET",
+  "full_name": null,
+  "position": "DEF",
+  "team": "DET",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "BUF": {
+  "player_id": "BUF",
+  "full_name": null,
+  "position": "DEF",
+  "team": "BUF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "PHI": {
+  "player_id": "PHI",
+  "full_name": null,
+  "position": "DEF",
+  "team": "PHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "SF": {
+  "player_id": "SF",
+  "full_name": null,
+  "position": "DEF",
+  "team": "SF",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "NYG": {
+  "player_id": "NYG",
+  "full_name": null,
+  "position": "DEF",
+  "team": "NYG",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "TEN": {
+  "player_id": "TEN",
+  "full_name": null,
+  "position": "DEF",
+  "team": "TEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "CHI": {
+  "player_id": "CHI",
+  "full_name": null,
+  "position": "DEF",
+  "team": "CHI",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "CIN": {
+  "player_id": "CIN",
+  "full_name": null,
+  "position": "DEF",
+  "team": "CIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "DEN": {
+  "player_id": "DEN",
+  "full_name": null,
+  "position": "DEF",
+  "team": "DEN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "KC": {
+  "player_id": "KC",
+  "full_name": null,
+  "position": "DEF",
+  "team": "KC",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ },
+ "MIN": {
+  "player_id": "MIN",
+  "full_name": null,
+  "position": "DEF",
+  "team": "MIN",
+  "active": true,
+  "injury_status": null,
+  "depth_chart_position": null,
+  "depth_chart_order": null
+ }
+}

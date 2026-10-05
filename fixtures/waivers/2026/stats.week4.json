@@ -1,0 +1,5979 @@
+{
+ "19": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "96": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 72,
+   "tm_off_snp": 72,
+   "pass_att": 40,
+   "pass_rz_att": 8,
+   "pass_air_yd": 164,
+   "pass_sack": 5,
+   "pass_int": 2,
+   "pts_ppr": 23.96,
+   "pts_half_ppr": 23.96,
+   "pts_std": 23.96
+  }
+ },
+ "260": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "421": {
+  "team": "LAR",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 10,
+   "rush_rz_att": 2,
+   "pass_att": 51,
+   "pass_rz_att": 3,
+   "pass_air_yd": 209,
+   "pass_sack": 1,
+   "pass_int": 2,
+   "pts_ppr": 11.68,
+   "pts_half_ppr": 11.68,
+   "pts_std": 11.68
+  }
+ },
+ "827": {
+  "team": "GB",
+  "stats": {}
+ },
+ "829": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "1166": {
+  "team": "LV",
+  "stats": {
+   "pass_att": 52,
+   "pass_rz_att": 2,
+   "pass_air_yd": 219,
+   "pass_int": 1,
+   "pts_ppr": 23.6,
+   "pts_half_ppr": 23.6,
+   "pts_std": 23.6
+  }
+ },
+ "1339": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 10,
+   "pts_ppr": 3.3,
+   "pts_half_ppr": 2.3,
+   "pts_std": 1.3
+  }
+ },
+ "1373": {
+  "team": "NYJ",
+  "stats": {
+   "pass_att": 15,
+   "pass_rz_att": 1,
+   "pass_air_yd": 72,
+   "pass_sack": 3,
+   "pts_ppr": 8.76,
+   "pts_half_ppr": 8.76,
+   "pts_std": 8.76
+  }
+ },
+ "1466": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 2,
+   "pts_ppr": 3.5,
+   "pts_half_ppr": 2.5,
+   "pts_std": 1.5
+  }
+ },
+ "1737": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "1945": {
+  "team": "PIT",
+  "stats": {
+   "tm_off_snp": 72,
+   "fga": 2,
+   "pts_ppr": 3,
+   "pts_half_ppr": 3,
+   "pts_std": 3
+  }
+ },
+ "2020": {
+  "team": "CHI",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 11,
+   "pts_half_ppr": 11,
+   "pts_std": 11
+  }
+ },
+ "2133": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 9,
+   "rec_air_yd": 31,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 7.2,
+   "pts_half_ppr": 5.2,
+   "pts_std": 3.2
+  }
+ },
+ "2197": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "2216": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 64,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 12.6,
+   "pts_half_ppr": 10.1,
+   "pts_std": 7.6
+  }
+ },
+ "2306": {
+  "team": "NYG",
+  "stats": {
+   "pass_att": 29,
+   "pass_rz_att": 4,
+   "pass_air_yd": 205,
+   "pass_sack": 4,
+   "pass_int": 2,
+   "pts_ppr": 20,
+   "pts_half_ppr": 20,
+   "pts_std": 20
+  }
+ },
+ "2307": {
+  "team": "WAS",
+  "stats": {
+   "rush_att": 1,
+   "rush_yd": 35,
+   "pass_att": 4,
+   "pass_rz_att": 1,
+   "pass_air_yd": 10,
+   "pass_sack": 1,
+   "pts_ppr": 5.34,
+   "pts_half_ppr": 5.34,
+   "pts_std": 5.34
+  }
+ },
+ "2334": {
+  "team": "LV",
+  "stats": {}
+ },
+ "2359": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "2449": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 9,
+   "rec_air_yd": 30,
+   "pts_ppr": 8.5,
+   "pts_half_ppr": 6,
+   "pts_std": 3.5
+  }
+ },
+ "2505": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 24,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 6.6,
+   "pts_half_ppr": 5.1,
+   "pts_std": 3.6
+  }
+ },
+ "2747": {
+  "team": "SEA",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5
+  }
+ },
+ "3048": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "3155": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 24,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 9.2,
+   "pts_half_ppr": 6.7,
+   "pts_std": 4.2
+  }
+ },
+ "3161": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "3163": {
+  "team": "DET",
+  "stats": {
+   "pass_att": 52,
+   "pass_rz_att": 11,
+   "pass_air_yd": 306,
+   "pass_sack": 1,
+   "pts_ppr": 20.48,
+   "pts_half_ppr": 20.48,
+   "pts_std": 20.48
+  }
+ },
+ "3198": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -11,
+   "rush_att": 23,
+   "rush_yd": 73,
+   "rush_rz_att": 3,
+   "pts_ppr": 15.9,
+   "pts_half_ppr": 14.9,
+   "pts_std": 13.9
+  }
+ },
+ "3200": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_rz_tgt": 1
+  }
+ },
+ "3214": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 35,
+   "pts_ppr": 11.2,
+   "pts_half_ppr": 8.7,
+   "pts_std": 6.2
+  }
+ },
+ "3257": {
+  "team": "ARI",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": 18,
+   "rush_rz_att": 1,
+   "pass_att": 35,
+   "pass_rz_att": 8,
+   "pass_air_yd": 95,
+   "pass_sack": 2,
+   "pass_int": 3,
+   "pts_ppr": 13.44,
+   "pts_half_ppr": 13.44,
+   "pts_std": 13.44
+  }
+ },
+ "3258": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "3271": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 56,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 9.2,
+   "pts_std": 6.7
+  }
+ },
+ "3286": {
+  "team": "SF",
+  "stats": {}
+ },
+ "3294": {
+  "team": "DAL",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 7,
+   "rush_rz_att": 1,
+   "pass_att": 45,
+   "pass_rz_att": 3,
+   "pass_air_yd": 205,
+   "pass_sack": 3,
+   "pts_ppr": 18.1,
+   "pts_half_ppr": 18.1,
+   "pts_std": 18.1
+  }
+ },
+ "3451": {
+  "team": "HOU",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 16,
+   "pts_half_ppr": 16,
+   "pts_std": 16
+  }
+ },
+ "3634": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 2,
+   "pts_ppr": 2.6,
+   "pts_half_ppr": 1.6,
+   "pts_std": 0.6
+  }
+ },
+ "3678": {
+  "team": "DEN",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8
+  }
+ },
+ "3976": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "4017": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 64,
+   "tm_off_snp": 64,
+   "rush_att": 7,
+   "rush_yd": 22,
+   "pass_att": 33,
+   "pass_rz_att": 4,
+   "pass_air_yd": 91,
+   "pass_sack": 2,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "pts_ppr": 13.92,
+   "pts_half_ppr": 13.92,
+   "pts_std": 13.92
+  }
+ },
+ "4033": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "4034": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 12,
+   "rush_att": 15,
+   "rush_yd": 52,
+   "rush_rz_att": 4,
+   "pts_ppr": 16,
+   "pts_half_ppr": 14.5,
+   "pts_std": 13
+  }
+ },
+ "4037": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 2,
+   "pts_ppr": 9.1,
+   "pts_half_ppr": 6.1,
+   "pts_std": 3.1
+  }
+ },
+ "4039": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 8,
+   "pts_ppr": 2.3,
+   "pts_half_ppr": 1.8,
+   "pts_std": 1.3
+  }
+ },
+ "4046": {
+  "team": "KC",
+  "stats": {
+   "rush_att": 2,
+   "pass_att": 30,
+   "pass_rz_att": 4,
+   "pass_air_yd": 111,
+   "pass_sack": 2,
+   "pts_ppr": 17,
+   "pts_half_ppr": 17,
+   "pts_std": 17
+  }
+ },
+ "4054": {
+  "team": "IND",
+  "stats": {}
+ },
+ "4066": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 6,
+   "pts_ppr": 1.6,
+   "pts_half_ppr": 1.1,
+   "pts_std": 0.6
+  }
+ },
+ "4137": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "4144": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 13,
+   "pts_ppr": 2.9,
+   "pts_half_ppr": 2.4,
+   "pts_std": 1.9
+  }
+ },
+ "4147": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 3,
+   "rush_yd": 7,
+   "rush_rz_att": 1,
+   "pts_ppr": 0.7,
+   "pts_half_ppr": 0.7,
+   "pts_std": 0.7
+  }
+ },
+ "4177": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 49,
+   "pts_ppr": 8.3,
+   "pts_half_ppr": 6.8,
+   "pts_std": 5.3
+  }
+ },
+ "4179": {
+  "team": "DET",
+  "stats": {}
+ },
+ "4189": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "4195": {
+  "team": "PHI",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 10,
+   "pts_half_ppr": 10,
+   "pts_std": 10
+  }
+ },
+ "4199": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 4,
+   "rec_rz_tgt": 2,
+   "rush_att": 20,
+   "rush_yd": 94,
+   "rush_rz_att": 2,
+   "pts_ppr": 16.8,
+   "pts_half_ppr": 14.8,
+   "pts_std": 12.8
+  }
+ },
+ "4217": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 5,
+   "pts_ppr": 17,
+   "pts_half_ppr": 15,
+   "pts_std": 13
+  }
+ },
+ "4219": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "4227": {
+  "team": "KC",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6
+  }
+ },
+ "4274": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "4314": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "4351": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "4443": {
+  "team": "IND",
+  "stats": {}
+ },
+ "4454": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "4464": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "4602": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 1,
+   "tm_off_snp": 72
+  }
+ },
+ "4663": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 2,
+   "rush_att": 4,
+   "rush_yd": 29,
+   "pts_ppr": 5,
+   "pts_half_ppr": 4.5,
+   "pts_std": 4
+  }
+ },
+ "4718": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "4866": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 1,
+   "rush_att": 2,
+   "rush_yd": 8,
+   "pts_ppr": 2,
+   "pts_half_ppr": 1.5,
+   "pts_std": 1
+  }
+ },
+ "4881": {
+  "team": "BAL",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 20,
+   "pass_att": 20,
+   "pass_rz_att": 4,
+   "pass_air_yd": 140,
+   "pass_sack": 2,
+   "pts_ppr": 18.88,
+   "pts_half_ppr": 18.88,
+   "pts_std": 18.88
+  }
+ },
+ "4943": {
+  "team": "SEA",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 6,
+   "rush_rz_att": 2,
+   "pass_att": 22,
+   "pass_rz_att": 2,
+   "pass_air_yd": 76,
+   "pass_sack": 3,
+   "pass_int": 1,
+   "pts_ppr": 14.32,
+   "pts_half_ppr": 14.32,
+   "pts_std": 14.32
+  }
+ },
+ "4950": {
+  "team": "SF",
+  "stats": {}
+ },
+ "4972": {
+  "team": "PIT",
+  "stats": {
+   "tm_off_snp": 72
+  }
+ },
+ "4981": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 4,
+   "pts_ppr": 2.3,
+   "pts_half_ppr": 1.8,
+   "pts_std": 1.3
+  }
+ },
+ "4983": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 11,
+   "rec_rz_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 6,
+   "pts_ppr": 2.7,
+   "pts_half_ppr": 2.2,
+   "pts_std": 1.7
+  }
+ },
+ "4984": {
+  "team": "BUF",
+  "stats": {
+   "rush_att": 5,
+   "rush_yd": 4,
+   "rush_rz_att": 2,
+   "pass_att": 33,
+   "pass_rz_att": 3,
+   "pass_air_yd": 124,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "pts_ppr": 19.52,
+   "pts_half_ppr": 19.52,
+   "pts_std": 19.52
+  }
+ },
+ "4992": {
+  "team": "SF",
+  "stats": {}
+ },
+ "4993": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 38,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 13,
+   "pts_half_ppr": 11.5,
+   "pts_std": 10
+  }
+ },
+ "4995": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 25,
+   "pts_ppr": 11.2,
+   "pts_half_ppr": 10.2,
+   "pts_std": 9.2
+  }
+ },
+ "5001": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 4,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 2.9,
+   "pts_half_ppr": 1.9,
+   "pts_std": 0.9
+  }
+ },
+ "5008": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "5012": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 26,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 13.7,
+   "pts_half_ppr": 11.2,
+   "pts_std": 8.7
+  }
+ },
+ "5045": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.4,
+   "pts_half_ppr": 0.9,
+   "pts_std": 0.4
+  }
+ },
+ "5086": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "5119": {
+  "team": "NYJ",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5
+  }
+ },
+ "5121": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "5127": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "5154": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "5189": {
+  "team": "SF",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5
+  }
+ },
+ "5409": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 1.2,
+   "pts_half_ppr": 0.7,
+   "pts_std": 0.2
+  }
+ },
+ "5781": {
+  "team": "SF",
+  "stats": {}
+ },
+ "5844": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 13,
+   "rec_air_yd": 83,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 24.9,
+   "pts_half_ppr": 18.4,
+   "pts_std": 11.9
+  }
+ },
+ "5846": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 70,
+   "tm_off_snp": 72,
+   "rec_tgt": 9,
+   "rec_air_yd": 89,
+   "pts_ppr": 16.5,
+   "pts_half_ppr": 14,
+   "pts_std": 11.5
+  }
+ },
+ "5849": {
+  "team": "MIN",
+  "stats": {
+   "rush_att": 6,
+   "rush_yd": 16,
+   "rush_rz_att": 3,
+   "pass_att": 37,
+   "pass_rz_att": 5,
+   "pass_air_yd": 140,
+   "pass_sack": 4,
+   "pts_ppr": 11.48,
+   "pts_half_ppr": 11.48,
+   "pts_std": 11.48
+  }
+ },
+ "5850": {
+  "team": "GB",
+  "stats": {}
+ },
+ "5854": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "5859": {
+  "team": "NE",
+  "stats": {}
+ },
+ "5870": {
+  "team": "IND",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": 2,
+   "rush_rz_att": 1,
+   "pass_att": 34,
+   "pass_rz_att": 3,
+   "pass_air_yd": 71,
+   "pass_sack": 2,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "pts_ppr": 8.92,
+   "pts_half_ppr": 8.92,
+   "pts_std": 8.92
+  }
+ },
+ "5872": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_rz_tgt": 2,
+   "rush_att": 3,
+   "rush_yd": 44,
+   "pts_ppr": 18,
+   "pts_half_ppr": 15.5,
+   "pts_std": 13
+  }
+ },
+ "5892": {
+  "team": "HOU",
+  "stats": {
+   "rush_att": 10,
+   "rush_yd": 24,
+   "rush_rz_att": 1,
+   "pts_ppr": 4.3,
+   "pts_half_ppr": 4.3,
+   "pts_std": 4.3
+  }
+ },
+ "5906": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 3,
+   "pts_ppr": 3.3,
+   "pts_half_ppr": 2.3,
+   "pts_std": 1.3
+  }
+ },
+ "5938": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "5947": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 25,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 6.3,
+   "pts_half_ppr": 4.8,
+   "pts_std": 3.3
+  }
+ },
+ "5967": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": -9,
+   "rush_att": 16,
+   "rush_yd": 48,
+   "rush_rz_att": 8,
+   "pts_ppr": 13,
+   "pts_half_ppr": 12,
+   "pts_std": 11
+  }
+ },
+ "5970": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "5973": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "5985": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -4,
+   "pts_ppr": 1.1,
+   "pts_half_ppr": 0.6,
+   "pts_std": 0.1
+  }
+ },
+ "5995": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": -11,
+   "rush_att": 1,
+   "rush_yd": 3,
+   "pts_ppr": 4.5,
+   "pts_half_ppr": 3.5,
+   "pts_std": 2.5
+  }
+ },
+ "6001": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "6011": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "6012": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 2,
+   "tm_off_snp": 72,
+   "rush_att": 2,
+   "rush_yd": -1,
+   "rush_rz_att": 2,
+   "pts_ppr": -0.1,
+   "pts_half_ppr": -0.1,
+   "pts_std": -0.1
+  }
+ },
+ "6037": {
+  "team": "TB",
+  "stats": {}
+ },
+ "6039": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 2,
+   "rush_att": 1,
+   "rush_yd": 3,
+   "pts_ppr": 3.2,
+   "pts_half_ppr": 2.2,
+   "pts_std": 1.2
+  }
+ },
+ "6045": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "6083": {
+  "team": "LV",
+  "stats": {
+   "fga": 4,
+   "pts_ppr": 16,
+   "pts_half_ppr": 16,
+   "pts_std": 16
+  }
+ },
+ "6136": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "6154": {
+  "team": "TB",
+  "stats": {}
+ },
+ "6185": {
+  "team": "TB",
+  "stats": {}
+ },
+ "6323": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "6386": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "6427": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 17,
+   "pts_ppr": 5.9,
+   "pts_half_ppr": 4.4,
+   "pts_std": 2.9
+  }
+ },
+ "6451": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "6453": {
+  "team": "IND",
+  "stats": {}
+ },
+ "6528": {
+  "team": "TEN",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 4,
+   "pts_half_ppr": 4,
+   "pts_std": 4
+  }
+ },
+ "6529": {
+  "team": "LV",
+  "stats": {}
+ },
+ "6588": {
+  "team": "DET",
+  "stats": {}
+ },
+ "6650": {
+  "team": "TB",
+  "stats": {
+   "pts_ppr": 2,
+   "pts_half_ppr": 2,
+   "pts_std": 2
+  }
+ },
+ "6659": {
+  "team": "WAS",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 4,
+   "pts_ppr": 0.4,
+   "pts_half_ppr": 0.4,
+   "pts_std": 0.4
+  }
+ },
+ "6699": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "6770": {
+  "team": "CIN",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 6,
+   "rush_rz_att": 2,
+   "pass_att": 54,
+   "pass_rz_att": 6,
+   "pass_air_yd": 279,
+   "pass_sack": 2,
+   "pass_int": 2,
+   "pts_ppr": 25.72,
+   "pts_half_ppr": 25.72,
+   "pts_std": 25.72
+  }
+ },
+ "6783": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 24,
+   "tm_off_snp": 64,
+   "rec_tgt": 3,
+   "rec_air_yd": 23,
+   "pts_ppr": 6.6,
+   "pts_half_ppr": 5.1,
+   "pts_std": 3.6
+  }
+ },
+ "6786": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 21,
+   "rec_air_yd": 119,
+   "rec_rz_tgt": 2,
+   "rush_att": 1,
+   "rush_yd": -6,
+   "pts_ppr": 41.3,
+   "pts_half_ppr": 32.8,
+   "pts_std": 24.3
+  }
+ },
+ "6790": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -12,
+   "rush_att": 15,
+   "rush_yd": 58,
+   "rush_rz_att": 5,
+   "fum_lost": 1,
+   "pts_ppr": 7.4,
+   "pts_half_ppr": 6.4,
+   "pts_std": 5.4
+  }
+ },
+ "6797": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_rz_tgt": 1,
+   "rush_att": 6,
+   "rush_yd": 40,
+   "rush_rz_att": 1,
+   "pass_att": 31,
+   "pass_rz_att": 2,
+   "pass_air_yd": 122,
+   "pass_sack": 4,
+   "pass_int": 2,
+   "fum_lost": 1,
+   "pts_ppr": 11.56,
+   "pts_half_ppr": 11.56,
+   "pts_std": 11.56
+  }
+ },
+ "6798": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "6801": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 16,
+   "rec_air_yd": 127,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 26.7,
+   "pts_half_ppr": 21.2,
+   "pts_std": 15.7
+  }
+ },
+ "6803": {
+  "team": "SF",
+  "stats": {}
+ },
+ "6804": {
+  "team": "GB",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": -8,
+   "pass_att": 30,
+   "pass_rz_att": 7,
+   "pass_air_yd": 57,
+   "pass_int": 1,
+   "pts_ppr": 14.08,
+   "pts_half_ppr": 14.08,
+   "pts_std": 14.08
+  }
+ },
+ "6806": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 3,
+   "rush_att": 11,
+   "rush_yd": 40,
+   "pts_ppr": 7.2,
+   "pts_half_ppr": 6.2,
+   "pts_std": 5.2
+  }
+ },
+ "6813": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 1,
+   "rush_att": 20,
+   "rush_yd": 95,
+   "rush_rz_att": 3,
+   "pts_ppr": 22.7,
+   "pts_half_ppr": 22.2,
+   "pts_std": 21.7
+  }
+ },
+ "6819": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 52,
+   "tm_off_snp": 72,
+   "rec_tgt": 4,
+   "rec_air_yd": 8,
+   "pts_ppr": 3.5,
+   "pts_half_ppr": 2.5,
+   "pts_std": 1.5
+  }
+ },
+ "6826": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 9,
+   "pts_ppr": 3.3,
+   "pts_half_ppr": 2.3,
+   "pts_std": 1.3
+  }
+ },
+ "6828": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 5,
+   "rush_att": 5,
+   "rush_yd": 2,
+   "rush_rz_att": 1,
+   "pts_ppr": 1.7,
+   "pts_half_ppr": 1.2,
+   "pts_std": 0.7
+  }
+ },
+ "6847": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "6853": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "6869": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "6904": {
+  "team": "PHI",
+  "stats": {
+   "rush_att": 5,
+   "rush_yd": 18,
+   "rush_rz_att": 3,
+   "pass_att": 27,
+   "pass_rz_att": 3,
+   "pass_air_yd": 71,
+   "pass_sack": 4,
+   "pts_ppr": 13.52,
+   "pts_half_ppr": 13.52,
+   "pts_std": 13.52
+  }
+ },
+ "6918": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "6920": {
+  "team": "PIT",
+  "stats": {}
+ },
+ "6931": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 3,
+   "pts_ppr": 2,
+   "pts_half_ppr": 1.5,
+   "pts_std": 1
+  }
+ },
+ "6960": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "7039": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 29,
+   "pts_ppr": 7.6,
+   "pts_half_ppr": 6.6,
+   "pts_std": 5.6
+  }
+ },
+ "7042": {
+  "team": "BUF",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8
+  }
+ },
+ "7049": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.8,
+   "pts_half_ppr": 1.3,
+   "pts_std": 0.8
+  }
+ },
+ "7050": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "7066": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "7083": {
+  "team": "BAL",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": 16,
+   "pass_att": 9,
+   "pass_air_yd": 1,
+   "pts_ppr": 4.12,
+   "pts_half_ppr": 4.12,
+   "pts_std": 4.12
+  }
+ },
+ "7087": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "7090": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "7204": {
+  "team": "NE",
+  "stats": {}
+ },
+ "7496": {
+  "team": "IND",
+  "stats": {}
+ },
+ "7523": {
+  "team": "JAX",
+  "stats": {
+   "rush_att": 3,
+   "pass_att": 23,
+   "pass_rz_att": 3,
+   "pass_air_yd": 88,
+   "pass_sack": 4,
+   "pts_ppr": 13.08,
+   "pts_half_ppr": 13.08,
+   "pts_std": 13.08
+  }
+ },
+ "7526": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 12,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 14.5,
+   "pts_half_ppr": 12,
+   "pts_std": 9.5
+  }
+ },
+ "7527": {
+  "team": "SF",
+  "stats": {}
+ },
+ "7528": {
+  "team": "NYG",
+  "stats": {
+   "rush_att": 9,
+   "rush_yd": 30,
+   "rush_rz_att": 3,
+   "fum_lost": 1,
+   "pts_ppr": 3,
+   "pts_half_ppr": 3,
+   "pts_std": 3
+  }
+ },
+ "7531": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "7535": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 9,
+   "pts_ppr": 2,
+   "pts_half_ppr": 1.5,
+   "pts_std": 1
+  }
+ },
+ "7536": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "7547": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 11,
+   "rec_air_yd": 67,
+   "rec_rz_tgt": 3,
+   "pts_ppr": 15.5,
+   "pts_half_ppr": 11.5,
+   "pts_std": 7.5
+  }
+ },
+ "7559": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "7562": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 3,
+   "pts_ppr": 1.8,
+   "pts_half_ppr": 1.3,
+   "pts_std": 0.8
+  }
+ },
+ "7564": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 12,
+   "pts_ppr": 5.7,
+   "pts_half_ppr": 4.2,
+   "pts_std": 2.7
+  }
+ },
+ "7567": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -1,
+   "rec_rz_tgt": 1,
+   "rush_att": 3,
+   "rush_yd": 5,
+   "pts_ppr": 10.7,
+   "pts_half_ppr": 9.7,
+   "pts_std": 8.7
+  }
+ },
+ "7568": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 8,
+   "pts_ppr": 2.3,
+   "pts_half_ppr": 1.8,
+   "pts_std": 1.3
+  }
+ },
+ "7569": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 80,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 30.8,
+   "pts_half_ppr": 27.3,
+   "pts_std": 23.8
+  }
+ },
+ "7571": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 26,
+   "pts_ppr": 6.6,
+   "pts_half_ppr": 5.6,
+   "pts_std": 4.6
+  }
+ },
+ "7585": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "7587": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 62,
+   "pts_ppr": 9.5,
+   "pts_half_ppr": 8,
+   "pts_std": 6.5
+  }
+ },
+ "7588": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 1,
+   "rush_att": 19,
+   "rush_yd": 62,
+   "rush_rz_att": 7,
+   "pts_ppr": 31.3,
+   "pts_half_ppr": 28.8,
+   "pts_std": 26.3
+  }
+ },
+ "7591": {
+  "team": "KC",
+  "stats": {}
+ },
+ "7594": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 3,
+   "rush_att": 20,
+   "rush_yd": 122,
+   "rush_rz_att": 2,
+   "pts_ppr": 25.9,
+   "pts_half_ppr": 25.4,
+   "pts_std": 24.9
+  }
+ },
+ "7596": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "7600": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 54,
+   "tm_off_snp": 72,
+   "rec_tgt": 5,
+   "rec_air_yd": 12,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 10.7,
+   "pts_half_ppr": 9.2,
+   "pts_std": 7.7
+  }
+ },
+ "7610": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "7611": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": -7,
+   "rush_att": 13,
+   "rush_yd": 47,
+   "rush_rz_att": 1,
+   "pts_ppr": 18.4,
+   "pts_half_ppr": 16.9,
+   "pts_std": 15.4
+  }
+ },
+ "7670": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 3,
+   "pts_ppr": 1.3,
+   "pts_half_ppr": 0.8,
+   "pts_std": 0.3
+  }
+ },
+ "7694": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 3,
+   "pts_ppr": 5.2,
+   "pts_half_ppr": 3.2,
+   "pts_std": 1.2
+  }
+ },
+ "7716": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "7720": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "7746": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "7757": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 8,
+   "tm_off_snp": 72,
+   "rec_tgt": 2,
+   "rec_air_yd": 6,
+   "pts_ppr": 1.7,
+   "pts_half_ppr": 1.2,
+   "pts_std": 0.7
+  }
+ },
+ "7812": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "7828": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 8,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 3.7,
+   "pts_half_ppr": 2.7,
+   "pts_std": 1.7
+  }
+ },
+ "7839": {
+  "team": "CIN",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5
+  }
+ },
+ "7842": {
+  "team": "SF",
+  "stats": {
+   "pts_ppr": 1,
+   "pts_half_ppr": 1,
+   "pts_std": 1
+  }
+ },
+ "7865": {
+  "team": "PIT",
+  "stats": {}
+ },
+ "7891": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 1.8,
+   "pts_half_ppr": 1.3,
+   "pts_std": 0.8
+  }
+ },
+ "7922": {
+  "team": "MIA",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 4,
+   "pts_half_ppr": 4,
+   "pts_std": 4
+  }
+ },
+ "7946": {
+  "team": "SF",
+  "stats": {}
+ },
+ "8002": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "8013": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "8076": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "8107": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "8110": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 5,
+   "pts_ppr": 4.1,
+   "pts_half_ppr": 2.6,
+   "pts_std": 1.1
+  }
+ },
+ "8111": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 6,
+   "pts_ppr": 7.7,
+   "pts_half_ppr": 5.7,
+   "pts_std": 3.7
+  }
+ },
+ "8116": {
+  "team": "GB",
+  "stats": {}
+ },
+ "8117": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "8121": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 9,
+   "rec_air_yd": 58,
+   "rec_rz_tgt": 3,
+   "pts_ppr": 23.8,
+   "pts_half_ppr": 20.8,
+   "pts_std": 17.8
+  }
+ },
+ "8122": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "8125": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "8126": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 3,
+   "rec_rz_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 1,
+   "pts_ppr": 11,
+   "pts_half_ppr": 9.5,
+   "pts_std": 8
+  }
+ },
+ "8129": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "8130": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 12,
+   "rec_air_yd": 16,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 10.1,
+   "pts_half_ppr": 6.6,
+   "pts_std": 3.1
+  }
+ },
+ "8131": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 12,
+   "rec_air_yd": 38,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 13.6,
+   "pts_half_ppr": 10.1,
+   "pts_std": 6.6
+  }
+ },
+ "8132": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -6,
+   "rush_att": 8,
+   "rush_yd": 42,
+   "rush_rz_att": 2,
+   "pts_ppr": 12.9,
+   "pts_half_ppr": 11.9,
+   "pts_std": 10.9
+  }
+ },
+ "8134": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 25,
+   "rec_rz_tgt": 1,
+   "fum_lost": 1,
+   "pts_ppr": 13.2,
+   "pts_half_ppr": 9.7,
+   "pts_std": 6.2
+  }
+ },
+ "8135": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 42,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 11.2,
+   "pts_std": 10.7
+  }
+ },
+ "8137": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 70,
+   "pts_ppr": 9.5,
+   "pts_half_ppr": 8.5,
+   "pts_std": 7.5
+  }
+ },
+ "8138": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -3,
+   "rush_att": 12,
+   "rush_yd": 75,
+   "rush_rz_att": 4,
+   "pts_ppr": 16.3,
+   "pts_half_ppr": 15.3,
+   "pts_std": 14.3
+  }
+ },
+ "8142": {
+  "team": "IND",
+  "stats": {}
+ },
+ "8145": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "8146": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 25,
+   "pts_ppr": 5.7,
+   "pts_half_ppr": 4.2,
+   "pts_std": 2.7
+  }
+ },
+ "8147": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 22,
+   "pts_ppr": 6.7,
+   "pts_half_ppr": 5.2,
+   "pts_std": 3.7
+  }
+ },
+ "8148": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 83,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 16.2,
+   "pts_half_ppr": 13.2,
+   "pts_std": 10.2
+  }
+ },
+ "8150": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 13,
+   "rec_air_yd": 26,
+   "rec_rz_tgt": 1,
+   "rush_att": 16,
+   "rush_yd": 80,
+   "rush_rz_att": 4,
+   "pts_ppr": 36.7,
+   "pts_half_ppr": 31.7,
+   "pts_std": 26.7
+  }
+ },
+ "8151": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -5,
+   "rush_att": 22,
+   "rush_yd": 177,
+   "rush_rz_att": 4,
+   "pts_ppr": 30.9,
+   "pts_half_ppr": 30.4,
+   "pts_std": 29.9
+  }
+ },
+ "8160": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "8161": {
+  "team": "MIA",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 11,
+   "pass_att": 17,
+   "pass_rz_att": 1,
+   "pass_air_yd": 32,
+   "pass_sack": 2,
+   "fum_lost": 1,
+   "pts_ppr": 2.5,
+   "pts_half_ppr": 2.5,
+   "pts_std": 2.5
+  }
+ },
+ "8162": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "8167": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 23,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 7.7,
+   "pts_half_ppr": 6.2,
+   "pts_std": 4.7
+  }
+ },
+ "8168": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -4,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 0.8,
+   "pts_half_ppr": 0.3,
+   "pts_std": -0.2
+  }
+ },
+ "8170": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "8172": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "8177": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "8180": {
+  "team": "LV",
+  "stats": {}
+ },
+ "8181": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 1,
+   "rush_att": 2,
+   "rush_yd": -4,
+   "pts_ppr": 1.5,
+   "pts_half_ppr": 1,
+   "pts_std": 0.5
+  }
+ },
+ "8183": {
+  "team": "SF",
+  "stats": {
+   "rush_att": 10,
+   "rush_yd": 29,
+   "rush_rz_att": 2,
+   "pass_att": 30,
+   "pass_rz_att": 4,
+   "pass_air_yd": 98,
+   "pts_ppr": 19.62,
+   "pts_half_ppr": 19.62,
+   "pts_std": 19.62
+  }
+ },
+ "8188": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 66,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 28.1,
+   "pts_half_ppr": 25.6,
+   "pts_std": 23.1
+  }
+ },
+ "8195": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "8204": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "8205": {
+  "team": "DET",
+  "stats": {}
+ },
+ "8206": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "8207": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 3,
+   "rush_yd": 12,
+   "pts_ppr": 1.2,
+   "pts_half_ppr": 1.2,
+   "pts_std": 1.2
+  }
+ },
+ "8208": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 8,
+   "rush_att": 2,
+   "rush_yd": 7,
+   "pts_ppr": 7.9,
+   "pts_half_ppr": 6.9,
+   "pts_std": 5.9
+  }
+ },
+ "8210": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 5,
+   "pts_ppr": 2.5,
+   "pts_half_ppr": 1.5,
+   "pts_std": 0.5
+  }
+ },
+ "8214": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "8219": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "pts_ppr": 2.1,
+   "pts_half_ppr": 1.6,
+   "pts_std": 1.1
+  }
+ },
+ "8220": {
+  "team": "SF",
+  "stats": {}
+ },
+ "8223": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "8225": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -3,
+   "pts_ppr": 1.2,
+   "pts_half_ppr": 0.7,
+   "pts_std": 0.2
+  }
+ },
+ "8227": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "8228": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 70,
+   "tm_off_snp": 72,
+   "rec_tgt": 6,
+   "rec_air_yd": -7,
+   "rec_rz_tgt": 1,
+   "rush_att": 17,
+   "rush_yd": 93,
+   "pts_ppr": 15.6,
+   "pts_half_ppr": 14.1,
+   "pts_std": 12.6
+  }
+ },
+ "8249": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "8250": {
+  "team": "DET",
+  "stats": {}
+ },
+ "8253": {
+  "team": "LV",
+  "stats": {}
+ },
+ "8254": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "8259": {
+  "team": "LAC",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 12,
+   "pts_half_ppr": 12,
+   "pts_std": 12
+  }
+ },
+ "8408": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "8414": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "8423": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "8489": {
+  "team": "IND",
+  "stats": {}
+ },
+ "8500": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "8527": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 9,
+   "fum_lost": 1,
+   "pts_ppr": -0.1,
+   "pts_half_ppr": -0.6,
+   "pts_std": -1.1
+  }
+ },
+ "8676": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 19,
+   "rush_att": 2,
+   "rush_yd": 33,
+   "rush_rz_att": 1,
+   "pts_ppr": 12.3,
+   "pts_half_ppr": 11.8,
+   "pts_std": 11.3
+  }
+ },
+ "8698": {
+  "team": "SF",
+  "stats": {}
+ },
+ "8755": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "8756": {
+  "team": "PIT",
+  "stats": {}
+ },
+ "8799": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "8800": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "8849": {
+  "team": "NE",
+  "stats": {}
+ },
+ "8861": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "8917": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "8924": {
+  "team": "KC",
+  "stats": {}
+ },
+ "9220": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "9221": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 11,
+   "rec_rz_tgt": 1,
+   "rush_att": 15,
+   "rush_yd": 46,
+   "rush_rz_att": 3,
+   "pts_ppr": 17.7,
+   "pts_half_ppr": 15.7,
+   "pts_std": 13.7
+  }
+ },
+ "9224": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 11,
+   "rec_air_yd": 8,
+   "rush_att": 9,
+   "rush_yd": 10,
+   "rush_rz_att": 1,
+   "pts_ppr": 19.1,
+   "pts_half_ppr": 13.6,
+   "pts_std": 8.1
+  }
+ },
+ "9225": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 14,
+   "rush_yd": 55,
+   "rush_rz_att": 2,
+   "pts_ppr": 5.5,
+   "pts_half_ppr": 5.5,
+   "pts_std": 5.5
+  }
+ },
+ "9226": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "9227": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "9228": {
+  "team": "CAR",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 3,
+   "pass_att": 41,
+   "pass_rz_att": 4,
+   "pass_air_yd": 217,
+   "pass_sack": 3,
+   "pts_ppr": 21.46,
+   "pts_half_ppr": 21.46,
+   "pts_std": 21.46
+  }
+ },
+ "9229": {
+  "team": "IND",
+  "stats": {}
+ },
+ "9230": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "9479": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 51,
+   "tm_off_snp": 72,
+   "rec_tgt": 5,
+   "rec_air_yd": 18,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 10.2,
+   "pts_std": 8.7
+  }
+ },
+ "9480": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 39,
+   "pts_ppr": 16.5,
+   "pts_half_ppr": 13,
+   "pts_std": 9.5
+  }
+ },
+ "9481": {
+  "team": "GB",
+  "stats": {}
+ },
+ "9482": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 10,
+   "rec_air_yd": 44,
+   "pts_ppr": 16.2,
+   "pts_half_ppr": 12.2,
+   "pts_std": 8.2
+  }
+ },
+ "9484": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_rz_tgt": 3,
+   "rush_att": 1,
+   "rush_yd": 3,
+   "rush_rz_att": 1,
+   "pts_ppr": 16.5,
+   "pts_half_ppr": 13.5,
+   "pts_std": 10.5
+  }
+ },
+ "9486": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 5,
+   "pts_ppr": 4.8,
+   "pts_half_ppr": 3.3,
+   "pts_std": 1.8
+  }
+ },
+ "9487": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_rz_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 3,
+   "pts_ppr": 2,
+   "pts_half_ppr": 1.5,
+   "pts_std": 1
+  }
+ },
+ "9488": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 53,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 12.6,
+   "pts_half_ppr": 10.1,
+   "pts_std": 7.6
+  }
+ },
+ "9490": {
+  "team": "LV",
+  "stats": {}
+ },
+ "9493": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 12,
+   "rec_air_yd": 84,
+   "rush_att": 1,
+   "rush_yd": 2,
+   "rush_rz_att": 1,
+   "pts_ppr": 27.7,
+   "pts_half_ppr": 23.2,
+   "pts_std": 18.7
+  }
+ },
+ "9494": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": -4,
+   "fum_lost": 1,
+   "pts_half_ppr": -0.5,
+   "pts_std": -1
+  }
+ },
+ "9497": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "9500": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 2,
+   "pts_ppr": 4.6,
+   "pts_half_ppr": 3.1,
+   "pts_std": 1.6
+  }
+ },
+ "9501": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 15,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 3.5,
+   "pts_half_ppr": 2.5,
+   "pts_std": 1.5
+  }
+ },
+ "9502": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "9504": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 35,
+   "pts_ppr": 6.6,
+   "pts_half_ppr": 5.1,
+   "pts_std": 3.6
+  }
+ },
+ "9506": {
+  "team": "TB",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 10,
+   "rush_rz_att": 3,
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7
+  }
+ },
+ "9508": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -3,
+   "rush_att": 2,
+   "rush_yd": 7,
+   "rush_rz_att": 1,
+   "pts_ppr": 1.6,
+   "pts_half_ppr": 1.1,
+   "pts_std": 0.6
+  }
+ },
+ "9510": {
+  "team": "PIT",
+  "stats": {
+   "tm_off_snp": 72
+  }
+ },
+ "9511": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": -2,
+   "rush_att": 10,
+   "rush_yd": 39,
+   "pts_ppr": 11.3,
+   "pts_half_ppr": 8.8,
+   "pts_std": 6.3
+  }
+ },
+ "9753": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "9754": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 44,
+   "rush_att": 1,
+   "rush_yd": -4,
+   "pts_ppr": 5,
+   "pts_half_ppr": 4.5,
+   "pts_std": 4
+  }
+ },
+ "9756": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 32,
+   "rush_att": 1,
+   "rush_yd": -1,
+   "pts_ppr": 9.1,
+   "pts_half_ppr": 7.1,
+   "pts_std": 5.1
+  }
+ },
+ "9758": {
+  "team": "HOU",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 12,
+   "pass_att": 31,
+   "pass_rz_att": 2,
+   "pass_air_yd": 212,
+   "pass_sack": 2,
+   "pts_ppr": 23.08,
+   "pts_half_ppr": 23.08,
+   "pts_std": 23.08
+  }
+ },
+ "9997": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 10,
+   "rec_air_yd": 70,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 25.8,
+   "pts_half_ppr": 21.8,
+   "pts_std": 17.8
+  }
+ },
+ "9998": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "9999": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "10210": {
+  "team": "NE",
+  "stats": {}
+ },
+ "10212": {
+  "team": "GB",
+  "stats": {}
+ },
+ "10213": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 34,
+   "pts_ppr": 8.4,
+   "pts_half_ppr": 6.4,
+   "pts_std": 4.4
+  }
+ },
+ "10214": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "10215": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "10218": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 18,
+   "pts_ppr": 7.6,
+   "pts_half_ppr": 6.1,
+   "pts_std": 4.6
+  }
+ },
+ "10219": {
+  "team": "JAX",
+  "stats": {
+   "rush_att": 6,
+   "rush_yd": 35,
+   "rush_rz_att": 1,
+   "pts_ppr": 9.5,
+   "pts_half_ppr": 9.5,
+   "pts_std": 9.5
+  }
+ },
+ "10220": {
+  "team": "IND",
+  "stats": {}
+ },
+ "10222": {
+  "team": "GB",
+  "stats": {}
+ },
+ "10223": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "10224": {
+  "team": "SF",
+  "stats": {}
+ },
+ "10225": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "10226": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "10227": {
+  "team": "TB",
+  "stats": {}
+ },
+ "10228": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "10229": {
+  "team": "KC",
+  "stats": {}
+ },
+ "10231": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 9.9,
+   "pts_half_ppr": 8.9,
+   "pts_std": 7.9
+  }
+ },
+ "10232": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 13,
+   "rec_air_yd": 69,
+   "rec_rz_tgt": 4,
+   "pts_ppr": 16.5,
+   "pts_half_ppr": 13,
+   "pts_std": 9.5
+  }
+ },
+ "10234": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 6,
+   "fum_lost": 1,
+   "pts_ppr": -0.4,
+   "pts_half_ppr": -0.9,
+   "pts_std": -1.4
+  }
+ },
+ "10235": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 5,
+   "rec_rz_tgt": 1,
+   "rush_att": 4,
+   "rush_yd": 16,
+   "rush_rz_att": 2,
+   "pts_ppr": 3.3,
+   "pts_half_ppr": 2.8,
+   "pts_std": 2.3
+  }
+ },
+ "10236": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.7,
+   "pts_half_ppr": 1.2,
+   "pts_std": 0.7
+  }
+ },
+ "10857": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "10859": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 13,
+   "rec_air_yd": 60,
+   "rec_rz_tgt": 4,
+   "pts_ppr": 22.4,
+   "pts_half_ppr": 18.4,
+   "pts_std": 14.4
+  }
+ },
+ "10867": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "10871": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "10955": {
+  "team": "ARI",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8
+  }
+ },
+ "10983": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "11034": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "11056": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "11058": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "11068": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 45,
+   "rec_rz_tgt": 3,
+   "pts_ppr": 7.9,
+   "pts_half_ppr": 6.4,
+   "pts_std": 4.9
+  }
+ },
+ "11113": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "11157": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 25,
+   "pts_ppr": 5.2,
+   "pts_half_ppr": 4.2,
+   "pts_std": 3.2
+  }
+ },
+ "11186": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "11201": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 22,
+   "tm_off_snp": 64
+  }
+ },
+ "11237": {
+  "team": "DET",
+  "stats": {}
+ },
+ "11256": {
+  "team": "CHI",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": 1,
+   "rush_rz_att": 4,
+   "pass_att": 34,
+   "pass_rz_att": 6,
+   "pass_air_yd": 133,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "pts_ppr": 9.82,
+   "pts_half_ppr": 9.82,
+   "pts_std": 9.82
+  }
+ },
+ "11261": {
+  "team": "CLE",
+  "stats": {
+   "tm_off_snp": 64,
+   "fga": 2,
+   "pts_ppr": 12,
+   "pts_half_ppr": 12,
+   "pts_std": 12
+  }
+ },
+ "11273": {
+  "team": "KC",
+  "stats": {}
+ },
+ "11280": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "11292": {
+  "team": "NE",
+  "stats": {}
+ },
+ "11299": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "11304": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "11306": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "11320": {
+  "team": "KC",
+  "stats": {}
+ },
+ "11370": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "rush_att": 4,
+   "rush_yd": 30,
+   "rush_rz_att": 2,
+   "pts_ppr": 4.5,
+   "pts_half_ppr": 4,
+   "pts_std": 3.5
+  }
+ },
+ "11371": {
+  "team": "NE",
+  "stats": {}
+ },
+ "11377": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "11384": {
+  "team": "LV",
+  "stats": {}
+ },
+ "11421": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "11433": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "11435": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": -15,
+   "rush_att": 21,
+   "rush_yd": 81,
+   "rush_rz_att": 2,
+   "pts_ppr": 27,
+   "pts_half_ppr": 25.5,
+   "pts_std": 24
+  }
+ },
+ "11439": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 1,
+   "tm_off_snp": 64,
+   "rush_att": 1,
+   "rush_yd": 28,
+   "pts_ppr": 8.8,
+   "pts_half_ppr": 8.8,
+   "pts_std": 8.8
+  }
+ },
+ "11508": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "11520": {
+  "team": "DET",
+  "stats": {}
+ },
+ "11533": {
+  "team": "DAL",
+  "stats": {
+   "fga": 4,
+   "pts_ppr": 10,
+   "pts_half_ppr": 10,
+   "pts_std": 10
+  }
+ },
+ "11539": {
+  "team": "DET",
+  "stats": {
+   "fga": 4,
+   "pts_ppr": 18,
+   "pts_half_ppr": 18,
+   "pts_std": 18
+  }
+ },
+ "11557": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "11558": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "11563": {
+  "team": "DEN",
+  "stats": {
+   "rush_att": 2,
+   "rush_yd": 10,
+   "pass_att": 42,
+   "pass_rz_att": 1,
+   "pass_air_yd": 34,
+   "pts_ppr": 13.56,
+   "pts_half_ppr": 13.56,
+   "pts_std": 13.56
+  }
+ },
+ "11564": {
+  "team": "NE",
+  "stats": {
+   "rush_att": 8,
+   "rush_yd": 54,
+   "rush_rz_att": 1,
+   "pass_att": 37,
+   "pass_rz_att": 5,
+   "pass_air_yd": 204,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "pts_ppr": 27.16,
+   "pts_half_ppr": 27.16,
+   "pts_std": 27.16
+  }
+ },
+ "11565": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "11569": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "11570": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "11571": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "11573": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "11574": {
+  "team": "LV",
+  "stats": {}
+ },
+ "11575": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -7,
+   "rush_att": 1,
+   "rush_yd": 3,
+   "pts_ppr": 1.7,
+   "pts_half_ppr": 1.2,
+   "pts_std": 0.7
+  }
+ },
+ "11576": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 2,
+   "rush_att": 14,
+   "rush_yd": 59,
+   "rush_rz_att": 2,
+   "pts_ppr": 8.7,
+   "pts_half_ppr": 7.7,
+   "pts_std": 6.7
+  }
+ },
+ "11577": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 6,
+   "rush_yd": 23,
+   "rush_rz_att": 3,
+   "pts_ppr": 2.3,
+   "pts_half_ppr": 2.3,
+   "pts_std": 2.3
+  }
+ },
+ "11579": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "11581": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": -11,
+   "rec_rz_tgt": 1,
+   "rush_att": 7,
+   "rush_yd": 13,
+   "rush_rz_att": 3,
+   "pts_ppr": 9.9,
+   "pts_half_ppr": 7.4,
+   "pts_std": 4.9
+  }
+ },
+ "11582": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "11583": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "11584": {
+  "team": "TB",
+  "stats": {
+   "rush_att": 16,
+   "rush_yd": 61,
+   "rush_rz_att": 2,
+   "pts_ppr": 6.1,
+   "pts_half_ppr": 6.1,
+   "pts_std": 6.1
+  }
+ },
+ "11586": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "rush_att": 5,
+   "rush_yd": 14,
+   "pts_ppr": 3.1,
+   "pts_half_ppr": 2.6,
+   "pts_std": 2.1
+  }
+ },
+ "11588": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "11589": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "11592": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "11593": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "11596": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "11597": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 11,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 8.1,
+   "pts_half_ppr": 7.6,
+   "pts_std": 7.1
+  }
+ },
+ "11599": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 1,
+   "pts_ppr": 3,
+   "pts_half_ppr": 2.5,
+   "pts_std": 2
+  }
+ },
+ "11603": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 5,
+   "pts_ppr": 2.2,
+   "pts_half_ppr": 1.7,
+   "pts_std": 1.2
+  }
+ },
+ "11604": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 11,
+   "rec_air_yd": 73,
+   "pts_ppr": 20.6,
+   "pts_half_ppr": 17.6,
+   "pts_std": 14.6
+  }
+ },
+ "11608": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 45,
+   "pts_ppr": 15.3,
+   "pts_half_ppr": 14.3,
+   "pts_std": 13.3
+  }
+ },
+ "11610": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 37,
+   "rush_att": 2,
+   "rush_yd": 3,
+   "rush_rz_att": 1,
+   "pts_ppr": 12,
+   "pts_half_ppr": 9.5,
+   "pts_std": 7
+  }
+ },
+ "11616": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 2,
+   "pts_ppr": 0.2,
+   "pts_half_ppr": 0.2,
+   "pts_std": 0.2
+  }
+ },
+ "11617": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 14,
+   "tm_off_snp": 64
+  }
+ },
+ "11618": {
+  "team": "TB",
+  "stats": {}
+ },
+ "11620": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 62,
+   "pts_ppr": 15.4,
+   "pts_half_ppr": 12.4,
+   "pts_std": 9.4
+  }
+ },
+ "11623": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.4,
+   "pts_half_ppr": 0.9,
+   "pts_std": 0.4
+  }
+ },
+ "11624": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 46,
+   "pts_ppr": 11,
+   "pts_half_ppr": 9,
+   "pts_std": 7
+  }
+ },
+ "11626": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "11627": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "11628": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 12,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 8.2,
+   "pts_half_ppr": 7.7,
+   "pts_std": 7.2
+  }
+ },
+ "11629": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 13,
+   "pts_ppr": 2.9,
+   "pts_half_ppr": 2.4,
+   "pts_std": 1.9
+  }
+ },
+ "11630": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 22,
+   "tm_off_snp": 72,
+   "rec_tgt": 6,
+   "rec_air_yd": 29,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 16.4,
+   "pts_half_ppr": 14.9,
+   "pts_std": 13.4
+  }
+ },
+ "11631": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 17,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 9.7,
+   "pts_half_ppr": 8.7,
+   "pts_std": 7.7
+  }
+ },
+ "11632": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 105,
+   "pts_ppr": 23.2,
+   "pts_half_ppr": 20.2,
+   "pts_std": 17.2
+  }
+ },
+ "11635": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "11636": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "11637": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 88,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 23.6,
+   "pts_half_ppr": 20.6,
+   "pts_std": 17.6
+  }
+ },
+ "11638": {
+  "team": "SF",
+  "stats": {}
+ },
+ "11643": {
+  "team": "MIA",
+  "stats": {
+   "rush_att": 5,
+   "rush_yd": 7,
+   "pts_ppr": 0.7,
+   "pts_half_ppr": 0.7,
+   "pts_std": 0.7
+  }
+ },
+ "11644": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "11647": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": -6,
+   "rec_rz_tgt": 1,
+   "rush_att": 5,
+   "rush_yd": 25,
+   "pts_ppr": 11.6,
+   "pts_half_ppr": 10.6,
+   "pts_std": 9.6
+  }
+ },
+ "11648": {
+  "team": "GB",
+  "stats": {}
+ },
+ "11649": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "11651": {
+  "team": "SF",
+  "stats": {}
+ },
+ "11655": {
+  "team": "NYG",
+  "stats": {
+   "rush_att": 1,
+   "rush_yd": -1,
+   "pts_ppr": -0.1,
+   "pts_half_ppr": -0.1,
+   "pts_std": -0.1
+  }
+ },
+ "11716": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "11729": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "pts_ppr": 2.7,
+   "pts_half_ppr": 2.2,
+   "pts_std": 1.7
+  }
+ },
+ "11748": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "11762": {
+  "team": "IND",
+  "stats": {}
+ },
+ "11783": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 8,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 7.7,
+   "pts_half_ppr": 5.7,
+   "pts_std": 3.7
+  }
+ },
+ "11786": {
+  "team": "JAX",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 14,
+   "pts_half_ppr": 14,
+   "pts_std": 14
+  }
+ },
+ "11792": {
+  "team": "MIN",
+  "stats": {
+   "fga": 5,
+   "pts_ppr": 19,
+   "pts_half_ppr": 19,
+   "pts_std": 19
+  }
+ },
+ "11806": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "11911": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "11942": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "11963": {
+  "team": "LV",
+  "stats": {}
+ },
+ "11994": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -1,
+   "pts_ppr": 1.3,
+   "pts_half_ppr": 0.8,
+   "pts_std": 0.3
+  }
+ },
+ "12001": {
+  "team": "DET",
+  "stats": {}
+ },
+ "12015": {
+  "team": "LAR",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6
+  }
+ },
+ "12045": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "12048": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "rush_att": 7,
+   "rush_yd": 18,
+   "pts_ppr": 3,
+   "pts_half_ppr": 2.5,
+   "pts_std": 2
+  }
+ },
+ "12062": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "12113": {
+  "team": "GB",
+  "stats": {}
+ },
+ "12171": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "12185": {
+  "team": "IND",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 16,
+   "pts_half_ppr": 16,
+   "pts_std": 16
+  }
+ },
+ "12217": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "12267": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "12356": {
+  "team": "DET",
+  "stats": {}
+ },
+ "12357": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "12374": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "12389": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "12455": {
+  "team": "KC",
+  "stats": {}
+ },
+ "12457": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "12469": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "12472": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 22,
+   "tm_off_snp": 64,
+   "rec_tgt": 2,
+   "rec_air_yd": -10,
+   "rush_att": 2,
+   "rush_yd": 9,
+   "pts_ppr": 3.6,
+   "pts_half_ppr": 2.6,
+   "pts_std": 1.6
+  }
+ },
+ "12473": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 8,
+   "pts_ppr": 1.8,
+   "pts_half_ppr": 1.3,
+   "pts_std": 0.8
+  }
+ },
+ "12474": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 1,
+   "rush_att": 6,
+   "rush_yd": 22,
+   "rush_rz_att": 1,
+   "pts_ppr": 8.2,
+   "pts_half_ppr": 8.2,
+   "pts_std": 8.2
+  }
+ },
+ "12475": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "12476": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "12481": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "rush_att": 18,
+   "rush_yd": 58,
+   "rush_rz_att": 2,
+   "pts_ppr": 7.6,
+   "pts_half_ppr": 7.1,
+   "pts_std": 6.6
+  }
+ },
+ "12482": {
+  "team": "GB",
+  "stats": {}
+ },
+ "12483": {
+  "team": "LV",
+  "stats": {}
+ },
+ "12484": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "12485": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 15,
+   "rush_att": 1,
+   "rush_yd": 10,
+   "pts_ppr": 4.7,
+   "pts_half_ppr": 3.7,
+   "pts_std": 2.7
+  }
+ },
+ "12486": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "12487": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "12489": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 10,
+   "rec_air_yd": -26,
+   "rush_att": 7,
+   "rush_yd": 25,
+   "pts_ppr": 19.3,
+   "pts_half_ppr": 14.3,
+   "pts_std": 9.3
+  }
+ },
+ "12490": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -2,
+   "rush_att": 17,
+   "rush_yd": 73,
+   "rush_rz_att": 3,
+   "pts_ppr": 11.1,
+   "pts_half_ppr": 10.1,
+   "pts_std": 9.1
+  }
+ },
+ "12491": {
+  "team": "NE",
+  "stats": {}
+ },
+ "12492": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 31,
+   "pts_ppr": 7.7,
+   "pts_half_ppr": 6.2,
+   "pts_std": 4.7
+  }
+ },
+ "12493": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 24,
+   "rec_rz_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 2,
+   "pts_ppr": 8.8,
+   "pts_half_ppr": 6.3,
+   "pts_std": 3.8
+  }
+ },
+ "12494": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "12495": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -12,
+   "rush_att": 9,
+   "rush_yd": 100,
+   "rush_rz_att": 2,
+   "pts_ppr": 18,
+   "pts_half_ppr": 17,
+   "pts_std": 16
+  }
+ },
+ "12496": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 8,
+   "pts_ppr": 2.4,
+   "pts_half_ppr": 1.9,
+   "pts_std": 1.4
+  }
+ },
+ "12497": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 4,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 7.6,
+   "pts_half_ppr": 7.1,
+   "pts_std": 6.6
+  }
+ },
+ "12499": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 20,
+   "pts_ppr": 3.2,
+   "pts_half_ppr": 2.7,
+   "pts_std": 2.2
+  }
+ },
+ "12500": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "12501": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 12,
+   "rec_rz_tgt": 1,
+   "rush_att": 1,
+   "rush_yd": 6,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 10.2,
+   "pts_std": 8.7
+  }
+ },
+ "12502": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 1,
+   "pts_ppr": 3.5,
+   "pts_half_ppr": 3,
+   "pts_std": 2.5
+  }
+ },
+ "12503": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 7,
+   "tm_off_snp": 64,
+   "rec_tgt": 1,
+   "rec_air_yd": 2,
+   "pts_ppr": 1.2,
+   "pts_half_ppr": 0.7,
+   "pts_std": 0.2
+  }
+ },
+ "12504": {
+  "team": "GB",
+  "stats": {
+   "rush_att": 8,
+   "rush_yd": 42,
+   "rush_rz_att": 2,
+   "fum_lost": 1,
+   "pts_ppr": 2.2,
+   "pts_half_ppr": 2.2,
+   "pts_std": 2.2
+  }
+ },
+ "12505": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "12506": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 57,
+   "tm_off_snp": 64,
+   "rec_tgt": 5,
+   "rec_air_yd": 13,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 10.2,
+   "pts_std": 8.7
+  }
+ },
+ "12507": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "rush_att": 9,
+   "rush_yd": 45,
+   "rush_rz_att": 3,
+   "pts_ppr": 13.3,
+   "pts_half_ppr": 12.3,
+   "pts_std": 11.3
+  }
+ },
+ "12508": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "12509": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 54,
+   "pass_att": 1,
+   "pass_rz_att": 1,
+   "pts_ppr": 9,
+   "pts_half_ppr": 7.5,
+   "pts_std": 6
+  }
+ },
+ "12512": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 42,
+   "tm_off_snp": 64,
+   "rec_tgt": 7,
+   "rec_air_yd": -12,
+   "rec_rz_tgt": 2,
+   "rush_att": 17,
+   "rush_yd": 53,
+   "rush_rz_att": 3,
+   "pts_ppr": 21.6,
+   "pts_half_ppr": 18.6,
+   "pts_std": 15.6
+  }
+ },
+ "12514": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": -9,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 3.3,
+   "pts_half_ppr": 2.3,
+   "pts_std": 1.3
+  }
+ },
+ "12516": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "12517": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 9,
+   "rec_air_yd": 34,
+   "rec_rz_tgt": 2,
+   "pts_ppr": 11.7,
+   "pts_half_ppr": 8.7,
+   "pts_std": 5.7
+  }
+ },
+ "12518": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 5,
+   "rec_air_yd": 21,
+   "pts_ppr": 9.1,
+   "pts_half_ppr": 6.6,
+   "pts_std": 4.1
+  }
+ },
+ "12519": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 45,
+   "rush_att": 1,
+   "rush_yd": 11,
+   "pts_ppr": 11.4,
+   "pts_half_ppr": 9.4,
+   "pts_std": 7.4
+  }
+ },
+ "12520": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "12521": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "12522": {
+  "team": "TEN",
+  "stats": {
+   "rush_att": 4,
+   "rush_yd": 27,
+   "rush_rz_att": 1,
+   "pass_att": 31,
+   "pass_rz_att": 1,
+   "pass_air_yd": 122,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "pts_ppr": 16.58,
+   "pts_half_ppr": 16.58,
+   "pts_std": 16.58
+  }
+ },
+ "12523": {
+  "team": "CLE",
+  "stats": {}
+ },
+ "12524": {
+  "team": "CLE",
+  "stats": {
+   "tm_off_snp": 64
+  }
+ },
+ "12526": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 16,
+   "rec_air_yd": 127,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 45.2,
+   "pts_half_ppr": 38.2,
+   "pts_std": 31.2
+  }
+ },
+ "12527": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 8,
+   "rec_rz_tgt": 2,
+   "rush_att": 15,
+   "rush_yd": 58,
+   "pts_ppr": 18.6,
+   "pts_half_ppr": 15.6,
+   "pts_std": 12.6
+  }
+ },
+ "12529": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 2,
+   "rush_att": 14,
+   "rush_yd": 42,
+   "rush_rz_att": 1,
+   "pts_ppr": 4.2,
+   "pts_half_ppr": 4.2,
+   "pts_std": 4.2
+  }
+ },
+ "12531": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "12533": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": -4,
+   "rec_rz_tgt": 1,
+   "rush_att": 9,
+   "rush_yd": 15,
+   "rush_rz_att": 1,
+   "pts_ppr": 7,
+   "pts_half_ppr": 6,
+   "pts_std": 5
+  }
+ },
+ "12534": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -6,
+   "rush_att": 30,
+   "rush_yd": 146,
+   "rush_rz_att": 8,
+   "pts_ppr": 28,
+   "pts_half_ppr": 27.5,
+   "pts_std": 27
+  }
+ },
+ "12535": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 83,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 13.5,
+   "pts_half_ppr": 11.5,
+   "pts_std": 9.5
+  }
+ },
+ "12536": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 70,
+   "rush_att": 1,
+   "rush_yd": 4,
+   "pts_ppr": 11.9,
+   "pts_half_ppr": 10.4,
+   "pts_std": 8.9
+  }
+ },
+ "12539": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "12540": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 1,
+   "pts_ppr": 2.5,
+   "pts_half_ppr": 2,
+   "pts_std": 1.5
+  }
+ },
+ "12541": {
+  "team": "LV",
+  "stats": {}
+ },
+ "12542": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_air_yd": 42,
+   "pts_ppr": 12.2,
+   "pts_half_ppr": 11.2,
+   "pts_std": 10.2
+  }
+ },
+ "12543": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "12544": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "12547": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 2
+  }
+ },
+ "12548": {
+  "team": "GB",
+  "stats": {}
+ },
+ "12634": {
+  "team": "SF",
+  "stats": {}
+ },
+ "12641": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "12656": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "12658": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "12670": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "12699": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "12700": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.4,
+   "pts_half_ppr": 0.9,
+   "pts_std": 0.4
+  }
+ },
+ "12705": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "12711": {
+  "team": "BAL",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7
+  }
+ },
+ "12713": {
+  "team": "NE",
+  "stats": {
+   "pts_ppr": 3,
+   "pts_half_ppr": 3,
+   "pts_std": 3
+  }
+ },
+ "12718": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 3,
+   "pts_ppr": 1.7,
+   "pts_half_ppr": 1.2,
+   "pts_std": 0.7
+  }
+ },
+ "12732": {
+  "team": "DET",
+  "stats": {}
+ },
+ "12735": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "12738": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "12746": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "12756": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "12761": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "12765": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "12787": {
+  "team": "TB",
+  "stats": {}
+ },
+ "12788": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "12792": {
+  "team": "TB",
+  "stats": {}
+ },
+ "12797": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "12817": {
+  "team": "KC",
+  "stats": {}
+ },
+ "12829": {
+  "team": "GB",
+  "stats": {}
+ },
+ "12848": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "12860": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "12863": {
+  "team": "KC",
+  "stats": {}
+ },
+ "12865": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "12884": {
+  "team": "GB",
+  "stats": {}
+ },
+ "12888": {
+  "team": "NYG",
+  "stats": {}
+ },
+ "12897": {
+  "team": "KC",
+  "stats": {}
+ },
+ "12901": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "12908": {
+  "team": "NE",
+  "stats": {}
+ },
+ "12909": {
+  "team": "IND",
+  "stats": {}
+ },
+ "12925": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "12928": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "12938": {
+  "team": "DET",
+  "stats": {}
+ },
+ "12939": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "12961": {
+  "team": "CAR",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7
+  }
+ },
+ "12969": {
+  "team": "NE",
+  "stats": {}
+ },
+ "12971": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "12984": {
+  "team": "TB",
+  "stats": {}
+ },
+ "13010": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13011": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13013": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 22,
+   "pts_ppr": 4.9,
+   "pts_half_ppr": 3.9,
+   "pts_std": 2.9
+  }
+ },
+ "13042": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13047": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "13074": {
+  "team": "GB",
+  "stats": {}
+ },
+ "13075": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "rush_att": 1,
+   "rush_yd": 2,
+   "pts_ppr": 2.8,
+   "pts_half_ppr": 1.8,
+   "pts_std": 0.8
+  }
+ },
+ "13079": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "13101": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13116": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "13121": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "13122": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13124": {
+  "team": "NE",
+  "stats": {}
+ },
+ "13150": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 7,
+   "rec_air_yd": 30,
+   "rec_rz_tgt": 3,
+   "pts_ppr": 18.3,
+   "pts_half_ppr": 16.8,
+   "pts_std": 15.3
+  }
+ },
+ "13173": {
+  "team": "KC",
+  "stats": {}
+ },
+ "13179": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_rz_tgt": 1
+  }
+ },
+ "13210": {
+  "team": "GB",
+  "stats": {}
+ },
+ "13249": {
+  "team": "DET",
+  "stats": {}
+ },
+ "13264": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 9,
+   "rec_air_yd": 47,
+   "pts_ppr": 15.2,
+   "pts_half_ppr": 11.7,
+   "pts_std": 8.2
+  }
+ },
+ "13268": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 9,
+   "pts_ppr": 2.3,
+   "pts_half_ppr": 1.8,
+   "pts_std": 1.3
+  }
+ },
+ "13269": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13273": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13274": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 29,
+   "tm_off_snp": 72,
+   "rec_tgt": 2,
+   "rec_air_yd": 9,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 3.1,
+   "pts_half_ppr": 2.1,
+   "pts_std": 1.1
+  }
+ },
+ "13276": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13278": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13279": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 12,
+   "rec_air_yd": 108,
+   "fum_lost": 1,
+   "pts_ppr": 21.5,
+   "pts_half_ppr": 17,
+   "pts_std": 12.5
+  }
+ },
+ "13282": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "13285": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 48,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 13.2,
+   "pts_half_ppr": 12.2,
+   "pts_std": 11.2
+  }
+ },
+ "13286": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "13287": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -7,
+   "rush_att": 14,
+   "rush_yd": 63,
+   "rush_rz_att": 1,
+   "pts_ppr": 6.5,
+   "pts_half_ppr": 6,
+   "pts_std": 5.5
+  }
+ },
+ "13288": {
+  "team": "TEN",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 2,
+   "pts_ppr": 0.2,
+   "pts_half_ppr": 0.2,
+   "pts_std": 0.2
+  }
+ },
+ "13292": {
+  "team": "PIT",
+  "stats": {}
+ },
+ "13293": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13294": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 6,
+   "rec_air_yd": 25,
+   "pts_ppr": 5.7,
+   "pts_half_ppr": 4.2,
+   "pts_std": 2.7
+  }
+ },
+ "13298": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 59,
+   "tm_off_snp": 64,
+   "rec_tgt": 8,
+   "rec_air_yd": 26,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 11.4,
+   "pts_half_ppr": 8.9,
+   "pts_std": 6.4
+  }
+ },
+ "13299": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "pts_ppr": 2.5,
+   "pts_half_ppr": 2,
+   "pts_std": 1.5
+  }
+ },
+ "13301": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 8,
+   "rec_air_yd": 21,
+   "pts_ppr": 5.1,
+   "pts_half_ppr": 3.6,
+   "pts_std": 2.1
+  }
+ },
+ "13302": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13303": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13305": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": -4,
+   "rush_att": 9,
+   "rush_yd": 18,
+   "rush_rz_att": 2,
+   "pts_ppr": 2.7,
+   "pts_half_ppr": 2.2,
+   "pts_std": 1.7
+  }
+ },
+ "13308": {
+  "team": "TB",
+  "stats": {}
+ },
+ "13310": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "13311": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 3
+  }
+ },
+ "13313": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "13314": {
+  "team": "DET",
+  "stats": {}
+ },
+ "13315": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13316": {
+  "team": "TB",
+  "stats": {}
+ },
+ "13317": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 3,
+   "rec_air_yd": 23,
+   "pts_ppr": 4.5,
+   "pts_half_ppr": 3.5,
+   "pts_std": 2.5
+  }
+ },
+ "13318": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "13321": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13322": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -4,
+   "pts_ppr": 1.8,
+   "pts_half_ppr": 1.3,
+   "pts_std": 0.8
+  }
+ },
+ "13324": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 19,
+   "pts_ppr": 5.4,
+   "pts_half_ppr": 4.4,
+   "pts_std": 3.4
+  }
+ },
+ "13325": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "13329": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13330": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 4
+  }
+ },
+ "13333": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 4,
+   "pts_ppr": 1.6,
+   "pts_half_ppr": 1.1,
+   "pts_std": 0.6
+  }
+ },
+ "13336": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "13337": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 1,
+   "rec_air_yd": -6,
+   "pts_ppr": 2,
+   "pts_half_ppr": 1.5,
+   "pts_std": 1
+  }
+ },
+ "13338": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 4,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 1.3,
+   "pts_half_ppr": 0.8,
+   "pts_std": 0.3
+  }
+ },
+ "13339": {
+  "team": "IND",
+  "stats": {}
+ },
+ "13342": {
+  "team": "KC",
+  "stats": {}
+ },
+ "13345": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "13346": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 61,
+   "tm_off_snp": 64,
+   "rec_tgt": 7,
+   "rec_air_yd": 49,
+   "pts_ppr": 12.9,
+   "pts_half_ppr": 10.9,
+   "pts_std": 8.9
+  }
+ },
+ "13347": {
+  "team": "MIN",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 12,
+   "pts_ppr": 1.2,
+   "pts_half_ppr": 1.2,
+   "pts_std": 1.2
+  }
+ },
+ "13348": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "13349": {
+  "team": "PHI",
+  "stats": {}
+ },
+ "13353": {
+  "team": "CAR",
+  "stats": {}
+ },
+ "13355": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "13356": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "13392": {
+  "team": "KC",
+  "stats": {}
+ },
+ "13394": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 7,
+   "pts_ppr": 6.2,
+   "pts_half_ppr": 5.2,
+   "pts_std": 4.2
+  }
+ },
+ "13401": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "13405": {
+  "team": "WAS",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 1,
+   "rush_rz_att": 1,
+   "pts_ppr": 0.1,
+   "pts_half_ppr": 0.1,
+   "pts_std": 0.1
+  }
+ },
+ "13407": {
+  "team": "IND",
+  "stats": {}
+ },
+ "13408": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "13411": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "13412": {
+  "team": "DET",
+  "stats": {}
+ },
+ "13413": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "13414": {
+  "team": "SF",
+  "stats": {
+   "rush_att": 6,
+   "rush_yd": 13,
+   "rush_rz_att": 3,
+   "pts_ppr": 1.3,
+   "pts_half_ppr": 1.3,
+   "pts_std": 1.3
+  }
+ },
+ "13416": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13417": {
+  "team": "SF",
+  "stats": {}
+ },
+ "13418": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "13419": {
+  "team": "KC",
+  "stats": {}
+ },
+ "13421": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 12,
+   "rec_rz_tgt": 1,
+   "pts_ppr": 2.2,
+   "pts_half_ppr": 1.7,
+   "pts_std": 1.2
+  }
+ },
+ "13422": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "13423": {
+  "team": "PIT",
+  "stats": {
+   "tm_off_snp": 72
+  }
+ },
+ "13424": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 2,
+   "rush_att": 6,
+   "rush_yd": 31,
+   "rush_rz_att": 2,
+   "pts_ppr": 4.8,
+   "pts_half_ppr": 4.3,
+   "pts_std": 3.8
+  }
+ },
+ "13425": {
+  "team": "TB",
+  "stats": {
+   "rush_att": 8,
+   "rush_yd": 55,
+   "rush_rz_att": 1,
+   "pass_att": 27,
+   "pass_rz_att": 2,
+   "pass_air_yd": 29,
+   "pass_sack": 3,
+   "pass_int": 2,
+   "pts_ppr": 13.42,
+   "pts_half_ppr": 13.42,
+   "pts_std": 13.42
+  }
+ },
+ "13428": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "13429": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "13431": {
+  "team": "DET",
+  "stats": {}
+ },
+ "13432": {
+  "team": "SF",
+  "stats": {}
+ },
+ "13433": {
+  "team": "PIT",
+  "stats": {
+   "off_snp": 1,
+   "tm_off_snp": 72
+  }
+ },
+ "13434": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 2,
+   "rec_air_yd": 7,
+   "pts_ppr": 2.5,
+   "pts_half_ppr": 2,
+   "pts_std": 1.5
+  }
+ },
+ "13435": {
+  "team": "CLE",
+  "stats": {
+   "tm_off_snp": 64
+  }
+ },
+ "13436": {
+  "team": "CIN",
+  "stats": {}
+ },
+ "13437": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "13438": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13491": {
+  "team": "PIT",
+  "stats": {
+   "tm_off_snp": 72
+  }
+ },
+ "13516": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "13541": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "13545": {
+  "team": "GB",
+  "stats": {
+   "fga": 1,
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7
+  }
+ },
+ "13557": {
+  "team": "WAS",
+  "stats": {
+   "rush_att": 3,
+   "rush_yd": 16,
+   "pass_att": 33,
+   "pass_air_yd": 146,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "pts_ppr": 12.04,
+   "pts_half_ppr": 12.04,
+   "pts_std": 12.04
+  }
+ },
+ "13580": {
+  "team": "CLE",
+  "stats": {
+   "off_snp": 1,
+   "tm_off_snp": 64
+  }
+ },
+ "13582": {
+  "team": "DAL",
+  "stats": {}
+ },
+ "13597": {
+  "team": "LAR",
+  "stats": {}
+ },
+ "13600": {
+  "team": "TEN",
+  "stats": {}
+ },
+ "13603": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "13621": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "13630": {
+  "team": "LAC",
+  "stats": {}
+ },
+ "13645": {
+  "team": "JAX",
+  "stats": {}
+ },
+ "13662": {
+  "team": "SF",
+  "stats": {}
+ },
+ "13663": {
+  "team": "SF",
+  "stats": {}
+ },
+ "13670": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "13696": {
+  "team": "BUF",
+  "stats": {}
+ },
+ "13705": {
+  "team": "BAL",
+  "stats": {}
+ },
+ "13712": {
+  "team": "CHI",
+  "stats": {}
+ },
+ "13760": {
+  "team": "WAS",
+  "stats": {}
+ },
+ "13770": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 1
+  }
+ },
+ "13779": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13804": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13825": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13830": {
+  "team": "NE",
+  "stats": {}
+ },
+ "13833": {
+  "team": "NYG",
+  "stats": {
+   "fga": 3,
+   "pts_ppr": 14,
+   "pts_half_ppr": 14,
+   "pts_std": 14
+  }
+ },
+ "13834": {
+  "team": "NYJ",
+  "stats": {}
+ },
+ "13861": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "13862": {
+  "team": "HOU",
+  "stats": {}
+ },
+ "13879": {
+  "team": "ARI",
+  "stats": {}
+ },
+ "13890": {
+  "team": "MIN",
+  "stats": {}
+ },
+ "13898": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13905": {
+  "team": "KC",
+  "stats": {}
+ },
+ "13913": {
+  "team": "LV",
+  "stats": {}
+ },
+ "13957": {
+  "team": "IND",
+  "stats": {}
+ },
+ "13962": {
+  "team": "NE",
+  "stats": {}
+ },
+ "13964": {
+  "team": "NE",
+  "stats": {}
+ },
+ "13968": {
+  "team": "WAS",
+  "stats": {
+   "fga": 2,
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7
+  }
+ },
+ "13981": {
+  "team": "DEN",
+  "stats": {}
+ },
+ "14020": {
+  "team": "TB",
+  "stats": {}
+ },
+ "14026": {
+  "team": "MIA",
+  "stats": {}
+ },
+ "14058": {
+  "team": "SEA",
+  "stats": {}
+ },
+ "CLE": {
+  "team": "CLE",
+  "stats": {
+   "pts_ppr": 9,
+   "pts_half_ppr": 9,
+   "pts_std": 9,
+   "pts_allow": 24,
+   "sack": 5,
+   "int": 2
+  }
+ },
+ "PIT": {
+  "team": "PIT",
+  "stats": {
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8,
+   "pts_allow": 27,
+   "sack": 2,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "TEAM_CLE": {
+  "team": "CLE",
+  "stats": {
+   "rec_tgt": 33,
+   "rec_air_yd": 91,
+   "rec_rz_tgt": 4,
+   "rush_att": 27,
+   "rush_yd": 112,
+   "rush_rz_att": 3,
+   "pass_att": 33,
+   "pass_rz_att": 4,
+   "pass_air_yd": 91,
+   "pass_sack": 2,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 2,
+   "rz_conv": 2,
+   "fga": 2,
+   "pts_ppr": 91.72,
+   "pts_half_ppr": 79.72,
+   "pts_std": 67.72
+  }
+ },
+ "TEAM_PIT": {
+  "team": "PIT",
+  "stats": {
+   "rec_tgt": 39,
+   "rec_air_yd": 164,
+   "rec_rz_tgt": 7,
+   "rush_att": 19,
+   "rush_yd": 92,
+   "rush_rz_att": 2,
+   "pass_att": 40,
+   "pass_rz_att": 8,
+   "pass_air_yd": 164,
+   "pass_sack": 5,
+   "pass_int": 2,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 2,
+   "pts_ppr": 102.06,
+   "pts_half_ppr": 91.06,
+   "pts_std": 80.06
+  }
+ },
+ "NE": {
+  "team": "NE",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 26,
+   "sack": 1,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "TEAM_BAL": {
+  "team": "BAL",
+  "stats": {
+   "rec_tgt": 29,
+   "rec_air_yd": 141,
+   "rec_rz_tgt": 4,
+   "rush_att": 30,
+   "rush_yd": 112,
+   "rush_rz_att": 3,
+   "pass_att": 29,
+   "pass_rz_att": 4,
+   "pass_air_yd": 141,
+   "pass_sack": 2,
+   "rz_att": 3,
+   "rz_conv": 3,
+   "fga": 2,
+   "pts_ppr": 99.1,
+   "pts_half_ppr": 87.6,
+   "pts_std": 76.1
+  }
+ },
+ "TEAM_KC": {
+  "team": "KC",
+  "stats": {
+   "rec_tgt": 27,
+   "rec_air_yd": 111,
+   "rec_rz_tgt": 3,
+   "rush_att": 26,
+   "rush_yd": 189,
+   "rush_rz_att": 4,
+   "pass_att": 30,
+   "pass_rz_att": 4,
+   "pass_air_yd": 111,
+   "pass_sack": 2,
+   "rz_att": 4,
+   "rz_conv": 3,
+   "fga": 1,
+   "pts_ppr": 97.4,
+   "pts_half_ppr": 89.9,
+   "pts_std": 82.4
+  }
+ },
+ "TEAM_NYG": {
+  "team": "NYG",
+  "stats": {
+   "rec_tgt": 29,
+   "rec_air_yd": 205,
+   "rec_rz_tgt": 4,
+   "rush_att": 28,
+   "rush_yd": 87,
+   "rush_rz_att": 5,
+   "pass_att": 29,
+   "pass_rz_att": 4,
+   "pass_air_yd": 205,
+   "pass_sack": 4,
+   "pass_int": 2,
+   "fum_lost": 1,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 3,
+   "pts_ppr": 89.7,
+   "pts_half_ppr": 80.7,
+   "pts_std": 71.7
+  }
+ },
+ "WAS": {
+  "team": "WAS",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 30,
+   "sack": 2,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "ARI": {
+  "team": "ARI",
+  "stats": {
+   "pts_ppr": 10,
+   "pts_half_ppr": 10,
+   "pts_std": 10,
+   "pts_allow": 30,
+   "sack": 4,
+   "int": 2,
+   "fum_rec": 1
+  }
+ },
+ "GB": {
+  "team": "GB",
+  "stats": {
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8,
+   "pts_allow": 14,
+   "sack": 3,
+   "int": 2
+  }
+ },
+ "IND": {
+  "team": "IND",
+  "stats": {
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8,
+   "pts_allow": 13,
+   "sack": 2,
+   "int": 1
+  }
+ },
+ "KC": {
+  "team": "KC",
+  "stats": {
+   "pts_ppr": 4,
+   "pts_half_ppr": 4,
+   "pts_std": 4,
+   "pts_allow": 27,
+   "int": 1
+  }
+ },
+ "LV": {
+  "team": "LV",
+  "stats": {
+   "pts_ppr": 1,
+   "pts_half_ppr": 1,
+   "pts_std": 1,
+   "pts_allow": 30,
+   "sack": 2
+  }
+ },
+ "NYG": {
+  "team": "NYG",
+  "stats": {
+   "pts_ppr": 14,
+   "pts_half_ppr": 14,
+   "pts_std": 14,
+   "pts_allow": 24,
+   "sack": 2,
+   "int": 3,
+   "def_td": 1
+  }
+ },
+ "TEAM_DEN": {
+  "team": "DEN",
+  "stats": {
+   "rec_tgt": 38,
+   "rec_air_yd": 34,
+   "rec_rz_tgt": 1,
+   "rush_att": 22,
+   "rush_yd": 82,
+   "pass_att": 42,
+   "pass_rz_att": 1,
+   "pass_air_yd": 34,
+   "fum_lost": 1,
+   "rz_att": 1,
+   "rz_conv": 1,
+   "fga": 3,
+   "pts_ppr": 72.16,
+   "pts_half_ppr": 59.66,
+   "pts_std": 47.16
+  }
+ },
+ "TEAM_MIA": {
+  "team": "MIA",
+  "stats": {
+   "rec_tgt": 17,
+   "rec_air_yd": 32,
+   "rec_rz_tgt": 1,
+   "rush_att": 18,
+   "rush_yd": 121,
+   "rush_rz_att": 3,
+   "pass_att": 17,
+   "pass_rz_att": 1,
+   "pass_air_yd": 32,
+   "pass_sack": 2,
+   "fum_lost": 1,
+   "rz_att": 2,
+   "rz_conv": 1,
+   "fga": 1,
+   "pts_ppr": 37,
+   "pts_half_ppr": 32.5,
+   "pts_std": 28
+  }
+ },
+ "TEAM_NE": {
+  "team": "NE",
+  "stats": {
+   "rec_tgt": 36,
+   "rec_air_yd": 204,
+   "rec_rz_tgt": 5,
+   "rush_att": 35,
+   "rush_yd": 143,
+   "rush_rz_att": 3,
+   "pass_att": 37,
+   "pass_rz_att": 5,
+   "pass_air_yd": 204,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 3,
+   "rz_conv": 3,
+   "pts_ppr": 108.96,
+   "pts_half_ppr": 97.96,
+   "pts_std": 86.96
+  }
+ },
+ "TEAM_PHI": {
+  "team": "PHI",
+  "stats": {
+   "rec_tgt": 25,
+   "rec_air_yd": 71,
+   "rec_rz_tgt": 3,
+   "rush_att": 27,
+   "rush_yd": 104,
+   "rush_rz_att": 8,
+   "pass_att": 27,
+   "pass_rz_att": 3,
+   "pass_air_yd": 71,
+   "pass_sack": 4,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 2,
+   "pts_ppr": 55.42,
+   "pts_half_ppr": 49.42,
+   "pts_std": 43.42
+  }
+ },
+ "TEAM_TB": {
+  "team": "TB",
+  "stats": {
+   "rec_tgt": 26,
+   "rec_air_yd": 29,
+   "rec_rz_tgt": 2,
+   "rush_att": 31,
+   "rush_yd": 141,
+   "rush_rz_att": 6,
+   "pass_att": 27,
+   "pass_rz_att": 2,
+   "pass_air_yd": 29,
+   "pass_sack": 3,
+   "pass_int": 2,
+   "rz_att": 2,
+   "rz_conv": 2,
+   "pts_ppr": 67.82,
+   "pts_half_ppr": 58.32,
+   "pts_std": 48.82
+  }
+ },
+ "BAL": {
+  "team": "BAL",
+  "stats": {
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7,
+   "pts_allow": 18,
+   "sack": 1,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "CAR": {
+  "team": "CAR",
+  "stats": {
+   "pts_ppr": 1,
+   "pts_half_ppr": 1,
+   "pts_std": 1,
+   "pts_allow": 26,
+   "sack": 1
+  }
+ },
+ "DEN": {
+  "team": "DEN",
+  "stats": {
+   "pts_ppr": 3,
+   "pts_half_ppr": 3,
+   "pts_std": 3,
+   "pts_allow": 24
+  }
+ },
+ "DET": {
+  "team": "DET",
+  "stats": {
+   "pts_ppr": 3,
+   "pts_half_ppr": 3,
+   "pts_std": 3,
+   "pts_allow": 32,
+   "sack": 3
+  }
+ },
+ "LAC": {
+  "team": "LAC",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 30,
+   "sack": 3,
+   "int": 1
+  }
+ },
+ "MIN": {
+  "team": "MIN",
+  "stats": {
+   "pts_ppr": 9,
+   "pts_half_ppr": 9,
+   "pts_std": 9,
+   "pts_allow": 10,
+   "sack": 2,
+   "fum_rec": 1
+  }
+ },
+ "SEA": {
+  "team": "SEA",
+  "stats": {
+   "pts_ppr": 12,
+   "pts_half_ppr": 12,
+   "pts_std": 12,
+   "pts_allow": 23,
+   "sack": 4,
+   "int": 2,
+   "fum_rec": 1
+  }
+ },
+ "TEAM_CAR": {
+  "team": "CAR",
+  "stats": {
+   "rec_tgt": 39,
+   "rec_air_yd": 217,
+   "rec_rz_tgt": 4,
+   "rush_att": 28,
+   "rush_yd": 127,
+   "rush_rz_att": 3,
+   "pass_att": 41,
+   "pass_rz_att": 4,
+   "pass_air_yd": 217,
+   "pass_sack": 3,
+   "rz_att": 4,
+   "rz_conv": 3,
+   "fga": 2,
+   "pts_ppr": 119.76,
+   "pts_half_ppr": 105.26,
+   "pts_std": 90.76
+  }
+ },
+ "TEAM_DET": {
+  "team": "DET",
+  "stats": {
+   "rec_tgt": 51,
+   "rec_air_yd": 306,
+   "rec_rz_tgt": 11,
+   "rush_att": 15,
+   "rush_yd": 46,
+   "rush_rz_att": 3,
+   "pass_att": 52,
+   "pass_rz_att": 11,
+   "pass_air_yd": 306,
+   "pass_sack": 1,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 4,
+   "pts_ppr": 110.28,
+   "pts_half_ppr": 94.28,
+   "pts_std": 78.28
+  }
+ },
+ "TEAM_LAR": {
+  "team": "LAR",
+  "stats": {
+   "rec_tgt": 50,
+   "rec_air_yd": 209,
+   "rec_rz_tgt": 3,
+   "rush_att": 25,
+   "rush_yd": 106,
+   "rush_rz_att": 7,
+   "pass_att": 51,
+   "pass_rz_att": 3,
+   "pass_air_yd": 209,
+   "pass_sack": 1,
+   "pass_int": 2,
+   "rz_att": 5,
+   "rz_conv": 3,
+   "fga": 2,
+   "pts_ppr": 101.98,
+   "pts_half_ppr": 85.98,
+   "pts_std": 69.98
+  }
+ },
+ "TEAM_SF": {
+  "team": "SF",
+  "stats": {
+   "rec_tgt": 29,
+   "rec_air_yd": 98,
+   "rec_rz_tgt": 4,
+   "rush_att": 35,
+   "rush_yd": 140,
+   "rush_rz_att": 9,
+   "pass_att": 30,
+   "pass_rz_att": 4,
+   "pass_air_yd": 98,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 2,
+   "pts_ppr": 89.52,
+   "pts_half_ppr": 80.02,
+   "pts_std": 70.52
+  }
+ },
+ "BUF": {
+  "team": "BUF",
+  "stats": {
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5,
+   "pts_allow": 29,
+   "sack": 1,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "CIN": {
+  "team": "CIN",
+  "stats": {
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5,
+   "pts_allow": 22,
+   "sack": 4
+  }
+ },
+ "JAX": {
+  "team": "JAX",
+  "stats": {
+   "pts_ppr": 8,
+   "pts_half_ppr": 8,
+   "pts_std": 8,
+   "pts_allow": 17,
+   "sack": 2,
+   "int": 2
+  }
+ },
+ "LAR": {
+  "team": "LAR",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 20,
+   "sack": 4
+  }
+ },
+ "NYJ": {
+  "team": "NYJ",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 23,
+   "sack": 1,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "TB": {
+  "team": "TB",
+  "stats": {
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7,
+   "pts_allow": 17,
+   "int": 1,
+   "fum_rec": 1
+  }
+ },
+ "TEAM_ARI": {
+  "team": "ARI",
+  "stats": {
+   "rec_tgt": 35,
+   "rec_air_yd": 95,
+   "rec_rz_tgt": 8,
+   "rush_att": 26,
+   "rush_yd": 123,
+   "rush_rz_att": 4,
+   "pass_att": 35,
+   "pass_rz_att": 8,
+   "pass_air_yd": 95,
+   "pass_sack": 2,
+   "pass_int": 3,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 1,
+   "pts_ppr": 79.54,
+   "pts_half_ppr": 69.04,
+   "pts_std": 58.54
+  }
+ },
+ "TEAM_MIN": {
+  "team": "MIN",
+  "stats": {
+   "rec_tgt": 33,
+   "rec_air_yd": 140,
+   "rec_rz_tgt": 4,
+   "rush_att": 31,
+   "rush_yd": 123,
+   "rush_rz_att": 5,
+   "pass_att": 37,
+   "pass_rz_att": 5,
+   "pass_air_yd": 140,
+   "pass_sack": 4,
+   "rz_att": 3,
+   "fga": 5,
+   "pts_ppr": 73.88,
+   "pts_half_ppr": 60.38,
+   "pts_std": 46.88
+  }
+ },
+ "TEAM_WAS": {
+  "team": "WAS",
+  "stats": {
+   "rec_tgt": 36,
+   "rec_air_yd": 156,
+   "rec_rz_tgt": 1,
+   "rush_att": 22,
+   "rush_yd": 100,
+   "rush_rz_att": 2,
+   "pass_att": 37,
+   "pass_rz_att": 1,
+   "pass_air_yd": 156,
+   "pass_sack": 2,
+   "pass_int": 1,
+   "rz_att": 2,
+   "fga": 2,
+   "pts_ppr": 69.48,
+   "pts_half_ppr": 60.48,
+   "pts_std": 51.48
+  }
+ },
+ "CHI": {
+  "team": "CHI",
+  "stats": {
+   "pts_ppr": 7,
+   "pts_half_ppr": 7,
+   "pts_std": 7,
+   "pts_allow": 12,
+   "sack": 3
+  }
+ },
+ "DAL": {
+  "team": "DAL",
+  "stats": {
+   "pts_ppr": 1,
+   "pts_half_ppr": 1,
+   "pts_std": 1,
+   "pts_allow": 30,
+   "sack": 2
+  }
+ },
+ "HOU": {
+  "team": "HOU",
+  "stats": {
+   "pts_ppr": 4,
+   "pts_half_ppr": 4,
+   "pts_std": 4,
+   "pts_allow": 34,
+   "sack": 3
+  }
+ },
+ "TEAM_IND": {
+  "team": "IND",
+  "stats": {
+   "rec_tgt": 29,
+   "rec_air_yd": 71,
+   "rec_rz_tgt": 2,
+   "rush_att": 30,
+   "rush_yd": 128,
+   "rush_rz_att": 6,
+   "pass_att": 34,
+   "pass_rz_att": 3,
+   "pass_air_yd": 71,
+   "pass_sack": 2,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 3,
+   "rz_conv": 3,
+   "fga": 3,
+   "pts_ppr": 66.82,
+   "pts_half_ppr": 57.32,
+   "pts_std": 47.82
+  }
+ },
+ "TEAM_LV": {
+  "team": "LV",
+  "stats": {
+   "rec_tgt": 48,
+   "rec_air_yd": 219,
+   "rec_rz_tgt": 2,
+   "rush_att": 26,
+   "rush_yd": 72,
+   "rush_rz_att": 2,
+   "pass_att": 52,
+   "pass_rz_att": 2,
+   "pass_air_yd": 219,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 2,
+   "fga": 4,
+   "pts_ppr": 108.3,
+   "pts_half_ppr": 92.8,
+   "pts_std": 77.3
+  }
+ },
+ "TEAM_SEA": {
+  "team": "SEA",
+  "stats": {
+   "rec_tgt": 20,
+   "rec_air_yd": 76,
+   "rec_rz_tgt": 2,
+   "rush_att": 33,
+   "rush_yd": 138,
+   "rush_rz_att": 5,
+   "pass_att": 22,
+   "pass_rz_att": 2,
+   "pass_air_yd": 76,
+   "pass_sack": 3,
+   "pass_int": 1,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 1,
+   "pts_ppr": 81.32,
+   "pts_half_ppr": 74.82,
+   "pts_std": 68.32
+  }
+ },
+ "TEN": {
+  "team": "TEN",
+  "stats": {
+   "pts_ppr": 2,
+   "pts_half_ppr": 2,
+   "pts_std": 2,
+   "pts_allow": 24,
+   "sack": 2
+  }
+ },
+ "MIA": {
+  "team": "MIA",
+  "stats": {
+   "pts_ppr": 6,
+   "pts_half_ppr": 6,
+   "pts_std": 6,
+   "pts_allow": 15,
+   "sack": 4
+  }
+ },
+ "PHI": {
+  "team": "PHI",
+  "stats": {
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5,
+   "pts_allow": 24,
+   "sack": 1,
+   "int": 2
+  }
+ },
+ "SF": {
+  "team": "SF",
+  "stats": {
+   "pts_ppr": 5,
+   "pts_half_ppr": 5,
+   "pts_std": 5,
+   "pts_allow": 14
+  }
+ },
+ "TEAM_BUF": {
+  "team": "BUF",
+  "stats": {
+   "rec_tgt": 30,
+   "rec_air_yd": 124,
+   "rec_rz_tgt": 3,
+   "rush_att": 20,
+   "rush_yd": 91,
+   "rush_rz_att": 6,
+   "pass_att": 33,
+   "pass_rz_att": 3,
+   "pass_air_yd": 124,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 2,
+   "pts_ppr": 86.52,
+   "pts_half_ppr": 75.02,
+   "pts_std": 63.52
+  }
+ },
+ "TEAM_CHI": {
+  "team": "CHI",
+  "stats": {
+   "rec_tgt": 31,
+   "rec_air_yd": 133,
+   "rec_rz_tgt": 3,
+   "rush_att": 54,
+   "rush_yd": 232,
+   "rush_rz_att": 19,
+   "pass_att": 34,
+   "pass_rz_att": 6,
+   "pass_air_yd": 133,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 7,
+   "rz_conv": 2,
+   "fga": 3,
+   "pts_ppr": 94.72,
+   "pts_half_ppr": 82.22,
+   "pts_std": 69.72
+  }
+ },
+ "TEAM_CIN": {
+  "team": "CIN",
+  "stats": {
+   "rec_tgt": 53,
+   "rec_air_yd": 279,
+   "rec_rz_tgt": 6,
+   "rush_att": 15,
+   "rush_yd": 23,
+   "rush_rz_att": 4,
+   "pass_att": 54,
+   "pass_rz_att": 6,
+   "pass_air_yd": 279,
+   "pass_sack": 2,
+   "pass_int": 2,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 1,
+   "pts_ppr": 115.22,
+   "pts_half_ppr": 95.72,
+   "pts_std": 76.22
+  }
+ },
+ "TEAM_DAL": {
+  "team": "DAL",
+  "stats": {
+   "rec_tgt": 43,
+   "rec_air_yd": 205,
+   "rec_rz_tgt": 3,
+   "rush_att": 25,
+   "rush_yd": 75,
+   "rush_rz_att": 8,
+   "pass_att": 45,
+   "pass_rz_att": 3,
+   "pass_air_yd": 205,
+   "pass_sack": 3,
+   "rz_att": 4,
+   "rz_conv": 4,
+   "fga": 4,
+   "pts_ppr": 113.4,
+   "pts_half_ppr": 97.4,
+   "pts_std": 81.4
+  }
+ },
+ "TEAM_GB": {
+  "team": "GB",
+  "stats": {
+   "rec_tgt": 30,
+   "rec_air_yd": 57,
+   "rec_rz_tgt": 7,
+   "rush_att": 25,
+   "rush_yd": 86,
+   "rush_rz_att": 8,
+   "pass_att": 30,
+   "pass_rz_att": 7,
+   "pass_air_yd": 57,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 1,
+   "pts_ppr": 75.18,
+   "pts_half_ppr": 64.18,
+   "pts_std": 53.18
+  }
+ },
+ "TEAM_HOU": {
+  "team": "HOU",
+  "stats": {
+   "rec_tgt": 26,
+   "rec_air_yd": 212,
+   "rec_rz_tgt": 2,
+   "rush_att": 19,
+   "rush_yd": 62,
+   "rush_rz_att": 2,
+   "pass_att": 31,
+   "pass_rz_att": 2,
+   "pass_air_yd": 212,
+   "pass_sack": 2,
+   "rz_att": 2,
+   "rz_conv": 2,
+   "fga": 3,
+   "pts_ppr": 101.78,
+   "pts_half_ppr": 91.28,
+   "pts_std": 80.78
+  }
+ },
+ "TEAM_JAX": {
+  "team": "JAX",
+  "stats": {
+   "rec_tgt": 23,
+   "rec_air_yd": 88,
+   "rec_rz_tgt": 3,
+   "rush_att": 27,
+   "rush_yd": 111,
+   "rush_rz_att": 4,
+   "pass_att": 23,
+   "pass_rz_att": 3,
+   "pass_air_yd": 88,
+   "pass_sack": 4,
+   "rz_att": 2,
+   "rz_conv": 1,
+   "fga": 3,
+   "pts_ppr": 76.88,
+   "pts_half_ppr": 67.88,
+   "pts_std": 58.88
+  }
+ },
+ "TEAM_LAC": {
+  "team": "LAC",
+  "stats": {
+   "rec_tgt": 31,
+   "rec_air_yd": 122,
+   "rec_rz_tgt": 3,
+   "rush_att": 32,
+   "rush_yd": 147,
+   "rush_rz_att": 4,
+   "pass_att": 32,
+   "pass_rz_att": 3,
+   "pass_air_yd": 122,
+   "pass_sack": 4,
+   "pass_int": 2,
+   "fum_lost": 2,
+   "rz_att": 3,
+   "rz_conv": 2,
+   "fga": 3,
+   "pts_ppr": 70.16,
+   "pts_half_ppr": 60.66,
+   "pts_std": 51.16
+  }
+ },
+ "TEAM_NYJ": {
+  "team": "NYJ",
+  "stats": {
+   "rec_tgt": 15,
+   "rec_air_yd": 72,
+   "rec_rz_tgt": 1,
+   "rush_att": 14,
+   "rush_yd": 59,
+   "rush_rz_att": 2,
+   "pass_att": 15,
+   "pass_rz_att": 1,
+   "pass_air_yd": 72,
+   "pass_sack": 3,
+   "rz_att": 2,
+   "fga": 2,
+   "pts_ppr": 40.56,
+   "pts_half_ppr": 36.56,
+   "pts_std": 32.56
+  }
+ },
+ "TEAM_TEN": {
+  "team": "TEN",
+  "stats": {
+   "rec_tgt": 28,
+   "rec_air_yd": 120,
+   "rec_rz_tgt": 1,
+   "rush_att": 26,
+   "rush_yd": 85,
+   "rush_rz_att": 10,
+   "pass_att": 31,
+   "pass_rz_att": 1,
+   "pass_air_yd": 122,
+   "pass_sack": 1,
+   "pass_int": 1,
+   "fum_lost": 1,
+   "rz_att": 4,
+   "rz_conv": 2,
+   "fga": 1,
+   "pts_ppr": 74.58,
+   "pts_half_ppr": 64.58,
+   "pts_std": 54.58
+  }
+ }
+}
