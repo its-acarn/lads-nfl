@@ -77,6 +77,15 @@ export const waiverConfig = {
     buyLowAirShare: 0.25,
     redZoneOpps: 2,
   },
+  // K and DEF streaming weights (each set sums to 100).
+  streaming: {
+    defTakeaways: 40, // own sacks + INTs + fumble recoveries per game
+    defPointsAllowed: 30, // fewer is better
+    defOpponentGiveaways: 30, // next opponent's sacks taken + INTs + fumbles lost per game
+    kFieldGoalAttempts: 50, // team FGA per game
+    kStalledDrives: 30, // team red-zone trips without a TD per game
+    kPlays: 20, // team plays per game
+  },
   topN: 25,
   upgradeMargin: 10,
 }
