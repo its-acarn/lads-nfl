@@ -48,7 +48,7 @@ export function buildWaiverBoard(inputs: WaiverInputs, config: WaiverConfig, own
 
   const rostered = rosteredIds(rosters)
   const roster = ownerId ? rosters.filter((r) => r.owner_id === ownerId)[0] : undefined
-  const weakest = roster ? weakestByPosition(roster, scored) : {}
+  const weakest = roster ? weakestByPosition(roster, scored, config.outStatuses) : {}
   const ref = (p: { playerId: string; name: string; score: number }): PlayerRef => ({
     playerId: p.playerId,
     name: p.name,

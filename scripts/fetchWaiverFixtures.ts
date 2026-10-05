@@ -11,8 +11,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { flexiLeagueId2026, ladsLeagueId2026 } from '../config/config'
-import { trimPlayers, trimWeekStats } from '../helpers/waivers/trim'
-import { WaiverRoster, WeekStats } from '../helpers/waivers/types'
+import { shapeLeague, shapeRoster, shapeSchedule, shapeUser, trimPlayers, trimWeekStats } from '../helpers/waivers/trim'
+import { WaiverLeague, WaiverRoster, WaiverUser, WeekStats } from '../helpers/waivers/types'
 
 const API = 'https://api.sleeper.app/v1'
 const SCHEDULE_API = 'https://api.sleeper.com/schedule/nfl/regular'
@@ -62,7 +62,7 @@ async function main(): Promise<void> {
     weeks.push(week)
   }
 
-  const leagues: Record<string, { league: any; rosters: WaiverRoster[]; users: any[] }> = {}
+  const leagues: Record<string, { league: WaiverLeague; rosters: WaiverRoster[]; users: WaiverUser[] }> = {}
   for (const key of Object.keys(LEAGUES)) {
     const id = LEAGUES[key]
     const [league, rosters, users] = await Promise.all([
@@ -70,36 +70,15 @@ async function main(): Promise<void> {
       getJson(`${API}/league/${id}/rosters`),
       getJson(`${API}/league/${id}/users`),
     ])
-    rosters.forEach((r: WaiverRoster) =>
+    const shaped = rosters.map(shapeRoster)
+    shaped.forEach((r: WaiverRoster) =>
       [r.players, r.reserve, r.taxi].forEach((ids) => (ids || []).forEach((p) => seen.add(p)))
     )
-    leagues[key] = {
-      league: {
-        league_id: league.league_id,
-        name: league.name,
-        roster_positions: league.roster_positions,
-        scoring_settings: { rec: league.scoring_settings.rec },
-      },
-      rosters: rosters.map((r: any) => ({
-        roster_id: r.roster_id,
-        owner_id: r.owner_id,
-        players: r.players,
-        reserve: r.reserve,
-        taxi: r.taxi,
-      })),
-      users: users.map((u: any) => ({
-        user_id: u.user_id,
-        display_name: u.display_name,
-        metadata: { team_name: u.metadata?.team_name },
-      })),
-    }
+    leagues[key] = { league: shapeLeague(league), rosters: shaped, users: users.map(shapeUser) }
   }
 
   write('state.json', { week: state.week, season: state.season })
-  write(
-    'schedule.json',
-    schedule.map((g: any) => ({ week: g.week, home: g.home, away: g.away, status: g.status }))
-  )
+  write('schedule.json', shapeSchedule(schedule))
   weeks.forEach((week, i) => write(`stats.week${i + 1}.json`, week))
   write('players.json', trimPlayers(rawPlayers, seen))
   write('trending.json', trending)

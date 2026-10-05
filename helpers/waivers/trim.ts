@@ -1,7 +1,18 @@
-// Shrink raw Sleeper responses to what the scout reads, so committed fixtures
-// stay small. Used by scripts/fetchWaiverFixtures.ts.
+// Shrink raw Sleeper responses to what the scout reads. Shared by the page's
+// live fetch (helpers/waivers/fetch.ts) and scripts/fetchWaiverFixtures.ts, so
+// fixtures and live data have one shape.
 
-import { PlayerMap, PlayerMeta, STAT_KEYS, StatLine, WeekStats } from './types'
+import {
+  PlayerMap,
+  PlayerMeta,
+  ScheduleGame,
+  STAT_KEYS,
+  StatLine,
+  WaiverLeague,
+  WaiverRoster,
+  WaiverUser,
+  WeekStats,
+} from './types'
 
 export const SCOUTED_POSITIONS = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF']
 
@@ -54,4 +65,31 @@ export function trimPlayers(rawPlayers: Record<string, any>, seen: Set<string>):
     if (raw.position === 'DEF' || seen.has(id)) out[id] = toPlayerMeta(raw)
   })
   return out
+}
+
+export function shapeLeague(raw: any): WaiverLeague {
+  return {
+    league_id: raw.league_id,
+    name: raw.name,
+    roster_positions: raw.roster_positions || [],
+    scoring_settings: { rec: raw.scoring_settings?.rec },
+  }
+}
+
+export function shapeRoster(raw: any): WaiverRoster {
+  return {
+    roster_id: raw.roster_id,
+    owner_id: raw.owner_id ?? null,
+    players: raw.players ?? null,
+    reserve: raw.reserve ?? null,
+    taxi: raw.taxi ?? null,
+  }
+}
+
+export function shapeUser(raw: any): WaiverUser {
+  return { user_id: raw.user_id, display_name: raw.display_name, metadata: { team_name: raw.metadata?.team_name } }
+}
+
+export function shapeSchedule(raw: any[]): ScheduleGame[] {
+  return raw.map((g) => ({ week: g.week, home: g.home, away: g.away, status: g.status }))
 }

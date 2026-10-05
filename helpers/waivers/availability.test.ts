@@ -33,4 +33,12 @@ describe('weakestByPosition', () => {
     expect(weakest.WR!.playerId).toBe('c')
     expect(weakest.QB).toBeUndefined()
   })
+
+  it('skips players who are out (the injury alert covers them), so drops compare against healthy players', () => {
+    const r = roster({ players: ['a', 'hurt', 'q'] })
+    const hurt = { ...scored('hurt', 'RB', 3), injuryStatus: 'IR' }
+    const q = { ...scored('q', 'RB', 30), injuryStatus: 'Questionable' }
+    const weakest = weakestByPosition(r, [scored('a', 'RB', 40), hurt, q], ['Out', 'IR'])
+    expect(weakest.RB!.playerId).toBe('q')
+  })
 })
