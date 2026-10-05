@@ -16,6 +16,9 @@ import { WaiverRoster, WeekStats } from '../helpers/waivers/types'
 
 const API = 'https://api.sleeper.app/v1'
 const SCHEDULE_API = 'https://api.sleeper.com/schedule/nfl/regular'
+// The api.sleeper.com stats feed carries each player's team for that week;
+// api.sleeper.app/v1's does not.
+const STATS_API = 'https://api.sleeper.com/stats/nfl'
 const LEAGUES: Record<string, string> = { lads: ladsLeagueId2026, flexi: flexiLeagueId2026 }
 const OUT_DIR = path.join(__dirname, '..', 'fixtures', 'waivers', '2026')
 
@@ -54,7 +57,7 @@ async function main(): Promise<void> {
   const seen = new Set<string>()
   const weeks: WeekStats[] = []
   for (let w = 1; w <= state.week; w++) {
-    const week = trimWeekStats(await getJson(`${API}/stats/nfl/regular/${state.season}/${w}`), rawPlayers)
+    const week = trimWeekStats(await getJson(`${STATS_API}/${state.season}/${w}?season_type=regular`))
     Object.keys(week).forEach((id) => seen.add(id))
     weeks.push(week)
   }

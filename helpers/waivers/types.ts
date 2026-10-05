@@ -36,11 +36,17 @@ export const STAT_KEYS = [
 ] as const
 export type StatKey = typeof STAT_KEYS[number]
 
-// One player's (or team's) line for one week. Sleeper omits zero stats.
+// One player's (or team's) stats for one week. Sleeper omits zero stats.
 export type StatLine = Partial<Record<StatKey, number>>
-// GET /stats/nfl/regular/{season}/{week}: keyed by player id, 'TEAM_XXX'
-// (team offensive totals) or 'XXX' (that team's fantasy defence).
-export type WeekStats = Record<string, StatLine>
+// One row of GET api.sleeper.com/stats/nfl/{season}/{week}, trimmed. `team`
+// is the NFL team he played for THAT week, so traded players split correctly.
+export interface WeekLine {
+  team: string | null
+  stats: StatLine
+}
+// Keyed by player id, 'TEAM_XXX' (team offensive totals) or 'XXX' (that
+// team's fantasy defence).
+export type WeekStats = Record<string, WeekLine>
 
 export interface ScheduleGame {
   week: number

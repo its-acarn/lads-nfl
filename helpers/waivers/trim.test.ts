@@ -10,17 +10,17 @@ const rawPlayers: Record<string, any> = {
 }
 
 describe('trimWeekStats', () => {
-  it('keeps only fantasy players, team and defence entries, and only STAT_KEYS', () => {
-    const week = {
-      '1': { off_snp: 50, rec_tgt: 7, pos_rank_ppr: 12 },
-      '2': { idp_tkl: 9, off_snp: 0 },
-      TEAM_NO: { pass_att: 33, penalty: 4 },
-      NO: { pts_allow: 17, def_kr: 3 },
-    }
-    expect(trimWeekStats(week, rawPlayers)).toEqual({
-      '1': { off_snp: 50, rec_tgt: 7 },
-      TEAM_NO: { pass_att: 33 },
-      NO: { pts_allow: 17 },
+  it('keeps fantasy players, team and defence rows with their week team, and only STAT_KEYS', () => {
+    const rows = [
+      { player_id: '1', team: 'NO', player: { position: 'WR' }, stats: { off_snp: 50, rec_tgt: 7, pos_rank_ppr: 12 } },
+      { player_id: '2', team: 'NO', player: { position: 'LB' }, stats: { idp_tkl: 9 } },
+      { player_id: 'TEAM_NO', team: 'NO', player: {}, stats: { pass_att: 33, penalty: 4 } },
+      { player_id: 'NO', team: 'NO', player: { position: 'DEF' }, stats: { pts_allow: 17, def_kr: 3 } },
+    ]
+    expect(trimWeekStats(rows)).toEqual({
+      '1': { team: 'NO', stats: { off_snp: 50, rec_tgt: 7 } },
+      TEAM_NO: { team: 'NO', stats: { pass_att: 33 } },
+      NO: { team: 'NO', stats: { pts_allow: 17 } },
     })
   })
 })

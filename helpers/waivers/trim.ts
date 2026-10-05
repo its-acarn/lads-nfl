@@ -17,12 +17,16 @@ function pickStats(line: Record<string, number>): StatLine {
   return out
 }
 
-// Keep TEAM_XXX entries and the stat lines of scouted positions; the feed also
-// carries defensive players, who are dropped.
-export function trimWeekStats(week: Record<string, Record<string, number>>, rawPlayers: Record<string, any>): WeekStats {
+// Keep TEAM_XXX rows and the rows of scouted positions; the feed also carries
+// defensive players, who are dropped. Each row keeps the team he played for
+// that week.
+export function trimWeekStats(rows: any[]): WeekStats {
   const out: WeekStats = {}
-  Object.keys(week).forEach((id) => {
-    if (id.indexOf('TEAM_') === 0 || isScouted(rawPlayers[id])) out[id] = pickStats(week[id])
+  rows.forEach((row) => {
+    const id = String(row.player_id)
+    if (id.indexOf('TEAM_') === 0 || isScouted(row.player)) {
+      out[id] = { team: row.team ?? null, stats: pickStats(row.stats || {}) }
+    }
   })
   return out
 }
