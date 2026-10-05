@@ -1,6 +1,7 @@
-import { ReactNode, useState } from 'react'
-import { Box, Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { Fragment, ReactNode, useState } from 'react'
+import { Box, Button, Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import FlagChip from './FlagChip'
+import ScoreBreakdown from './ScoreBreakdown'
 import { formatPct, formatScore, formatTrend } from '../../helpers/waivers/format'
 import { Position, StreamRow, WaiverRow } from '../../helpers/waivers/types'
 
@@ -15,7 +16,15 @@ interface Column<R> {
   minW?: string
 }
 
-function SortableTable<R extends { playerId: string }>({ rows, columns }: { rows: R[]; columns: Column<R>[] }) {
+interface TableProps<R> {
+  rows: R[]
+  columns: Column<R>[]
+  // Optional detail shown under a row when it is expanded.
+  renderDetail?: (row: R) => ReactNode
+  expanded?: string | null
+}
+
+function SortableTable<R extends { playerId: string }>({ rows, columns, renderDetail, expanded }: TableProps<R>) {
   const [sort, setSort] = useState<{ key: string; desc: boolean } | null>(null)
   const column = sort ? columns.filter((c) => c.key === sort.key)[0] : undefined
   const sorted =
@@ -47,13 +56,22 @@ function SortableTable<R extends { playerId: string }>({ rows, columns }: { rows
         </Thead>
         <Tbody>
           {sorted.map((row) => (
-            <Tr key={row.playerId}>
-              {columns.map((c) => (
-                <Td key={c.key} color={'quinary'} borderColor={'gray.800'} minW={c.minW} whiteSpace={'normal'} verticalAlign={'top'}>
-                  {c.render(row)}
-                </Td>
-              ))}
-            </Tr>
+            <Fragment key={row.playerId}>
+              <Tr>
+                {columns.map((c) => (
+                  <Td key={c.key} color={'quinary'} borderColor={'gray.800'} minW={c.minW} whiteSpace={'normal'} verticalAlign={'top'}>
+                    {c.render(row)}
+                  </Td>
+                ))}
+              </Tr>
+              {renderDetail && expanded === row.playerId && (
+                <Tr>
+                  <Td colSpan={columns.length} borderColor={'gray.800'} whiteSpace={'normal'}>
+                    {renderDetail(row)}
+                  </Td>
+                </Tr>
+              )}
+            </Fragment>
           ))}
         </Tbody>
       </Table>
@@ -91,7 +109,12 @@ const share = (key: string, header: string, value: (r: WaiverRow) => number, pri
 const priorOf = (pick: (s: NonNullable<WaiverRow['usage']['prior']>) => number) => (r: WaiverRow) =>
   r.usage.prior ? pick(r.usage.prior) : null
 
-function columns(position: Position, ranks: Record<string, number>): Column<WaiverRow>[] {
+function columns(
+  position: Position,
+  ranks: Record<string, number>,
+  expanded: string | null,
+  toggle: (id: string) => void
+): Column<WaiverRow>[] {
   const lead: Column<WaiverRow>[] = [
     { key: 'rank', header: '#', render: (r) => ranks[r.playerId], sortValue: (r) => -ranks[r.playerId] },
     {
@@ -107,7 +130,22 @@ function columns(position: Position, ranks: Record<string, number>): Column<Waiv
         </Box>
       ),
     },
-    { key: 'score', header: 'Score', render: (r) => <b>{formatScore(r.score)}</b>, sortValue: (r) => r.score },
+    {
+      key: 'score',
+      header: 'Score',
+      render: (r) => (
+        <Button
+          size={'xs'}
+          variant={'outline'}
+          colorScheme={'green'}
+          title={'How this score was calculated'}
+          aria-expanded={expanded === r.playerId}
+          onClick={() => toggle(r.playerId)}>
+          {formatScore(r.score)} {expanded === r.playerId ? '▾' : '▸'}
+        </Button>
+      ),
+      sortValue: (r) => r.score,
+    },
     {
       key: 'why',
       header: 'Why',
@@ -154,9 +192,18 @@ function columns(position: Position, ranks: Record<string, number>): Column<Waiv
 }
 
 export const PositionTable = ({ position, rows }: { position: Position; rows: WaiverRow[] }) => {
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const toggle = (id: string) => setExpanded(expanded === id ? null : id)
   const ranks: Record<string, number> = {}
   rows.forEach((r, i) => (ranks[r.playerId] = i + 1))
-  return <SortableTable rows={rows} columns={columns(position, ranks)} />
+  return (
+    <SortableTable
+      rows={rows}
+      columns={columns(position, ranks, expanded, toggle)}
+      expanded={expanded}
+      renderDetail={(r) => <ScoreBreakdown player={r} />}
+    />
+  )
 }
 
 const STREAM_COLUMNS: Column<StreamRow>[] = [

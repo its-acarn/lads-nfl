@@ -91,7 +91,7 @@ const Waivers = () => {
       <Heading size={'lg'}>Waiver scout</Heading>
       <Text fontSize={'sm'}>
         Free agents ranked by how they are being used: snap, target and carry share, red-zone work, air yards, the trend in
-        each, and the offence around them. No projections.
+        each, and the offence around them. No projections. Click a score to see how it was built.
       </Text>
 
       <Stack direction={{ base: 'column', md: 'row' }} spacing={3}>

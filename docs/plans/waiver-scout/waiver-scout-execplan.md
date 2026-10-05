@@ -267,6 +267,17 @@ planning decisions follow.
 - **No `satisfies` or other TypeScript 4.9+ syntax.** The repo builds with
   TypeScript 4.8.3 under Next 13.5. (2026-10-05, Claude)
 
+- **Score breakdown on the page, and no free trend points** (2026-10-05,
+  Andrew asked for both). Clicking a score opens its breakdown: each metric's
+  value, percentile, weight and points, then the next-man-up bonus, injury
+  multiplier and cap (`ScoredPlayer.breakdown`, `ScoreBreakdown.tsx`). A
+  player with no games before his window is scored without the three trend
+  metrics, their weight spread proportionally over his other metrics, and
+  trends are ranked only among players who have earlier games. Before this,
+  with three completed weeks every player sat at the 50th percentile on
+  trends: 12.5 identical points for every RB and 15 for every WR/TE, which
+  squashed scores toward the middle.
+
 ## Outcomes & Retrospective
 
 M1–M6 shipped on 2026-10-05. `/waivers` ranks free agents in both 2026
@@ -280,9 +291,9 @@ Case Keenum's new starting role in Chicago flagged, MarShawn Lloyd the top RB
 on red-zone work.
 
 Early-season limit: with three completed weeks, every player's window is his
-whole season, so the trend metrics (30% of the WR/TE score, 25% of RB) are
-zero for everyone until week 5 completes. The score leans on raw share and
-volume until then.
+whole season, so nobody has a trend yet. Since the follow-up change, such
+players are scored on their other metrics with the trend weight spread over
+them, rather than everyone sharing a flat 50th percentile on trends.
 
 Not done: M7 (fitting weights from past seasons). Revisit after a few weeks of
 use.

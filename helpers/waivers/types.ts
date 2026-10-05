@@ -156,6 +156,22 @@ export interface Flag {
   label: string
 }
 
+// How a score was built: each metric's contribution, then the adjustments.
+export interface MetricContribution {
+  metric: string // a MetricKey from config/waivers.ts
+  values: number[] // one per component (e.g. rushing = att/g and yd/g)
+  percentile: number // 0..100 within the position (averaged over components)
+  weight: number // percentage points after any redistribution
+  points: number // weight x percentile / 100
+}
+
+export interface ScoreBreakdown {
+  metrics: MetricContribution[] // points sum to rawScore
+  nextManUpBonus: number
+  injuryMultiplier: number | null
+  capped: boolean
+}
+
 export interface ScoredPlayer {
   playerId: string
   name: string
@@ -163,6 +179,7 @@ export interface ScoredPlayer {
   team: string
   score: number // 0..100 after adjustments
   rawScore: number // weighted percentiles before adjustments
+  breakdown: ScoreBreakdown
   usage: PlayerUsage
   injuryStatus: string | null
   flags: Flag[]
