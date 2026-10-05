@@ -99,3 +99,45 @@ describe('scorePlayers', () => {
     expect(s.a.score - s.b.score).toBeCloseTo(10, 1) // teamPassVolume weight
   })
 })
+
+describe('score breakdown', () => {
+  const withPrior = (snapTrend: number) => ({ window: { snap: 0.5 + snapTrend, target: 0.2, carry: 0, airYards: 0.2 }, prior: { snap: 0.5, target: 0.2, carry: 0, airYards: 0.2 } })
+
+  it('lists each metric with value, percentile, weight and points that sum to the raw score', () => {
+    const s = byId(scorePlayers(inputs([['a', 'WR', w(0.25)], ['b', 'WR', w(0.1)], ['c', 'WR', w(0.15)]]), waiverConfig))
+    const rows = s.a.breakdown.metrics
+    expect(rows.map((r) => r.metric)).toContain('targetShare')
+    const target = rows.find((r) => r.metric === 'targetShare')!
+    expect(target.values).toEqual([0.25])
+    expect(target.percentile).toBe(100)
+    expect(target.points).toBeCloseTo((target.weight * 100) / 100)
+    expect(rows.reduce((acc, r) => acc + r.points, 0)).toBeCloseTo(s.a.rawScore)
+  })
+
+  it('drops the trend metrics for a player with no earlier games and spreads their weight over the rest', () => {
+    const s = byId(scorePlayers(inputs([['new', 'WR', { ...w(0.2), prior: null }], ['old', 'WR', withPrior(0.1)]]), waiverConfig))
+    const kinds = s.new.breakdown.metrics.map((r) => r.metric)
+    expect(kinds).not.toContain('targetShareTrend')
+    expect(kinds).not.toContain('snapShareTrend')
+    expect(s.new.breakdown.metrics.reduce((acc, r) => acc + r.weight, 0)).toBeCloseTo(100)
+    expect(s.new.breakdown.metrics.find((r) => r.metric === 'targetShare')!.weight).toBeCloseTo((30 * 100) / 70)
+    expect(s.old.breakdown.metrics.map((r) => r.metric)).toContain('snapShareTrend')
+  })
+
+  it('ranks trends only among players who have earlier games', () => {
+    const s = byId(
+      scorePlayers(inputs([['up', 'WR', withPrior(0.3)], ['flat', 'WR', withPrior(0.1)], ['new', 'WR', { ...w(0.2), prior: null }]]), waiverConfig)
+    )
+    const trendPct = (id: string) => s[id].breakdown.metrics.find((r) => r.metric === 'snapShareTrend')!.percentile
+    expect(trendPct('up')).toBe(100)
+    expect(trendPct('flat')).toBe(0)
+  })
+
+  it('records the adjustments after the raw score', () => {
+    const nmu = { starterId: 'x', starterName: 'Starter', starterStatus: 'Out' }
+    const s = byId(scorePlayers(inputs([['a', 'RB', {}, 'Questionable'], ['b', 'RB', {}]], { nextManUp: { a: nmu } }), waiverConfig))
+    expect(s.a.breakdown).toMatchObject({ nextManUpBonus: 15, injuryMultiplier: 0.9, capped: false })
+    expect(s.b.breakdown).toMatchObject({ nextManUpBonus: 0, injuryMultiplier: null, capped: false })
+    expect(s.a.score).toBeCloseTo((s.a.rawScore + 15) * 0.9)
+  })
+})

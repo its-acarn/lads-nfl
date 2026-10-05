@@ -6,7 +6,7 @@ import { ScoredPlayer, WaiverRoster } from './types'
 
 const roster = (over: Partial<WaiverRoster>): WaiverRoster => ({ roster_id: 1, owner_id: 'u1', players: [], reserve: null, taxi: null, ...over })
 const scored = (id: string, position: ScoredPlayer['position'], score: number): ScoredPlayer => ({
-  playerId: id, name: `P${id}`, position, team: 'NO', score, rawScore: score, usage: usageOf(id), injuryStatus: null, flags: [], trendingRank: null,
+  playerId: id, name: `P${id}`, position, team: 'NO', score, rawScore: score, breakdown: { metrics: [], nextManUpBonus: 0, injuryMultiplier: null, capped: false }, usage: usageOf(id), injuryStatus: null, flags: [], trendingRank: null,
 })
 
 describe('rosteredIds', () => {
