@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config'
 // build. Vitest transpiles tests itself via esbuild.
 export default defineConfig({
   test: {
-    include: ['helpers/draft/**/*.test.ts', 'scripts/**/*.test.ts'],
+    include: ['helpers/draft/**/*.test.ts', 'helpers/waivers/**/*.test.ts', 'scripts/**/*.test.ts'],
     watch: false,
   },
 })

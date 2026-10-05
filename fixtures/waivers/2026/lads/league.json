@@ -1,0 +1,23 @@
+{
+ "league_id": "1325817907900354560",
+ "name": "LadsLadsLads",
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "FLEX",
+  "K",
+  "DEF",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ],
+ "scoring_settings": {
+  "rec": 0.5
+ }
+}

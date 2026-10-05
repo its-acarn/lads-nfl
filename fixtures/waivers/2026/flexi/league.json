@@ -1,0 +1,31 @@
+{
+ "league_id": "1386470320080171008",
+ "name": "I’m bringing Flexi back",
+ "roster_positions": [
+  "QB",
+  "RB",
+  "RB",
+  "WR",
+  "WR",
+  "TE",
+  "FLEX",
+  "FLEX",
+  "FLEX",
+  "SUPER_FLEX",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN",
+  "BN"
+ ],
+ "scoring_settings": {
+  "rec": 1
+ }
+}

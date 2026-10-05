@@ -1,0 +1,1640 @@
+[
+ {
+  "week": 1,
+  "home": "CAR",
+  "away": "CHI",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "CIN",
+  "away": "TB",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "DET",
+  "away": "NO",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "HOU",
+  "away": "BUF",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "IND",
+  "away": "BAL",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "JAX",
+  "away": "CLE",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "KC",
+  "away": "DEN",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "MIN",
+  "away": "GB",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "NYG",
+  "away": "DAL",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "LV",
+  "away": "MIA",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "PHI",
+  "away": "WAS",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "PIT",
+  "away": "ATL",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "LAC",
+  "away": "ARI",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "SEA",
+  "away": "NE",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "LAR",
+  "away": "SF",
+  "status": "complete"
+ },
+ {
+  "week": 1,
+  "home": "TEN",
+  "away": "NYJ",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "ARI",
+  "away": "SEA",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "ATL",
+  "away": "CAR",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "BAL",
+  "away": "NO",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "BUF",
+  "away": "DET",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "CHI",
+  "away": "MIN",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "DAL",
+  "away": "WAS",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "DEN",
+  "away": "JAX",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "HOU",
+  "away": "CIN",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "KC",
+  "away": "IND",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "NE",
+  "away": "PIT",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "NYJ",
+  "away": "GB",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "LAC",
+  "away": "LV",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "SF",
+  "away": "MIA",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "LAR",
+  "away": "NYG",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "TB",
+  "away": "CLE",
+  "status": "complete"
+ },
+ {
+  "week": 2,
+  "home": "TEN",
+  "away": "PHI",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "BUF",
+  "away": "LAC",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "CHI",
+  "away": "PHI",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "CLE",
+  "away": "CAR",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "DAL",
+  "away": "BAL",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "DEN",
+  "away": "LAR",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "DET",
+  "away": "NYJ",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "GB",
+  "away": "ATL",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "IND",
+  "away": "HOU",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "JAX",
+  "away": "NE",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "MIA",
+  "away": "KC",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "NO",
+  "away": "LV",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "NYG",
+  "away": "TEN",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "PIT",
+  "away": "CIN",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "SF",
+  "away": "ARI",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "TB",
+  "away": "MIN",
+  "status": "complete"
+ },
+ {
+  "week": 3,
+  "home": "WAS",
+  "away": "SEA",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "BAL",
+  "away": "TEN",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "BUF",
+  "away": "NE",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "CAR",
+  "away": "DET",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "CHI",
+  "away": "NYJ",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "CIN",
+  "away": "JAX",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "CLE",
+  "away": "PIT",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "HOU",
+  "away": "DAL",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "MIN",
+  "away": "MIA",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "NO",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 4,
+  "home": "NYG",
+  "away": "ARI",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "LV",
+  "away": "KC",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "PHI",
+  "away": "LAR",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "SEA",
+  "away": "LAC",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "SF",
+  "away": "DEN",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "TB",
+  "away": "GB",
+  "status": "complete"
+ },
+ {
+  "week": 4,
+  "home": "WAS",
+  "away": "IND",
+  "status": "complete"
+ },
+ {
+  "week": 5,
+  "home": "ARI",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "ATL",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "DAL",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "GB",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "JAX",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "MIA",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "NE",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "NO",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "NYJ",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "PIT",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "LAC",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "SEA",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "LAR",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "TEN",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 5,
+  "home": "WAS",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "ATL",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "CLE",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "DAL",
+  "away": "SEA",
+  "status": "canceled"
+ },
+ {
+  "week": 6,
+  "home": "DEN",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "GB",
+  "away": "DAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "IND",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "JAX",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "KC",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "NE",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "NYG",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "LV",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "PHI",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "SF",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "LAR",
+  "away": "ARI",
+  "status": "pre_game"
+ },
+ {
+  "week": 6,
+  "home": "TB",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "ARI",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "ATL",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "BAL",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "CAR",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "CHI",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "DET",
+  "away": "GB",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "HOU",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "MIN",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "NO",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "NYJ",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "LV",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "PHI",
+  "away": "DAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "SEA",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 7,
+  "home": "TEN",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "BUF",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "CIN",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "DAL",
+  "away": "ARI",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "DEN",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "DET",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "GB",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "JAX",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "MIA",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "NYJ",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "PIT",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "SEA",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "LAR",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "TB",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 8,
+  "home": "WAS",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "ATL",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "BAL",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "CAR",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "CHI",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "IND",
+  "away": "DAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "KC",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "MIA",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "MIN",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "NE",
+  "away": "GB",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "NO",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "PHI",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "LAC",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "SEA",
+  "away": "ARI",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "SF",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 9,
+  "home": "WAS",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "ARI",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "ATL",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "BAL",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "CIN",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "CLE",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "DAL",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "DET",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "GB",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "IND",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "NO",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "NYG",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "NYJ",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "LV",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 10,
+  "home": "TEN",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "BUF",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "CAR",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "CHI",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "DAL",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "DEN",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "DET",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "HOU",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "KC",
+  "away": "ARI",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "NYG",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "PHI",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "LAC",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "SF",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 11,
+  "home": "WAS",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "ARI",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "BUF",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "CIN",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "CLE",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "DAL",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "DET",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "HOU",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "IND",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "JAX",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "MIA",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "MIN",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "PIT",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "LAC",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "SF",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "LAR",
+  "away": "GB",
+  "status": "pre_game"
+ },
+ {
+  "week": 12,
+  "home": "TB",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "ARI",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "ATL",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "CHI",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "CLE",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "DEN",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "MIN",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "NE",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "NO",
+  "away": "GB",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "NYG",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "PIT",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "SEA",
+  "away": "DAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "LAR",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "TB",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 13,
+  "home": "TEN",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "BAL",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "CAR",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "CIN",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "CLE",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "DET",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "GB",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "JAX",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "MIA",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "NE",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "NYJ",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "LV",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "PHI",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "SEA",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "SF",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 14,
+  "home": "WAS",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "ARI",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "BUF",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "CAR",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "GB",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "HOU",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "KC",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "MIN",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "NYG",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "LV",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "PHI",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "PIT",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "LAC",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "LAR",
+  "away": "DAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "TB",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "TEN",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 15,
+  "home": "WAS",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "ATL",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "BAL",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "CHI",
+  "away": "GB",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "DAL",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "DEN",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "DET",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "IND",
+  "away": "CIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "KC",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "MIA",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "MIN",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "NO",
+  "away": "ARI",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "NYJ",
+  "away": "NE",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "LV",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "PHI",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "PIT",
+  "away": "CAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 16,
+  "home": "SEA",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "ARI",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "ATL",
+  "away": "NO",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "CAR",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "CHI",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "CIN",
+  "away": "BAL",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "CLE",
+  "away": "IND",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "DAL",
+  "away": "NYG",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "GB",
+  "away": "HOU",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "JAX",
+  "away": "WAS",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "MIA",
+  "away": "BUF",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "NE",
+  "away": "DEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "NYJ",
+  "away": "MIN",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "LAC",
+  "away": "KC",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "SF",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "TB",
+  "away": "LAR",
+  "status": "pre_game"
+ },
+ {
+  "week": 17,
+  "home": "TEN",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "ARI",
+  "away": "SF",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "BAL",
+  "away": "PIT",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "BUF",
+  "away": "NYJ",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "CAR",
+  "away": "ATL",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "CIN",
+  "away": "CLE",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "DEN",
+  "away": "LAC",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "GB",
+  "away": "DET",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "HOU",
+  "away": "TEN",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "IND",
+  "away": "JAX",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "KC",
+  "away": "LV",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "MIN",
+  "away": "CHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "NE",
+  "away": "MIA",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "NO",
+  "away": "TB",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "NYG",
+  "away": "PHI",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "LAR",
+  "away": "SEA",
+  "status": "pre_game"
+ },
+ {
+  "week": 18,
+  "home": "WAS",
+  "away": "DAL",
+  "status": "pre_game"
+ }
+]
