@@ -1,6 +1,6 @@
 # ExecPlan — Waiver Scout
 
-**Status:** Planned, not started · **Owner:** Andrew · **Branch:** `waiver-scout`
+**Status:** M1–M6 implemented; M7 deferred · **Owner:** Andrew · **Branch:** `waiver-scout`
 (cut from `main`)
 
 This ExecPlan is a living document. The sections Progress, Surprises &
@@ -98,12 +98,20 @@ score, flags, usage numbers, and an "upgrade over" column.
 - [x] (2026-10-05) M0 — Endpoint spike. Every Sleeper endpoint the page needs
       returns `access-control-allow-origin: *` and the fields listed in
       Interfaces exist. Findings are in Surprises & Discoveries.
-- [ ] M1 — Fixture capture, types, test wiring.
-- [ ] M2 — Usage metrics and team volume.
-- [ ] M3 — Score, flags and injury adjustment.
-- [ ] M4 — Kicker and defence streaming.
-- [ ] M5 — Availability, team view and the board.
-- [ ] M6 — The `/waivers` page.
+- [x] (2026-10-05) M1 — Fixture capture, types, test wiring. `npm run
+      waivers:fixtures` writes `fixtures/waivers/2026/` (648 KB, 842 players,
+      stats weeks 1–4 with week 4 still in progress at capture).
+- [x] (2026-10-05) M2 — Usage metrics and team volume (`weeks.ts`,
+      `metrics.ts`).
+- [x] (2026-10-05) M3 — Score, flags and injury adjustment
+      (`config/waivers.ts`, `score.ts`, `flags.ts`, `injury.ts`).
+- [x] (2026-10-05) M4 — Kicker and defence streaming (`streaming.ts`).
+- [x] (2026-10-05) M5 — Availability, team view and the board
+      (`availability.ts`, `board.ts`, golden snapshot).
+- [x] (2026-10-05) M6 — The `/waivers` page (`fetch.ts`, `format.ts`,
+      `components/waivers/`, `pages/waivers.tsx`, sidebar link). Suite 434/434;
+      build and export write `out/waivers.html`; checked by hand in a browser
+      against live Sleeper data.
 - [ ] M7 (deferred) — Fit weights from past seasons.
 
 ## Surprises & Discoveries
@@ -147,10 +155,66 @@ score, flags, usage numbers, and an "upgrade over" column.
   `Questionable` 280, `IR` 262, `Out` 204, `NA` 65, `PUP` 38, `Sus` 3, `DNR` 2,
   plus null. `Doubtful` was not present on a Monday but is a standard game-week
   designation and is handled.
+- **The `.com` stats feed carries each week's team.** `GET
+  https://api.sleeper.com/stats/nfl/2026/3?season_type=regular` returns a list
+  of rows with `player_id`, `team`, `opponent`, an embedded `player` and the
+  same `stats` keys. See the Decision Log.
+- **AG Grid auto row height is unreliable with chip renderers.** Rows sized
+  for one line of chips held two, and spilled into the next row. Plain tables
+  fixed it.
+- **Headless Chrome hangs on `--screenshot` on this machine**, against both
+  the dev server and the static export. Orca's built-in browser
+  (`orca tab create`, `orca screenshot`) worked for checking the page.
 - **Player map size.** `GET /players/nfl` is 2.57 MB compressed, about 12,200
   players. Fine to fetch once per visit and cache.
 
 ## Decision Log
+
+Decisions made during implementation (2026-10-05, Claude) come first; the
+planning decisions follow.
+
+- **Stats come from `api.sleeper.com/stats/nfl/{season}/{week}?season_type=regular`,
+  not `api.sleeper.app/v1/stats/nfl/regular/{season}/{week}`.** The v1 feed
+  has no team per row, so a traded player's weekly shares could not use the
+  team he played for. The `.com` feed has the same stat keys plus `team` and
+  `opponent`, and is CORS-open. `WeekStats` is therefore
+  `Record<id, { team, stats }>`.
+- **`PlayerUsage.team` is the player map's current team**, falling back to
+  the team of his last played game, so a player traded this week is judged
+  against his new offence.
+- **New-role admission also needs his last played game to be the team's
+  latest** (`PlayerUsage.playedLastTeamGame`); otherwise a week-1 cameo
+  before an injury reads as a new role.
+- **Receivers: one backup is promoted per missing top-three starter**, not
+  one per team; two starters out opens two roles.
+- **A lone percentile is 50; scores are left unrounded** and the page rounds.
+- **Streaming weights live in `config/waivers.ts`** (`streaming.*`) like every
+  other weight. One kicker per team: the depth-chart kicker (order 1).
+- **`upcomingWeek(schedule)`** (first week with no game started) is the week
+  K/DEF opponents come from; on a Monday night `throughWeek + 1` is the week
+  still finishing.
+- **Injury alerts are roster-based** (`playerId, name, position, injuryStatus,
+  bestReplacement`), cover K and DEF, and only look at active slots (players
+  minus reserve and taxi). "Questionable or worse" means any status in
+  `config.injuryMultipliers`.
+- **Drop candidates exclude players who are out.** Seen live: with an IR
+  player in an active slot, all 25 RB rows read "Upgrade over" him, because
+  his score is multiplied by 0.3. The alert already names him.
+- **The golden snapshot uses roster 1's owner.** Andrew's Sleeper display
+  name is not recorded in the repo, and any owner exercises the code.
+- **Tables are Chakra HTML tables with click-to-sort headers, not AG Grid.**
+  AG Grid's `autoHeight` measured the flag-chip cells before they laid out,
+  and rows overlapped in the browser. Superseded: the planning decision to use
+  AG Grid, below.
+- **No separate injury-status or trending-rank columns.** Both show as flag
+  chips on the row.
+- **`trim.ts` holds the shapers (`shapeLeague`, `shapeRoster`, `shapeUser`,
+  `shapeSchedule`) for both the fixture script and `fetch.ts`**, so live and
+  fixture data have one shape. The browser caches the player map trimmed to
+  active scouted players plus every DEF (544 KB in `localStorage`).
+- **Page components have no unit tests** (the repo has no component test
+  setup). Display logic is in `format.ts`, which is tested; the page was
+  checked in a browser.
 
 - **Approach A, transparent signal score, over projection-led or a fitted
   model.** Projections lag role changes, which is the thing this page exists
@@ -193,7 +257,23 @@ score, flags, usage numbers, and an "upgrade over" column.
 
 ## Outcomes & Retrospective
 
-Not started.
+M1–M6 shipped on 2026-10-05. `/waivers` ranks free agents in both 2026
+leagues from live Sleeper data, with flags, injury alerts, next-man-up,
+drop suggestions for a chosen team, and K/DEF streaming for LadsLadsLads.
+434 tests pass with no network access; the static export builds.
+
+On the capture day (week 4, Monday night still to play) the board read
+sensibly: Tank Bigsby flagged as next man up behind an injured Saquon Barkley,
+Case Keenum's new starting role in Chicago flagged, MarShawn Lloyd the top RB
+on red-zone work.
+
+Early-season limit: with three completed weeks, every player's window is his
+whole season, so the trend metrics (30% of the WR/TE score, 25% of RB) are
+zero for everyone until week 5 completes. The score leans on raw share and
+volume until then.
+
+Not done: M7 (fitting weights from past seasons). Revisit after a few weeks of
+use.
 
 ## Context and Orientation
 
@@ -380,7 +460,8 @@ Sleeper endpoints read (all GET, all CORS-open, none authenticated):
 
     https://api.sleeper.app/v1/state/nfl                         -> { week, season, season_type }
     https://api.sleeper.com/schedule/nfl/regular/{season}        -> [{ week, home, away, status }]
-    https://api.sleeper.app/v1/stats/nfl/regular/{season}/{week} -> { [playerId | 'TEAM_XXX' | 'XXX']: { [statKey]: number } }
+    https://api.sleeper.com/stats/nfl/{season}/{week}?season_type=regular
+                                                                 -> [{ player_id, team, opponent, player: { position }, stats }]
     https://api.sleeper.app/v1/players/nfl                       -> { [playerId]: PlayerMeta }
     https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=48&limit=50 -> [{ player_id, count }]
     https://api.sleeper.app/v1/league/{id}                       -> { roster_positions, scoring_settings.rec }
