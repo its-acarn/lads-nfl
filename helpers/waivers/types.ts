@@ -122,6 +122,7 @@ export interface PlayerUsage {
   lastGameSnap: number
   gamesInWindow: number
   playedOfLastThreeTeamGames: number
+  playedLastTeamGame: boolean // his last played game was his team's latest
   rzOppsPerGame: number
   ppg: number
   rushAttPerGame: number

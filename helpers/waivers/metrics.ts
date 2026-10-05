@@ -67,6 +67,7 @@ export function buildUsage(
       lastGameSnap: ratio(stat(own(last), 'off_snp'), stat(own(last), 'tm_off_snp')),
       gamesInWindow: window.length,
       playedOfLastThreeTeamGames: lastThreeTeamGames.filter((w) => played.indexOf(w) !== -1).length,
+      playedLastTeamGame: lastThreeTeamGames[lastThreeTeamGames.length - 1] === last,
       rzOppsPerGame: perGame((w) => stat(own(w), 'rec_rz_tgt') + stat(own(w), 'rush_rz_att')),
       ppg: perGame((w) => stat(own(w), pointsKey)),
       rushAttPerGame: perGame((w) => stat(own(w), 'rush_att')),

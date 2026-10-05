@@ -35,6 +35,15 @@ describe('buildUsage', () => {
     expect(u.window.target).toBeCloseTo(27 / 90)
     expect(u.lastGameSnap).toBe(1)
     expect(u.playedOfLastThreeTeamGames).toBe(2) // weeks 4,5,6; inactive in 4
+    expect(u.playedLastTeamGame).toBe(true)
+  })
+
+  it('knows when his last played game was not his team\'s latest', () => {
+    const stats: Record<number, WeekStats> = {
+      1: { ...team('NO', NO), '1': line('NO', { off_snp: 40, tm_off_snp: 60 }) },
+      2: { ...team('NO', NO), '1': line('NO', { tm_off_snp: 60 }) },
+    }
+    expect(buildUsage(stats, [1, 2], meta('1', 'RB', 'NO'), 'pts_ppr')['1'].playedLastTeamGame).toBe(false)
   })
 
   it('computes shares sum-over-sum, so a short week cannot swing them', () => {
