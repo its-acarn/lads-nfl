@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { activeIds, rosteredIds, weakestByPosition } from './availability'
+import { activeIds, dropExcludedStatuses, rosteredIds, weakestByPosition } from './availability'
+import { waiverConfig } from '../../config/waivers'
 import { usageOf } from './usage.testutil'
 import { ScoredPlayer, WaiverRoster } from './types'
 
@@ -40,5 +41,13 @@ describe('weakestByPosition', () => {
     const q = { ...scored('q', 'RB', 30), injuryStatus: 'Questionable' }
     const weakest = weakestByPosition(r, [scored('a', 'RB', 40), hurt, q], ['Out', 'IR'])
     expect(weakest.RB!.playerId).toBe('q')
+  })
+})
+
+describe('dropExcludedStatuses', () => {
+  it('covers every status that leaves a role open and every heavily discounted one, NA included', () => {
+    const statuses = dropExcludedStatuses(waiverConfig)
+    ;['Out', 'IR', 'Doubtful', 'PUP', 'Sus', 'NA'].forEach((s) => expect(statuses).toContain(s))
+    expect(statuses).not.toContain('Questionable')
   })
 })

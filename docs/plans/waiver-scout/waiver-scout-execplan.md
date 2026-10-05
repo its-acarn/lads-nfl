@@ -190,9 +190,21 @@ planning decisions follow.
 - **A lone percentile is 50; scores are left unrounded** and the page rounds.
 - **Streaming weights live in `config/waivers.ts`** (`streaming.*`) like every
   other weight. One kicker per team: the depth-chart kicker (order 1).
-- **`upcomingWeek(schedule)`** (first week with no game started) is the week
-  K/DEF opponents come from; on a Monday night `throughWeek + 1` is the week
-  still finishing.
+- **`upcomingWeek(schedule)`** is the first week in which fewer than half
+  the games have started; K/DEF opponents come from it. Monday night of week 4
+  gives 5, and so does Friday of week 5 after the Thursday game. (A first
+  version, "first week with no game started", jumped to week 6 from Thursday
+  night; the final review caught it.)
+- **A canceled game does not hold a week open.** 2026 week 6 has DAL v SEA
+  `canceled`; a week counts once every game is `complete`, `canceled`,
+  `cancelled` or `postponed` and at least one is `complete`. Found in final
+  review; without it week 6 would have been dropped for the rest of the
+  season.
+- **Only the latest league load may update the page** (`latest.ts`), so
+  switching league during the first, slow load cannot leave one league's
+  board under the other's name.
+- **Drop suggestions also skip `NA` players** and any status whose score
+  multiplier is under 0.5 (`dropExcludedStatuses`).
 - **Injury alerts are roster-based** (`playerId, name, position, injuryStatus,
   bestReplacement`), cover K and DEF, and only look at active slots (players
   minus reserve and taxi). "Questionable or worse" means any status in
@@ -260,7 +272,7 @@ planning decisions follow.
 M1–M6 shipped on 2026-10-05. `/waivers` ranks free agents in both 2026
 leagues from live Sleeper data, with flags, injury alerts, next-man-up,
 drop suggestions for a chosen team, and K/DEF streaming for LadsLadsLads.
-434 tests pass with no network access; the static export builds.
+440 tests pass with no network access; the static export builds.
 
 On the capture day (week 4, Monday night still to play) the board read
 sensibly: Tank Bigsby flagged as next man up behind an injured Saquon Barkley,

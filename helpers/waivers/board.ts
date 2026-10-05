@@ -2,7 +2,7 @@
 // feeds it live Sleeper data, the tests feed it fixtures/waivers/.
 
 import { WaiverConfig } from '../../config/waivers'
-import { activeIds, rosteredIds, weakestByPosition } from './availability'
+import { activeIds, dropExcludedStatuses, rosteredIds, weakestByPosition } from './availability'
 import { nextManUp } from './injury'
 import { buildUsage, PointsKey, teamVolume } from './metrics'
 import { scorePlayers } from './score'
@@ -48,7 +48,7 @@ export function buildWaiverBoard(inputs: WaiverInputs, config: WaiverConfig, own
 
   const rostered = rosteredIds(rosters)
   const roster = ownerId ? rosters.filter((r) => r.owner_id === ownerId)[0] : undefined
-  const weakest = roster ? weakestByPosition(roster, scored, config.outStatuses) : {}
+  const weakest = roster ? weakestByPosition(roster, scored, dropExcludedStatuses(config)) : {}
   const ref = (p: { playerId: string; name: string; score: number }): PlayerRef => ({
     playerId: p.playerId,
     name: p.name,

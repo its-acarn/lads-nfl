@@ -1,6 +1,7 @@
 // Who is on a roster, and the chosen team's weakest player at each position
 // (the suggested drop when a free agent clearly beats him).
 
+import { WaiverConfig } from '../../config/waivers'
 import { POSITIONS, Position, ScoredPlayer, WaiverRoster } from './types'
 
 export function rosteredIds(rosters: WaiverRoster[]): Set<string> {
@@ -13,6 +14,14 @@ export function rosteredIds(rosters: WaiverRoster[]): Set<string> {
 export function activeIds(roster: WaiverRoster): string[] {
   const parked = (roster.reserve || []).concat(roster.taxi || [])
   return (roster.players || []).filter((id) => parked.indexOf(id) === -1)
+}
+
+// Statuses that keep a player out of the drop suggestions: anyone whose role
+// is open (outStatuses) or whose score is cut to under half (e.g. NA), since
+// every free agent would otherwise read as an upgrade over him.
+export function dropExcludedStatuses(config: WaiverConfig): string[] {
+  const discounted = Object.keys(config.injuryMultipliers).filter((s) => config.injuryMultipliers[s] < 0.5)
+  return config.outStatuses.concat(discounted.filter((s) => config.outStatuses.indexOf(s) === -1))
 }
 
 // Drop candidates are scored players who are not out. An unscored player is

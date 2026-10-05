@@ -4,11 +4,15 @@
 
 import { ScheduleGame, WeekStats } from './types'
 
+// Games that will never be played this week (Sleeper sends 'canceled').
+const NOT_PLAYING = ['canceled', 'cancelled', 'postponed']
+
 export function completedWeeks(schedule: ScheduleGame[], upToWeek: number): number[] {
   const out: number[] = []
   for (let w = 1; w <= upToWeek; w++) {
     const games = schedule.filter((g) => g.week === w)
-    if (games.length > 0 && games.every((g) => g.status === 'complete')) out.push(w)
+    const done = games.every((g) => g.status === 'complete' || NOT_PLAYING.indexOf(g.status) !== -1)
+    if (done && games.some((g) => g.status === 'complete')) out.push(w)
   }
   return out
 }
@@ -24,12 +28,15 @@ export function nextOpponent(schedule: ScheduleGame[], team: string, week: numbe
   return game.home === team ? game.away : game.home
 }
 
-// The week waiver pickups are for: the first week in which no game has been
-// played. On a Monday night that is next week, not the one still finishing.
+// The week waiver pickups are for: the first week in which fewer than half
+// the games have started (or been called off). Monday night of week 4 (15 of
+// 16 done) points at week 5; so does Friday of week 5 (1 of 16 done).
 export function upcomingWeek(schedule: ScheduleGame[]): number | null {
   const weeks = Array.from(new Set(schedule.map((g) => g.week))).sort((a, b) => a - b)
-  for (const w of weeks) {
-    if (schedule.filter((g) => g.week === w).every((g) => g.status !== 'complete' && g.status !== 'in_game')) return w
+  for (let i = 0; i < weeks.length; i++) {
+    const games = schedule.filter((g) => g.week === weeks[i])
+    const started = games.filter((g) => g.status !== 'pre_game').length
+    if (started < games.length / 2) return weeks[i]
   }
   return null
 }

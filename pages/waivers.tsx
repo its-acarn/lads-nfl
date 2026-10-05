@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Button,
   Heading,
@@ -19,6 +19,7 @@ import { waiverConfig } from '../config/waivers'
 import { buildWaiverBoard } from '../helpers/waivers/board'
 import { browserStorage, fetchWaiverInputs, getJson } from '../helpers/waivers/fetch'
 import { ownerLabel } from '../helpers/waivers/format'
+import { latestOnly } from '../helpers/waivers/latest'
 import { POSITIONS, WaiverInputs } from '../helpers/waivers/types'
 import InjuryAlerts from '../components/waivers/InjuryAlerts'
 import { PositionTable, StreamTable } from '../components/waivers/PositionTable'
@@ -57,18 +58,21 @@ const Waivers = () => {
     setLeagueId(LEAGUES.some((l) => l.id === saved) ? saved : LEAGUES[0].id)
   }, [])
 
+  // Only the latest league's response may land (see helpers/waivers/latest.ts).
+  const runLatest = useRef(latestOnly())
   const load = useCallback((id: string) => {
     setLoading(true)
     setError('')
-    fetchWaiverInputs(id, { getJson, storage: browserStorage(), now: Date.now() })
-      .then((res) => {
+    runLatest.current(fetchWaiverInputs(id, { getJson, storage: browserStorage(), now: Date.now() }), {
+      onValue: (res) => {
         setInputs(res.inputs)
         setPlayersSavedAt(res.playersSavedAt)
         const saved = recall(ownerKey(id))
         setOwnerId(res.inputs.users.some((u) => u.user_id === saved) ? saved : '')
-      })
-      .catch((e: Error) => setError(e.message))
-      .finally(() => setLoading(false))
+      },
+      onError: (e) => setError(e.message),
+      onSettled: () => setLoading(false),
+    })
   }, [])
 
   useEffect(() => {

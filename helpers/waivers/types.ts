@@ -52,7 +52,7 @@ export interface ScheduleGame {
   week: number
   home: string
   away: string
-  status: string // 'complete' | 'pre_game' | 'in_game'
+  status: string // 'complete' | 'pre_game' | 'canceled' | in progress
 }
 
 export interface PlayerMeta {
