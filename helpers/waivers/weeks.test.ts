@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { completedWeeks, nextOpponent, teamGameWeeks } from './weeks'
+import { completedWeeks, nextOpponent, teamGameWeeks, upcomingWeek } from './weeks'
 import { ScheduleGame, WeekStats } from './types'
 
 const g = (week: number, home: string, away: string, status = 'complete'): ScheduleGame => ({ week, home, away, status })
@@ -29,5 +29,15 @@ describe('nextOpponent', () => {
     expect(nextOpponent(schedule, 'KC', 5)).toBe('NO')
     expect(nextOpponent(schedule, 'NO', 5)).toBe('KC')
     expect(nextOpponent(schedule, 'DAL', 5)).toBeNull()
+  })
+})
+
+describe('upcomingWeek', () => {
+  it('is the first week with no game played yet, so Monday night of week 4 points at week 5', () => {
+    const schedule = [g(4, 'NO', 'KC'), g(4, 'BUF', 'MIA', 'pre_game'), g(5, 'NO', 'BUF', 'pre_game'), g(5, 'KC', 'MIA', 'pre_game')]
+    expect(upcomingWeek(schedule)).toBe(5)
+  })
+  it('is null once the season is over', () => {
+    expect(upcomingWeek([g(1, 'NO', 'KC')])).toBeNull()
   })
 })

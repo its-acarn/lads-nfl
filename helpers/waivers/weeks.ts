@@ -23,3 +23,13 @@ export function nextOpponent(schedule: ScheduleGame[], team: string, week: numbe
   if (!game) return null
   return game.home === team ? game.away : game.home
 }
+
+// The week waiver pickups are for: the first week in which no game has been
+// played. On a Monday night that is next week, not the one still finishing.
+export function upcomingWeek(schedule: ScheduleGame[]): number | null {
+  const weeks = Array.from(new Set(schedule.map((g) => g.week))).sort((a, b) => a - b)
+  for (const w of weeks) {
+    if (schedule.filter((g) => g.week === w).every((g) => g.status !== 'complete' && g.status !== 'in_game')) return w
+  }
+  return null
+}

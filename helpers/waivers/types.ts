@@ -170,7 +170,7 @@ export interface ScoredPlayer {
 }
 
 export interface WaiverRow extends ScoredPlayer {
-  upgradeOver: { playerId: string; name: string; score: number } | null
+  upgradeOver: PlayerRef | null
 }
 
 export interface StreamRow {
@@ -181,13 +181,25 @@ export interface StreamRow {
   score: number
 }
 
+export interface PlayerRef {
+  playerId: string
+  name: string
+  score: number
+}
+
+// One of the chosen team's active players listed Questionable or worse, with
+// the best free agent at his position (scored positions, K and DEF).
 export interface InjuryAlert {
-  player: ScoredPlayer
-  bestReplacement: WaiverRow | null
+  playerId: string
+  name: string
+  position: string
+  injuryStatus: string
+  bestReplacement: PlayerRef | null
 }
 
 export interface WaiverBoard {
-  throughWeek: number
+  throughWeek: number // last completed week (0 before any)
+  upcomingWeek: number | null // the week pickups are for
   positions: Record<Position, WaiverRow[]>
   kickers: StreamRow[] | null
   defences: StreamRow[] | null
