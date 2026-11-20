@@ -21,6 +21,7 @@ import {
 import { ladsLeagueId2026 } from '../config/config'
 import { formConfig } from '../config/form'
 import { buildFormBoard } from '../helpers/form/board'
+import { signalAvailable } from '../helpers/form/playerForm'
 import { FORM_POSITIONS, FormPosition, FormWindow } from '../helpers/form/types'
 import { browserStorage, fetchWaiverInputs, getJson } from '../helpers/waivers/fetch'
 import { ownerLabel } from '../helpers/waivers/format'
@@ -190,6 +191,12 @@ const Form = () => {
                     Sell high: the reverse. Next 3 is coloured by what each opponent allows to the position, over the
                     Points allowed tab&apos;s window.
                   </Text>
+                  {!signalAvailable(playerWindow, formConfig) && (
+                    <Text fontSize={'xs'} color={'orange.300'}>
+                      Buy low / Sell high needs at least {formConfig.signal.minGames} games: pick a longer window to see
+                      it.
+                    </Text>
+                  )}
                   <PlayerFormTable rows={board.players} hasMine={!!ownerId} />
                 </Stack>
               </TabPanel>

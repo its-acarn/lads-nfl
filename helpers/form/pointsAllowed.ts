@@ -73,6 +73,20 @@ export function matchupTier(rank: number, config: FormConfig): MatchupTier {
   return 'neutral'
 }
 
+// The first week after the team's last completed game: its next game, or a
+// bye. Per team, because mid-week a Thursday team has already played while a
+// Monday team has not. Null once the team's schedule is used up.
+export function teamNextWeek(schedule: ScheduleGame[], team: string): number | null {
+  const weeks = schedule.map((g) => g.week)
+  if (weeks.length === 0) return null
+  const lastWeek = Math.max(...weeks)
+  const played = schedule
+    .filter((g) => (g.home === team || g.away === team) && g.status === 'complete')
+    .map((g) => g.week)
+  const next = played.length ? Math.max(...played) + 1 : Math.min(...weeks)
+  return next <= lastWeek ? next : null
+}
+
 export function upcomingGames(
   schedule: ScheduleGame[],
   team: string,

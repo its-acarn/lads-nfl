@@ -4,7 +4,7 @@ import { completedWeeks } from '../waivers/weeks'
 import { playerGames } from './games'
 import { game, makeInputs, meta, row } from './inputs.testutil'
 import { ownerMap } from './owners'
-import { buildPlayerForm } from './playerForm'
+import { buildPlayerForm, signalAvailable } from './playerForm'
 import { buildPointsAllowed } from './pointsAllowed'
 import { FormWindow, PlayerFormRow } from './types'
 import { WaiverInputs } from '../waivers/types'
@@ -141,5 +141,13 @@ describe('buildPlayerForm', () => {
   it('sorts by window average, best first', () => {
     const rows = Object.values(formOf(backs, 3))
     expect(rows.map((r) => r.playerId)).toEqual(['d', 'c', 'b', 'a'])
+  })
+})
+
+describe('signalAvailable', () => {
+  it('is false when the window is shorter than the games the signal needs', () => {
+    expect(signalAvailable(1, formConfig)).toBe(false)
+    expect(signalAvailable(2, formConfig)).toBe(true)
+    expect(signalAvailable('season', formConfig)).toBe(true)
   })
 })

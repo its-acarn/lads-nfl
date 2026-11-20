@@ -4,7 +4,7 @@ import { loadWaiverFixture } from '../waivers/fixtures.testutil'
 import { completedWeeks } from '../waivers/weeks'
 import { playerGames } from './games'
 import { game, makeInputs, meta, row } from './inputs.testutil'
-import { buildPointsAllowed, matchupTier, upcomingGames } from './pointsAllowed'
+import { buildPointsAllowed, matchupTier, teamNextWeek, upcomingGames } from './pointsAllowed'
 import { FORM_POSITIONS, PointsAllowedRow } from './types'
 
 // MIA plays weeks 1 and 3 (bye in 2); BUF plays all three.
@@ -92,5 +92,28 @@ describe('upcomingGames', () => {
     expect(matchupTier(11, formConfig)).toBe('neutral')
     expect(matchupTier(22, formConfig)).toBe('neutral')
     expect(matchupTier(23, formConfig)).toBe('tough')
+  })
+})
+
+describe('teamNextWeek', () => {
+  // Week 11 in progress: KC played Thursday, BUF plays Sunday, MIA is on bye.
+  const schedule = [
+    game(10, 'KC', 'BUF'),
+    game(10, 'MIA', 'NE'),
+    game(11, 'KC', 'DEN'),
+    game(11, 'BUF', 'NE', 'pre_game'),
+    game(12, 'KC', 'LV', 'pre_game'),
+    game(12, 'BUF', 'MIA', 'pre_game'),
+  ]
+  it("starts after the team's last completed game", () => {
+    expect(teamNextWeek(schedule, 'KC')).toBe(12)
+    expect(teamNextWeek(schedule, 'BUF')).toBe(11)
+    expect(teamNextWeek(schedule, 'MIA')).toBe(11)
+  })
+  it('is null once the team has played its last scheduled week', () => {
+    expect(teamNextWeek([game(1, 'KC', 'DEN')], 'KC')).toBeNull()
+  })
+  it('starts at week 1 before the season', () => {
+    expect(teamNextWeek([game(1, 'KC', 'DEN', 'pre_game'), game(2, 'KC', 'LV', 'pre_game')], 'KC')).toBe(1)
   })
 })

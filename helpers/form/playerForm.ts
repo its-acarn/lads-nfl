@@ -9,10 +9,9 @@
 import { FormConfig } from '../../config/form'
 import { stat, sharesOver } from '../waivers/metrics'
 import { percentiles } from '../waivers/score'
-import { upcomingWeek } from '../waivers/weeks'
 import { Position, WaiverInputs } from '../waivers/types'
 import { isFormPosition, windowGames } from './games'
-import { upcomingGames } from './pointsAllowed'
+import { teamNextWeek, upcomingGames } from './pointsAllowed'
 import { FormUsage, FormWindow, Owner, PlayerFormRow, PlayerGame, PointsAllowedRow } from './types'
 
 const FREE_AGENT: Owner = { kind: 'fa' }
@@ -65,6 +64,11 @@ function applySignals(rows: PlayerFormRow[], config: FormConfig): void {
   })
 }
 
+// Whether the window can hold enough games for the buy/sell signal at all.
+export function signalAvailable(window: FormWindow, config: FormConfig): boolean {
+  return window === 'season' || window >= config.signal.minGames
+}
+
 export function buildPlayerForm(
   inputs: WaiverInputs,
   games: Record<string, PlayerGame[]>,
@@ -73,7 +77,6 @@ export function buildPlayerForm(
   owners: Record<string, Owner>,
   config: FormConfig
 ): PlayerFormRow[] {
-  const nextWeek = upcomingWeek(inputs.schedule)
   const rows: PlayerFormRow[] = []
   Object.keys(games).forEach((id) => {
     const meta = inputs.players[id]
@@ -105,7 +108,7 @@ export function buildPlayerForm(
       usagePct: null,
       pointsPct: null,
       signal: null,
-      upcoming: upcomingGames(inputs.schedule, team, nextWeek, allowed, position, config),
+      upcoming: upcomingGames(inputs.schedule, team, teamNextWeek(inputs.schedule, team), allowed, position, config),
     })
   })
   applySignals(rows, config)

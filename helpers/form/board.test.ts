@@ -32,4 +32,13 @@ describe('buildFormBoard on the fixture', () => {
     expect(board.teams.map((t) => t.rank.total).sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     board.teams.forEach((t) => expect(t.total).toBeGreaterThan(50))
   })
+
+  it("starts Next 3 after each team's own last completed game", () => {
+    // Fixture week 11 is in progress: only HOU v IND (Thursday) is complete.
+    const board = buildFormBoard(lads, { playerWindow: 3, allowedWindow: 3 }, formConfig)
+    const hou = board.players.filter((p) => p.team === 'HOU' && p.upcoming.length)[0]
+    const buf = board.players.filter((p) => p.team === 'BUF' && p.upcoming.length)[0]
+    expect(hou.upcoming[0].week).toBe(12)
+    expect(buf.upcoming[0].week).toBe(11)
+  })
 })
