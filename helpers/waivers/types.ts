@@ -33,6 +33,45 @@ export const STAT_KEYS = [
   'int',
   'fum_rec',
   'def_td',
+  // Raw stats league scoring reads (helpers/form/scoring.ts). Every stat the
+  // LadsLadsLads scoring_settings weights must be here, or the form page
+  // under-scores it; helpers/form/scoring.test.ts enforces that.
+  'gp',
+  'pass_yd',
+  'pass_td',
+  'pass_2pt',
+  'rush_td',
+  'rush_2pt',
+  'rec',
+  'rec_yd',
+  'rec_td',
+  'rec_2pt',
+  'fum',
+  'fgm_0_19',
+  'fgm_20_29',
+  'fgm_30_39',
+  'fgm_40_49',
+  'fgm_50p',
+  'fgmiss',
+  'xpm',
+  'xpmiss',
+  'pts_allow_0',
+  'pts_allow_1_6',
+  'pts_allow_7_13',
+  'pts_allow_14_20',
+  'pts_allow_21_27',
+  'pts_allow_28_34',
+  'pts_allow_35p',
+  'ff',
+  'safe',
+  'blk_kick',
+  'st_td',
+  'st_ff',
+  'st_fum_rec',
+  'def_st_td',
+  'def_st_ff',
+  'def_st_fum_rec',
+  'fum_rec_td',
 ] as const
 export type StatKey = typeof STAT_KEYS[number]
 
@@ -76,7 +115,9 @@ export interface WaiverLeague {
   league_id: string
   name: string
   roster_positions: string[]
-  scoring_settings: { rec?: number }
+  // The league's full scoring map (stat key -> points); `rec` picks the waiver
+  // scout's points key.
+  scoring_settings: Record<string, number>
 }
 
 export interface WaiverRoster {

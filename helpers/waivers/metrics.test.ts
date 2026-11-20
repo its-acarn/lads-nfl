@@ -117,6 +117,8 @@ describe('buildUsage on the fixture', () => {
     const weeks = completedWeeks(inputs.schedule, inputs.week)
     const usage = buildUsage(inputs.statsByWeek, weeks, inputs.players, 'pts_half_ppr')
     const fullTimeTeams = new Set(Object.values(usage).filter((u) => u.window.snap > 0.9).map((u) => u.team))
-    expect(fullTimeTeams.size).toBeGreaterThanOrEqual(30)
+    // Not all 32: by mid-season a few teams changed quarterback inside the
+    // three-game window (injury or benching), so nobody there is above 0.9.
+    expect(fullTimeTeams.size).toBeGreaterThanOrEqual(26)
   })
 })

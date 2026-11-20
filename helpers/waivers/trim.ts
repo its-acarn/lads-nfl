@@ -67,12 +67,20 @@ export function trimPlayers(rawPlayers: Record<string, any>, seen: Set<string>):
   return out
 }
 
+function numericEntries(raw: any): Record<string, number> {
+  const out: Record<string, number> = {}
+  Object.keys(raw || {}).forEach((k) => {
+    if (typeof raw[k] === 'number') out[k] = raw[k]
+  })
+  return out
+}
+
 export function shapeLeague(raw: any): WaiverLeague {
   return {
     league_id: raw.league_id,
     name: raw.name,
     roster_positions: raw.roster_positions || [],
-    scoring_settings: { rec: raw.scoring_settings?.rec },
+    scoring_settings: numericEntries(raw.scoring_settings),
   }
 }
 

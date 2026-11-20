@@ -35,7 +35,7 @@ const raw: Record<string, unknown> = {
   'https://api.sleeper.app/v1/state/nfl': { week: 2, season: '2026' },
   'https://api.sleeper.com/schedule/nfl/regular/2026': [{ week: 1, home: 'NO', away: 'KC', status: 'complete', game_id: 'x' }],
   'https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=48&limit=50': [{ player_id: '1', count: 5 }],
-  'https://api.sleeper.app/v1/league/L': { league_id: 'L', name: 'Lads', roster_positions: ['QB', 'K'], scoring_settings: { rec: 0.5, pass_td: 4 }, settings: {} },
+  'https://api.sleeper.app/v1/league/L': { league_id: 'L', name: 'Lads', roster_positions: ['QB', 'K'], scoring_settings: { rec: 0.5, pass_td: 4, note: 'x' }, settings: {} },
   'https://api.sleeper.app/v1/league/L/rosters': [{ roster_id: 1, owner_id: 'u', players: ['1'], reserve: null, taxi: null, settings: {} }],
   'https://api.sleeper.app/v1/league/L/users': [{ user_id: 'u', display_name: 'Me', avatar: 'a', metadata: { team_name: 'Team' } }],
   'https://api.sleeper.app/v1/players/nfl': {
@@ -43,7 +43,7 @@ const raw: Record<string, unknown> = {
     '2': { player_id: '2', full_name: 'Old Guy', position: 'RB', team: null, active: false },
     NO: { player_id: 'NO', position: 'DEF', team: 'NO', active: true },
   },
-  'https://api.sleeper.com/stats/nfl/2026/1?season_type=regular': [{ player_id: '1', team: 'NO', player: { position: 'WR' }, stats: { off_snp: 40, gp: 1 } }],
+  'https://api.sleeper.com/stats/nfl/2026/1?season_type=regular': [{ player_id: '1', team: 'NO', player: { position: 'WR' }, stats: { off_snp: 40, tkl: 1 } }],
   'https://api.sleeper.com/stats/nfl/2026/2?season_type=regular': [{ player_id: 'TEAM_NO', team: 'NO', player: {}, stats: { pass_att: 30 } }],
 }
 
@@ -62,7 +62,7 @@ describe('fetchWaiverInputs', () => {
     expect(out.inputs.statsByWeek[1]).toEqual({ '1': { team: 'NO', stats: { off_snp: 40 } } })
     expect(out.inputs.statsByWeek[2]).toEqual({ TEAM_NO: { team: 'NO', stats: { pass_att: 30 } } })
     expect(Object.keys(out.inputs.players).sort()).toEqual(['1', 'NO'])
-    expect(out.inputs.league).toEqual({ league_id: 'L', name: 'Lads', roster_positions: ['QB', 'K'], scoring_settings: { rec: 0.5 } })
+    expect(out.inputs.league).toEqual({ league_id: 'L', name: 'Lads', roster_positions: ['QB', 'K'], scoring_settings: { rec: 0.5, pass_td: 4 } })
     expect(out.inputs.rosters[0]).toEqual({ roster_id: 1, owner_id: 'u', players: ['1'], reserve: null, taxi: null })
     expect(out.inputs.trending).toEqual([{ player_id: '1', count: 5 }])
     expect(out.playersSavedAt).toBe(5)

@@ -339,7 +339,7 @@
   "week": 4,
   "home": "NO",
   "away": "ATL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 4,
@@ -387,523 +387,517 @@
   "week": 5,
   "home": "ARI",
   "away": "DET",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "ATL",
   "away": "BAL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "DAL",
   "away": "TB",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "GB",
   "away": "CHI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "JAX",
   "away": "PHI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "MIA",
   "away": "CIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "NE",
   "away": "LV",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "NO",
   "away": "MIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "NYJ",
   "away": "CLE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "PIT",
   "away": "IND",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "LAC",
   "away": "DEN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "SEA",
   "away": "SF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "LAR",
   "away": "BUF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "TEN",
   "away": "HOU",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 5,
   "home": "WAS",
   "away": "NYG",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "ATL",
   "away": "CHI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "CLE",
   "away": "BAL",
-  "status": "pre_game"
- },
- {
-  "week": 6,
-  "home": "DAL",
-  "away": "SEA",
-  "status": "canceled"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "DEN",
   "away": "SEA",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "GB",
   "away": "DAL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "IND",
   "away": "TEN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "JAX",
   "away": "HOU",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "KC",
   "away": "LAC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "NE",
   "away": "NYJ",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "NYG",
   "away": "NO",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "LV",
   "away": "BUF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "PHI",
   "away": "CAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "SF",
   "away": "WAS",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "LAR",
   "away": "ARI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 6,
   "home": "TB",
   "away": "PIT",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "ARI",
   "away": "DEN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "ATL",
   "away": "SF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "BAL",
   "away": "CIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "CAR",
   "away": "TB",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "CHI",
   "away": "NE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "DET",
   "away": "GB",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "HOU",
   "away": "NYG",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "MIN",
   "away": "IND",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "NO",
   "away": "PIT",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "NYJ",
   "away": "MIA",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "LV",
   "away": "LAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "PHI",
   "away": "DAL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "SEA",
   "away": "KC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 7,
   "home": "TEN",
   "away": "CLE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "BUF",
   "away": "BAL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "CIN",
   "away": "TEN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "DAL",
   "away": "ARI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "DEN",
   "away": "KC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "DET",
   "away": "MIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "GB",
   "away": "CAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "JAX",
   "away": "IND",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "MIA",
   "away": "NE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "NYJ",
   "away": "LV",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "PIT",
   "away": "CLE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "SEA",
   "away": "CHI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "LAR",
   "away": "LAC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "TB",
   "away": "ATL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 8,
   "home": "WAS",
   "away": "PHI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "ATL",
   "away": "CIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "BAL",
   "away": "JAX",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "CAR",
   "away": "DEN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "CHI",
   "away": "TB",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "IND",
   "away": "DAL",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "KC",
   "away": "NYJ",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "MIA",
   "away": "DET",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "MIN",
   "away": "BUF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "NE",
   "away": "GB",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "NO",
   "away": "CLE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "PHI",
   "away": "NYG",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "LAC",
   "away": "HOU",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "SEA",
   "away": "ARI",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "SF",
   "away": "LV",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 9,
   "home": "WAS",
   "away": "LAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "ARI",
   "away": "LAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "ATL",
   "away": "KC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "BAL",
   "away": "LAC",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "CIN",
   "away": "PIT",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "CLE",
   "away": "HOU",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "DAL",
   "away": "SF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "DET",
   "away": "NE",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "GB",
   "away": "MIN",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "IND",
   "away": "MIA",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "NO",
   "away": "CAR",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "NYG",
   "away": "WAS",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "NYJ",
   "away": "BUF",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "LV",
   "away": "SEA",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 10,
   "home": "TEN",
   "away": "JAX",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 11,
@@ -945,7 +939,7 @@
   "week": 11,
   "home": "HOU",
   "away": "IND",
-  "status": "pre_game"
+  "status": "complete"
  },
  {
   "week": 11,
