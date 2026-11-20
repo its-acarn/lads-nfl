@@ -1,83 +1,10 @@
-import { Fragment, ReactNode, useState } from 'react'
-import { Box, Button, Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Box, Button, Flex, Text } from '@chakra-ui/react'
+import { Column, SortableTable } from '../SortableTable'
 import FlagChip from './FlagChip'
 import ScoreBreakdown from './ScoreBreakdown'
 import { formatPct, formatScore, formatTrend } from '../../helpers/waivers/format'
 import { Position, StreamRow, WaiverRow } from '../../helpers/waivers/types'
-
-// A plain HTML table rather than AG Grid: rows hold wrapping flag chips, and
-// a table sizes each row to its content without a measuring pass.
-
-interface Column<R> {
-  key: string
-  header: string
-  render: (row: R) => ReactNode
-  sortValue?: (row: R) => number
-  minW?: string
-}
-
-interface TableProps<R> {
-  rows: R[]
-  columns: Column<R>[]
-  // Optional detail shown under a row when it is expanded.
-  renderDetail?: (row: R) => ReactNode
-  expanded?: string | null
-}
-
-function SortableTable<R extends { playerId: string }>({ rows, columns, renderDetail, expanded }: TableProps<R>) {
-  const [sort, setSort] = useState<{ key: string; desc: boolean } | null>(null)
-  const column = sort ? columns.filter((c) => c.key === sort.key)[0] : undefined
-  const sorted =
-    column && column.sortValue
-      ? rows.slice().sort((a, b) => {
-          const d = (column.sortValue as (r: R) => number)(a) - (column.sortValue as (r: R) => number)(b)
-          return sort && sort.desc ? -d : d
-        })
-      : rows
-
-  return (
-    <TableContainer w={'full'} overflowX={'auto'}>
-      <Table size={'sm'} variant={'simple'}>
-        <Thead>
-          <Tr>
-            {columns.map((c) => (
-              <Th
-                key={c.key}
-                color={'tertiary'}
-                borderColor={'gray.700'}
-                cursor={c.sortValue ? 'pointer' : 'default'}
-                userSelect={'none'}
-                onClick={() => c.sortValue && setSort({ key: c.key, desc: sort && sort.key === c.key ? !sort.desc : true })}>
-                {c.header}
-                {sort && sort.key === c.key ? (sort.desc ? ' ▼' : ' ▲') : ''}
-              </Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {sorted.map((row) => (
-            <Fragment key={row.playerId}>
-              <Tr>
-                {columns.map((c) => (
-                  <Td key={c.key} color={'quinary'} borderColor={'gray.800'} minW={c.minW} whiteSpace={'normal'} verticalAlign={'top'}>
-                    {c.render(row)}
-                  </Td>
-                ))}
-              </Tr>
-              {renderDetail && expanded === row.playerId && (
-                <Tr>
-                  <Td colSpan={columns.length} borderColor={'gray.800'} whiteSpace={'normal'}>
-                    {renderDetail(row)}
-                  </Td>
-                </Tr>
-              )}
-            </Fragment>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
-  )
-}
 
 const number = (key: string, header: string, value: (r: WaiverRow) => number, digits = 1): Column<WaiverRow> => ({
   key,
@@ -199,6 +126,7 @@ export const PositionTable = ({ position, rows }: { position: Position; rows: Wa
   return (
     <SortableTable
       rows={rows}
+      rowKey={(r) => r.playerId}
       columns={columns(position, ranks, expanded, toggle)}
       expanded={expanded}
       renderDetail={(r) => <ScoreBreakdown player={r} />}
@@ -213,4 +141,4 @@ const STREAM_COLUMNS: Column<StreamRow>[] = [
   { key: 'score', header: 'Score', render: (r) => (r.opponent ? formatScore(r.score) : '–'), sortValue: (r) => r.score },
 ]
 
-export const StreamTable = ({ rows }: { rows: StreamRow[] }) => <SortableTable rows={rows} columns={STREAM_COLUMNS} />
+export const StreamTable = ({ rows }: { rows: StreamRow[] }) => <SortableTable rows={rows} rowKey={(r) => r.playerId} columns={STREAM_COLUMNS} />

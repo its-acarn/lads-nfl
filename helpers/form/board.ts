@@ -27,6 +27,13 @@ export function buildFormBoard(inputs: WaiverInputs, opts: FormOptions, config: 
     upcomingWeek: upcomingWeek(inputs.schedule),
     players: buildPlayerForm(inputs, games, opts.playerWindow, allowed, owners, config),
     allowed,
-    teams: buildTeamForm(inputs.rosters, inputs.players, games, opts.playerWindow, inputs.league.roster_positions, owners),
+    teams: buildTeamForm(
+      inputs.rosters,
+      inputs.players,
+      games,
+      opts.playerWindow,
+      inputs.league.roster_positions,
+      owners
+    ),
   }
 }

@@ -17,7 +17,8 @@ export interface PlayerGame {
   points: number
 }
 
-export type Owner = { kind: 'fa' } | { kind: 'mine'; label: string } | { kind: 'other'; label: string; ownerId: string | null }
+export type Owner =
+  { kind: 'fa' } | { kind: 'mine'; label: string } | { kind: 'other'; label: string; ownerId: string | null }
 
 export type Signal = 'buy' | 'sell' | null
 export type MatchupTier = 'soft' | 'neutral' | 'tough'

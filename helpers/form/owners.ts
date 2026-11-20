@@ -11,7 +11,9 @@ export function ownerMap(rosters: WaiverRoster[], users: WaiverUser[], mineOwner
     const user = users.filter((u) => u.user_id === r.owner_id)[0]
     const label = user ? ownerLabel(user) : 'Orphan'
     const owner: Owner =
-      mineOwnerId && r.owner_id === mineOwnerId ? { kind: 'mine', label } : { kind: 'other', label, ownerId: r.owner_id }
+      mineOwnerId && r.owner_id === mineOwnerId
+        ? { kind: 'mine', label }
+        : { kind: 'other', label, ownerId: r.owner_id }
     ;[r.players, r.reserve, r.taxi].forEach((list) => (list || []).forEach((id) => (out[id] = owner)))
   })
   return out

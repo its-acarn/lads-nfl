@@ -7,7 +7,15 @@ import { FormConfig } from '../../config/form'
 import { teamGameWeeks } from '../waivers/weeks'
 import { PlayerMap, ScheduleGame, WeekStats } from '../waivers/types'
 import { windowGames } from './games'
-import { FORM_POSITIONS, FormPosition, FormWindow, MatchupTier, PlayerGame, PointsAllowedRow, UpcomingGame } from './types'
+import {
+  FORM_POSITIONS,
+  FormPosition,
+  FormWindow,
+  MatchupTier,
+  PlayerGame,
+  PointsAllowedRow,
+  UpcomingGame,
+} from './types'
 
 function zeroes(): Record<FormPosition, number> {
   return { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0 }

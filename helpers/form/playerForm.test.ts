@@ -39,7 +39,10 @@ describe('ownerMap', () => {
   })
 
   it('with no team picked, nothing is mine', () => {
-    const owners = ownerMap([{ roster_id: 1, owner_id: 'me', players: ['a'], reserve: null, taxi: null }], [{ user_id: 'me', display_name: 'andrew' }])
+    const owners = ownerMap(
+      [{ roster_id: 1, owner_id: 'me', players: ['a'], reserve: null, taxi: null }],
+      [{ user_id: 'me', display_name: 'andrew' }]
+    )
     expect(owners.a.kind).toBe('other')
   })
 })

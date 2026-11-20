@@ -3,7 +3,17 @@
 import { PlayerMeta, ScheduleGame, StatLine, WaiverInputs, WeekStats } from '../waivers/types'
 
 // Half-PPR-ish scoring with the league's fumble rule; enough for tests.
-export const TEST_SCORING: Record<string, number> = { rec: 0.5, rec_yd: 0.1, rush_yd: 0.1, rec_td: 6, rush_td: 6, fum: -1, fgm_30_39: 3, xpm: 1, sack: 1 }
+export const TEST_SCORING: Record<string, number> = {
+  rec: 0.5,
+  rec_yd: 0.1,
+  rush_yd: 0.1,
+  rec_td: 6,
+  rush_td: 6,
+  fum: -1,
+  fgm_30_39: 3,
+  xpm: 1,
+  sack: 1,
+}
 
 export function meta(id: string, position: string, team: string | null, extra: Partial<PlayerMeta> = {}): PlayerMeta {
   return {
@@ -45,7 +55,12 @@ export function makeInputs(parts: {
     statsByWeek: parts.statsByWeek,
     players,
     trending: [],
-    league: { league_id: 'L', name: 'Test', roster_positions: parts.rosterPositions ?? [], scoring_settings: TEST_SCORING },
+    league: {
+      league_id: 'L',
+      name: 'Test',
+      roster_positions: parts.rosterPositions ?? [],
+      scoring_settings: TEST_SCORING,
+    },
     rosters: parts.rosters ?? [],
     users: parts.users ?? [],
   }

@@ -50,7 +50,8 @@ function applySignals(rows: PlayerFormRow[], config: FormConfig): void {
   const c = config.signal
   ;(Object.keys(USAGE_MEASURES) as Position[]).forEach((position) => {
     const pool = rows.filter(
-      (r) => r.position === position && r.usage && r.gamesPlayed >= c.minGames && r.usage.snap >= c.minSnapShare[position]
+      (r) =>
+        r.position === position && r.usage && r.gamesPlayed >= c.minGames && r.usage.snap >= c.minSnapShare[position]
     )
     if (pool.length === 0) return
     const measurePcts = USAGE_MEASURES[position].map((f) => percentiles(pool.map((r) => f(r.usage as FormUsage))))

@@ -60,7 +60,13 @@ describe('buildPointsAllowed', () => {
 
   it('covers all 32 teams on the fixture', () => {
     const lads = loadWaiverFixture('lads')
-    const rows = buildPointsAllowed(playerGames(lads), lads.players, lads.statsByWeek, completedWeeks(lads.schedule, lads.week), 'season')
+    const rows = buildPointsAllowed(
+      playerGames(lads),
+      lads.players,
+      lads.statsByWeek,
+      completedWeeks(lads.schedule, lads.week),
+      'season'
+    )
     expect(rows.length).toBe(32)
     rows.forEach((r) => expect(r.perGame.QB).toBeGreaterThan(5))
   })

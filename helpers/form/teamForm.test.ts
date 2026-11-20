@@ -27,7 +27,9 @@ const games: Record<string, PlayerGame[]> = {
 
 describe('buildTeamForm', () => {
   it('fills fixed slots before FLEX', () => {
-    const rosters = [{ roster_id: 1, owner_id: 'me', players: ['r20', 'r15', 'r10', 'w12', 'w8'], reserve: null, taxi: null }]
+    const rosters = [
+      { roster_id: 1, owner_id: 'me', players: ['r20', 'r15', 'r10', 'w12', 'w8'], reserve: null, taxi: null },
+    ]
     const [t] = buildTeamForm(rosters, players, games, 3, ['RB', 'RB', 'WR', 'WR', 'FLEX', 'BN'], ownerMap(rosters, []))
     expect(t.groups.RB).toBe(35)
     expect(t.groups.WR).toBe(20)
@@ -53,7 +55,9 @@ describe('buildTeamForm', () => {
   })
 
   it('counts the best unused RB, WR and TE as bench depth', () => {
-    const rosters = [{ roster_id: 1, owner_id: 'me', players: ['r20', 'r15', 'r10', 'w12', 'w8'], reserve: null, taxi: null }]
+    const rosters = [
+      { roster_id: 1, owner_id: 'me', players: ['r20', 'r15', 'r10', 'w12', 'w8'], reserve: null, taxi: null },
+    ]
     const [t] = buildTeamForm(rosters, players, games, 3, ['RB', 'WR'], ownerMap(rosters, []))
     expect(t.bench).toBe(15 + 8)
   })

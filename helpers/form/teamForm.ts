@@ -34,7 +34,11 @@ export function buildTeamForm(
       .filter((id) => players[id] && (games[id] || []).length > 0)
       .map((id) => {
         const recent = windowGames(games[id], window)
-        return { id, position: players[id].position || '', value: recent.reduce((a, g) => a + g.points, 0) / recent.length }
+        return {
+          id,
+          position: players[id].position || '',
+          value: recent.reduce((a, g) => a + g.points, 0) / recent.length,
+        }
       })
       .sort((a, b) => b.value - a.value)
 
