@@ -12,7 +12,7 @@ import {
   BoxProps,
   FlexProps,
 } from '@chakra-ui/react'
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiSearch } from 'react-icons/fi'
+import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiSearch, FiActivity } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { useRouter } from 'next/router'
 import { capitalizeFirstLetter } from '../helpers/capitaliseFirstLetter'
@@ -28,6 +28,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Weight', icon: FiCompass, href: '/weight' },
   { name: 'Age', icon: FiStar, href: '/age' },
   { name: 'Waivers', icon: FiSearch, href: '/waivers' },
+  { name: 'Form', icon: FiActivity, href: '/form' },
   // { name: 'Names', icon: FiSettings, href: '/names' },
 ]
 
