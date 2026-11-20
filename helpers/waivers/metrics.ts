@@ -23,6 +23,22 @@ function sum(weeks: number[], f: (w: number) => number): number {
   return weeks.reduce((acc, w) => acc + f(w), 0)
 }
 
+// A player's shares of his team's snaps, targets, carries and air yards over
+// `weeks`, sum-over-sum. Each week divides by the team he played for that week.
+export function sharesOver(statsByWeek: Record<number, WeekStats>, id: string, weeks: number[]): ShareSet {
+  const own = (w: number): StatLine | undefined => statsByWeek[w]?.[id]?.stats
+  const teamOf = (w: number): StatLine | undefined => {
+    const t = statsByWeek[w]?.[id]?.team
+    return t ? statsByWeek[w][`TEAM_${t}`]?.stats : undefined
+  }
+  return {
+    snap: ratio(sum(weeks, (w) => stat(own(w), 'off_snp')), sum(weeks, (w) => stat(own(w), 'tm_off_snp'))),
+    target: ratio(sum(weeks, (w) => stat(own(w), 'rec_tgt')), sum(weeks, (w) => stat(teamOf(w), 'pass_att'))),
+    carry: ratio(sum(weeks, (w) => stat(own(w), 'rush_att')), sum(weeks, (w) => stat(teamOf(w), 'rush_att'))),
+    airYards: ratio(sum(weeks, (w) => stat(own(w), 'rec_air_yd')), sum(weeks, (w) => stat(teamOf(w), 'pass_air_yd'))),
+  }
+}
+
 export function buildUsage(
   statsByWeek: Record<number, WeekStats>,
   weeks: number[],
@@ -38,21 +54,12 @@ export function buildUsage(
     if (!meta || POSITIONS.indexOf(meta.position as Position) === -1) return
 
     const own = (w: number): StatLine | undefined => statsByWeek[w][id]?.stats
-    const teamOf = (w: number): StatLine | undefined => {
-      const t = statsByWeek[w][id]?.team
-      return t ? statsByWeek[w][`TEAM_${t}`]?.stats : undefined
-    }
     const played = weeks.filter((w) => statsByWeek[w] && stat(own(w), 'off_snp') > 0)
     if (played.length === 0) return
 
     const window = played.slice(-WINDOW)
     const prior = played.slice(0, -WINDOW)
-    const shares = (ws: number[]): ShareSet => ({
-      snap: ratio(sum(ws, (w) => stat(own(w), 'off_snp')), sum(ws, (w) => stat(own(w), 'tm_off_snp'))),
-      target: ratio(sum(ws, (w) => stat(own(w), 'rec_tgt')), sum(ws, (w) => stat(teamOf(w), 'pass_att'))),
-      carry: ratio(sum(ws, (w) => stat(own(w), 'rush_att')), sum(ws, (w) => stat(teamOf(w), 'rush_att'))),
-      airYards: ratio(sum(ws, (w) => stat(own(w), 'rec_air_yd')), sum(ws, (w) => stat(teamOf(w), 'pass_air_yd'))),
-    })
+    const shares = (ws: number[]): ShareSet => sharesOver(statsByWeek, id, ws)
     const perGame = (f: (w: number) => number): number => sum(window, f) / window.length
 
     const last = played[played.length - 1]
