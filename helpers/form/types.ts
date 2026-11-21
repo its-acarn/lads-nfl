@@ -23,11 +23,13 @@ export type Owner =
 export type Signal = 'buy' | 'sell' | null
 export type MatchupTier = 'soft' | 'neutral' | 'tough'
 
-// opponent null = bye that week.
+// opponent null = bye that week. rank: the opponent's points-allowed rank
+// for the player's position (1 = gives up the most).
 export interface UpcomingGame {
   week: number
   opponent: string | null
   tier: MatchupTier | null
+  rank: number | null
 }
 
 export interface FormUsage {
@@ -48,6 +50,11 @@ export interface PlayerFormRow {
   injuryStatus: string | null
   owner: Owner
   games: PlayerGame[] // window games, oldest -> newest
+  lastWeek: number // week of his most recent game
+  missed: number // his current team's completed games since then
+  // Has missed games but looks set to play again: no Out/IR-type status and
+  // a starter on his team's depth chart. Kept visible when idle players hide.
+  returning: boolean
   gamesPlayed: number
   windowSize: number | null // null for 'season'
   avg: number
@@ -72,12 +79,28 @@ export interface PointsAllowedRow {
 export type TeamFormGroup = 'QB' | 'RB' | 'WR' | 'TE' | 'FLEX' | 'K' | 'DEF'
 export const TEAM_FORM_GROUPS: TeamFormGroup[] = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'K', 'DEF']
 
+export interface LineupPlayer {
+  id: string
+  name: string
+  position: string
+  injuryStatus: string | null
+  value: number // window average
+}
+
+// One starting slot; player null when the roster has nobody to fill it.
+export interface LineupSpot {
+  slot: TeamFormGroup
+  player: LineupPlayer | null
+}
+
 export interface TeamFormRow {
   rosterId: number
   owner: Owner
   groups: Record<TeamFormGroup, number>
   total: number
   bench: number
+  starters: LineupSpot[]
+  benchPlayers: LineupPlayer[] // best leftover RB, WR, TE (those found)
   rank: Record<TeamFormGroup | 'total' | 'bench', number> // 1 = highest
 }
 

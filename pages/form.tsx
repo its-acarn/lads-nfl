@@ -56,14 +56,14 @@ const Form = () => {
   const [inputs, setInputs] = useState<WaiverInputs | null>(null)
   const [ownerId, setOwnerId] = useState<string>('')
   const [playerWindow, setPlayerWindow] = useState<FormWindow>(formConfig.defaultWindow)
-  const [allowedWindow, setAllowedWindow] = useState<FormWindow>(formConfig.defaultWindow)
+  const [allowedWindow, setAllowedWindow] = useState<FormWindow>(formConfig.defaultAllowedWindow)
   const [hitThresholds, setHitThresholds] = useState<Record<FormPosition, number>>(formConfig.hitThresholds)
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     setPlayerWindow(parseWindow(recall(PLAYER_WINDOW_KEY)) ?? formConfig.defaultWindow)
-    setAllowedWindow(parseWindow(recall(ALLOWED_WINDOW_KEY)) ?? formConfig.defaultWindow)
+    setAllowedWindow(parseWindow(recall(ALLOWED_WINDOW_KEY)) ?? formConfig.defaultAllowedWindow)
   }, [])
 
   const runLatest = useRef(latestOnly())
@@ -187,9 +187,10 @@ const Form = () => {
                     </Wrap>
                   </Stack>
                   <Text fontSize={'xs'}>
-                    Buy low: used more than he has scored, compared with others at his position who have a real role.
-                    Sell high: the reverse. Next 3 is coloured by what each opponent allows to the position, over the
-                    Points allowed tab&apos;s window.
+                    Buy low: used more than he has scored, compared with others at his position who have a real role and
+                    are playing now (not listed out or on IR, and has not missed more than one game). Sell high: the
+                    reverse. Next 3 shows each opponent&apos;s rank for points allowed to the position (#1 = gives up
+                    the most), over the Points allowed tab&apos;s window.
                   </Text>
                   {!signalAvailable(playerWindow, formConfig) && (
                     <Text fontSize={'xs'} color={'orange.300'}>
@@ -197,7 +198,7 @@ const Form = () => {
                       it.
                     </Text>
                   )}
-                  <PlayerFormTable rows={board.players} hasMine={!!ownerId} />
+                  <PlayerFormTable rows={board.players} hasMine={!!ownerId} idleAfter={formConfig.idleAfter} />
                 </Stack>
               </TabPanel>
               <TabPanel px={0}>
@@ -229,8 +230,8 @@ const Form = () => {
                   />
                   <Text fontSize={'xs'}>
                     The best lineup each roster could field on form (every rostered player, injured or not), by slot.
-                    Bench = the best leftover RB, WR and TE added together: depth to trade from. Shares the Players
-                    tab&apos;s window.
+                    Bench = the best leftover RB, WR and TE added together: depth to trade from. Click a team to see the
+                    players. Shares the Players tab&apos;s window.
                   </Text>
                   <TeamFormTable rows={board.teams} />
                 </Stack>

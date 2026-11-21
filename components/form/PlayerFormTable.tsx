@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react'
-import { Badge, Box, HStack, Select, Stack, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui/react'
+import { Badge, Box, Checkbox, HStack, Input, Select, Stack, Text, Tooltip, Wrap, WrapItem } from '@chakra-ui/react'
 import { Column, SortableTable } from '../SortableTable'
 import { formatPct } from '../../helpers/waivers/format'
-import { FormPosition, PlayerFormRow } from '../../helpers/form/types'
+import { filterPlayers, OwnerFilter, PositionFilter } from '../../helpers/form/filter'
+import { PlayerFormRow } from '../../helpers/form/types'
 import { TIER_SCHEME } from './colours'
-
-type PositionFilter = 'All' | 'FLEX' | FormPosition
-type OwnerFilter = 'all' | 'fa' | 'other' | 'mine'
 const POSITION_FILTERS: PositionFilter[] = ['All', 'QB', 'RB', 'WR', 'TE', 'FLEX', 'K', 'DEF']
 
 const pts = (n: number): string => n.toFixed(1)
@@ -110,6 +108,24 @@ const COLUMNS: Column<PlayerFormRow>[] = [
       </Wrap>
     ),
   },
+  {
+    key: 'last',
+    header: 'Last',
+    render: (r) => (
+      <Box lineHeight={'1.2'} fontSize={'xs'}>
+        <Text>Wk {r.lastWeek}</Text>
+        {r.missed > 0 && <Text color={'orange.300'}>missed {r.missed}</Text>}
+        {r.returning && (
+          <Tooltip label={'Has missed games but is healthy and a starter on the depth chart'}>
+            <Badge colorScheme={'blue'} variant={'subtle'} fontSize={'0.6rem'}>
+              Returning
+            </Badge>
+          </Tooltip>
+        )}
+      </Box>
+    ),
+    sortValue: (r) => r.lastWeek,
+  },
   { key: 'floor', header: 'Floor', render: (r) => pts(r.floor), sortValue: (r) => r.floor },
   { key: 'hits', header: 'Hit', render: (r) => `${r.hits}/${r.gamesPlayed}`, sortValue: (r) => r.hits / r.gamesPlayed },
   usageCol('snap', 'Snap %', (r) => r.usage?.snap),
@@ -138,9 +154,19 @@ const COLUMNS: Column<PlayerFormRow>[] = [
       <HStack spacing={1}>
         {r.upcoming.map((u) =>
           u.opponent ? (
-            <Tooltip key={u.week} label={`Week ${u.week}: ${u.tier} matchup for a ${r.position}`}>
+            <Tooltip
+              key={u.week}
+              label={`Week ${u.week}: ${u.tier} matchup for a ${r.position}${
+                u.rank ? `, #${u.rank} most points allowed` : ''
+              }`}>
               <Badge colorScheme={TIER_SCHEME[u.tier || 'neutral']} variant={'subtle'}>
                 {u.opponent}
+                {u.rank ? (
+                  <Text as={'span'} fontWeight={400} opacity={0.8}>
+                    {' '}
+                    #{u.rank}
+                  </Text>
+                ) : null}
               </Badge>
             </Tooltip>
           ) : (
@@ -154,27 +180,41 @@ const COLUMNS: Column<PlayerFormRow>[] = [
   },
 ]
 
-export const PlayerFormTable = ({ rows, hasMine }: { rows: PlayerFormRow[]; hasMine: boolean }) => {
+export const PlayerFormTable = ({
+  rows,
+  hasMine,
+  idleAfter,
+}: {
+  rows: PlayerFormRow[]
+  hasMine: boolean
+  idleAfter: number
+}) => {
   const [position, setPosition] = useState<PositionFilter>('All')
   const [owner, setOwner] = useState<OwnerFilter>('all')
   const [minGames, setMinGames] = useState<number>(1)
+  const [search, setSearch] = useState<string>('')
+  const [showIdle, setShowIdle] = useState<boolean>(false)
   const effectiveOwner = owner === 'mine' && !hasMine ? 'all' : owner
 
-  const shown = useMemo(
-    () =>
-      rows.filter(
-        (r) =>
-          (position === 'All' ||
-            (position === 'FLEX' ? ['RB', 'WR', 'TE'].indexOf(r.position) !== -1 : r.position === position)) &&
-          (effectiveOwner === 'all' || r.owner.kind === effectiveOwner) &&
-          r.gamesPlayed >= minGames
-      ),
-    [rows, position, effectiveOwner, minGames]
-  )
+  const { shown, idleHidden } = useMemo(() => {
+    const base = { position, owner: effectiveOwner, minGames, search, idleAfter }
+    const withIdle = filterPlayers(rows, { ...base, showIdle: true })
+    const visible = showIdle ? withIdle : filterPlayers(rows, { ...base, showIdle: false })
+    return { shown: visible, idleHidden: withIdle.length - visible.length }
+  }, [rows, position, effectiveOwner, minGames, search, idleAfter, showIdle])
 
   return (
     <Stack spacing={3}>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={2}>
+        <Input
+          size={'sm'}
+          maxW={{ md: '200px' }}
+          color={'quinary'}
+          placeholder={'Search players'}
+          aria-label={'Search players'}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <Select
           size={'sm'}
           maxW={'140px'}
@@ -221,8 +261,16 @@ export const PlayerFormTable = ({ rows, hasMine }: { rows: PlayerFormRow[]; hasM
             </option>
           ))}
         </Select>
+        <Checkbox
+          size={'sm'}
+          colorScheme={'green'}
+          isChecked={showIdle}
+          onChange={(e) => setShowIdle(e.target.checked)}>
+          <Text fontSize={'xs'}>Include players not playing</Text>
+        </Checkbox>
         <Text fontSize={'xs'} alignSelf={'center'}>
           {shown.length} players
+          {idleHidden > 0 ? ` (${idleHidden} not playing hidden)` : ''}
         </Text>
       </Stack>
       <SortableTable

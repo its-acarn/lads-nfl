@@ -101,12 +101,17 @@ export function upcomingGames(
   for (let week = fromWeek; week < fromWeek + config.matchup.lookahead && week <= lastWeek; week++) {
     const g = schedule.filter((x) => x.week === week && (x.home === team || x.away === team))[0]
     if (!g) {
-      out.push({ week, opponent: null, tier: null })
+      out.push({ week, opponent: null, tier: null, rank: null })
       continue
     }
     const opponent = g.home === team ? g.away : g.home
     const row = allowed.filter((r) => r.team === opponent)[0]
-    out.push({ week, opponent, tier: row ? matchupTier(row.rank[position], config) : null })
+    out.push({
+      week,
+      opponent,
+      tier: row ? matchupTier(row.rank[position], config) : null,
+      rank: row ? row.rank[position] : null,
+    })
   }
   return out
 }

@@ -131,7 +131,15 @@ One row per player with ≥1 game in the window. Columns:
 
 Controls: window, position (All, QB, RB, WR, TE, FLEX = RB/WR/TE, K, DEF),
 owner filter (All / Free agents / Other teams / Mine), sort by any column
-(default Avg desc), "min games" (default 1).
+(default Avg desc), "min games" (default 1), name search.
+
+*(Added 2026-11-21.)* A **Last** column shows the week of his last game and
+how many of his current team's games (finished weeks only) he has missed
+since. Players who have missed 2+ are hidden by default, with a toggle and a
+count of how many are hidden; a name search finds them anyway. Exception:
+**returning** players (no Out/IR-type status, first on his depth chart,
+on an NFL team) stay visible with a chip, since they are often the best target the week
+before they play again. Limits live in `config/form.ts`.
 
 Hit thresholds (Andrew's call left open; these are defaults, editable on the
 page): QB 18, RB 12, WR 12, TE 9, K 8, DEF 7.
@@ -141,7 +149,10 @@ page): QB 18, RB 12, WR 12, TE 9, K 8, DEF 7.
 Within each position, over the same window. **Pool** *(builder-check call)*:
 players with ≥ 2 games in the window and a real role — window snap share
 ≥ 50% for QB, ≥ 25% for RB/WR/TE. This keeps garbage-time backups from
-setting the percentiles. Pool cut-offs and the ±25 thresholds are untuned
+setting the percentiles. *(Added 2026-11-21.)* Also out of the pool: anyone
+listed IR / Out / PUP / Sus / NA, or who has missed more than one of his
+team's games since he last played, so injured or benched players neither get
+a signal nor skew the percentiles. Pool cut-offs and the ±25 thresholds are untuned
 starting values, kept together in one config constant (`config/form.ts`)
 so they can be adjusted after Andrew sees real output.
 
@@ -165,13 +176,15 @@ over the team's last X games (team games, so byes are skipped).
   schedule). Position = the player's Sleeper `position`.
 - Each cell shows the value and its rank (1 = gives up the most = softest),
   coloured on a soft → tough scale.
-- Window control (default 3), sortable by any column.
+- Window control (default 6: a team's last 3 games proved too noisy, see
+  2026-11-21 review), sortable by any column.
 
 ### Matchup colouring (Next 3 on Table 1)
 
 For each of a player's next three weeks starting at `upcomingWeek`, look up
 the opponent's rank in Table 2 for the player's position: ranks 1–10 soft
-(green), 11–22 neutral, 23–32 tough (red). BYE shown plainly.
+(green), 11–22 neutral, 23–32 tough (red). The rank is printed on the badge
+(e.g. "WAS #23") so it reads without colour or hover. BYE shown plainly.
 
 ### Table 3 — League team form
 
@@ -184,6 +197,8 @@ player's window Avg (Table 1's window):
 - **Bench depth:** sum of the best bench player at each of RB/WR/TE (who'd
   be next in), so "has depth to trade from" is visible.
 - Each cell ranked 1–12 and coloured; Andrew's row highlighted.
+- Clicking a team expands it to show the players in that best lineup and the
+  bench players behind the Bench figure.
 
 Who is eligible for the lineup and bench (Andrew's call): **every rostered
 player, including IR/reserve and injured players**, as long as he has a

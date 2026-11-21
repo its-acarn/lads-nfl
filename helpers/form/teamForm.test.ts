@@ -62,6 +62,23 @@ describe('buildTeamForm', () => {
     expect(t.bench).toBe(15 + 8)
   })
 
+  it('lists the lineup behind the totals, empty slots included', () => {
+    const rosters = [
+      { roster_id: 1, owner_id: 'me', players: ['r20', 'r15', 'r10', 'w12', 'w8'], reserve: ['ir'], taxi: null },
+    ]
+    const [t] = buildTeamForm(rosters, players, games, 3, ['RB', 'WR', 'TE', 'FLEX', 'BN'], ownerMap(rosters, []))
+    expect(t.starters.map((s) => [s.slot, s.player && s.player.id, s.player && s.player.value])).toEqual([
+      ['RB', 'r20', 20],
+      ['WR', 'ir', 30],
+      ['TE', null, null],
+      ['FLEX', 'r15', 15],
+    ])
+    expect(t.starters[1].player!.name).toBe('Player ir')
+    expect(t.starters[1].player!.injuryStatus).toBe('IR')
+    expect(t.benchPlayers.map((p) => p.id)).toEqual(['r10', 'w12'])
+    expect(t.bench).toBe(22)
+  })
+
   it('ranks 1 = highest per column', () => {
     const rosters = [
       { roster_id: 1, owner_id: 'a', players: ['r20', 'w8'], reserve: null, taxi: null },

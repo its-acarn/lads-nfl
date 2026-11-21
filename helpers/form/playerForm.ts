@@ -10,7 +10,8 @@ import { FormConfig } from '../../config/form'
 import { stat, sharesOver } from '../waivers/metrics'
 import { percentiles } from '../waivers/score'
 import { Position, WaiverInputs } from '../waivers/types'
-import { isFormPosition, windowGames } from './games'
+import { completedWeeks } from '../waivers/weeks'
+import { isFormPosition, missedGames, windowGames } from './games'
 import { teamNextWeek, upcomingGames } from './pointsAllowed'
 import { FormUsage, FormWindow, Owner, PlayerFormRow, PlayerGame, PointsAllowedRow } from './types'
 
@@ -50,7 +51,12 @@ function applySignals(rows: PlayerFormRow[], config: FormConfig): void {
   ;(Object.keys(USAGE_MEASURES) as Position[]).forEach((position) => {
     const pool = rows.filter(
       (r) =>
-        r.position === position && r.usage && r.gamesPlayed >= c.minGames && r.usage.snap >= c.minSnapShare[position]
+        r.position === position &&
+        r.usage &&
+        r.gamesPlayed >= c.minGames &&
+        r.usage.snap >= c.minSnapShare[position] &&
+        r.missed <= c.maxMissed &&
+        c.excludeInjury.indexOf(r.injuryStatus || '') === -1
     )
     if (pool.length === 0) return
     const measurePcts = USAGE_MEASURES[position].map((f) => percentiles(pool.map((r) => f(r.usage as FormUsage))))
@@ -78,6 +84,7 @@ export function buildPlayerForm(
   config: FormConfig
 ): PlayerFormRow[] {
   const rows: PlayerFormRow[] = []
+  const weeks = completedWeeks(inputs.schedule, inputs.week)
   Object.keys(games).forEach((id) => {
     const meta = inputs.players[id]
     const all = games[id]
@@ -88,6 +95,8 @@ export function buildPlayerForm(
     const avg = mean(points)
     const seasonAvg = mean(all.map((g) => g.points))
     const team = meta.team || all[all.length - 1].team
+    const lastWeek = all[all.length - 1].week
+    const missed = missedGames(inputs.schedule, team, lastWeek, weeks)
     const offensive = position !== 'K' && position !== 'DEF'
     rows.push({
       playerId: id,
@@ -97,6 +106,14 @@ export function buildPlayerForm(
       injuryStatus: meta.injury_status,
       owner: owners[id] || FREE_AGENT,
       games: recent,
+      lastWeek,
+      missed,
+      returning:
+        missed >= config.idleAfter &&
+        !!meta.team &&
+        config.signal.excludeInjury.indexOf(meta.injury_status || '') === -1 &&
+        meta.depth_chart_order !== null &&
+        meta.depth_chart_order <= config.returningMaxDepth,
       gamesPlayed: recent.length,
       windowSize: window === 'season' ? null : window,
       avg,
