@@ -6,7 +6,7 @@
 
 import { stat } from '../waivers/metrics'
 import { nextOpponent, completedWeeks } from '../waivers/weeks'
-import { WaiverInputs } from '../waivers/types'
+import { ScheduleGame, WaiverInputs } from '../waivers/types'
 import { pointsFor } from './scoring'
 import { FORM_POSITIONS, FormPosition, FormWindow, PlayerGame } from './types'
 
@@ -34,6 +34,17 @@ export function playerGames(inputs: WaiverInputs): Record<string, PlayerGame[]> 
     })
   })
   return out
+}
+
+// A team's completed games after `afterWeek`, within `weeks`.
+export function missedGames(schedule: ScheduleGame[], team: string, afterWeek: number, weeks: number[]): number {
+  return schedule.filter(
+    (g) =>
+      g.week > afterWeek &&
+      g.status === 'complete' &&
+      weeks.indexOf(g.week) !== -1 &&
+      (g.home === team || g.away === team)
+  ).length
 }
 
 export function windowGames<T>(games: T[], window: FormWindow): T[] {

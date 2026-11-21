@@ -78,8 +78,10 @@ describe('upcomingGames', () => {
   it('shows BYE for a week without a game', () => {
     const up = upcomingGames(inputs.schedule, 'MIA', 1, allowed, 'RB', formConfig)
     expect(up.map((g) => g.week)).toEqual([1, 2, 3])
-    expect(up[1]).toEqual({ week: 2, opponent: null, tier: null })
+    expect(up[1]).toEqual({ week: 2, opponent: null, tier: null, rank: null })
     expect(up[0].opponent).toBe('BUF')
+    const buf = allowed.filter((r) => r.team === 'BUF')[0]
+    expect(up[0].rank).toBe(buf.rank.RB)
   })
 
   it('stops at the end of the schedule', () => {

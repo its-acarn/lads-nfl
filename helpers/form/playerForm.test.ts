@@ -138,6 +138,57 @@ describe('buildPlayerForm', () => {
     expect(f.NO.avg).toBeCloseTo(2.5, 5)
   })
 
+  it('records his last game and how many of his team games he has missed since', () => {
+    // w1 played weeks 1 and 3; NO played 1, 2, 3. Nothing missed after week 3.
+    expect(formOf(twoGames, 3).w1.lastWeek).toBe(3)
+    expect(formOf(twoGames, 3).w1.missed).toBe(0)
+    const sat = makeInputs({
+      schedule: [game(1, 'NO', 'ATL'), game(2, 'BYE1', 'BYE2'), game(3, 'NO', 'TB'), game(4, 'NO', 'CAR')],
+      statsByWeek: {
+        1: { w1: row('NO', { off_snp: 50, tm_off_snp: 60, rec_yd: 30 }) },
+        2: {},
+        3: {},
+        4: {},
+      },
+      players: [meta('w1', 'WR', 'NO')],
+    })
+    // Week 2 is a bye for NO, so only weeks 3 and 4 are missed games.
+    expect(formOf(sat, 3).w1.missed).toBe(2)
+  })
+
+  it('leaves injured players out of the signal and its percentiles', () => {
+    const hurt = makeInputs({
+      schedule: [game(1, 'NO', 'ATL'), game(2, 'NO', 'TB')],
+      statsByWeek: (backs as WaiverInputs).statsByWeek,
+      players: [
+        meta('a', 'RB', 'NO', { injury_status: 'IR' }),
+        meta('b', 'RB', 'NO'),
+        meta('c', 'RB', 'NO'),
+        meta('d', 'RB', 'NO'),
+      ],
+    })
+    const f = formOf(hurt, 3)
+    expect(f.a.signal).toBeNull()
+    expect(f.a.usagePct).toBeNull()
+    // Without a, b is now the most used of the pool: 100 usage, 0 points.
+    expect(f.b.usagePct).toBe(100)
+    expect(f.b.signal).toBe('buy')
+  })
+
+  it('leaves players who have stopped playing out of the signal', () => {
+    const week = (backs as WaiverInputs).statsByWeek[1]
+    const { a, ...others } = week
+    const idle = makeInputs({
+      schedule: [game(1, 'NO', 'ATL'), game(2, 'NO', 'TB'), game(3, 'NO', 'CAR'), game(4, 'NO', 'GB')],
+      statsByWeek: { 1: week, 2: week, 3: others, 4: others },
+      players: ['a', 'b', 'c', 'd'].map((id) => meta(id, 'RB', 'NO')),
+    })
+    const f = formOf(idle, 3)
+    expect(f.a.missed).toBe(2)
+    expect(f.a.signal).toBeNull()
+    expect(f.a.usagePct).toBeNull()
+  })
+
   it('sorts by window average, best first', () => {
     const rows = Object.values(formOf(backs, 3))
     expect(rows.map((r) => r.playerId)).toEqual(['d', 'c', 'b', 'a'])
