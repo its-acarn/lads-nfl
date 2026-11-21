@@ -115,6 +115,13 @@ const COLUMNS: Column<PlayerFormRow>[] = [
       <Box lineHeight={'1.2'} fontSize={'xs'}>
         <Text>Wk {r.lastWeek}</Text>
         {r.missed > 0 && <Text color={'orange.300'}>missed {r.missed}</Text>}
+        {r.returning && (
+          <Tooltip label={'Has missed games but is healthy and a starter on the depth chart'}>
+            <Badge colorScheme={'blue'} variant={'subtle'} fontSize={'0.6rem'}>
+              Returning
+            </Badge>
+          </Tooltip>
+        )}
       </Box>
     ),
     sortValue: (r) => r.lastWeek,
@@ -263,7 +270,7 @@ export const PlayerFormTable = ({
         </Checkbox>
         <Text fontSize={'xs'} alignSelf={'center'}>
           {shown.length} players
-          {idleHidden > 0 ? ` (${idleHidden} who have missed ${idleAfter}+ games hidden)` : ''}
+          {idleHidden > 0 ? ` (${idleHidden} not playing hidden)` : ''}
         </Text>
       </Stack>
       <SortableTable

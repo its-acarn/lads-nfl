@@ -52,6 +52,9 @@ export interface PlayerFormRow {
   games: PlayerGame[] // window games, oldest -> newest
   lastWeek: number // week of his most recent game
   missed: number // his current team's completed games since then
+  // Has missed games but looks set to play again: no Out/IR-type status and
+  // a starter on his team's depth chart. Kept visible when idle players hide.
+  returning: boolean
   gamesPlayed: number
   windowSize: number | null // null for 'season'
   avg: number

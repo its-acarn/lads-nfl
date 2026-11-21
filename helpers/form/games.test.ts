@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { loadWaiverFixture } from '../waivers/fixtures.testutil'
-import { playerGames, windowGames } from './games'
+import { missedGames, playerGames, windowGames } from './games'
 import { game, makeInputs, meta, row } from './inputs.testutil'
 
 describe('playerGames', () => {
@@ -100,5 +100,19 @@ describe('windowGames', () => {
     expect(windowGames([1, 2, 3, 4, 5], 3)).toEqual([3, 4, 5])
     expect(windowGames([1, 2], 3)).toEqual([1, 2])
     expect(windowGames([1, 2, 3], 'season')).toEqual([1, 2, 3])
+  })
+})
+
+describe('missedGames', () => {
+  it('counts only games in finished weeks, so a Thursday game mid-week is not a miss', () => {
+    const schedule = [
+      game(1, 'KC', 'BUF'),
+      game(2, 'KC', 'DEN'),
+      game(3, 'KC', 'LV'), // Thursday: done
+      game(3, 'MIA', 'NE', 'pre_game'), // the rest of week 3 has not been played
+    ]
+    const weeks = [1, 2] // week 3 is not finished
+    expect(missedGames(schedule, 'KC', 1, weeks)).toBe(1)
+    expect(missedGames(schedule, 'KC', 2, weeks)).toBe(0)
   })
 })

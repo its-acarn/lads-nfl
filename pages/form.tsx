@@ -188,9 +188,9 @@ const Form = () => {
                   </Stack>
                   <Text fontSize={'xs'}>
                     Buy low: used more than he has scored, compared with others at his position who have a real role and
-                    are playing now (not injured out, not missing games). Sell high: the reverse. Next 3 shows each
-                    opponent&apos;s rank for points allowed to the position (#1 = gives up the most), over the Points
-                    allowed tab&apos;s window.
+                    are playing now (not listed out or on IR, and has not missed more than one game). Sell high: the
+                    reverse. Next 3 shows each opponent&apos;s rank for points allowed to the position (#1 = gives up
+                    the most), over the Points allowed tab&apos;s window.
                   </Text>
                   {!signalAvailable(playerWindow, formConfig) && (
                     <Text fontSize={'xs'} color={'orange.300'}>

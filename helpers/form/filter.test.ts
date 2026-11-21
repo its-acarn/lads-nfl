@@ -10,6 +10,7 @@ const r = (playerId: string, name: string, extra: Partial<PlayerFormRow> = {}): 
     owner: { kind: 'fa' },
     gamesPlayed: 3,
     missed: 0,
+    returning: false,
     ...extra,
   }) as PlayerFormRow
 
@@ -30,12 +31,17 @@ describe('filterPlayers', () => {
     r('b', 'Hurt Back', { missed: 2 }),
     r('c', 'Wide Guy', { position: 'WR', owner: { kind: 'mine', label: 'me' } }),
     r('d', 'Kicker', { position: 'K', gamesPlayed: 1 }),
+    r('e', 'Back From IR', { missed: 4, returning: true }),
   ]
   const ids = (f: Partial<PlayerFilter>) => filterPlayers(rows, { ...base, ...f }).map((x) => x.playerId)
 
   it('hides players who have missed the idle limit, unless asked', () => {
-    expect(ids({})).toEqual(['a', 'c', 'd'])
-    expect(ids({ showIdle: true })).toEqual(['a', 'b', 'c', 'd'])
+    expect(ids({})).toEqual(['a', 'c', 'd', 'e'])
+    expect(ids({ showIdle: true })).toEqual(['a', 'b', 'c', 'd', 'e'])
+  })
+
+  it('keeps players returning from injury visible', () => {
+    expect(ids({ position: 'RB' })).toEqual(['a', 'e'])
   })
 
   it('a name search finds idle players too', () => {
@@ -43,9 +49,9 @@ describe('filterPlayers', () => {
   })
 
   it('position, FLEX, owner and min games', () => {
-    expect(ids({ position: 'FLEX' })).toEqual(['a', 'c'])
+    expect(ids({ position: 'FLEX' })).toEqual(['a', 'c', 'e'])
     expect(ids({ position: 'K' })).toEqual(['d'])
     expect(ids({ owner: 'mine' })).toEqual(['c'])
-    expect(ids({ minGames: 2 })).toEqual(['a', 'c'])
+    expect(ids({ minGames: 2 })).toEqual(['a', 'c', 'e'])
   })
 })

@@ -87,7 +87,7 @@ export const TeamFormTable = ({ rows }: { rows: TeamFormRow[] }) => {
             textAlign={'left'}
             aria-expanded={open}
             onClick={() => setExpanded(open ? null : key)}>
-            {open ? '▾ ' : '▸ '}
+            <span aria-hidden={true}>{open ? '▾ ' : '▸ '}</span>
             {r.owner.kind === 'fa' ? '' : r.owner.label}
             {r.owner.kind === 'mine' ? ' (you)' : ''}
           </Button>

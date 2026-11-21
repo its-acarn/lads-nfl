@@ -156,6 +156,31 @@ describe('buildPlayerForm', () => {
     expect(formOf(sat, 3).w1.missed).toBe(2)
   })
 
+  it('marks an idle player as returning when he is healthy and a starter on the depth chart', () => {
+    const week = (backs as WaiverInputs).statsByWeek[1]
+    const { a, b, ...rest } = week
+    const idle = makeInputs({
+      schedule: [game(1, 'NO', 'ATL'), game(2, 'NO', 'TB'), game(3, 'NO', 'CAR')],
+      statsByWeek: { 1: week, 2: rest, 3: rest },
+      players: [
+        meta('a', 'RB', 'NO', { depth_chart_order: 1 }),
+        meta('b', 'RB', 'NO', { depth_chart_order: 4 }),
+        meta('c', 'RB', 'NO', { depth_chart_order: 1 }),
+        meta('d', 'RB', 'NO'),
+      ],
+    })
+    const f = formOf(idle, 3)
+    expect(f.a.missed).toBe(2)
+    expect(f.a.returning).toBe(true)
+    expect(f.b.returning).toBe(false) // a backup who is not playing
+    expect(f.c.returning).toBe(false) // never stopped playing
+    const onIr = {
+      ...idle,
+      players: { ...idle.players, a: meta('a', 'RB', 'NO', { depth_chart_order: 1, injury_status: 'IR' }) },
+    }
+    expect(formOf(onIr, 3).a.returning).toBe(false) // still on IR
+  })
+
   it('leaves injured players out of the signal and its percentiles', () => {
     const hurt = makeInputs({
       schedule: [game(1, 'NO', 'ATL'), game(2, 'NO', 'TB')],

@@ -12,6 +12,9 @@ export interface FormConfig {
   // The player table hides anyone who has missed this many of his team's
   // games since he last played (a search still finds him).
   idleAfter: number
+  // ...unless he is healthy and this high on his team's depth chart (back
+  // from injury, about to play): those stay visible, marked "returning".
+  returningMaxDepth: number
   // A "hit" is a game at or above this many league points.
   hitThresholds: Record<FormPosition, number>
   signal: {
@@ -38,6 +41,8 @@ export const formConfig: FormConfig = {
   defaultAllowedWindow: 6,
   windowOptions: [1, 2, 3, 4, 5, 6, 7, 8, 'season'],
   idleAfter: 2,
+  // 1 only: at 2 the list filled with backup QBs.
+  returningMaxDepth: 1,
   hitThresholds: { QB: 18, RB: 12, WR: 12, TE: 9, K: 8, DEF: 7 },
   signal: {
     minGames: 2,

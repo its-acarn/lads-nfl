@@ -95,6 +95,8 @@ export function buildPlayerForm(
     const avg = mean(points)
     const seasonAvg = mean(all.map((g) => g.points))
     const team = meta.team || all[all.length - 1].team
+    const lastWeek = all[all.length - 1].week
+    const missed = missedGames(inputs.schedule, team, lastWeek, weeks)
     const offensive = position !== 'K' && position !== 'DEF'
     rows.push({
       playerId: id,
@@ -104,8 +106,14 @@ export function buildPlayerForm(
       injuryStatus: meta.injury_status,
       owner: owners[id] || FREE_AGENT,
       games: recent,
-      lastWeek: all[all.length - 1].week,
-      missed: missedGames(inputs.schedule, team, all[all.length - 1].week, weeks),
+      lastWeek,
+      missed,
+      returning:
+        missed >= config.idleAfter &&
+        !!meta.team &&
+        config.signal.excludeInjury.indexOf(meta.injury_status || '') === -1 &&
+        meta.depth_chart_order !== null &&
+        meta.depth_chart_order <= config.returningMaxDepth,
       gamesPlayed: recent.length,
       windowSize: window === 'season' ? null : window,
       avg,

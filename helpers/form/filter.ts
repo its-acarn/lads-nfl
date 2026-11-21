@@ -32,6 +32,6 @@ export function filterPlayers(rows: PlayerFormRow[], f: PlayerFilter): PlayerFor
       r.gamesPlayed >= f.minGames &&
       (!searching || nameMatches(r.name, f.search)) &&
       // A search is for one player: find him even if he is not playing.
-      (searching || f.showIdle || r.missed < f.idleAfter)
+      (searching || f.showIdle || r.missed < f.idleAfter || r.returning)
   )
 }
